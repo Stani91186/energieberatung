@@ -269,8 +269,11 @@ section{position:relative}
 .logo-text b{font-size:1.02rem;font-weight:600}
 .logo-text span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
 
-.nav{display:flex;align-items:center;gap:32px}
-.nav a{font-size:.93rem;font-weight:500;color:var(--ink-2);position:relative;padding:4px 0;transition:color .25s}
+/* gap 26 statt 32: schafft 30px, die der Header bei voller Breite braucht,
+   damit Logo + Menü + Telefon + Knopf sicher in eine Zeile passen */
+.nav{display:flex;align-items:center;gap:26px}
+/* nowrap: sonst bricht "Über mich" bei knappem Platz in zwei Zeilen um */
+.nav a{font-size:.93rem;font-weight:500;color:var(--ink-2);position:relative;padding:4px 0;transition:color .25s;white-space:nowrap}
 .nav a::after{
   content:"";position:absolute;left:0;bottom:0;height:1.5px;width:0;background:var(--amber);
   border-radius:2px;transition:width .35s var(--ease);
@@ -288,6 +291,8 @@ section{position:relative}
 }
 .header-phone:hover{border-color:var(--amber);background:var(--white)}
 .header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
+/* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
+.cta-kurz{display:none}
 .burger{display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
 .burger span+span{margin-top:4.5px}
@@ -705,14 +710,42 @@ section{position:relative}
   .step-line{display:none}
   .footer-grid{grid-template-columns:1fr 1fr;gap:34px}
   .band-row{grid-template-columns:1fr 1fr}
-  /* Ab hier wird es im Header eng – die Nummer steht dann in der Kontaktsektion */
+}
+
+/* ---------------------------------------------------------------------------
+   HEADER-STUFEN
+   Der Header hat drei Dinge nebeneinander: Logo, Menü, Kontaktknöpfe. Zusammen
+   brauchen sie in voller Größe rund 1.110 px. Statt sie umbrechen zu lassen,
+   wird in drei Stufen Platz gespart – zuletzt übernimmt das Burger-Menü.
+------------------------------------------------------------------------- */
+
+/* Stufe 1: Die Telefonnummer weicht – sie steht weiterhin in der Kontaktsektion
+   und auf dem Handy in der festen Leiste unten. */
+@media (max-width:1200px){
   .header-phone{display:none}
 }
-@media (max-width:760px){
-  body{font-size:16px;padding-bottom:78px} /* Platz für die fixe Aktionsleiste */
+
+/* Stufe 2: Menü und Knopf werden kompakter, damit alles in einer Zeile bleibt.
+   Der Knopf trägt hier die Kurzfassung "Erstgespräch". */
+@media (max-width:1080px){
+  .nav{gap:19px}
+  .nav a{font-size:.86rem}
+  .header-cta .btn{padding:11px 17px;font-size:.83rem}
+  .cta-lang{display:none}
+  .cta-kurz{display:inline}
+}
+
+/* Stufe 3: Jetzt reicht auch das nicht mehr – Burger-Menü und die feste
+   Aktionsleiste unten übernehmen. */
+@media (max-width:880px){
+  body{padding-bottom:78px} /* Platz für die fixe Aktionsleiste */
   .nav,.header-cta .btn{display:none}
   .burger{display:grid}
   .mobile-bar{display:flex}
+}
+
+@media (max-width:760px){
+  body{font-size:16px}
   .section-pad{padding:66px 0}
   .stats{padding:44px 26px;border-radius:var(--radius)}
   .stat-grid{grid-template-columns:1fr;gap:26px}
@@ -855,7 +888,7 @@ section{position:relative}
         0152 24290826
       </a>
       <a href="#kontakt" class="btn btn-primary btn-sm">
-        Kostenloses Erstgespräch
+        <span class="cta-lang">Kostenloses Erstgespräch</span><span class="cta-kurz">Erstgespräch</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
       <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
