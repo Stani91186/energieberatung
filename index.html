@@ -935,15 +935,63 @@ section{position:relative}
     <linearGradient id="gWallS" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#EBE2D0"/><stop offset="1" stop-color="#DCD1B9"/>
     </linearGradient>
+    <!-- Dach in dunklem, warmem Grau (Ziegel), statt vorher Amber -->
     <linearGradient id="gRoofF" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#EBD2A8"/><stop offset="1" stop-color="#D2A566"/>
+      <stop offset="0" stop-color="#6E655C"/><stop offset="1" stop-color="#4A433B"/>
     </linearGradient>
     <linearGradient id="gRoofB" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#C6984F"/><stop offset="1" stop-color="#AA7D3E"/>
+      <stop offset="0" stop-color="#453F38"/><stop offset="1" stop-color="#332E29"/>
     </linearGradient>
+    <!-- Solarmodule blaeulich, damit sie sich vom dunklen Dach abheben -->
     <linearGradient id="gPanel" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#41684F"/><stop offset="1" stop-color="#2A4237"/>
+      <stop offset="0" stop-color="#40608A"/><stop offset="1" stop-color="#27405E"/>
     </linearGradient>
+
+    <!-- Rasen und Baumkronen -->
+    <linearGradient id="gGrass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#93BC7B"/><stop offset="1" stop-color="#5D8A51"/>
+    </linearGradient>
+    <linearGradient id="gLaubHell" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#9CC685"/><stop offset="1" stop-color="#6B9A5B"/>
+    </linearGradient>
+    <linearGradient id="gLaubDunkel" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#7CAA68"/><stop offset="1" stop-color="#4E7A46"/>
+    </linearGradient>
+
+    <!-- Grundstueck: Rasen-Insel mit Steinkante. Bewusst AUSSERHALB von
+         #isoHouse, weil die kleinen Karten-Grafiken das Haus in einem engen
+         Ausschnitt zeigen - dort wuerde die Insel ueber den Rand laufen. -->
+    <g id="grundstueck">
+      <ellipse cx="348" cy="512" rx="246" ry="76" fill="rgba(60,46,28,.14)" filter="url(#fBlur)"/>
+      <ellipse cx="348" cy="496" rx="245" ry="72" fill="#ADA492"/>
+      <ellipse cx="348" cy="486" rx="245" ry="72" fill="#D5CDBC"/>
+      <ellipse cx="348" cy="483" rx="231" ry="63" fill="url(#gGrass)"/>
+      <g fill="none" stroke="#4E7A46" stroke-width="2" stroke-linecap="round" opacity=".55">
+        <path d="M150 505c2-8 3-11 1-18M158 509c3-7 5-10 4-17M235 528c2-8 3-11 1-18M244 531c3-7 5-10 4-17
+                 M430 531c2-8 3-11 1-18M439 528c3-7 5-10 4-17M520 508c2-8 3-11 1-18M528 504c3-7 5-10 4-17"/>
+      </g>
+    </g>
+
+    <!-- Baeume. Stehen hinter dem Haus, damit sie die anklickbaren
+         Bauteilflaechen nicht verdecken. -->
+    <g id="baumRechts">
+      <path d="M566 492V366" fill="none" stroke="#8C7F6C" stroke-width="7" stroke-linecap="round"/>
+      <path d="M566 404l-24-26M566 388l26-24" fill="none" stroke="#8C7F6C" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="566" cy="316" rx="62" ry="54" fill="url(#gLaubDunkel)"/>
+      <ellipse cx="524" cy="342" rx="38" ry="31" fill="url(#gLaubHell)"/>
+      <ellipse cx="606" cy="338" rx="36" ry="30" fill="url(#gLaubHell)"/>
+      <ellipse cx="574" cy="272" rx="40" ry="33" fill="url(#gLaubHell)"/>
+    </g>
+    <!-- Position bewusst gewaehlt: rechts vom "Fassade"-Schild (endet bei x=128)
+         und oberhalb des "Fenster"-Schilds (beginnt bei y=470). Beim Verschieben
+         diese beiden Grenzen beachten, sonst liegt Laub unter den Beschriftungen. -->
+    <g id="baumLinks">
+      <path d="M175 464V382" fill="none" stroke="#9C907D" stroke-width="5" stroke-linecap="round"/>
+      <path d="M175 410l-18-18" fill="none" stroke="#9C907D" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="175" cy="356" rx="44" ry="38" fill="url(#gLaubDunkel)"/>
+      <ellipse cx="149" cy="376" rx="27" ry="22" fill="url(#gLaubHell)"/>
+      <ellipse cx="201" cy="374" rx="25" ry="21" fill="url(#gLaubHell)"/>
+    </g>
     <filter id="fBlur" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="6"/>
     </filter>
@@ -1067,6 +1115,12 @@ section{position:relative}
             <circle cx="86" cy="112" r="20" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.8"/>
             <path class="il-amber" stroke-width="1.8" d="M86 84V73M86 140v11M114 112h11M58 112H47M106 92l8-8M66 132l-8 8M106 132l8 8M66 92l-8-8"/>
           </g>
+
+          <!-- Grundstueck und Baeume liegen VOR dem Haus im Quelltext, damit
+               das Haus darueber gezeichnet wird und davor steht. -->
+          <use href="#grundstueck"/>
+          <use href="#baumRechts"/>
+          <use href="#baumLinks"/>
 
           <!-- Isometrisches Haus aus den gemeinsamen Definitionen -->
           <use href="#isoHouse"/>
