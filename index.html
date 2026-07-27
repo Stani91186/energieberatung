@@ -724,6 +724,63 @@ section{position:relative}
 .form-note.is-ok{color:var(--forest);font-weight:600}
 
 /* ===========================================================================
+   14d. KLEINE BEWEGUNGEN AUF DER ÜBRIGEN SEITE
+   Grundsatz: Dauerhaft laufen nur zwei Dinge, und zwar dort, wo die Bewegung
+   etwas ERKLÄRT (Reihenfolge der Schritte, Wertigkeit der Zahlen). Alles
+   andere bewegt sich erst, wenn man mit der Maus darauf geht - das hält die
+   Seite ruhig und schont auf dem Handy den Akku.
+   ======================================================================== */
+
+/* Ablauf: die vier Punkte leuchten nacheinander auf und zeigen so die
+   Reihenfolge, ohne dass man sie lesen muss. */
+/* Der Ring ist ein eigenes Element, das nur skaliert und ausblendet.
+   Ueber box-shadow zu animieren waere einfacher, zwingt den Browser aber
+   zum Neuzeichnen bei jedem Bild - transform und opacity uebernimmt die
+   Grafikkarte. */
+.step-dot::after{
+  content:"";position:absolute;inset:-2px;border-radius:50%;
+  border:1.5px solid var(--amber);pointer-events:none;
+  opacity:0;animation:punktRing 5.2s var(--ease) infinite;
+}
+.steps .step:nth-child(3) .step-dot::after{animation-delay:.45s}
+.steps .step:nth-child(4) .step-dot::after{animation-delay:.9s}
+.steps .step:nth-child(5) .step-dot::after{animation-delay:1.35s}
+@keyframes punktRing{
+  0%{transform:scale(1);opacity:0}
+  8%{opacity:.55}
+  30%{transform:scale(2.7);opacity:0}
+  100%{transform:scale(2.7);opacity:0}
+}
+
+/* Zahlen-Sektion: die drei Steine schweben versetzt, passend zum grossen
+   Stein im Hintergrund. Negative Verzoegerung, damit sie nicht erst
+   nacheinander anlaufen, sondern sofort unterschiedlich stehen. */
+.stat-gem{animation:gemSchwebt 11s ease-in-out infinite}
+.stat:nth-child(2) .stat-gem{animation-delay:-3.7s}
+.stat:nth-child(3) .stat-gem{animation-delay:-7.4s}
+@keyframes gemSchwebt{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-5px) rotate(-3deg)}
+}
+
+/* Ab hier: nur bei Mausberuehrung */
+.service-icon svg,.band-ic svg,.contact-line svg,.qual svg{
+  transition:transform .45s var(--ease);
+}
+.service:hover .service-icon svg{transform:scale(1.12) rotate(-7deg)}
+.band-tile:hover .band-ic svg{transform:scale(1.16)}
+.contact-line:hover svg{transform:translateX(3px) scale(1.1)}
+.qual:hover svg{transform:scale(1.16)}
+
+@media (prefers-reduced-motion:reduce){
+  .step-dot::after,.stat-gem{animation:none}
+  .step-dot::after{display:none}
+  .service-icon svg,.band-ic svg,.contact-line svg,.qual svg{transition:none}
+  .service:hover .service-icon svg,.band-tile:hover .band-ic svg,
+  .contact-line:hover svg,.qual:hover svg{transform:none}
+}
+
+/* ===========================================================================
    15. RESPONSIVE
    ======================================================================== */
 @media (max-width:1000px){
