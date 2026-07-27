@@ -522,6 +522,57 @@ section{position:relative}
 .service ul svg{width:16px;height:16px;stroke:var(--amber);flex:none;margin-top:4px}
 
 /* ===========================================================================
+   7b. RECHNER-VORSTELLUNG
+   Der Sanierungsrechner ist das stärkste Werkzeug der Seite. Ein blosser Link
+   in der Navigation wird ihm nicht gerecht - hier bekommt er einen eigenen
+   Abschnitt mit Erklaerung.
+   ======================================================================== */
+.rechner-teaser{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius-lg);
+  padding:46px 50px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;
+}
+.rechner-teaser::before{
+  content:"";position:absolute;right:-80px;top:-90px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(192,122,46,.13),transparent 68%);pointer-events:none;
+}
+.rechner-teaser > *{position:relative;z-index:2}
+.rechner-teaser h2{margin-bottom:16px}
+.rechner-teaser .lead{margin-bottom:24px}
+.rechner-punkte{display:grid;gap:11px;margin-bottom:28px}
+.rechner-punkte li{display:flex;gap:11px;font-size:.93rem;color:var(--ink-2)}
+.rechner-punkte svg{width:16px;height:16px;stroke:var(--amber);flex:none;margin-top:4px}
+.rechner-aktionen{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+
+/* Der (i)-Knopf mit der Kurzerklaerung */
+.info-btn{
+  width:40px;height:40px;flex:none;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--white);
+  font-family:var(--font-serif);font-size:1.1rem;font-style:italic;color:var(--ink-2);
+  display:grid;place-items:center;transition:.3s var(--ease);
+}
+.info-btn:hover{border-color:var(--amber);color:var(--amber-deep);transform:translateY(-2px)}
+.info-btn[aria-expanded="true"]{background:var(--forest);border-color:var(--forest);color:#FBF8F2}
+.info-panel{
+  margin-top:22px;padding:20px 22px;
+  background:var(--cream-2);border-radius:var(--radius-sm);
+  border-left:3px solid var(--amber);
+  font-size:.9rem;color:var(--ink-2);
+}
+.info-panel p{margin-bottom:10px}
+.info-panel p:last-child{margin-bottom:0}
+.info-panel b{color:var(--ink)}
+
+/* Vorschau: Energieklassen-Skala */
+.rechner-vorschau{background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius);padding:26px 24px}
+.rechner-vorschau svg{width:100%;height:auto}
+.rechner-vorschau figcaption{margin-top:14px;font-size:.76rem;color:var(--muted);text-align:center}
+
+@media (max-width:900px){
+  .rechner-teaser{grid-template-columns:1fr;gap:34px;padding:34px 26px}
+}
+
+/* ===========================================================================
    8. ABLAUF
    ======================================================================== */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
@@ -1607,6 +1658,90 @@ section{position:relative}
   </div>
 </section>
 
+<!-- ========================= RECHNER ========================= -->
+<section class="section-pad" id="rechner" style="padding-top:0">
+  <div class="wrap">
+    <div class="rechner-teaser reveal">
+
+      <div>
+        <span class="eyebrow">Kostenlos &amp; ohne Anmeldung</span>
+        <h2>Rechnen Sie selbst, bevor wir sprechen.</h2>
+        <p class="lead">
+          Der Sanierungsrechner zeigt Ihnen in etwa zehn Minuten, wo Ihr Gebäude energetisch
+          steht und was die einzelnen Maßnahmen bringen würden – mit Kostenspanne, Ersparnis
+          und der Frage, was sie überhaupt kosten dürfen, damit sie sich rechnen.
+        </p>
+
+        <ul class="rechner-punkte">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Energieklasse und Wärmeverluste Ihres Hauses</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Je Maßnahme: Kosten, Förderung und Ersparnis</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Eigenleistung gekennzeichnet – was Sie selbst machen können</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Ergebnis als Bericht zum Ausdrucken oder Speichern</li>
+        </ul>
+
+        <div class="rechner-aktionen">
+          <a href="sanierungsrechner.html" class="btn btn-amber">
+            Sanierungsrechner starten
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <button type="button" class="info-btn" id="rechnerInfoBtn"
+                  aria-expanded="false" aria-controls="rechnerInfo"
+                  aria-label="Kurz erklärt: was der Rechner macht">i</button>
+        </div>
+
+        <div class="info-panel" id="rechnerInfo" hidden>
+          <p><b>Was der Rechner macht:</b> Sie beantworten Schritt für Schritt Fragen zu Ihrem
+          Gebäude – Baujahr, Größe, Fenster, Dämmung, Heizung, Verbrauch. Daraus berechnet er
+          Ihre Energieklasse, zeigt, wo die Wärme verloren geht, und rechnet jede
+          Sanierungsmaßnahme einzeln durch.</p>
+          <p><b>Wie lange es dauert:</b> Etwa zehn Minuten. Je genauer Ihre Angaben, desto
+          belastbarer das Ergebnis – Schätzwerte reichen aber für eine erste Einordnung.</p>
+          <p><b>Ihre Daten:</b> Solange Sie nur rechnen, bleibt alles in Ihrem Browser. Es wird
+          nichts übertragen und nichts gespeichert. Erst wenn Sie am Ende den Bericht anfordern
+          und Ihre Kontaktdaten eintragen, kommt etwas bei mir an.</p>
+          <p><b>Was er nicht ist:</b> Eine Energieberatung im Rechtssinn. Für Förderanträge
+          braucht es einen eingetragenen Energie-Effizienz-Experten – der Rechner gibt Ihnen
+          die Orientierung, mit der Sie ins Gespräch gehen können.</p>
+        </div>
+      </div>
+
+      <figure class="rechner-vorschau">
+        <svg viewBox="0 0 260 172" role="img" aria-label="Beispiel einer Energieklassen-Skala von A plus bis H, markiert ist Klasse F">
+          <text x="0" y="12" font-size="10" font-weight="600" fill="var(--muted)" letter-spacing="1.2">IHRE ENERGIEKLASSE</text>
+          <g font-size="10" font-weight="600" fill="#FBF8F2" text-anchor="middle">
+            <rect x="0"   y="26" width="26" height="20" rx="4" fill="#1E7A46"/><text x="13"  y="40">A+</text>
+            <rect x="29"  y="26" width="26" height="20" rx="4" fill="#2F8B4B"/><text x="42"  y="40">A</text>
+            <rect x="58"  y="26" width="26" height="20" rx="4" fill="#5CA04A"/><text x="71"  y="40">B</text>
+            <rect x="87"  y="26" width="26" height="20" rx="4" fill="#8FB03F"/><text x="100" y="40">C</text>
+            <rect x="116" y="26" width="26" height="20" rx="4" fill="#C9AE33"/><text x="129" y="40">D</text>
+            <rect x="145" y="26" width="26" height="20" rx="4" fill="#D8912E"/><text x="158" y="40">E</text>
+            <rect x="174" y="26" width="26" height="20" rx="4" fill="#C96B2A"/><text x="187" y="40">F</text>
+            <rect x="203" y="26" width="26" height="20" rx="4" fill="#B34B2A"/><text x="216" y="40">G</text>
+            <rect x="232" y="26" width="26" height="20" rx="4" fill="#983228"/><text x="245" y="40">H</text>
+          </g>
+          <path d="M187 52l-6 8h12z" fill="var(--ink)"/>
+          <rect x="150" y="60" width="74" height="22" rx="11" fill="var(--ink)"/>
+          <text x="187" y="75" font-size="10" font-weight="600" fill="#FBF8F2" text-anchor="middle">Ihr Haus</text>
+
+          <line x1="0" y1="98" x2="260" y2="98" stroke="var(--line)" stroke-width="1"/>
+
+          <text x="0" y="118" font-size="10" font-weight="600" fill="var(--muted)" letter-spacing="1.2">WO DIE WÄRME HINGEHT</text>
+          <g font-size="9.5" fill="var(--ink-2)">
+            <rect x="0" y="126" width="96" height="9" rx="4.5" fill="var(--amber)"/>
+            <text x="104" y="134">Dach &amp; Fassade</text>
+            <rect x="0" y="141" width="58" height="9" rx="4.5" fill="#D8A566"/>
+            <text x="104" y="149">Fenster</text>
+            <rect x="0" y="156" width="34" height="9" rx="4.5" fill="#E7CBA4"/>
+            <text x="104" y="164">Keller &amp; Lüftung</text>
+          </g>
+        </svg>
+        <figcaption>Beispielausgabe – Ihre Werte errechnet der Rechner aus Ihren Angaben.</figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
 <!-- ========================= ABLAUF ========================= -->
 <section class="section-pad" id="ablauf">
   <div class="wrap">
@@ -2069,6 +2204,18 @@ section{position:relative}
       burger.focus();
     }
   });
+
+  /* --- (i)-Knopf beim Sanierungsrechner --- */
+  var infoBtn = document.getElementById('rechnerInfoBtn');
+  var infoPanel = document.getElementById('rechnerInfo');
+  if(infoBtn && infoPanel){
+    infoBtn.addEventListener('click', function(){
+      var offen = infoBtn.getAttribute('aria-expanded') === 'true';
+      infoBtn.setAttribute('aria-expanded', offen ? 'false' : 'true');
+      infoPanel.hidden = offen;
+      if(!offen){ trackEvent('rechner_info_geoeffnet', 'startseite'); }
+    });
+  }
 
   /* --- Scroll-Reveal --- */
   var reveals = document.querySelectorAll('.reveal');
