@@ -1,0 +1,33 @@
+# ============================================================================
+# .htaccess für Apache-Hoster (IONOS, Strato, all-inkl, Netcup, ...)
+# WICHTIG: Diese Datei auf dem Server in ".htaccess" umbenennen (mit Punkt!)
+# und ins Hauptverzeichnis neben die index.html legen.
+# Bewirkt: Kompression (schnellere Ladezeit), Browser-Caching, HTTPS-Umleitung.
+# ============================================================================
+
+AddDefaultCharset UTF-8
+
+# --- Immer HTTPS verwenden (gut für Google und Vertrauen) ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# --- Textdateien komprimiert ausliefern (HTML wird ~70 % kleiner) ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --- Browser-Caching ---
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 10 minutes"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+</IfModule>

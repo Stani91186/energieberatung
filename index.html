@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  ENERGIEBERATUNG STANISLAW TSUKERMAN – Startseite
+  ----------------------------------------------------------------------------
+  Dateien dieses Projekts:
+    index.html            diese Seite
+    sanierungsrechner.html  interaktiver Rechner mit Lead-Formular
+    impressum.html        Pflichtseite nach §5 DDG
+    datenschutz.html      Pflichtseite nach DSGVO
+    404.html              Fehlerseite
+    robots.txt/sitemap.xml  für Google
+    fonts/                lokal gehostete Schriften (NICHT löschen, siehe README)
+
+  Anfragen aus beiden Formularen laufen in die eigene Supabase-Datenbank
+  (Projekt "energieberatung-website", Frankfurt). Ansehen im Supabase-
+  Dashboard unter Table Editor -> Tabelle "leads".
+
+  ############################################################################
+  #  VOR DEM LIVEGANG – offene Punkte. Alles hier steht noch in [Klammern]:  #
+  ############################################################################
+
+   1. E-MAIL-ADRESSE   → im Impressum gesetzlich Pflicht. Suchen nach
+                         [kontakt@ihre-domain.de] – kommt an 5 Stellen vor.
+   2. DOMAIN           → canonical, og:url und JSON-LD unten. Suchen nach
+                         ihre-domain.de
+   3. USt-IdNr         → impressum.html, Abschnitt Umsatzsteuer
+   4. HOSTING-ANBIETER → in datenschutz.html, Abschnitt 3 eintragen.
+                         (Bei GitHub Pages: GitHub Inc. – Text steht dort.)
+   5. PORTRAITFOTO     → Sektion "Über mich", ersetzt den grauen Platzhalter.
+                         Wichtigster Vertrauensfaktor der ganzen Seite.
+   6. KUNDENSTIMMEN    → aktuell Platzhalter. Entweder echte Zitate einsetzen
+                         oder die Sektion entfernen. Erfundene Bewertungen
+                         sind wettbewerbsrechtlich abmahnfähig.
+   7. FÖRDERBETRÄGE    → die Prozentsätze und Höchstbeträge gegen die aktuelle
+                         BAFA-/KfW-Richtlinie prüfen (Sektion "Zahlen" + FAQ).
+   8. dena-KATEGORIEN  → im Logo-Band und unter "Über mich" eintragen
+                         (Wohngebäude / Nichtwohngebäude).
+
+   Nach dem Livegang: Google Search Console einrichten und die strukturierten
+   Daten unter https://search.google.com/test/rich-results prüfen.
+  ============================================================================
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Energieberater Ulm &amp; Alb-Donau-Kreis – iSFP | Tsukerman</title>
+<meta name="description" content="Energieberatung für Ulm und den Alb-Donau-Kreis: Sanierungsfahrplan (iSFP), BAFA- &amp; KfW-Förderung, Energieausweis. Kostenloses Erstgespräch.">
+<link rel="canonical" href="https://www.ihre-domain.de/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#FDFBF7">
+
+<!-- Favicon: als SVG direkt eingebettet, keine zusätzliche Datei nötig -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23C07A2E'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 15 16 8l9 7'/%3E%3Cpath d='M9.5 13.6V24h13V13.6'/%3E%3Cpath d='M13.5 24v-5h5v5'/%3E%3C/g%3E%3C/svg%3E">
+
+<!-- Vorschau beim Teilen (WhatsApp, LinkedIn, Facebook) -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Tsukerman Energieberatung">
+<meta property="og:title" content="Energieberater Ulm &amp; Alb-Donau-Kreis – Sanierungsfahrplan &amp; Förderung">
+<meta property="og:description" content="Energieberatung: iSFP, BAFA-/KfW-Förderung, Baubegleitung. Produktneutral, ohne Provision. Kostenloses Erstgespräch.">
+<meta property="og:url" content="https://www.ihre-domain.de/">
+<!-- [TODO] Vorschaubild 1200×630 px hochladen und beide Zeilen aktivieren.
+     Ohne Bild bleibt beim Teilen in WhatsApp/LinkedIn eine leere Kachel.
+<meta property="og:image" content="https://www.ihre-domain.de/vorschau.jpg">
+<meta property="og:image:alt" content="Energieberatung Tsukerman, Ulm und Alb-Donau-Kreis"> -->
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Schriften: lokal, KEINE Google-Fonts-Einbindung (DSGVO). Details in fonts/README.txt -->
+<link rel="preload" href="fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* ===========================================================================
+   0. SCHRIFTEN – lokal gehostet, damit keine Verbindung zu Google entsteht.
+      Beides sind Variable Fonts: eine Datei deckt 400–700 komplett ab.
+      Wenn die Dateien fehlen, greift der System-Fallback weiter unten.
+   ======================================================================== */
+@font-face{
+  font-family:'Inter';
+  src:url('fonts/inter-latin-var.woff2') format('woff2');
+  font-weight:400 700;
+  font-style:normal;
+  font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Fraunces';
+  src:url('fonts/fraunces-latin-var.woff2') format('woff2');
+  font-weight:400 700;
+  font-style:normal;
+  font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* ===========================================================================
+   1. DESIGN TOKENS – hier die Farben ändern
+   ======================================================================== */
+:root{
+  /* Helle, warme Basis */
+  --cream:        #FDFBF7;
+  --cream-2:      #F6F1E8;
+  --cream-3:      #EFE8DB;
+  --white:        #FFFFFF;
+
+  /* Schrift */
+  --ink:          #1D1A15;
+  --ink-2:        #4B453D;
+  /* --muted war #837B70 = 4,05:1 auf Cream und damit unter dem WCAG-AA-Minimum
+     von 4,5:1. Die Farbe wird für Kleinschrift (0,72–0,83rem) verwendet. */
+  --muted:        #6F685C;
+
+  /* Schriftstapel – der Fallback greift, wenn fonts/ fehlt */
+  --font-sans:    'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-serif:   'Fraunces','Iowan Old Style',Georgia,'Times New Roman',serif;
+
+  /* Linien & Flächen */
+  --line:         #E7DFD1;
+  --line-soft:    #F0E9DC;
+
+  /* Akzent 1 – warmes Amber (Fuchs) */
+  --amber:        #C07A2E;
+  --amber-deep:   #9C5F1E;
+  --amber-soft:   #F7E9D5;
+
+  /* Akzent 2 – ruhiges Waldgrün (Eule) */
+  --forest:       #2E4A3C;
+  --forest-soft:  #E4EDE7;
+
+  --radius:       18px;
+  --radius-sm:    12px;
+  --radius-lg:    26px;
+
+  --shadow-sm:    0 1px 2px rgba(45,35,20,.04), 0 2px 8px rgba(45,35,20,.04);
+  --shadow-md:    0 2px 4px rgba(45,35,20,.04), 0 12px 32px rgba(45,35,20,.07);
+  --shadow-lg:    0 4px 8px rgba(45,35,20,.05), 0 24px 60px rgba(45,35,20,.10);
+
+  --maxw:         1180px;
+  --ease:         cubic-bezier(.22,.61,.36,1);
+}
+
+/* ===========================================================================
+   2. RESET & BASIS
+   ======================================================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-sans);
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.65;
+  font-size:17px;
+  -webkit-font-smoothing:antialiased;
+  /* clip statt hidden: "hidden" macht den Body zum Scroll-Container und
+     zerstört damit das position:sticky der FAQ-Spalte. */
+  overflow-x:hidden;
+  overflow-x:clip;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+ul{list-style:none}
+
+/* Einheitlicher, gut sichtbarer Fokusring für Tastaturbedienung */
+:focus-visible{outline:2.5px solid var(--amber-deep);outline-offset:3px;border-radius:4px}
+
+/* Sprungmarke: erstes fokussierbares Element der Seite */
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--forest);color:#FBF8F2;
+  padding:13px 22px;border-radius:0 0 var(--radius-sm) 0;
+  font-size:.92rem;font-weight:600;
+}
+.skip-link:focus{left:0}
+
+h1,h2,h3,.serif{
+  font-family:var(--font-serif);
+  font-weight:500;
+  line-height:1.12;
+  letter-spacing:-.015em;
+  color:var(--ink);
+}
+h1{font-size:clamp(2.4rem,5.4vw,4.1rem)}
+h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+h3{font-size:clamp(1.15rem,1.7vw,1.35rem);line-height:1.3}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+section{position:relative}
+
+/* ===========================================================================
+   3. WIEDERKEHRENDE ELEMENTE
+   ======================================================================== */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:.74rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--amber-deep);margin-bottom:20px;
+}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--amber);border-radius:2px}
+
+.lead{font-size:clamp(1.02rem,1.35vw,1.16rem);color:var(--ink-2);max-width:62ch}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 28px;border-radius:100px;
+  font-size:.95rem;font-weight:600;letter-spacing:-.005em;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .25s,color .25s,border-color .25s;
+  white-space:nowrap;
+}
+.btn svg{width:17px;height:17px;transition:transform .35s var(--ease)}
+.btn-primary{background:var(--forest);color:#FBF8F2;box-shadow:0 6px 18px rgba(46,74,60,.22)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(46,74,60,.28)}
+.btn-primary:hover svg{transform:translateX(4px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--forest);background:var(--white);transform:translateY(-2px)}
+.btn-amber{background:var(--amber);color:#fff;box-shadow:0 6px 18px rgba(192,122,46,.26)}
+.btn-amber:hover{background:var(--amber-deep);transform:translateY(-2px)}
+.btn-sm{padding:11px 20px;font-size:.87rem}
+
+.card{
+  background:var(--white);
+  border:1px solid var(--line-soft);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s;
+}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:var(--line)}
+
+/* Sanftes Punktraster als Hintergrundtextur */
+.dots{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle, rgba(140,120,85,.16) 1px, transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 20%,transparent 75%);
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 20%,transparent 75%);
+}
+
+/* Scroll-Animation */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ===========================================================================
+   4. HEADER
+   ======================================================================== */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .4s var(--ease),box-shadow .4s var(--ease),border-color .4s;
+  border-bottom:1px solid transparent;
+}
+.site-header.stuck{
+  background:rgba(253,251,247,.86);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom-color:var(--line-soft);
+  box-shadow:0 1px 20px rgba(45,35,20,.05);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px}
+
+.logo{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:-.02em}
+.logo-mark{
+  width:38px;height:38px;flex:none;border-radius:11px;
+  background:linear-gradient(145deg,var(--amber) 0%,var(--amber-deep) 100%);
+  display:grid;place-items:center;box-shadow:0 3px 10px rgba(192,122,46,.3);
+}
+.logo-mark svg{width:21px;height:21px;stroke:#fff}
+.logo-text{display:flex;flex-direction:column;line-height:1.15}
+.logo-text b{font-size:1.02rem;font-weight:600}
+.logo-text span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+.nav{display:flex;align-items:center;gap:32px}
+.nav a{font-size:.93rem;font-weight:500;color:var(--ink-2);position:relative;padding:4px 0;transition:color .25s}
+.nav a::after{
+  content:"";position:absolute;left:0;bottom:0;height:1.5px;width:0;background:var(--amber);
+  border-radius:2px;transition:width .35s var(--ease);
+}
+.nav a:hover{color:var(--ink)}
+.nav a:hover::after{width:100%}
+
+.header-cta{display:flex;align-items:center;gap:14px}
+/* Direktwahl im Header – für die Zielgruppe der schnellste Weg zum Kontakt */
+.header-phone{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.93rem;font-weight:600;color:var(--ink);
+  padding:9px 15px;border-radius:100px;border:1.5px solid var(--line);
+  transition:border-color .25s,background .25s;white-space:nowrap;
+}
+.header-phone:hover{border-color:var(--amber);background:var(--white)}
+.header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
+.burger{display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);place-items:center;background:var(--white)}
+.burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
+.burger span+span{margin-top:4.5px}
+.burger.open span:nth-child(1){transform:translateY(6.1px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-6.1px) rotate(-45deg)}
+
+.mobile-nav{
+  position:fixed;inset:76px 0 auto 0;z-index:99;
+  background:var(--cream);border-bottom:1px solid var(--line);
+  padding:18px 24px 30px;
+  transform:translateY(calc(-100% - 140px));visibility:hidden;
+  transition:transform .45s var(--ease),visibility 0s .45s;
+  box-shadow:0 20px 40px rgba(45,35,20,.09);
+}
+.mobile-nav.open{transform:translateY(0);visibility:visible;transition:transform .45s var(--ease)}
+.mobile-nav a{display:block;padding:14px 0;font-size:1.05rem;font-weight:500;border-bottom:1px solid var(--line-soft)}
+.mobile-nav .btn{width:100%;margin-top:20px}
+
+/* ===========================================================================
+   5. HERO
+   ======================================================================== */
+.hero{
+  padding:150px 0 92px;
+  background:
+    radial-gradient(900px 520px at 78% 6%, rgba(192,122,46,.11), transparent 62%),
+    radial-gradient(760px 480px at 8% 30%, rgba(46,74,60,.08), transparent 60%),
+    linear-gradient(178deg, var(--cream) 0%, var(--cream-2) 100%);
+  overflow:hidden;
+}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:64px;align-items:center;position:relative;z-index:2}
+.hero h1 .accent{
+  color:var(--amber-deep);font-style:italic;
+}
+.hero-sub{margin:26px 0 34px;font-size:clamp(1.04rem,1.5vw,1.2rem);color:var(--ink-2);max-width:52ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:44px}
+
+.trust-row{display:flex;flex-wrap:wrap;gap:10px 26px;padding-top:26px;border-top:1px solid var(--line)}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--ink-2);font-weight:500}
+.trust-item svg{width:16px;height:16px;stroke:var(--forest);flex:none}
+
+/* ---------------------------------------------------------------------------
+   HERO-ILLUSTRATION – Gebäudeschnitt mit Dämmebenen und Wärmepumpe
+   Alle Strichstärken und Farben laufen über die Klassen .il-*
+------------------------------------------------------------------------- */
+.hero-visual{position:relative}
+.hero-illu{position:relative;width:100%}
+.hero-illu svg{width:100%;height:auto;display:block;overflow:visible}
+.illu-caption{margin-top:14px;font-size:.79rem;color:var(--muted);text-align:center;max-width:38ch;margin-inline:auto}
+
+.il-line{fill:none;stroke:var(--ink);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.il-thin{fill:none;stroke:var(--ink);stroke-width:1.3;stroke-linecap:round}
+.il-soft{fill:none;stroke:var(--line);stroke-width:1.6;stroke-linecap:round}
+.il-green{fill:none;stroke:var(--forest);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.il-amber{fill:none;stroke:var(--amber);stroke-width:2.3;stroke-linecap:round}
+.il-lead{fill:none;stroke:var(--amber);stroke-width:1.3;stroke-dasharray:3 4;opacity:.8}
+.il-pill{fill:var(--white);stroke:var(--line);stroke-width:1.4}
+.il-label{font-family:var(--font-sans);font-size:15px;font-weight:600;fill:var(--ink)}
+
+.il-wave{opacity:0;transform-box:fill-box;animation:waveUp 3.6s var(--ease) infinite}
+@keyframes waveUp{
+  0%{opacity:0;transform:translateY(8px)}
+  22%{opacity:.9}
+  65%{opacity:.4}
+  100%{opacity:0;transform:translateY(-22px)}
+}
+.il-spin{transform-box:fill-box;transform-origin:center;animation:ilSpin 7s linear infinite}
+.il-spin-slow{transform-box:fill-box;transform-origin:center;animation:ilSpin 44s linear infinite}
+@keyframes ilSpin{to{transform:rotate(360deg)}}
+
+.il-ping{transform-box:fill-box;transform-origin:center;animation:ilPing 2.8s var(--ease) infinite}
+@keyframes ilPing{0%{transform:scale(.55);opacity:.5}70%{transform:scale(1.7);opacity:0}100%{opacity:0}}
+
+.il-tag{opacity:0;animation:ilTagIn .8s var(--ease) forwards}
+@keyframes ilTagIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  .il-wave,.il-spin,.il-spin-slow,.il-ping,.stats-gem{animation:none}
+  .il-wave{opacity:.55}
+  .il-tag{animation:none;opacity:1}
+}
+
+/* Auf schmalen Displays sind SVG-Beschriftungen zu klein – dafür eine Legende */
+.illu-legend{display:none;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+.illu-legend li{
+  display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:500;color:var(--ink-2);
+  background:var(--white);border:1px solid var(--line);border-radius:100px;padding:6px 13px;
+}
+.illu-legend i{width:7px;height:7px;border-radius:50%;background:var(--amber);flex:none}
+.illu-legend li{cursor:pointer}
+
+/* Interaktive Bauteil-Flächen + Popup mit Einsparwerten */
+.hotspot{cursor:pointer;outline:none}
+.il-ping,.il-lead,.il-label{pointer-events:none}
+.hitshape{fill:transparent;stroke:none;transition:fill .25s}
+.hotspot:hover .hitshape,.hotspot.active .hitshape,.hotspot:focus-visible .hitshape{fill:rgba(192,122,46,.12)}
+.hotspot:hover .il-pill,.hotspot.active .il-pill,.hotspot:focus-visible .il-pill{stroke:var(--amber)}
+
+.illu-pop{
+  position:absolute;left:0;top:0;z-index:30;width:min(272px,80vw);
+  background:var(--white);border:1px solid var(--line);border-radius:15px;
+  box-shadow:var(--shadow-lg);padding:15px 17px 13px;
+  opacity:0;transform:translateY(8px) scale(.97);pointer-events:none;
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+.illu-pop.show{opacity:1;transform:none;pointer-events:auto}
+.pop-head{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.pop-head i{width:9px;height:9px;border-radius:50%;background:var(--amber);flex:none}
+.pop-head b{font-size:.85rem;flex:1;line-height:1.25}
+.pop-x{width:24px;height:24px;flex:none;border-radius:50%;display:grid;place-items:center;color:var(--muted);font-size:1.05rem;line-height:1}
+.pop-x:hover{background:var(--cream-2);color:var(--ink)}
+.pop-num{font-family:var(--font-serif);font-size:1.8rem;line-height:1.05;color:var(--forest);margin-bottom:6px}
+.pop-text{font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.pop-foot{margin-top:10px;padding-top:8px;border-top:1px solid var(--line-soft);font-size:.68rem;color:var(--muted);line-height:1.45}
+
+/* ===========================================================================
+   5b. LOGO-BAND (Qualifikationen & Programme)
+   Typografische Platzhalter-Kacheln. Offizielle Logos erst einsetzen, wenn
+   die Nutzung erlaubt ist – Anleitung im HTML-Kommentar bei der Sektion.
+   ======================================================================== */
+.logo-band{background:var(--white);border-bottom:1px solid var(--line-soft);padding:34px 0 26px}
+.band-label{
+  text-align:center;font-size:.72rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:20px;
+}
+.band-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.band-tile{
+  min-width:0;display:flex;align-items:center;gap:13px;padding:15px 18px;
+  background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius-sm);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .35s;
+}
+.band-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);background:var(--white)}
+.band-ic{width:38px;height:38px;flex:none;border-radius:10px;background:var(--forest-soft);display:grid;place-items:center}
+.band-ic svg{width:19px;height:19px;stroke:var(--forest);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.band-tile > div{min-width:0}
+.band-tile b{display:block;font-size:.86rem;line-height:1.25;font-weight:600;overflow-wrap:break-word}
+.band-tile span{font-size:.73rem;color:var(--muted);overflow-wrap:break-word;hyphens:auto}
+.band-note{margin-top:14px;text-align:center;font-size:.72rem;color:var(--muted)}
+
+/* ===========================================================================
+   6. PROBLEME
+   ======================================================================== */
+.section-pad{padding:96px 0}
+.section-head{max-width:64ch;margin-bottom:52px}
+.section-head h2{margin-bottom:18px}
+
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.problem{padding:0;display:flex;flex-direction:column;overflow:hidden}
+
+/* Illustrationsband am Kartenkopf */
+.problem-illu{
+  position:relative;padding:22px 22px 0;
+  background:linear-gradient(168deg,var(--cream-2) 0%,var(--cream) 78%);
+  border-bottom:1px solid var(--line-soft);
+}
+.problem-illu::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(circle, rgba(140,120,85,.17) 1px, transparent 1px);
+  background-size:15px 15px;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 82%);
+  mask-image:linear-gradient(180deg,#000,transparent 82%);
+}
+.problem-illu svg{position:relative;z-index:2;width:100%;height:auto;display:block}
+.problem-body{padding:26px 30px 30px;display:flex;flex-direction:column;flex:1}
+
+.problem-num{
+  font-family:var(--font-serif);font-size:.95rem;color:var(--amber-deep);
+  letter-spacing:.06em;margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.problem-num::after{content:"";flex:1;height:1px;background:var(--line)}
+.problem h3{margin-bottom:12px}
+.problem p{font-size:.94rem;color:var(--ink-2);margin-bottom:20px}
+.problem-answer{
+  margin-top:auto;padding:16px 18px;background:var(--forest-soft);border-radius:var(--radius-sm);
+  font-size:.88rem;color:var(--forest);
+}
+.problem-answer b{display:block;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:6px;opacity:.75}
+
+/* ===========================================================================
+   7. LEISTUNGEN
+   ======================================================================== */
+.services{background:var(--white);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.service{
+  padding:36px 34px;background:var(--cream);border:1px solid var(--line-soft);
+  border-radius:var(--radius);transition:transform .45s var(--ease),box-shadow .45s var(--ease),background .45s;
+}
+.service:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);background:var(--white)}
+.service-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px}
+.service-icon{width:48px;height:48px;flex:none;border-radius:13px;background:var(--forest);display:grid;place-items:center}
+.service-icon svg{width:23px;height:23px;stroke:#FBF8F2}
+.service h3{margin-bottom:6px}
+.service-kicker{font-size:.79rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--amber-deep)}
+.service > p{font-size:.94rem;color:var(--ink-2);margin-bottom:22px}
+.service ul li{
+  display:flex;gap:11px;font-size:.9rem;color:var(--ink-2);padding:9px 0;border-top:1px solid var(--line-soft);
+}
+.service ul li:first-child{border-top:none}
+.service ul svg{width:16px;height:16px;stroke:var(--amber);flex:none;margin-top:4px}
+
+/* ===========================================================================
+   8. ABLAUF
+   ======================================================================== */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.step{padding:0 26px 0 0;position:relative}
+.step-dot{
+  width:15px;height:15px;border-radius:50%;background:var(--amber);
+  border:3.5px solid var(--cream);box-shadow:0 0 0 1.5px var(--amber);
+  margin-bottom:24px;position:relative;z-index:2;
+}
+.step-line{position:absolute;top:6.5px;left:0;right:0;height:1.5px;background:var(--line);z-index:1}
+.step h3{font-size:1.08rem;margin-bottom:9px}
+.step .num{font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block}
+.step p{font-size:.9rem;color:var(--ink-2)}
+
+/* ===========================================================================
+   9. ZAHLEN
+   ======================================================================== */
+.stats{
+  background:linear-gradient(165deg,var(--forest) 0%,#22392E 100%);
+  color:#F4EFE6;border-radius:var(--radius-lg);padding:62px 52px;position:relative;overflow:hidden;
+}
+.stats::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background-image:radial-gradient(circle, rgba(255,255,255,.075) 1px, transparent 1px);
+  background-size:18px 18px;
+  -webkit-mask-image:radial-gradient(ellipse 65% 75% at 82% 22%,#000,transparent 72%);
+  mask-image:radial-gradient(ellipse 65% 75% at 82% 22%,#000,transparent 72%);
+}
+/* Wert-Motiv: facettierter Stein als Sinnbild für Substanz und Wertsteigerung */
+.stats-gem{
+  position:absolute;right:-64px;top:-72px;width:330px;z-index:1;
+  opacity:.3;pointer-events:none;
+  animation:gemFloat 16s ease-in-out infinite;
+}
+@keyframes gemFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(16px) rotate(3deg)}}
+
+.stats-inner{position:relative;z-index:2}
+.stats h2{color:#FBF8F2;max-width:17ch;margin-bottom:46px}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.stat{border-top:1px solid rgba(255,255,255,.2);padding-top:22px}
+.stat-gem{width:26px;height:26px;margin-bottom:16px;display:block;filter:drop-shadow(0 2px 5px rgba(0,0,0,.28))}
+.stat b{
+  display:block;font-family:var(--font-serif);font-size:clamp(2.6rem,4.4vw,3.5rem);
+  line-height:1;color:#E8B87A;margin-bottom:12px;
+}
+.stat p{font-size:.92rem;color:rgba(244,239,230,.82)}
+/* .55 ergab nur 3,85:1 auf dem dunklen Grün – zu wenig für WCAG AA */
+.stats-note{margin-top:34px;font-size:.78rem;color:rgba(244,239,230,.78)}
+
+/* ===========================================================================
+   10. ÜBER MICH
+   ======================================================================== */
+.about{background:var(--white);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
+.portrait{
+  aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;position:relative;
+  background:linear-gradient(160deg,var(--cream-2),var(--cream-3));
+  border:1px solid var(--line);display:grid;place-items:center;text-align:center;padding:30px;
+}
+.portrait svg{width:56px;height:56px;stroke:var(--muted);margin:0 auto 16px}
+.portrait span{font-size:.85rem;color:var(--muted);display:block}
+.qual-list{display:grid;gap:14px;margin:28px 0 32px}
+.qual{display:flex;gap:13px;align-items:flex-start}
+.qual svg{width:19px;height:19px;stroke:var(--forest);flex:none;margin-top:3px}
+.qual b{display:block;font-size:.95rem;font-weight:600}
+.qual span{font-size:.87rem;color:var(--muted)}
+
+/* ===========================================================================
+   11. STIMMEN
+   ======================================================================== */
+.quotes{position:relative}
+.quote-viewport{overflow:hidden}
+.quote-track{display:flex;transition:transform .6s var(--ease)}
+.quote-slide{min-width:100%;padding:4px}
+.quote-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:48px 52px;box-shadow:var(--shadow-sm)}
+.quote-mark{font-family:var(--font-serif);font-size:3.4rem;color:var(--amber-soft);line-height:.7;margin-bottom:16px}
+.quote-card blockquote{font-family:var(--font-serif);font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.45;color:var(--ink);margin-bottom:28px}
+.quote-author{display:flex;align-items:center;gap:14px}
+.quote-avatar{width:44px;height:44px;border-radius:50%;background:var(--cream-3);display:grid;place-items:center;font-weight:600;color:var(--ink-2);font-size:.9rem;flex:none}
+.quote-author b{display:block;font-size:.93rem}
+.quote-author span{font-size:.83rem;color:var(--muted)}
+.quote-nav{display:flex;align-items:center;gap:12px;margin-top:26px}
+.qbtn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;background:var(--white);transition:.3s var(--ease)}
+.qbtn:hover{border-color:var(--forest);transform:translateY(-2px)}
+.qbtn svg{width:16px;height:16px;stroke:var(--ink)}
+.qcount{font-size:.85rem;color:var(--muted);margin-left:6px;font-variant-numeric:tabular-nums}
+.placeholder-hint{
+  margin-top:20px;font-size:.8rem;color:var(--amber-deep);background:var(--amber-soft);
+  display:inline-block;padding:8px 14px;border-radius:100px;
+}
+
+/* ===========================================================================
+   12. FAQ
+   ======================================================================== */
+.faq{background:var(--white);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:start}
+.faq-intro{position:sticky;top:112px}
+.faq-item{border-bottom:1px solid var(--line-soft)}
+.faq-q{
+  width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
+  padding:22px 0;text-align:left;font-size:1.02rem;font-weight:600;transition:color .25s;
+}
+.faq-q:hover{color:var(--amber-deep)}
+.faq-icon{position:relative;width:24px;height:24px;flex:none;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;margin-top:2px;transition:.35s var(--ease)}
+.faq-icon::before,.faq-icon::after{content:"";position:absolute;background:var(--ink);border-radius:2px;transition:.35s var(--ease)}
+.faq-icon::before{width:10px;height:1.6px}
+.faq-icon::after{width:1.6px;height:10px}
+.faq-item.open .faq-icon{background:var(--forest);border-color:var(--forest);transform:rotate(90deg)}
+.faq-item.open .faq-icon::before,.faq-item.open .faq-icon::after{background:#fff}
+.faq-item.open .faq-icon::after{opacity:0}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+.faq-a p{padding:0 0 22px;font-size:.94rem;color:var(--ink-2);max-width:60ch}
+
+/* ===========================================================================
+   13. KONTAKT
+   ======================================================================== */
+.contact-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:start}
+.contact-info .lead{margin-bottom:34px}
+.contact-line{display:flex;gap:15px;align-items:flex-start;padding:18px 0;border-top:1px solid var(--line)}
+.contact-line svg{width:20px;height:20px;stroke:var(--amber-deep);flex:none;margin-top:3px}
+.contact-line b{display:block;font-size:.79rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;font-weight:600}
+.contact-line span{font-size:1rem;color:var(--ink)}
+.contact-line a{transition:color .25s}
+.contact-line a:hover{color:var(--amber-deep);text-decoration:underline;text-underline-offset:3px}
+
+.form-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:38px;box-shadow:var(--shadow-md)}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:.84rem;font-weight:600;margin-bottom:7px}
+.field input,.field select,.field textarea{
+  width:100%;padding:13px 15px;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--cream);font-family:inherit;font-size:.94rem;color:var(--ink);
+  transition:border-color .25s,background .25s,box-shadow .25s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--amber);background:var(--white);
+  box-shadow:0 0 0 3.5px rgba(192,122,46,.13);
+}
+.field textarea{resize:vertical;min-height:110px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.consent{display:flex;gap:11px;align-items:flex-start;margin:20px 0 22px;font-size:.82rem;color:var(--muted)}
+.consent input{width:17px;height:17px;flex:none;margin-top:3px;accent-color:var(--forest)}
+.form-card .btn{width:100%}
+.form-note{margin-top:16px;font-size:.76rem;color:var(--muted);text-align:center}
+
+/* ===========================================================================
+   14. FOOTER
+   ======================================================================== */
+.site-footer{background:var(--cream-2);border-top:1px solid var(--line);padding:66px 0 30px;margin-top:0}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:44px}
+.footer-brand p{font-size:.9rem;color:var(--ink-2);margin:18px 0 22px;max-width:34ch}
+.footer-col h4{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
+.footer-col a{display:block;font-size:.9rem;color:var(--ink-2);padding:6px 0;transition:color .25s}
+.footer-col a:hover{color:var(--amber-deep)}
+.badges{display:flex;flex-wrap:wrap;gap:9px;padding:26px 0;border-top:1px solid var(--line)}
+.badge{
+  font-size:.75rem;font-weight:600;color:var(--ink-2);background:var(--white);
+  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
+}
+.footer-bottom{
+  display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;align-items:center;
+  padding-top:24px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted);
+}
+.footer-bottom nav{display:flex;gap:22px;flex-wrap:wrap}
+
+/* ===========================================================================
+   14b. MOBILE AKTIONSLEISTE
+   Unter 760px blendet die Seite den Header-CTA aus – ohne diese Leiste gäbe es
+   auf dem Handy gar keinen sichtbaren Kontaktweg mehr.
+   ======================================================================== */
+.mobile-bar{
+  display:none;
+  position:fixed;left:0;right:0;bottom:0;z-index:98;
+  gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(253,251,247,.94);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+  box-shadow:0 -2px 20px rgba(45,35,20,.08);
+}
+.mobile-bar .btn{flex:1;padding:13px 16px;font-size:.9rem}
+.mobile-bar .btn svg{width:16px;height:16px}
+
+/* ===========================================================================
+   14c. FORMULAR – Validierung & Spamschutz
+   ======================================================================== */
+/* Honigtopf: für Menschen unsichtbar, Bots füllen ihn aus.
+   Bewusst kein display:none – manche Bots ignorieren solche Felder. */
+.hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.field.invalid input,.field.invalid select,.field.invalid textarea{
+  border-color:#B4442F;background:#FDF4F2;
+}
+.field.invalid input:focus,.field.invalid textarea:focus{box-shadow:0 0 0 3.5px rgba(180,68,47,.13)}
+.field-error{
+  display:none;margin-top:6px;font-size:.79rem;font-weight:500;color:#B4442F;
+}
+.field.invalid .field-error{display:block}
+.consent.invalid{color:#B4442F}
+.consent.invalid input{outline:2px solid #B4442F;outline-offset:2px}
+.form-note.is-error{color:#B4442F;font-weight:600}
+.form-note.is-ok{color:var(--forest);font-weight:600}
+
+/* ===========================================================================
+   15. RESPONSIVE
+   ======================================================================== */
+@media (max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .hero{padding:126px 0 76px}
+  .about-grid,.faq-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+  .faq-intro{position:static}
+  .portrait{max-width:340px;aspect-ratio:1/1}
+  .problem-grid{grid-template-columns:1fr}
+  .service-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:34px 20px}
+  .step-line{display:none}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:34px}
+  .band-row{grid-template-columns:1fr 1fr}
+  /* Ab hier wird es im Header eng – die Nummer steht dann in der Kontaktsektion */
+  .header-phone{display:none}
+}
+@media (max-width:760px){
+  body{font-size:16px;padding-bottom:78px} /* Platz für die fixe Aktionsleiste */
+  .nav,.header-cta .btn{display:none}
+  .burger{display:grid}
+  .mobile-bar{display:flex}
+  .section-pad{padding:66px 0}
+  .stats{padding:44px 26px;border-radius:var(--radius)}
+  .stat-grid{grid-template-columns:1fr;gap:26px}
+  .quote-card{padding:32px 26px}
+  .form-card{padding:26px 22px}
+  .field-row{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:28px}
+  .footer-grid{grid-template-columns:1fr}
+  .trust-row{flex-direction:column;gap:11px}
+  .hero-illu .il-tag,.hero-illu .il-lead{display:none}
+  .illu-legend{display:flex}
+  .stats-gem{width:190px;right:-46px;top:-46px}
+  .band-tile{padding:12px 13px;gap:10px}
+  .band-ic{width:32px;height:32px;border-radius:8px}
+  .band-tile b{font-size:.8rem}
+  .problem-body{padding:22px 22px 26px}
+  .problem-illu{padding:18px 18px 0}
+}
+</style>
+
+<!-- Strukturierte Daten für Google: lokales Unternehmen.
+     Platzhalter ausfüllen, dann mit dem Rich-Results-Test prüfen. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://www.ihre-domain.de/#unternehmen",
+  "name": "Tsukerman Energieberatung",
+  "description": "Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis: individueller Sanierungsfahrplan (iSFP), Fördermittelberatung (BAFA/KfW), Energieausweis und Baubegleitung. Produktneutral und ohne Provision.",
+  "url": "https://www.ihre-domain.de/",
+  "founder": { "@type": "Person", "name": "Stanislaw Tsukerman" },
+  "telephone": "+4915224290826",
+  "email": "kontakt@ihre-domain.de",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Griesweg 20",
+    "postalCode": "89160",
+    "addressLocality": "Dornstadt",
+    "addressRegion": "Baden-Württemberg",
+    "addressCountry": "DE"
+  },
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "Alb-Donau-Kreis" },
+    { "@type": "City", "name": "Ulm" },
+    { "@type": "City", "name": "Neu-Ulm" },
+    { "@type": "City", "name": "Dornstadt" },
+    { "@type": "City", "name": "Blaustein" },
+    { "@type": "City", "name": "Langenau" },
+    { "@type": "City", "name": "Ehingen" },
+    { "@type": "City", "name": "Laichingen" }
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "08:00",
+    "closes": "18:00"
+  },
+  "priceRange": "€€",
+  "makesOffer": [
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Individueller Sanierungsfahrplan (iSFP)" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fördermittel-Management (BAFA/KfW)" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Baubegleitung & Qualitätssicherung" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Energieausweis nach GEG" } }
+  ]
+}
+</script>
+
+<!-- Strukturierte Daten: häufige Fragen (muss inhaltlich zur sichtbaren
+     FAQ-Sektion passen – bei Textänderungen dort auch hier anpassen). -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was kostet eine Energieberatung?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Das hängt von Gebäudegröße und Umfang ab. Für ein Einfamilienhaus liegt ein individueller Sanierungsfahrplan üblicherweise im niedrigen vierstelligen Bereich – abzüglich der 50-%-Förderung bleibt ein deutlich kleinerer Eigenanteil. Sie erhalten vorab ein Festpreisangebot." }
+    },
+    {
+      "@type": "Question",
+      "name": "Wird die Energieberatung gefördert?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ja. Die Bundesförderung für Energieberatung für Wohngebäude übernimmt 50 % des förderfähigen Honorars – bis 650 € bei Ein- und Zweifamilienhäusern, bis 850 € ab drei Wohneinheiten. Wohnungseigentümergemeinschaften erhalten einmalig 250 € zusätzlich." }
+    },
+    {
+      "@type": "Question",
+      "name": "Muss ich meine Öl- oder Gasheizung jetzt austauschen?",
+      "acceptedAnswer": { "@type": "Answer", "text": "In aller Regel nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden. Wichtig ist, die geplante Gesetzesänderung (Gebäudemodernisierungsgesetz) einzukalkulieren und die wirtschaftlich beste Lösung durchzurechnen, statt vorschnell zu entscheiden." }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie lange dauert eine Energieberatung mit Sanierungsfahrplan?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Vom Vor-Ort-Termin bis zum fertigen Bericht rund drei Wochen. Die Bearbeitung des Förderantrags beim BAFA dauert derzeit etwa zwei Wochen. Der Antrag muss gestellt sein, bevor ein Handwerkerauftrag vergeben wird." }
+    },
+    {
+      "@type": "Question",
+      "name": "Bin ich nach der Beratung an bestimmte Firmen oder Produkte gebunden?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Nein. Es werden weder Heizungen noch Dämmstoffe verkauft und keine Provisionen von Herstellern oder Handwerksbetrieben angenommen." }
+    },
+    {
+      "@type": "Question",
+      "name": "Ich habe schon ein Handwerker-Angebot – lohnt sich eine Beratung noch?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oft gerade dann. Eine Zweitmeinung klärt, ob die Anlage richtig dimensioniert ist, ob die Reihenfolge stimmt und ob durch den Antragszeitpunkt Förderung verloren geht." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<!-- ========================= HEADER ========================= -->
+<header class="site-header" id="header">
+  <div class="wrap header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.6V20h14V9.6"/><path d="M10 20v-5h4v5"/>
+        </svg>
+      </span>
+      <span class="logo-text">
+        <b>Tsukerman</b>
+        <span>Energieberatung</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="#leistungen">Leistungen</a>
+      <a href="sanierungsrechner.html">Rechner</a>
+      <a href="#ablauf">Ablauf</a>
+      <a href="#ueber-mich">Über mich</a>
+      <a href="#faq">Fragen</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+
+    <div class="header-cta">
+      <a href="tel:+4915224290826" class="header-phone">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        0152 24290826
+      </a>
+      <a href="#kontakt" class="btn btn-primary btn-sm">
+        Kostenloses Erstgespräch
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
+  <a href="#leistungen">Leistungen</a>
+  <a href="sanierungsrechner.html">Sanierungsrechner</a>
+  <a href="#ablauf">Ablauf</a>
+  <a href="#ueber-mich">Über mich</a>
+  <a href="#faq">Fragen</a>
+  <a href="#kontakt">Kontakt</a>
+  <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+</nav>
+
+<!-- Fixe Aktionsleiste, nur auf Mobilgeräten sichtbar (siehe CSS-Block 14b) -->
+<div class="mobile-bar">
+  <a href="tel:+4915224290826" class="btn btn-amber">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+    Anrufen
+  </a>
+  <a href="#kontakt" class="btn btn-primary">Anfrage senden</a>
+</div>
+
+<!-- =========================================================================
+     GEMEINSAME SVG-DEFINITIONEN (isometrisches Haus, Verläufe, Filter, Stein)
+     Werden über <use href="#..."> an mehreren Stellen wiederverwendet.
+     ====================================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Häkchen: stand 19× identisch im Dokument. Farbe und Größe kommen
+         weiterhin per CSS vom umgebenden <svg>-Element. -->
+    <g id="icCheck" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 6 9 17l-5-5"/>
+    </g>
+
+    <linearGradient id="gWallF" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F5EEE0"/>
+    </linearGradient>
+    <linearGradient id="gWallS" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EBE2D0"/><stop offset="1" stop-color="#DCD1B9"/>
+    </linearGradient>
+    <linearGradient id="gRoofF" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EBD2A8"/><stop offset="1" stop-color="#D2A566"/>
+    </linearGradient>
+    <linearGradient id="gRoofB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C6984F"/><stop offset="1" stop-color="#AA7D3E"/>
+    </linearGradient>
+    <linearGradient id="gPanel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#41684F"/><stop offset="1" stop-color="#2A4237"/>
+    </linearGradient>
+    <filter id="fBlur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="fDrop" x="-25%" y="-25%" width="150%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#2D2314" flood-opacity=".16"/>
+    </filter>
+
+    <!-- Isometrisches Haus: Grundriss 200×140, Wandhöhe 110, First 170 -->
+    <g id="isoHouse">
+      <polygon points="307,324 501,436 365,514 171,402" fill="rgba(60,46,28,.10)" filter="url(#fBlur)"/>
+      <polygon points="310,210 483.2,310 422.6,285 249.4,185" fill="url(#gRoofB)" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="188.8,390 362,490 362,380 188.8,280" fill="url(#gWallF)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
+      <polygon points="483.2,420 362,490 362,380 483.2,310" fill="url(#gWallS)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
+      <polygon points="362,380 483.2,310 422.6,285" fill="url(#gWallS)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
+
+      <!-- Fassade (Fläche y=140): u entlang der Wand, v = Höhe -->
+      <g transform="matrix(0.866,0.5,0,-1,188.8,390)">
+        <rect x="22" y="36" width="52" height="50" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
+        <path d="M48 36v50M22 61h52" fill="none" stroke="#1D1A15" stroke-width="1"/>
+        <rect x="92" y="40" width="44" height="46" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
+        <path d="M114 40v46M92 63h44" fill="none" stroke="#1D1A15" stroke-width="1"/>
+        <rect x="148" y="0" width="40" height="78" rx="2" fill="#EFE7D7" stroke="#1D1A15" stroke-width="1.5"/>
+        <circle cx="182" cy="40" r="2.6" fill="#1D1A15"/>
+      </g>
+
+      <!-- Giebelwand (Fläche x=200) -->
+      <g transform="matrix(-0.866,0.5,0,-1,483.2,420)">
+        <rect x="50" y="46" width="40" height="42" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
+        <path d="M70 46v42M50 67h40" fill="none" stroke="#1D1A15" stroke-width="1"/>
+      </g>
+
+      <!-- Vordere Dachfläche mit Solarmodulen -->
+      <polygon points="188.8,280 362,380 422.6,285 249.4,185" fill="url(#gRoofF)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
+      <g transform="matrix(0.866,0.5,0.606,-0.95,188.8,280)">
+        <rect x="26" y="22" width="64" height="52" rx="2" fill="url(#gPanel)" stroke="#F4EFE6" stroke-width="1.2"/>
+        <path d="M26 48h64M47 22v52M69 22v52" fill="none" stroke="#F4EFE6" stroke-width=".8" opacity=".7"/>
+        <rect x="104" y="22" width="64" height="52" rx="2" fill="url(#gPanel)" stroke="#F4EFE6" stroke-width="1.2"/>
+        <path d="M104 48h64M125 22v52M147 22v52" fill="none" stroke="#F4EFE6" stroke-width=".8" opacity=".7"/>
+      </g>
+      <path d="M249.4 185 L422.6 285" fill="none" stroke="#1D1A15" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- Sockel / Kellergeschoss mit gedämmter Kellerdecke -->
+      <polygon points="188.8,390 362,490 362,506 188.8,406" fill="#D9CDB3" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="483.2,420 362,490 362,506 483.2,436" fill="#CBBFA4" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M188.8 396 L362 496" fill="none" stroke="#2E4A3C" stroke-width="2" stroke-dasharray="6 5"/>
+      <path d="M362 496 L483.2 426" fill="none" stroke="#2E4A3C" stroke-width="2" stroke-dasharray="6 5"/>
+
+      <!-- Büsche -->
+      <ellipse cx="160" cy="464" rx="28" ry="5" fill="rgba(60,46,28,.09)"/>
+      <circle cx="168" cy="442" r="17" fill="#DCE8DF" stroke="#1D1A15" stroke-width="1.3"/>
+      <circle cx="146" cy="454" r="10.5" fill="#CFDFD4" stroke="#1D1A15" stroke-width="1.3"/>
+    </g>
+
+    <!-- Facettierter Stein (Gold) -->
+    <g id="gem3d">
+      <polygon points="30,16 12,40 38,40" fill="#E8B87A" fill-opacity=".5"/>
+      <polygon points="30,16 70,16 62,40 38,40" fill="#E8B87A" fill-opacity=".75"/>
+      <polygon points="70,16 88,40 62,40" fill="#E8B87A" fill-opacity=".42"/>
+      <polygon points="12,40 38,40 50,90" fill="#E8B87A" fill-opacity=".34"/>
+      <polygon points="38,40 62,40 50,90" fill="#E8B87A" fill-opacity=".55"/>
+      <polygon points="62,40 88,40 50,90" fill="#E8B87A" fill-opacity=".22"/>
+      <path d="M38 40 L50 90 L62 40" fill="none" stroke="#E8B87A" stroke-width="1" stroke-opacity=".6" vector-effect="non-scaling-stroke"/>
+      <polygon points="30,16 70,16 88,40 50,90 12,40" fill="none" stroke="#E8B87A" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </g>
+  </defs>
+</svg>
+
+<main id="inhalt">
+
+<!-- ========================= HERO ========================= -->
+<section class="hero" id="top">
+  <div class="dots"></div>
+  <div class="wrap hero-grid">
+
+    <div class="hero-copy">
+      <span class="eyebrow">Energieberatung Ulm &amp; Alb-Donau-Kreis</span>
+      <h1>Machen Sie Ihr Zuhause <span class="accent">zukunftsfähig.</span></h1>
+      <p class="hero-sub">
+        Sanieren ist teuer – falsch sanieren ist teurer. Ich zeige Ihnen, welche Maßnahmen
+        sich bei <em>Ihrem</em> Gebäude wirklich rechnen, in welcher Reihenfolge sie sinnvoll sind
+        und welche Fördermittel Sie dafür bekommen. Produktneutral, ohne Provision.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#kontakt" class="btn btn-primary">
+          Gratis Erstgespräch vereinbaren
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="sanierungsrechner.html" class="btn btn-ghost">
+          Sanierungsrechner starten
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="trust-row">
+        <span class="trust-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg>
+          Energie-Effizienz-Expertenliste (dena)
+        </span>
+        <span class="trust-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg>
+          BAFA- &amp; KfW-förderfähig
+        </span>
+        <span class="trust-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg>
+          Keine Provisionen, kein Produktverkauf
+        </span>
+        <span class="trust-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg>
+          Vor Ort im Umkreis von 50 km um Ulm
+        </span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-illu">
+        <svg viewBox="0 50 680 520" role="img" aria-label="Isometrische Illustration eines Wohnhauses mit Solarmodulen auf dem Dach und Wärmepumpe neben dem Haus – die vier Stellschrauben Dach, Fassade, Fenster und Heizung sind markiert">
+
+          <!-- Sonne -->
+          <g class="il-spin-slow">
+            <circle cx="86" cy="112" r="20" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.8"/>
+            <path class="il-amber" stroke-width="1.8" d="M86 84V73M86 140v11M114 112h11M58 112H47M106 92l8-8M66 132l-8 8M106 132l8 8M66 92l-8-8"/>
+          </g>
+
+          <!-- Isometrisches Haus aus den gemeinsamen Definitionen -->
+          <use href="#isoHouse"/>
+
+          <!-- Wärmepumpe (isometrischer Block mit rotierendem Lüfter) -->
+          <g class="hotspot" data-key="heizung" tabindex="0" role="button" aria-label="Wärmepumpe – Einsparpotenzial anzeigen" transform="translate(0,16)">
+            <polygon points="465.9,437 518.3,467.5 465.9,498 413.5,467.5" fill="rgba(60,46,28,.10)" filter="url(#fBlur)"/>
+            <polygon points="465.9,398 513.5,425.5 465.9,453 418.25,425.5" fill="#FBF7EF" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+            <polygon points="418.25,425.5 465.9,453 465.9,495 418.25,467.5" fill="#F2EBDC" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+            <polygon points="465.9,453 513.5,425.5 513.5,467.5 465.9,495" fill="#E2D8C2" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+            <g transform="matrix(0.866,0.5,0,-1,418.25,467.5)">
+              <circle cx="24" cy="21" r="13.5" fill="#E4EDE7" stroke="#2E4A3C" stroke-width="1.6"/>
+              <g class="il-spin">
+                <path d="M24 21c0-5.5 2.8-8.5 6.5-8.5M24 21c4.6 2.8 5.6 6.5 3.7 9.3M24 21c-4.6 2.8-9.3.9-10.2-3" fill="none" stroke="#2E4A3C" stroke-width="1.9" stroke-linecap="round"/>
+              </g>
+              <circle cx="24" cy="21" r="1.8" fill="#2E4A3C"/>
+            </g>
+            <g transform="matrix(-0.866,0.5,0,-1,513.5,467.5)" opacity=".35">
+              <path d="M12 14h32M12 21h32M12 28h32" fill="none" stroke="#1D1A15" stroke-width="1.1"/>
+            </g>
+          </g>
+
+          <!-- Abwärme über der alten Dachhälfte -->
+          <g class="il-amber" stroke-width="2.2">
+            <path class="il-wave" style="animation-delay:0s"   d="M258 172c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
+            <path class="il-wave" style="animation-delay:.55s" d="M296 190c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
+            <path class="il-wave" style="animation-delay:1.1s" d="M334 208c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
+          </g>
+
+          <!-- Unsichtbare Klick-/Hover-Flächen auf den Bauteilen -->
+          <g class="hotspot" data-key="dach" tabindex="0" role="button" aria-label="Dach – Einsparpotenzial anzeigen">
+            <polygon class="hitshape" points="188.8,280 362,380 422.6,285 249.4,185"/>
+            <polygon class="hitshape" points="310,210 483.2,310 422.6,285 249.4,185"/>
+          </g>
+          <g class="hotspot" data-key="fassade" tabindex="0" role="button" aria-label="Fassade – Einsparpotenzial anzeigen">
+            <polygon class="hitshape" points="188.8,390 362,490 362,380 188.8,280"/>
+            <polygon class="hitshape" points="483.2,420 362,490 362,380 483.2,310"/>
+            <polygon class="hitshape" points="362,380 483.2,310 422.6,285"/>
+          </g>
+          <g class="hotspot" data-key="kellerdecke" tabindex="0" role="button" aria-label="Kellerdecke – Einsparpotenzial anzeigen">
+            <polygon class="hitshape" points="188.8,390 362,490 362,506 188.8,406"/>
+            <polygon class="hitshape" points="483.2,420 362,490 362,506 483.2,436"/>
+          </g>
+          <g class="hotspot" data-key="fenster" tabindex="0" role="button" aria-label="Fenster – Einsparpotenzial anzeigen">
+            <g transform="matrix(0.866,0.5,0,-1,188.8,390)">
+              <rect class="hitshape" x="22" y="36" width="52" height="50"/>
+              <rect class="hitshape" x="92" y="40" width="44" height="46"/>
+            </g>
+            <g transform="matrix(-0.866,0.5,0,-1,483.2,420)">
+              <rect class="hitshape" x="50" y="46" width="40" height="42"/>
+            </g>
+          </g>
+
+          <!-- Beschriftungen -->
+          <g class="il-tag hotspot" data-key="dach" style="animation-delay:.45s">
+            <circle class="il-ping" cx="310" cy="288" r="9" fill="var(--amber)"/>
+            <circle cx="310" cy="288" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M318 281L384 152"/>
+            <rect class="il-pill" x="378" y="122" width="74" height="30" rx="15"/>
+            <text class="il-label" x="394" y="142">Dach</text>
+          </g>
+
+          <g class="il-tag hotspot" data-key="fassade" style="animation-delay:.65s">
+            <circle class="il-ping" cx="203" cy="348" r="9" fill="var(--amber)"/>
+            <circle cx="203" cy="348" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M195 344L134 322"/>
+            <rect class="il-pill" x="30" y="306" width="98" height="30" rx="15"/>
+            <text class="il-label" x="46" y="326">Fassade</text>
+          </g>
+
+          <g class="il-tag hotspot" data-key="fenster" style="animation-delay:.85s">
+            <circle class="il-ping" cx="287" cy="384" r="9" fill="var(--amber)"/>
+            <circle cx="287" cy="384" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M281 390L158 476"/>
+            <rect class="il-pill" x="64" y="470" width="92" height="30" rx="15"/>
+            <text class="il-label" x="80" y="490">Fenster</text>
+          </g>
+
+          <g class="il-tag hotspot" data-key="kellerdecke" style="animation-delay:1.05s">
+            <circle class="il-ping" cx="275" cy="448" r="9" fill="var(--amber)"/>
+            <circle cx="275" cy="448" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M280 456L300 528"/>
+            <rect class="il-pill" x="240" y="530" width="132" height="30" rx="15"/>
+            <text class="il-label" x="256" y="550">Kellerdecke</text>
+          </g>
+
+          <g class="il-tag hotspot" data-key="heizung" style="animation-delay:1.25s">
+            <circle class="il-ping" cx="466" cy="466" r="9" fill="var(--amber)"/>
+            <circle cx="466" cy="466" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M474 474L520 508"/>
+            <rect class="il-pill" x="500" y="510" width="98" height="30" rx="15"/>
+            <text class="il-label" x="516" y="530">Heizung</text>
+          </g>
+
+        </svg>
+        <ul class="illu-legend">
+          <li data-key="dach" tabindex="0" role="button"><i></i>Dach</li><li data-key="fassade" tabindex="0" role="button"><i></i>Fassade</li><li data-key="fenster" tabindex="0" role="button"><i></i>Fenster</li><li data-key="kellerdecke" tabindex="0" role="button"><i></i>Kellerdecke</li><li data-key="heizung" tabindex="0" role="button"><i></i>Heizung</li>
+        </ul>
+        <p class="illu-caption">Tippen oder klicken Sie Dach, Fassade, Fenster, Kellerdecke oder Wärmepumpe an – dahinter steckt das jeweilige Einsparpotenzial.</p>
+
+        <!-- Popup mit Einsparwerten (wird per JavaScript gefüllt und positioniert).
+             "inert" statt nur aria-hidden: sonst steckt der Schließen-Button in
+             einem aria-hidden-Bereich und bleibt trotzdem per Tab erreichbar. -->
+        <div class="illu-pop" id="illuPop" role="tooltip" aria-hidden="true" inert>
+          <div class="pop-head">
+            <i></i><b id="popTitle"></b>
+            <button type="button" class="pop-x" id="popClose" aria-label="Schließen">×</button>
+          </div>
+          <div class="pop-num" id="popNum"></div>
+          <p class="pop-text" id="popText"></p>
+          <p class="pop-foot">Richtwerte (co2online, Verbraucherzentrale, ADAC) – was Ihr Haus wirklich spart, zeigt erst die Berechnung.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--
+  LOGO-BAND – WICHTIG ZU DEN OFFIZIELLEN LOGOS:
+  • Das EEE-Siegel ("Energieeffizienz-Experte") stellt die dena nach der
+    Eintragung in die Expertenliste bereit – erst dann verwenden.
+  • BAFA- und KfW-LOGOS sind geschützt (Bundesbehörde/Förderbank) und dürfen
+    nicht ohne Genehmigung eingebunden werden. Die Namen in Textform zur
+    Beschreibung der Förderprogramme zu nennen ist unproblematisch.
+  • Sobald ein Logo vorliegt: in der Kachel das <span class="band-ic">…</span>
+    durch <img src="logo.svg" alt="…" style="height:34px"> ersetzen.
+-->
+<section class="logo-band">
+  <div class="wrap">
+    <p class="band-label">Qualifikation, Listung &amp; Förderprogramme</p>
+    <div class="band-row">
+
+      <div class="band-tile">
+        <span class="band-ic">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="M8.8 13.5 7.5 21l4.5-2.4L16.5 21l-1.3-7.5"/></svg>
+        </span>
+        <div>
+          <b>Energie-Effizienz-Experte</b>
+          <span>Eingetragen in der dena-Expertenliste</span>
+        </div>
+      </div>
+
+      <div class="band-tile">
+        <span class="band-ic">
+          <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
+        </span>
+        <div>
+          <b>BAFA</b>
+          <span>Bundesförderung Energieberatung (EBW)</span>
+        </div>
+      </div>
+
+      <div class="band-tile">
+        <span class="band-ic">
+          <svg viewBox="0 0 24 24"><path d="M3 21h18M4 10h16M12 3 4 10h16z"/><path d="M6 10v11M10 10v11M14 10v11M18 10v11"/></svg>
+        </span>
+        <div>
+          <b>KfW</b>
+          <span>BEG-Förderung Heizung &amp; Sanierung</span>
+        </div>
+      </div>
+
+      <div class="band-tile">
+        <span class="band-ic">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><circle cx="17" cy="9.5" r="2.6"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M15.7 14.3c2.3.3 4 1.9 4.6 4.7"/></svg>
+        </span>
+        <!-- Sobald eine Verbandsmitgliedschaft besteht (GIH, DEN), kann diese
+             Kachel darauf umgestellt werden. -->
+        <div>
+          <b>Energieausweis nach GEG</b>
+          <span>Bedarfs- &amp; Verbrauchsausweis</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================= PROBLEME ========================= -->
+<section class="section-pad">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Ausgangslage</span>
+      <h2>Drei Fragen, die fast jeden Eigentümer beschäftigen.</h2>
+      <p class="lead">Und die man nur beantworten kann, wenn jemand das Gebäude tatsächlich gesehen und gerechnet hat – nicht mit einer Faustformel aus dem Internet.</p>
+    </div>
+
+    <div class="problem-grid">
+
+      <article class="card problem reveal">
+        <div class="problem-illu">
+          <svg viewBox="0 0 260 150" role="img" aria-label="Isometrisches Haus mit drei nummerierten Sanierungsschritten in der richtigen Reihenfolge">
+            <use href="#isoHouse" transform="translate(-56,-64) scale(.4)"/>
+            <g class="il-lead" stroke-dasharray="3 4"><path d="M188 40h-36M188 86h-36M188 130h-36"/></g>
+            <g filter="url(#fDrop)">
+              <circle cx="204" cy="40" r="14" fill="var(--white)" stroke="var(--amber)" stroke-width="1.8"/>
+              <circle cx="204" cy="86" r="14" fill="var(--white)" stroke="var(--amber)" stroke-width="1.8"/>
+              <circle cx="204" cy="130" r="14" fill="var(--white)" stroke="var(--line)" stroke-width="1.8"/>
+            </g>
+            <text class="il-label" x="204" y="45" text-anchor="middle" font-size="14" fill="var(--amber-deep)">1</text>
+            <text class="il-label" x="204" y="91" text-anchor="middle" font-size="14" fill="var(--amber-deep)">2</text>
+            <text class="il-label" x="204" y="135" text-anchor="middle" font-size="14" fill="var(--muted)">3</text>
+          </svg>
+        </div>
+        <div class="problem-body">
+          <span class="problem-num">01</span>
+          <h3>„Welche Sanierung lohnt sich bei meinem Haus wirklich?“</h3>
+          <p>Dach, Fenster, Fassade oder doch zuerst die Heizung? Die falsche Reihenfolge kostet schnell fünfstellig – und verbaut Fördermöglichkeiten für später.</p>
+          <div class="problem-answer">
+            <b>Meine Antwort</b>
+            Ein individueller Sanierungsfahrplan mit Kosten, Einsparung und Amortisation je Maßnahme – in der richtigen Reihenfolge.
+          </div>
+        </div>
+      </article>
+
+      <article class="card problem reveal">
+        <div class="problem-illu">
+          <svg viewBox="0 0 260 150" role="img" aria-label="Isometrisches Haus neben einem Förderantrag mit Euro-Zeichen">
+            <use href="#isoHouse" transform="translate(-56,-64) scale(.4)"/>
+            <g filter="url(#fDrop)" transform="rotate(3 205 76)">
+              <path d="M172 30h48l18 18v74a5 5 0 0 1-5 5h-61a5 5 0 0 1-5-5V35a5 5 0 0 1 5-5z"
+                    fill="var(--white)" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M220 30v18h18" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M182 64h30M182 76h36M182 88h22" fill="none" stroke="#E0D6C4" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="208" cy="103" r="15" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.7"/>
+              <path d="M214 97a7.5 7.5 0 0 0-9.6 3c-1.8 3.4-.9 7.8 2.2 10a7.4 7.4 0 0 0 7.4.4M200 101.5h9.5M200 106h9.5"
+                    fill="none" stroke="var(--amber-deep)" stroke-width="1.9" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="problem-body">
+          <span class="problem-num">02</span>
+          <h3>„Welche Förderung bekomme ich – und wie komme ich an sie heran?“</h3>
+          <p>BEG, BAFA, KfW, Landesprogramme, Boni: Die Töpfe ändern sich laufend, die Anträge müssen <em>vor</em> Auftragsvergabe raus. Ein Formfehler kostet den kompletten Zuschuss.</p>
+          <div class="problem-answer">
+            <b>Meine Antwort</b>
+            Fördermittel-Management von der Strategie über den Antrag bis zum Verwendungsnachweis. Fristen im Blick, Nachweise vollständig.
+          </div>
+        </div>
+      </article>
+
+      <article class="card problem reveal">
+        <div class="problem-illu">
+          <svg viewBox="0 0 260 150" role="img" aria-label="Isometrisches Haus mit Wärmepumpe und Uhr als Sinnbild für den richtigen Zeitpunkt des Heizungstauschs">
+            <use href="#isoHouse" transform="translate(-56,-64) scale(.4)"/>
+            <g transform="translate(-39,-99) scale(.5)">
+              <polygon points="465.9,437 518.3,467.5 465.9,498 413.5,467.5" fill="rgba(60,46,28,.10)" filter="url(#fBlur)"/>
+              <polygon points="465.9,398 513.5,425.5 465.9,453 418.25,425.5" fill="#FBF7EF" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+              <polygon points="418.25,425.5 465.9,453 465.9,495 418.25,467.5" fill="#F2EBDC" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+              <polygon points="465.9,453 513.5,425.5 513.5,467.5 465.9,495" fill="#E2D8C2" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+              <g transform="matrix(0.866,0.5,0,-1,418.25,467.5)">
+                <circle cx="24" cy="21" r="13.5" fill="#E4EDE7" stroke="#2E4A3C" stroke-width="1.6"/>
+                <g class="il-spin">
+                  <path d="M24 21c0-5.5 2.8-8.5 6.5-8.5M24 21c4.6 2.8 5.6 6.5 3.7 9.3M24 21c-4.6 2.8-9.3.9-10.2-3" fill="none" stroke="#2E4A3C" stroke-width="1.9" stroke-linecap="round"/>
+                </g>
+                <circle cx="24" cy="21" r="1.8" fill="#2E4A3C"/>
+              </g>
+              <g transform="matrix(-0.866,0.5,0,-1,513.5,467.5)" opacity=".35">
+                <path d="M12 14h32M12 21h32M12 28h32" fill="none" stroke="#1D1A15" stroke-width="1.1"/>
+              </g>
+            </g>
+            <g filter="url(#fDrop)">
+              <circle cx="216" cy="36" r="17" fill="var(--white)" stroke="var(--ink)" stroke-width="1.6"/>
+              <path d="M216 27v9l6 4" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M216 21v2.5M216 48.5V51M231 36h-2.5M203.5 36H201" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="problem-body">
+          <span class="problem-num">03</span>
+          <h3>„Muss ich meine Heizung tauschen – und wann?“</h3>
+          <p>Die Regeln werden gerade neu geschrieben: Das Gebäudeenergiegesetz soll durch ein Gebäudemodernisierungsgesetz abgelöst werden. Wer jetzt ohne Plan handelt, entscheidet auf Basis von gestern.</p>
+          <div class="problem-answer">
+            <b>Meine Antwort</b>
+            Eine nüchterne Einordnung, was für Ihr Gebäude gilt, was sich ändern soll – und welche Entscheidung in beiden Fällen richtig bleibt.
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================= LEISTUNGEN ========================= -->
+<section class="section-pad services" id="leistungen">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Leistungen</span>
+      <h2>Von der ersten Einschätzung bis zur ausgezahlten Förderung.</h2>
+      <p class="lead">Vier Bausteine, die einzeln oder als Paket buchbar sind. Sie entscheiden, wie weit ich Sie begleite.</p>
+    </div>
+
+    <div class="service-grid">
+
+      <article class="service reveal">
+        <div class="service-top">
+          <span class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/>
+            </svg>
+          </span>
+          <div>
+            <span class="service-kicker">Kernleistung</span>
+            <h3>Individueller Sanierungsfahrplan (iSFP)</h3>
+          </div>
+        </div>
+        <p>Ihr Gebäude Schritt für Schritt zum Effizienzhaus – in Etappen, die zu Ihrem Budget passen. Wer den Fahrplan hat, bekommt auf spätere Einzelmaßnahmen 5 Prozentpunkte zusätzliche Förderung.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Vor-Ort-Aufnahme, Bauteilcheck und Verbrauchsanalyse</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Maßnahmenpakete mit Kosten, Einsparung und Amortisation</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Verständlicher Bericht plus persönliches Erläuterungsgespräch</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Die Beratung selbst ist mit 50 % förderfähig</li>
+        </ul>
+      </article>
+
+      <article class="service reveal">
+        <div class="service-top">
+          <span class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6M9 11h3"/>
+            </svg>
+          </span>
+          <div>
+            <span class="service-kicker">Anträge &amp; Nachweise</span>
+            <h3>Fördermittel-Management</h3>
+          </div>
+        </div>
+        <p>Ich prüfe, welche Programme sich für Ihr Vorhaben kombinieren lassen, stelle die Anträge fristgerecht und begleite Sie bis zur Auszahlung.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Fördercheck: Bund, Land, Kommune und Boni im Vergleich</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Antragstellung bei BAFA und KfW inklusive Bestätigungen</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Fristenüberwachung und Verwendungsnachweis</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Klare Ansage, wenn sich etwas <em>nicht</em> rechnet</li>
+        </ul>
+      </article>
+
+      <article class="service reveal">
+        <div class="service-top">
+          <span class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 20h20"/><path d="M4 20V9l8-6 8 6v11"/><path d="M12 20v-7"/>
+            </svg>
+          </span>
+          <div>
+            <span class="service-kicker">Während der Bauphase</span>
+            <h3>Baubegleitung &amp; Qualitätssicherung</h3>
+          </div>
+        </div>
+        <p>Damit am Ende auch drin ist, was auf dem Angebot stand: fachliche Begleitung von der Ausschreibung bis zur Abnahme.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Leistungsverzeichnis und Angebotsvergleich</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Baustellentermine und Zwischenkontrollen</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Abnahme, Dokumentation, Nachweisführung</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Ebenfalls gesondert förderfähig</li>
+        </ul>
+      </article>
+
+      <article class="service reveal">
+        <div class="service-top">
+          <span class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>
+            </svg>
+          </span>
+          <div>
+            <span class="service-kicker">Schnell &amp; punktuell</span>
+            <h3>Energieausweis &amp; Vor-Ort-Check</h3>
+          </div>
+        </div>
+        <p>Wenn es erst einmal um eine einzelne Frage geht: Verkauf, Vermietung, hohe Nebenkosten oder eine Heizung, die nicht rund läuft.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Bedarfs- und Verbrauchsausweis nach GEG</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Heizlastberechnung und hydraulischer Abgleich</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Thermografie in der Heizperiode</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Zweitmeinung zu vorliegenden Angeboten</li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================= ABLAUF ========================= -->
+<section class="section-pad" id="ablauf">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Ablauf</span>
+      <h2>Vier Schritte. Keine Überraschungen.</h2>
+      <p class="lead">Sie wissen von Anfang an, was wann passiert, was es kostet und was am Ende in Ihren Händen liegt.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step-line"></div>
+
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <span class="num">Schritt 01</span>
+        <h3>Erstgespräch</h3>
+        <p>20 Minuten am Telefon, kostenlos. Wir klären, worum es geht, was realistisch ist und ob ich der Richtige für Ihr Vorhaben bin.</p>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <span class="num">Schritt 02</span>
+        <h3>Vor-Ort-Termin</h3>
+        <p>Zwei bis drei Stunden am Gebäude: Bauteile, Heizung, Verbrauchsdaten, Ihre Pläne. Fotos und Messwerte inklusive.</p>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <span class="num">Schritt 03</span>
+        <h3>Bericht &amp; Fahrplan</h3>
+        <p>Innerhalb von rund drei Wochen erhalten Sie Ihren Sanierungsfahrplan – und wir gehen ihn gemeinsam durch, Seite für Seite.</p>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <span class="num">Schritt 04</span>
+        <h3>Förderung &amp; Umsetzung</h3>
+        <p>Anträge raus, Handwerker anfragen, Bauphase begleiten. Sie entscheiden, ob Sie das selbst übernehmen oder ich es tue.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================= ZAHLEN ========================= -->
+<section class="section-pad" style="padding-top:0">
+  <div class="wrap">
+    <div class="stats reveal">
+
+      <svg class="stats-gem" viewBox="0 0 100 100" aria-hidden="true"><use href="#gem3d"/></svg>
+
+      <div class="stats-inner">
+        <h2>Was in der aktuellen Förderlandschaft möglich ist.</h2>
+        <div class="stat-grid">
+          <div class="stat">
+            <svg class="stat-gem" viewBox="0 0 100 100" aria-hidden="true"><use href="#gem3d"/></svg>
+            <b>bis 70 %</b>
+            <p>Zuschuss auf den Heizungstausch – Grundförderung plus Klimageschwindigkeits- und Einkommensbonus, begrenzt auf die förderfähigen Höchstkosten.</p>
+          </div>
+          <div class="stat">
+            <svg class="stat-gem" viewBox="0 0 100 100" aria-hidden="true"><use href="#gem3d"/></svg>
+            <b>+ 5 %</b>
+            <p>Zusätzliche Förderung auf jede Einzelmaßnahme an der Gebäudehülle, wenn ein individueller Sanierungsfahrplan vorliegt.</p>
+          </div>
+          <div class="stat">
+            <svg class="stat-gem" viewBox="0 0 100 100" aria-hidden="true"><use href="#gem3d"/></svg>
+            <b>50 %</b>
+            <p>Zuschuss auf das Beraterhonorar selbst: bis 650 € beim Ein- und Zweifamilienhaus, bis 850 € ab drei Wohneinheiten.</p>
+          </div>
+        </div>
+        <p class="stats-note">Stand Juli 2026. Fördersätze und Höchstbeträge können sich kurzfristig ändern – im Erstgespräch prüfe ich den aktuellen Stand für Ihr Vorhaben. Angaben ohne Gewähr.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= ÜBER MICH ========================= -->
+<section class="section-pad about" id="ueber-mich">
+  <div class="wrap about-grid">
+
+    <div class="portrait reveal">
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8.5" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>
+        </svg>
+        <span>[Hier Ihr Portraitfoto einsetzen –<br>am besten am Gebäude oder<br>bei der Arbeit, nicht im Studio]</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <span class="eyebrow">Über mich</span>
+      <h2>Ich verkaufe keine Heizungen. Ich sage Ihnen, was Sie brauchen.</h2>
+      <p class="lead" style="margin-top:18px">
+        [Kurzer Absatz zu Ihnen: Warum sind Sie Energieberater geworden? Was haben Sie vorher gemacht?
+        Zwei bis drei Sätze reichen – Menschen beauftragen Menschen, nicht Qualifikationslisten.
+        Der wichtigste Satz ist der, warum man Ihnen vertrauen kann.]
+      </p>
+
+      <div class="qual-list">
+        <div class="qual">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+          <div><b>[Ausbildung zum Gebäudeenergieberater]</b><span>[Institut, Abschlussjahr]</span></div>
+        </div>
+        <div class="qual">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-2.6L17 22l-1.5-8"/></svg>
+          <div><b>Energie-Effizienz-Expertenliste des Bundes</b><span>[Kategorien eintragen: Wohngebäude / Nichtwohngebäude]</span></div>
+        </div>
+        <div class="qual">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+          <div><b>[Vorberuf / Zusatzqualifikation]</b><span>[z. B. Handwerk, Bauleitung, Technik]</span></div>
+        </div>
+        <div class="qual">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-7-10a7 7 0 0 1 14 0c0 5.4-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+          <div><b>Ulm, Alb-Donau-Kreis und Umgebung</b><span>Vor-Ort-Termine im Umkreis von rund 50 km</span></div>
+        </div>
+      </div>
+
+      <a href="#kontakt" class="btn btn-amber">
+        Lernen wir uns kennen
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================= STIMMEN ========================= -->
+<section class="section-pad">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Stimmen</span>
+      <h2>Vertrauen entsteht im Prozess.</h2>
+    </div>
+
+    <div class="quotes reveal">
+      <div class="quote-viewport">
+        <div class="quote-track" id="quoteTrack">
+
+          <div class="quote-slide">
+            <div class="quote-card">
+              <div class="quote-mark">„</div>
+              <blockquote>[Echtes Zitat einsetzen. Am wirksamsten sind Sätze, die ein konkretes Ergebnis nennen – eine Summe, eine Zahl, eine Entscheidung, die dadurch leichter wurde.]</blockquote>
+              <div class="quote-author">
+                <span class="quote-avatar">AB</span>
+                <div><b>[Name der Kundin / des Kunden]</b><span>[Gebäudetyp, Ort]</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="quote-slide">
+            <div class="quote-card">
+              <div class="quote-mark">„</div>
+              <blockquote>[Zweites Zitat. Fragen Sie nach jedem Projekt aktiv danach – am besten direkt nach dem Erläuterungsgespräch, wenn die Erleichterung noch frisch ist.]</blockquote>
+              <div class="quote-author">
+                <span class="quote-avatar">CD</span>
+                <div><b>[Name]</b><span>[Gebäudetyp, Ort]</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="quote-slide">
+            <div class="quote-card">
+              <div class="quote-mark">„</div>
+              <blockquote>[Drittes Zitat. Wenn Sie noch keine haben: Sektion vorerst ausblenden statt erfinden – erfundene Bewertungen sind wettbewerbsrechtlich abmahnfähig.]</blockquote>
+              <div class="quote-author">
+                <span class="quote-avatar">EF</span>
+                <div><b>[Name]</b><span>[Gebäudetyp, Ort]</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="quote-nav">
+        <button class="qbtn" id="qPrev" aria-label="Vorherige Stimme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="qbtn" id="qNext" aria-label="Nächste Stimme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <span class="qcount" id="qCount">01 / 03</span>
+      </div>
+
+      <div class="placeholder-hint">Platzhalter – bitte durch echte Kundenstimmen ersetzen oder Sektion entfernen.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= FAQ ========================= -->
+<section class="section-pad faq" id="faq">
+  <div class="wrap faq-grid">
+
+    <div class="reveal faq-intro">
+      <span class="eyebrow">Häufige Fragen</span>
+      <h2>Bevor Sie anrufen.</h2>
+      <p class="lead" style="margin-top:16px">Wenn Ihre Frage nicht dabei ist: einfach stellen. Das Erstgespräch kostet nichts und verpflichtet zu nichts.</p>
+    </div>
+
+    <div class="reveal">
+
+      <div class="faq-item">
+        <button class="faq-q">Was kostet eine Energieberatung?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Das hängt von Gebäudegröße und Umfang ab. Für ein Einfamilienhaus liegt ein individueller Sanierungsfahrplan üblicherweise im niedrigen vierstelligen Bereich – abzüglich der Förderung bleibt ein deutlich kleinerer Eigenanteil. Sie bekommen vorab ein Festpreisangebot, keine Stundenzettel-Überraschung. [Eigene Preise ergänzen.]</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Wird die Beratung selbst gefördert?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Ja. Die Bundesförderung für Energieberatung für Wohngebäude übernimmt 50 % des förderfähigen Honorars – bis 650 € bei Ein- und Zweifamilienhäusern, bis 850 € ab drei Wohneinheiten. Wohnungseigentümergemeinschaften erhalten einmalig 250 € zusätzlich für die Erläuterung in der Eigentümerversammlung. Den Antrag stellen Sie als Eigentümer, ich bereite ihn vor.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Muss ich meine Öl- oder Gasheizung jetzt austauschen?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>In aller Regel nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden. Zugleich soll das Gebäudeenergiegesetz durch ein Gebäudemodernisierungsgesetz abgelöst werden, das die 65-Prozent-Regel für neue Heizungen streicht. Weil der Gesetzgebungsprozess noch läuft, ist die wichtigste Empfehlung: keine Panikentscheidung, sondern rechnen – die wirtschaftlich beste Lösung ist meist in beiden Rechtsständen dieselbe.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Wie lange dauert das Ganze?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Vom Vor-Ort-Termin bis zum fertigen Bericht rechne ich mit rund drei Wochen. Die Bearbeitung des Förderantrags beim BAFA dauert derzeit etwa zwei Wochen. Wichtig: Der Antrag muss gestellt sein, bevor Sie einen Handwerkerauftrag vergeben.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Bin ich danach an bestimmte Firmen oder Produkte gebunden?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Nein. Ich verkaufe weder Heizungen noch Dämmstoffe und nehme keine Provisionen von Herstellern oder Handwerksbetrieben an. Wenn ich Ihnen Betriebe empfehle, dann weil ich mit ihrer Arbeit gute Erfahrungen gemacht habe – nicht weil ich daran verdiene.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Ich habe schon ein Angebot vom Handwerker. Lohnt sich eine Beratung noch?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Oft gerade dann. Eine Zweitmeinung klärt, ob die Anlage richtig dimensioniert ist, ob die Reihenfolge stimmt und ob durch den Antragszeitpunkt Förderung verloren geht. Das ist meist die günstigste Stunde des ganzen Projekts.</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================= KONTAKT ========================= -->
+<section class="section-pad" id="kontakt">
+  <div class="wrap contact-grid">
+
+    <div class="contact-info reveal">
+      <span class="eyebrow">Kontakt</span>
+      <h2>Reden wir über Ihr Gebäude.</h2>
+      <p class="lead" style="margin-top:18px">Das Erstgespräch dauert etwa 20 Minuten, kostet nichts und endet entweder mit einem Angebot oder mit einer ehrlichen Empfehlung, was Sie stattdessen tun sollten.</p>
+
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        <div><b>Telefon</b><span><a href="tel:+4915224290826">0152 24290826</a></span></div>
+      </div>
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+        <!-- [TODO] echte E-Mail-Adresse eintragen – auch im mailto: und im Impressum -->
+        <div><b>E-Mail</b><span><a href="mailto:kontakt@ihre-domain.de">[kontakt@ihre-domain.de]</a></span></div>
+      </div>
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <div><b>Erreichbarkeit</b><span>Montag bis Freitag, 8–18 Uhr</span></div>
+      </div>
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-7-10a7 7 0 0 1 14 0c0 5.4-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+        <div><b>Einsatzgebiet</b><span>Ulm, Alb-Donau-Kreis und rund 50 km Umkreis</span></div>
+      </div>
+    </div>
+
+    <!--
+      KONTAKTFORMULAR
+      Die Anfragen landen in der eigenen Supabase-Datenbank, nicht bei einem
+      Formulardienst. Ansehen im Supabase-Dashboard unter Table Editor ->
+      Tabelle "leads". Zugangsdaten und Erklärung stehen im JavaScript ganz
+      unten beim Block "Formular".
+    -->
+    <!-- novalidate schaltet die Browser-Sprechblasen ab, damit die eigene
+         Prüfung unten im JavaScript greift – die meldet auf Deutsch, markiert
+         das Feld farbig und springt den ersten Fehler an. -->
+    <form class="form-card reveal" id="contactForm" novalidate>
+      <div class="field-row">
+        <div class="field">
+          <label for="f-name">Name</label>
+          <input id="f-name" name="name" type="text" placeholder="Vor- und Nachname"
+                 autocomplete="name" required aria-describedby="err-name">
+          <span class="field-error" id="err-name">Bitte tragen Sie Ihren Namen ein.</span>
+        </div>
+        <div class="field">
+          <label for="f-phone">Telefon</label>
+          <input id="f-phone" name="telefon" type="tel" placeholder="Für den Rückruf"
+                 autocomplete="tel" inputmode="tel">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-mail">E-Mail</label>
+        <input id="f-mail" name="email" type="email" placeholder="name@beispiel.de"
+               autocomplete="email" inputmode="email" required aria-describedby="err-mail">
+        <span class="field-error" id="err-mail">Bitte eine gültige E-Mail-Adresse angeben.</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-type">Gebäudetyp</label>
+          <select id="f-type" name="gebaeudetyp">
+            <option>Einfamilienhaus</option>
+            <option>Zweifamilienhaus</option>
+            <option>Mehrfamilienhaus</option>
+            <option>Eigentumswohnung / WEG</option>
+            <option>Gewerbeobjekt</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-year">Baujahr (ca.)</label>
+          <input id="f-year" name="baujahr" type="text" placeholder="z. B. 1978" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-msg">Worum geht es?</label>
+        <textarea id="f-msg" name="nachricht" placeholder="Ein paar Sätze genügen – z. B. hohe Heizkosten, geplanter Heizungstausch, Fördermittelfrage."></textarea>
+      </div>
+
+      <!-- Honigtopf gegen Spam-Bots: per CSS aus dem Blickfeld geschoben.
+           Wird dieses Feld ausgefüllt, war es kein Mensch. -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="f-website">Website (bitte frei lassen)</label>
+        <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <label class="consent" id="consentBox">
+        <input type="checkbox" name="datenschutz" id="f-consent" required>
+        <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden. Hinweise dazu in der <a href="datenschutz.html" style="text-decoration:underline">Datenschutzerklärung</a>.</span>
+      </label>
+
+      <button type="submit" class="btn btn-primary">
+        Anfrage senden
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <p class="form-note" id="formNote" role="status" aria-live="polite">Antwort in der Regel innerhalb eines Werktags.</p>
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ========================= FOOTER ========================= -->
+<footer class="site-footer">
+  <div class="wrap">
+
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="logo">
+          <span class="logo-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.6V20h14V9.6"/><path d="M10 20v-5h4v5"/>
+            </svg>
+          </span>
+          <span class="logo-text"><b>Tsukerman</b><span>Energieberatung</span></span>
+        </a>
+        <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision, mit Blick auf das, was sich rechnet.</p>
+        <a href="#kontakt" class="btn btn-amber btn-sm">Gratis Erstgespräch</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Leistungen</h4>
+        <a href="#leistungen">Sanierungsfahrplan</a>
+        <a href="#leistungen">Fördermittel</a>
+        <a href="#leistungen">Baubegleitung</a>
+        <a href="#leistungen">Energieausweis</a>
+        <a href="sanierungsrechner.html">Sanierungsrechner</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Unternehmen</h4>
+        <a href="#ueber-mich">Über mich</a>
+        <a href="#ablauf">Ablauf</a>
+        <a href="#faq">Häufige Fragen</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <a href="tel:+4915224290826">0152 24290826</a>
+        <!-- [TODO] echte E-Mail-Adresse eintragen -->
+        <a href="mailto:kontakt@ihre-domain.de">[kontakt@ihre-domain.de]</a>
+        <address style="font-style:normal;font-size:.9rem;color:var(--ink-2);padding:6px 0">
+          Griesweg 20<br>89160 Dornstadt
+        </address>
+      </div>
+    </div>
+
+    <div class="badges">
+      <span class="badge">Energie-Effizienz-Expertenliste (dena)</span>
+      <span class="badge">BAFA-förderfähige Beratung</span>
+      <span class="badge">Förderprogramme BEG / KfW</span>
+      <span class="badge">Produktneutral, ohne Provision</span>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Stanislaw Tsukerman Energieberatung</span>
+      <nav aria-label="Rechtliches">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+/* ===========================================================================
+   INTERAKTIONEN
+   ======================================================================== */
+(function(){
+  'use strict';
+
+  /* --- Ereignis-Tracking ---
+     Sendet Ereignisse an Plausible, Google Analytics 4 oder Matomo,
+     sobald eines dieser Tools eingebunden ist (siehe Kommentar vor </body>).
+     Ist kein Tool eingebunden, passiert schlicht nichts. --- */
+  function trackEvent(name, label){
+    try{
+      if(window.plausible){ window.plausible(name, {props:{label: label || ''}}); }
+      if(window.gtag){ window.gtag('event', name, {event_label: label || ''}); }
+      if(window._paq){ window._paq.push(['trackEvent', 'Interaktion', name, label || '']); }
+    }catch(e){ /* Tracking darf die Seite nie stören */ }
+  }
+
+  /* Telefon-Klicks und Kontakt-Buttons zählen */
+  document.querySelectorAll('a[href^="tel:"]').forEach(function(a){
+    a.addEventListener('click', function(){ trackEvent('telefon_klick', a.getAttribute('href')); });
+  });
+  document.querySelectorAll('a[href="#kontakt"]').forEach(function(a){
+    a.addEventListener('click', function(){ trackEvent('cta_kontakt', (a.textContent || '').trim().slice(0, 40)); });
+  });
+
+  /* --- Header beim Scrollen einfärben --- */
+  var header = document.getElementById('header');
+  function onScroll(){
+    header.classList.toggle('stuck', window.scrollY > 24);
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* --- Mobile Navigation --- */
+  var burger = document.getElementById('burger');
+  var mobileNav = document.getElementById('mobileNav');
+  function setNav(open){
+    mobileNav.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+  }
+  burger.addEventListener('click', function(){
+    setNav(!mobileNav.classList.contains('open'));
+  });
+  mobileNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ setNav(false); });
+  });
+  /* Escape schließt das Menü und gibt den Fokus zurück */
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && mobileNav.classList.contains('open')){
+      setNav(false);
+      burger.focus();
+    }
+  });
+
+  /* --- Scroll-Reveal --- */
+  var reveals = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.12, rootMargin:'0px 0px -60px 0px'});
+    reveals.forEach(function(el, i){
+      el.style.transitionDelay = (i % 4) * 70 + 'ms';
+      io.observe(el);
+    });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* --- Kundenstimmen-Slider --- */
+  var track = document.getElementById('quoteTrack');
+  if(track){
+    var slides = track.children.length;
+    var idx = 0;
+    var count = document.getElementById('qCount');
+    function render(){
+      track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+      count.textContent = String(idx+1).padStart(2,'0') + ' / ' + String(slides).padStart(2,'0');
+    }
+    document.getElementById('qPrev').addEventListener('click', function(){
+      idx = (idx - 1 + slides) % slides; render();
+    });
+    document.getElementById('qNext').addEventListener('click', function(){
+      idx = (idx + 1) % slides; render();
+    });
+    render();
+  }
+
+  /* --- FAQ-Akkordeon ---
+     IDs und ARIA werden hier gesetzt statt im HTML: Ohne JavaScript klappt
+     das Akkordeon ohnehin nicht, dann sollen auch die Zustandsangaben fehlen. */
+  var faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(function(item, i){
+    var q = item.querySelector('.faq-q');
+    var a = item.querySelector('.faq-a');
+    var icon = item.querySelector('.faq-icon');
+
+    q.id = 'faq-q' + (i+1);
+    a.id = 'faq-a' + (i+1);
+    q.setAttribute('aria-expanded','false');
+    q.setAttribute('aria-controls', a.id);
+    a.setAttribute('role','region');
+    a.setAttribute('aria-labelledby', q.id);
+    if(icon){ icon.setAttribute('aria-hidden','true'); }
+
+    q.addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(other){
+        other.classList.remove('open');
+        other.querySelector('.faq-a').style.maxHeight = null;
+        other.querySelector('.faq-q').setAttribute('aria-expanded','false');
+      });
+      if(!wasOpen){
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+        q.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* Beim Drehen oder Größenändern wird der Text neu umbrochen – die in Pixeln
+     gesetzte max-height passt dann nicht mehr und schneidet die Antwort ab. */
+  var faqResizeTimer = null;
+  window.addEventListener('resize', function(){
+    clearTimeout(faqResizeTimer);
+    faqResizeTimer = setTimeout(function(){
+      document.querySelectorAll('.faq-item.open .faq-a').forEach(function(a){
+        a.style.maxHeight = a.scrollHeight + 'px';
+      });
+    }, 120);
+  }, {passive:true});
+
+  /* --- Interaktive Hero-Grafik: Einsparwerte als Popup ---
+     Richtwerte aus öffentlichen Quellen (Stand Juli 2026):
+     Dach 20–30 % Wärmeverlust / Einsparung bis ~20 % (co2online),
+     Außenwand 20–35 % Wärmeverlust (co2online),
+     Fenstertausch 10–20 % Heizkosten (Verbraucherzentrale Energieberatung),
+     Kellerdecke bis 10 % Heizenergie (ADAC),
+     Wärmepumpe: 1 kWh Strom -> 3–5 kWh Wärme (Verbraucherzentrale). */
+  var ILLU_DATA = {
+    dach:        { t:'Dach dämmen',          n:'bis zu 20 %', x:'weniger Heizenergie. Über ein ungedämmtes Dach entweichen 20–30 % der Wärme – nach oben verliert das Haus am schnellsten.' },
+    fassade:     { t:'Fassade dämmen',       n:'20–35 %',     x:'der Wärme eines Altbaus gehen über ungedämmte Außenwände verloren – die größte Einzelfläche und entsprechend großes Einsparpotenzial.' },
+    fenster:     { t:'Fenster tauschen',     n:'10–20 %',     x:'weniger Heizkosten, wenn alte Fenster gegen 3-fach-Wärmeschutzverglasung getauscht werden. Nebeneffekt: kein Zug, keine kalten Scheiben.' },
+    kellerdecke: { t:'Kellerdecke dämmen',   n:'bis zu 10 %', x:'weniger Heizenergie – die günstigste Dämmmaßnahme, oft an einem Wochenende in Eigenleistung machbar. Schluss mit kalten Füßen im Erdgeschoss.' },
+    heizung:     { t:'Wärmepumpe',           n:'1 kWh → 3–5 kWh', x:'Aus einer Kilowattstunde Strom macht eine effiziente Wärmepumpe drei bis fünf Kilowattstunden Wärme (Jahresarbeitszahl 3–5).' }
+  };
+
+  var illu = document.querySelector('.hero-illu');
+  var pop = document.getElementById('illuPop');
+  if(illu && pop){
+    var popTitle = document.getElementById('popTitle');
+    var popNum = document.getElementById('popNum');
+    var popText = document.getElementById('popText');
+    var sticky = false, curKey = null, hideTimer = null;
+
+    function anchorOf(el, key){
+      /* Popup bevorzugt am Beschriftungspunkt verankern – wirkt ruhiger.
+         Auf Mobilgeräten sind die Pins ausgeblendet (Rechteck = 0),
+         dann dient das angeklickte Element selbst als Anker. */
+      var dot = document.querySelector('.il-tag[data-key="' + key + '"] .il-ping');
+      if(dot){
+        var r = dot.getBoundingClientRect();
+        if(r.width > 1 || r.height > 1){ return dot; }
+      }
+      return el;
+    }
+    function setActive(key, on){
+      document.querySelectorAll('.hotspot[data-key="' + key + '"], .illu-legend li[data-key="' + key + '"]').forEach(function(el){
+        el.classList.toggle('active', on);
+      });
+    }
+    function hidePop(){
+      if(curKey){ setActive(curKey, false); }
+      pop.classList.remove('show');
+      pop.setAttribute('aria-hidden','true');
+      /* inert nimmt den Schließen-Button aus der Tab-Reihenfolge, solange das
+         Popup zu ist. Ohne das wäre er in einem aria-hidden-Bereich fokussierbar. */
+      pop.setAttribute('inert','');
+      sticky = false; curKey = null;
+    }
+    function showPop(key, el, stick){
+      var d = ILLU_DATA[key];
+      if(!d){ return; }
+      if(curKey && curKey !== key){ setActive(curKey, false); }
+      popTitle.textContent = d.t;
+      popNum.textContent = d.n;
+      popText.textContent = d.x;
+      pop.classList.add('show');
+      pop.setAttribute('aria-hidden','false');
+      pop.removeAttribute('inert');
+      curKey = key; sticky = !!stick;
+      setActive(key, true);
+
+      var c = illu.getBoundingClientRect();
+      var r = anchorOf(el, key).getBoundingClientRect();
+      var pw = pop.offsetWidth, ph = pop.offsetHeight;
+      var dx = r.left - c.left + r.width/2;
+      var dy = r.top - c.top + r.height/2;
+      var x, y;
+      var above = dy - ph - 16;
+      if(above >= -6){
+        x = dx - pw/2; y = above;              /* über dem Punkt */
+      } else if(dx < c.width/2){
+        x = dx + 18; y = dy - ph/2;            /* rechts daneben */
+      } else {
+        x = dx - pw - 18; y = dy - ph/2;       /* links daneben */
+      }
+      x = Math.max(6, Math.min(x, c.width - pw - 6));
+      y = Math.max(-6, Math.min(y, c.height - ph - 4));
+      pop.style.left = Math.round(x) + 'px';
+      pop.style.top = Math.round(y) + 'px';
+      trackEvent('einsparung_angesehen', key);
+    }
+
+    var spots = document.querySelectorAll('.hero-illu .hotspot, .illu-legend li[data-key]');
+    spots.forEach(function(el){
+      var key = el.getAttribute('data-key');
+      el.addEventListener('mouseenter', function(){
+        clearTimeout(hideTimer);
+        if(!sticky){ showPop(key, el, false); }
+      });
+      el.addEventListener('mouseleave', function(){
+        if(!sticky){ hideTimer = setTimeout(hidePop, 160); }
+      });
+      el.addEventListener('click', function(e){
+        e.stopPropagation();
+        if(sticky && curKey === key){ hidePop(); }
+        else { showPop(key, el, true); }
+      });
+      el.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          if(sticky && curKey === key){ hidePop(); }
+          else { showPop(key, el, true); }
+        }
+      });
+    });
+    pop.addEventListener('mouseenter', function(){ clearTimeout(hideTimer); });
+    pop.addEventListener('mouseleave', function(){ if(!sticky){ hidePop(); } });
+    pop.addEventListener('click', function(e){ e.stopPropagation(); });
+    document.getElementById('popClose').addEventListener('click', hidePop);
+    document.addEventListener('click', function(e){
+      if(pop.classList.contains('show') && !pop.contains(e.target)){ hidePop(); }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ hidePop(); }
+    });
+    window.addEventListener('resize', hidePop);
+  }
+
+  /* --- Formular: Validierung, Spamschutz, Versand ---
+     Die Anfragen laufen in die eigene Supabase-Datenbank (Projekt
+     "energieberatung-website", Region eu-central-1 / Frankfurt).
+     Ansehen im Dashboard: Table Editor -> Tabelle "leads".
+
+     Der Schlüssel unten steht bewusst im Quelltext – das ist bei Supabase so
+     vorgesehen und ungefährlich. Die Datenbank erlaubt damit AUSSCHLIESSLICH
+     das Anlegen neuer Zeilen. Lesen, Ändern und Löschen sind auf Datenbank-
+     ebene gesperrt (Row Level Security + entzogene Rechte). Wer den Schlüssel
+     kopiert, kommt an keine einzige gespeicherte Anfrage.
+
+     Zum Ändern nur diese beiden Zeilen anfassen: */
+  var SUPABASE_URL = 'https://lgabyzhzbosbzlyfnknf.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_sTIrPusPKapueKw7ARBQEw_HNIvKDRt';
+
+  var form = document.getElementById('contactForm');
+  var note = document.getElementById('formNote');
+  var consentBox = document.getElementById('consentBox');
+  var honeypot = document.getElementById('f-website');
+
+  function markField(input, ok){
+    var wrap = input.closest('.field');
+    if(wrap){ wrap.classList.toggle('invalid', !ok); }
+    input.setAttribute('aria-invalid', ok ? 'false' : 'true');
+  }
+
+  function validate(){
+    var firstBad = null;
+
+    var name = document.getElementById('f-name');
+    var nameOk = name.value.trim().length >= 2;
+    markField(name, nameOk);
+    if(!nameOk && !firstBad){ firstBad = name; }
+
+    var mail = document.getElementById('f-mail');
+    /* Bewusst großzügig: alles mit Zeichen, @, Zeichen, Punkt, Endung.
+       Strengere Muster sperren regelmäßig gültige Adressen aus. */
+    var mailOk = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(mail.value.trim());
+    markField(mail, mailOk);
+    if(!mailOk && !firstBad){ firstBad = mail; }
+
+    var consent = document.getElementById('f-consent');
+    consentBox.classList.toggle('invalid', !consent.checked);
+    if(!consent.checked && !firstBad){ firstBad = consent; }
+
+    return firstBad;
+  }
+
+  /* Fehlermarkierung verschwindet, sobald korrigiert wird */
+  ['f-name','f-mail'].forEach(function(id){
+    var el = document.getElementById(id);
+    el.addEventListener('input', function(){
+      if(el.closest('.field').classList.contains('invalid')){ validate(); }
+    });
+  });
+  document.getElementById('f-consent').addEventListener('change', function(){
+    if(consentBox.classList.contains('invalid')){ validate(); }
+  });
+
+  form.addEventListener('submit', function(e){
+    note.classList.remove('is-error','is-ok');
+
+    /* Honigtopf: nur Bots füllen dieses Feld aus. Abbruch ohne Fehlermeldung,
+       damit der Bot nicht lernt, woran es gescheitert ist. */
+    if(honeypot && honeypot.value !== ''){
+      e.preventDefault();
+      return;
+    }
+
+    var firstBad = validate();
+    if(firstBad){
+      e.preventDefault();
+      firstBad.focus();
+      note.textContent = 'Bitte prüfen Sie die markierten Felder.';
+      note.classList.add('is-error');
+      return;
+    }
+
+    /* Ab hier wird selbst versendet – das Standardverhalten des Formulars
+       würde die Seite neu laden und die Rückmeldung verschlucken. */
+    e.preventDefault();
+
+    if(!SUPABASE_URL){
+      note.textContent = 'Es ist keine Datenbank hinterlegt. Bitte rufen Sie an: 0152 24290826';
+      note.classList.add('is-error');
+      return;
+    }
+
+    var btn = form.querySelector('button[type="submit"]');
+    var btnText = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet …';
+    note.textContent = '';
+
+    fetch(SUPABASE_URL + '/rest/v1/leads', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        /* return=minimal ist wichtig: sonst versucht Supabase, die neue Zeile
+           zurückzugeben – und das wäre ein Lesezugriff, der zu Recht scheitert. */
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        quelle: 'kontaktformular',
+        name: document.getElementById('f-name').value.trim(),
+        email: document.getElementById('f-mail').value.trim(),
+        telefon: document.getElementById('f-phone').value.trim() || null,
+        gebaeudetyp: document.getElementById('f-type').value,
+        baujahr: document.getElementById('f-year').value.trim() || null,
+        nachricht: document.getElementById('f-msg').value.trim() || null,
+        einwilligung: true
+      })
+    })
+    .then(function(r){
+      if(!r.ok){ throw new Error('HTTP ' + r.status); }
+      trackEvent('anfrage_gesendet', 'kontaktformular');
+      form.reset();
+      btn.disabled = false;
+      btn.innerHTML = btnText;
+      note.textContent = 'Vielen Dank, Ihre Anfrage ist angekommen. Ich melde mich in der Regel innerhalb eines Werktags.';
+      note.classList.add('is-ok');
+    })
+    .catch(function(){
+      btn.disabled = false;
+      btn.innerHTML = btnText;
+      note.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder rufen Sie an: 0152 24290826';
+      note.classList.add('is-error');
+    });
+  });
+
+})();
+</script>
+
+<!-- =======================================================================
+     TRACKING (optional) – hier das Analytics-Snippet einfügen.
+     Die Seite sendet dann automatisch diese Ereignisse:
+       telefon_klick, cta_kontakt, anfrage_gesendet, einsparung_angesehen
+
+     VARIANTE A – ohne Cookie-Banner (empfohlen für den Start):
+       Plausible (EU, kostenpflichtig) oder Matomo (cookielos konfiguriert).
+       Beispiel Plausible:
+       <script defer data-domain="ihre-domain.de" src="https://plausible.io/js/script.pageview-props.tagged-events.js"></script>
+       Kein Cookie-Banner nötig, aber in die Datenschutzerklärung aufnehmen.
+
+     VARIANTE B – Google Analytics 4 (kostenlos):
+       Snippet aus dem GA4-Konto hier einfügen.
+       ACHTUNG: In Deutschland nur mit Cookie-Consent-Banner zulässig
+       (z. B. über einen Consent-Manager). Ohne Banner drohen Abmahnungen.
+
+     Tipp: Die Google Search Console kostet nichts, braucht kein Script auf
+     der Seite und zeigt, über welche Suchbegriffe Besucher kommen.
+     ======================================================================= -->
+
+</body>
+</html>

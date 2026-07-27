@@ -1,0 +1,6 @@
+# robots.txt – erlaubt allen Suchmaschinen das Crawlen der gesamten Website.
+# Nach dem Livegang: Domain in der Sitemap-Zeile anpassen.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.ihre-domain.de/sitemap.xml
