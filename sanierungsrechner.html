@@ -129,10 +129,21 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .btn-sm{padding:10px 18px;font-size:.85rem}
 
 /* ==== Intro ==== */
-.intro{padding:52px 0 30px}
+/* Text links, Hinweiskasten rechts daneben - spart Hoehe und bringt den
+   Start-Knopf naeher an den oberen Bildrand. */
+/* padding MIT Seitenwerten: die Kurzform "52px 0 30px" hat den seitlichen
+   Innenabstand von .wrap ueberschrieben - auf dem Handy klebte der Text
+   dadurch am Displayrand. */
+.intro{padding:52px 22px 30px;display:grid;grid-template-columns:1.3fr .7fr;gap:40px;align-items:start}
 .intro .lead{color:var(--ink-2);max-width:62ch;margin-top:14px;font-size:1.02rem}
 .intro-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
 .disclaimer{margin-top:26px;background:var(--amber-soft);border:1px solid #EBD9BC;border-radius:var(--radius-sm);padding:14px 18px;font-size:.82rem;color:#6B5638;max-width:75ch}
+/* Im Intro sitzt der Kasten in der zweiten Spalte, deshalb ohne Abstand oben */
+.intro .disclaimer{margin-top:6px;max-width:none}
+@media (max-width:900px){
+  .intro{grid-template-columns:1fr;gap:22px}
+  .intro .disclaimer{margin-top:0}
+}
 .disclaimer b{color:#5A4526}
 
 /* ==== Wizard (Fragen links, Haus rechts) ==== */
@@ -438,7 +449,8 @@ details.annahmen[open] summary::after{content:"–"}
 
 /* ==== Smartphone-Feinschliff ==== */
 @media (max-width:480px){
-  .intro{padding:34px 0 20px}
+  /* Seitenabstand hier mit angeben, sonst klebt der Text am Displayrand */
+  .intro{padding:34px 22px 20px}
   .opt-cards{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
   .opt-card svg{width:46px;height:36px}
   .opt-card span{font-size:.72rem}
@@ -528,22 +540,25 @@ details.annahmen[open] summary::after{content:"–"}
 
 <main>
 <section class="intro wrap">
-  <span class="eyebrow">Kostenloser Sanierungsrechner</span>
-  <h1>Lohnt sich die Sanierung? Rechnen wir es durch.</h1>
-  <p class="lead">
-    Beantworten Sie in rund zehn Minuten Fragen zu Ihrem Haus. Sie sehen danach Ihre
-    Energieklasse, wo die Wärme verloren geht – und für jede Maßnahme, was sie spart,
-    was sie kostet und <em>was sie maximal kosten darf, damit sie sich rechnet</em>.
-  </p>
-  <div class="intro-actions">
-    <button class="btn btn-primary" id="startBtn">Jetzt starten – dauert ca. 10 Minuten</button>
+  <div>
+    <span class="eyebrow">Kostenloser Sanierungsrechner</span>
+    <h1>Lohnt sich die Sanierung? Rechnen wir es durch.</h1>
+    <p class="lead">
+      Beantworten Sie in rund zehn Minuten Fragen zu Ihrem Haus. Sie sehen danach Ihre
+      Energieklasse, wo die Wärme verloren geht – und für jede Maßnahme, was sie spart,
+      was sie kostet und <em>was sie maximal kosten darf, damit sie sich rechnet</em>.
+    </p>
+    <div class="intro-actions">
+      <button class="btn btn-primary" id="startBtn">Jetzt starten – dauert ca. 10 Minuten</button>
+    </div>
   </div>
-  <div class="disclaimer">
+
+  <aside class="disclaimer">
     <b>Wichtig:</b> Dieser Rechner liefert eine <b>Orientierung</b> – keine Energieberatung und keinen
     Energieausweis. Die Werte beruhen auf statistischen Kennwerten und Annahmen. Für Förderanträge und
     verbindliche Aussagen ist ein eingetragener Energie-Effizienz-Experte (dena-Expertenliste) erforderlich.
     Fördersätze und Preise ändern sich – Stand der hinterlegten Werte: Juli 2026.
-  </div>
+  </aside>
 </section>
 
 <section class="wrap">
@@ -1658,9 +1673,11 @@ function isoHausSvg(sh, san, opt){
   s+='<defs>'+
     '<linearGradient id="gWF'+m+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F5EEE0"/></linearGradient>'+
     '<linearGradient id="gWS'+m+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EBE2D0"/><stop offset="1" stop-color="#DCD1B9"/></linearGradient>'+
-    '<linearGradient id="gRF'+m+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EBD2A8"/><stop offset="1" stop-color="#D2A566"/></linearGradient>'+
-    '<linearGradient id="gRB'+m+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6984F"/><stop offset="1" stop-color="#AA7D3E"/></linearGradient>'+
-    '<linearGradient id="gPA'+m+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#41684F"/><stop offset="1" stop-color="#2A4237"/></linearGradient>'+
+    /* Dach und Module identisch zur Startseite (dort im gemeinsamen defs-Block).
+       Bei Aenderung BEIDE Dateien anpassen, sonst laufen die Haeuser auseinander. */
+    '<linearGradient id="gRF'+m+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6E655C"/><stop offset="1" stop-color="#4A433B"/></linearGradient>'+
+    '<linearGradient id="gRB'+m+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#453F38"/><stop offset="1" stop-color="#332E29"/></linearGradient>'+
+    '<linearGradient id="gPA'+m+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#40608A"/><stop offset="1" stop-color="#27405E"/></linearGradient>'+
     '<filter id="fB'+m+'" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>'+
     '<marker id="ar'+m+'" markerWidth="3.4" markerHeight="3.4" refX="2" refY="1.25" orient="auto"><path d="M0 0L2.9 1.25L0 2.5Z" fill="'+A+'"/></marker>'+
   '</defs>';
