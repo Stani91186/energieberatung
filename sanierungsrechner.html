@@ -235,6 +235,12 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .sim-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);padding:13px 16px}
 .sim-card-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 .sim-card-head h3{font-size:.93rem;flex:1;line-height:1.25}
+/* Erklaerung, warum eine Karte ausnahmsweise keinen Sanieren-Schalter hat */
+.sim-hinweis{
+  margin-top:9px;padding:8px 11px;border-radius:9px;
+  background:var(--cream-2);border-left:3px solid var(--line);
+  font-size:.74rem;line-height:1.5;color:var(--muted);
+}
 .sim-kwh{font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 .sim-card input[type=range]{width:100%;accent-color:var(--amber);height:26px;margin:2px 0 3px;cursor:pointer}
 .sim-stop{font-size:.74rem;color:var(--ink-2);display:flex;justify-content:space-between;gap:10px}
@@ -1801,10 +1807,22 @@ function buildSim(e0){
     dach: SIM.dachIstOgd ? 'selbst machbar' : 'innen selbst machbar',
     keller: SIM.kellerToggle ? 'selbst machbar' : null
   };
+  /* Erklärungen zu den Begriffen im Simulator. Werden nach dem Einfügen der
+     Karten über bindInfo an die (i)-Symbole gehängt. */
+  var SIM_INFOS = {
+    luft: { t:'Luftdichtheit', x:'Wie viel warme Luft ungewollt durch Fugen und Ritzen entweicht – an Fensteranschlüssen, Steckdosen in Außenwänden, der Dachbodenluke oder am Übergang von Wand zu Decke. Gemessen wird das als Luftwechselrate n50 mit einem Blower-Door-Test. Ein undichter Altbau tauscht die gesamte Raumluft mehrmals pro Stunde aus, und jedes Mal geht die Wärme mit. Wichtig: Luftdicht heißt nicht, dass nicht gelüftet wird – gelüftet wird bewusst über Fenster oder eine Lüftungsanlage, statt unkontrolliert durch Ritzen.' },
+    keller: { t:'Warum hier kein Schalter?', x:'Bei einem beheizten Keller oder einem Haus ohne Keller verläuft die Wärmegrenze nicht an der Kellerdecke, sondern an der Bodenplatte unter dem Haus. Die lässt sich nachträglich praktisch nicht dämmen – dafür müsste der komplette Fußboden heraus. Deshalb gibt es hier keine Sanierungsmaßnahme. Der Regler zeigt Ihnen trotzdem, wie viel Wärme über den Boden verloren geht.' },
+    abgleich: { t:'Hydraulischer Abgleich', x:'Dabei wird eingestellt, wie viel Heizwasser jeder einzelne Heizkörper bekommt. Ohne Abgleich bekommen die Heizkörper nahe der Heizung zu viel und die entfernten zu wenig – man dreht die Heizung höher, damit auch das letzte Zimmer warm wird. Nach dem Abgleich reicht eine niedrigere Vorlauftemperatur. Kostet vergleichsweise wenig, spart dauerhaft, und ist bei geförderten Sanierungen sowie beim Einbau einer Wärmepumpe ohnehin vorgeschrieben.' }
+  };
+  function infoIcon(id){
+    if(!SIM_INFOS[id]) return '';
+    return ' <button type="button" class="info-i" data-siminfo="'+id+'" aria-label="Erklärung: '+SIM_INFOS[id].t+'">i</button>';
+  }
+
   function card(id, withToggle, extra){
     var d=SIM.defs[id];
     return '<div class="sim-card" id="simc_'+id+'">'+
-      '<div class="sim-card-head" style="flex-wrap:wrap"><h3>'+d.name+'</h3><span class="sim-kwh" id="simkwh_'+id+'"></span>'+
+      '<div class="sim-card-head" style="flex-wrap:wrap"><h3>'+d.name+(withToggle?'':infoIcon(id))+'</h3><span class="sim-kwh" id="simkwh_'+id+'"></span>'+
       (withToggle&&diyLbl[id]?'<span class="tag-diy" style="padding:2px 8px;font-size:.62rem">'+diyLbl[id]+'</span>':'')+
       (withToggle?'<span class="sw-mini">sanieren <span class="switch"><input type="checkbox" id="simtg_'+id+'"><i></i></span></span>':'')+
       '</div>'+
@@ -1814,7 +1832,7 @@ function buildSim(e0){
     '</div>';
   }
   var heizBtns='<div class="sim-card"><div class="sim-card-head" style="flex-wrap:wrap"><h3>Heizung</h3><span class="sim-kwh" id="simkwh_heiz"></span>'+
-    '<span class="sw-mini">Abgleich <span class="switch"><input type="checkbox" id="simtg_abgleich"><i></i></span></span>'+
+    '<span class="sw-mini">Hydraulischer Abgleich'+infoIcon('abgleich')+' <span class="switch"><input type="checkbox" id="simtg_abgleich"><i></i></span></span>'+
     (SIM.rohrMoeglich?'<span class="sw-mini">Rohre dämmen <span class="tag-diy" style="padding:2px 8px;font-size:.62rem">selbst machbar</span> <span class="switch"><input type="checkbox" id="simtg_rohr"><i></i></span></span>':'')+
     '</div>'+
     '<div class="heiz-btns" id="simHeizBtns">'+
@@ -1824,8 +1842,16 @@ function buildSim(e0){
     '</div></div>';
   $('simCards').innerHTML =
     card('wand', true) + card('dach', true) +
-    (SIM.kellerToggle ? card('keller', true) : card('keller', false)) +
+    (SIM.kellerToggle
+      ? card('keller', true)
+      : card('keller', false, '<p class="sim-hinweis">Hier ist die Bodenplatte die Wärmegrenze – sie lässt sich nachträglich nicht dämmen. Deshalb kein Sanieren-Schalter.</p>')) +
     card('fenster', true) + card('luft', false) + heizBtns;
+
+  /* Erklärungen an die (i)-Symbole hängen */
+  $('simCards').querySelectorAll('[data-siminfo]').forEach(function(el){
+    var d = SIM_INFOS[el.getAttribute('data-siminfo')];
+    if(d) bindInfo(el, d.t, d.x);
+  });
 
   /* Ereignisse */
   ['wand','dach','keller','fenster','luft'].forEach(function(id){
