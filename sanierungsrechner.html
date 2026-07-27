@@ -346,6 +346,49 @@ details.annahmen[open] summary::after{content:"–"}
 .section-h{margin:34px 0 6px}
 .section-sub{font-size:.88rem;color:var(--muted);max-width:70ch}
 .footnote{font-size:.75rem;color:var(--muted);margin:14px 0 40px}
+/* ---------------------------------------------------------------------------
+   Erklaertext als aufklappbare Karte.
+   Der Text bleibt vollstaendig im HTML stehen - Google liest Inhalte in
+   aufklappbaren Bereichen mit. Er soll nur nicht als Textwand direkt unter
+   dem Start-Knopf liegen.
+------------------------------------------------------------------------- */
+.erklaer-block{
+  background:var(--white);border:1px solid var(--line-soft);
+  border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;
+}
+.erklaer-titel{margin:0;font-size:1rem;font-weight:400}
+.erklaer-schalter{
+  width:100%;display:flex;align-items:center;gap:13px;
+  padding:17px 20px;text-align:left;
+  font-family:var(--font-serif);font-size:1.1rem;font-weight:500;color:var(--ink);
+  letter-spacing:-.01em;transition:background .25s;
+}
+.erklaer-schalter:hover{background:var(--cream-2)}
+.erklaer-schalter[aria-expanded="true"]{background:var(--cream-2)}
+/* Das "i" kommt aus dem CSS, nicht aus dem HTML. Stuende es als Text in der
+   Ueberschrift, laese Google "i So funktioniert der Sanierungsrechner". */
+.erklaer-i{
+  width:28px;height:28px;flex:none;border-radius:50%;
+  background:var(--forest-soft);color:var(--forest);
+  display:grid;place-items:center;
+  font-family:var(--font-serif);font-style:italic;font-size:.95rem;font-weight:600;
+}
+.erklaer-i::before{content:"i"}
+.erklaer-pfeil{
+  width:18px;height:18px;margin-left:auto;flex:none;
+  stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .35s var(--ease);
+}
+.erklaer-schalter[aria-expanded="true"] .erklaer-pfeil{transform:rotate(180deg)}
+.erklaer-inhalt{
+  padding:18px 20px 22px;font-size:.92rem;color:var(--ink-2);
+  display:grid;gap:12px;border-top:1px solid var(--line-soft);
+}
+/* Ohne diese Zeile bleibt der Block sichtbar: display:grid aus dem
+   Klassenselektor schlaegt das eingebaute [hidden]{display:none}. */
+.erklaer-inhalt[hidden]{display:none}
+.erklaer-inhalt a{color:var(--amber-deep);font-weight:600}
+
 /* Fussbereich wie auf der Startseite */
 .site-footer{border-top:1px solid var(--line);background:var(--cream-2);padding:56px 0 26px;font-size:.85rem;color:var(--muted)}
 .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding-bottom:36px}
@@ -612,10 +655,21 @@ details.annahmen[open] summary::after{content:"–"}
   </div>
 </section>
 
-<!-- Crawlbarer Erklärtext (statisches HTML – für Google auch ohne JavaScript lesbar) -->
-<section class="wrap no-print" style="margin:10px 0 70px;max-width:820px">
-  <h2 style="font-size:1.35rem;margin-bottom:12px">So funktioniert der Sanierungsrechner</h2>
-  <div style="font-size:.92rem;color:var(--ink-2);display:grid;gap:12px">
+<!-- Erklärtext, aufklappbar. Steht bewusst als statisches HTML im Dokument –
+     so liest Google ihn auch ohne JavaScript und auch im zugeklappten Zustand.
+     ACHTUNG: margin muss "auto" links/rechts behalten, sonst zieht der Block
+     nach links, waehrend alles darueber mittig steht. -->
+<section class="wrap no-print" style="margin:10px auto 70px;max-width:820px">
+  <div class="erklaer-block">
+    <h2 class="erklaer-titel">
+      <button type="button" class="erklaer-schalter" id="erklaerBtn"
+              aria-expanded="false" aria-controls="erklaerText">
+        <span class="erklaer-i" aria-hidden="true"></span>
+        So funktioniert der Sanierungsrechner
+        <svg class="erklaer-pfeil" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </h2>
+  <div class="erklaer-inhalt" id="erklaerText" hidden>
     <p>
       Der Rechner ermittelt aus Ihren Angaben die <b>Hüllflächen</b> Ihres Hauses (Wand, Dach,
       Fenster, Kellerdecke), schätzt die <b>U-Werte nach Baujahr</b> und berechnet daraus den
@@ -636,8 +690,9 @@ details.annahmen[open] summary::after{content:"–"}
       Der Rechner ersetzt keine Energieberatung: Für Förderanträge und verbindliche Aussagen ist
       ein in der dena-Expertenliste eingetragener Energie-Effizienz-Experte erforderlich. Genau
       dabei unterstütze ich Sie – vom individuellen Sanierungsfahrplan bis zum Förderantrag.
-      <a href="index.html#kontakt" style="color:var(--amber-deep);font-weight:600">Kostenloses Erstgespräch vereinbaren →</a>
+      <a href="index.html#kontakt">Kostenloses Erstgespräch vereinbaren →</a>
     </p>
+  </div>
   </div>
 </section>
 
@@ -735,6 +790,18 @@ details.annahmen[open] summary::after{content:"–"}
 
 <script>
 'use strict';
+
+/* --- Erklaertext auf- und zuklappen --- */
+(function(){
+  var btn = document.getElementById('erklaerBtn');
+  var txt = document.getElementById('erklaerText');
+  if(!btn || !txt){ return; }
+  btn.addEventListener('click', function(){
+    var offen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', offen ? 'false' : 'true');
+    txt.hidden = offen;
+  });
+})();
 
 /* --- Mobile Navigation (gleiches Verhalten wie auf der Startseite) --- */
 (function(){
