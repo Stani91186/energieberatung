@@ -7,3 +7,10 @@ desktop.ini
 .vscode/
 .idea/
 *.swp
+
+# Claude Code: lokale Einstellungen und maschinenspezifische Verknuepfungen.
+# .claude/skills/ enthaelt Symlinks mit ABSOLUTEM Pfad auf diesen Rechner -
+# eingecheckt waeren die auf jedem anderen System kaputt.
+# Die Skills selbst liegen als echte Dateien in .agents/skills/ und sind
+# versioniert, damit sie beim Klonen mitkommen.
+.claude/
