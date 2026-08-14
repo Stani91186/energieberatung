@@ -142,10 +142,10 @@ def kopf(titel, beschreibung, datei, aktiv_ratgeber=True):
 <link rel="canonical" href="{DOMAIN}/{datei}">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#FDFBF7">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23C07A2E'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 15 16 8l9 7'/%3E%3Cpath d='M9.5 13.6V24h13V13.6'/%3E%3Cpath d='M13.5 24v-5h5v5'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E4A3C'/%3E%3Cg transform='translate(12.4,3.7) scale(0.78)'%3E%3Cpath d='M25 3 2 28 2 63 30 63 30 70 48 70 48 30Z' fill='none' stroke='%23FDFBF7' stroke-width='4.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M24.5 36C27.5 44 26.5 52 19 57 12 61.5 6.5 57.5 7.5 51 8.5 44 16 39 24.5 36ZM23.5 38.5C20 44 16 49 11.5 54.5 15.5 49.5 19 44.5 22.8 38.2Z' fill='%23E8B87A' fill-rule='evenodd'/%3E%3C/g%3E%3C/svg%3E">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="de_DE">
-<meta property="og:site_name" content="Tsukerman Energieberatung">
+<meta property="og:site_name" content="EBA Energieberater Albdonau">
 <meta property="og:title" content="{titel}">
 <meta property="og:description" content="{beschreibung}">
 <meta property="og:url" content="{DOMAIN}/{datei}">
@@ -161,12 +161,7 @@ def kopf(titel, beschreibung, datei, aktiv_ratgeber=True):
 <header class="site-header">
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
-      <span class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.6V20h14V9.6"/><path d="M10 20v-5h4v5"/>
-        </svg>
-      </span>
-      <span class="logo-text"><b>Tsukerman</b><span>Energieberatung</span></span>
+      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
     </a>
     <nav class="nav" aria-label="Hauptnavigation">
       <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
@@ -205,13 +200,8 @@ FUSS = f"""
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-          <span class="logo-mark">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.6V20h14V9.6"/><path d="M10 20v-5h4v5"/>
-            </svg>
-          </span>
-          <span class="logo-text"><b>Tsukerman</b><span>Energieberatung</span></span>
-        </a>
+      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+    </a>
         <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision.</p>
         <a href="index.html#kontakt" class="btn btn-primary btn-sm">Kostenloses Erstgespräch</a>
       </div>
@@ -228,7 +218,7 @@ FUSS = f"""
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Stanislaw Tsukerman Energieberatung</span>
+      <span>© 2026 EBA Energieberater Albdonau · Inhaber Stanislaw Tsukerman</span>
       <nav aria-label="Rechtliches">
         <a href="index.html">Startseite</a>
         <a href="impressum.html">Impressum</a>
@@ -917,7 +907,7 @@ def artikel_seite(a):
         "mainEntityOfPage": {"@type": "WebPage", "@id": f"{DOMAIN}/{a['datei']}"},
         "author": {"@type": "Person", "name": "Stanislaw Tsukerman",
                    "jobTitle": "Energieberater"},
-        "publisher": {"@type": "Organization", "name": "Tsukerman Energieberatung",
+        "publisher": {"@type": "Organization", "name": "EBA Energieberater Albdonau",
                       "url": DOMAIN},
     }, {
         "@type": "BreadcrumbList",
@@ -1019,7 +1009,7 @@ def uebersicht():
 """ for a in ARTIKEL)
 
     return (
-        kopf("Ratgeber Energetische Sanierung | Tsukerman Energieberatung",
+        kopf("Ratgeber Energetische Sanierung | EBA Albdonau",
              beschreibung, "ratgeber.html")
         + json_ld({"@context": "https://schema.org", "@graph": graph})
         + f"""
