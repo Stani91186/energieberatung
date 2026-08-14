@@ -2161,18 +2161,32 @@ var BEISPIEL = {
   arbeitspreis:0.12, strompreisWP:0.26, steigerung:3, zins:3
 };
 
+/* Nach jedem Schritt an den Anfang des Fragebogens springen. Ohne das steht
+   man nach einem langen Schritt mitten in der naechsten Frage und uebersieht
+   die oberste. getBoundingClientRect statt offsetTop: liefert die Position
+   auch dann richtig, wenn ein Elternelement positioniert ist. */
+function zumFragebogen(){
+  var ziel = $('wizardWrap');
+  if(!ziel) return;
+  var sanft = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var y = ziel.getBoundingClientRect().top + window.scrollY - 80;   // 80 = Platz für die Kopfzeile
+  window.scrollTo({ top: Math.max(0, y), behavior: sanft ? 'smooth' : 'auto' });
+}
+
 enableTilt(document.getElementById('wizardHaus'));
 document.getElementById('startBtn').addEventListener('click',function(){
   initDefaults(); stepIdx=0;
   $('wizardWrap').style.display='grid'; $('ergebnis').style.display='none';
   renderStep();
-  window.scrollTo({top:$('wizardWrap').offsetTop-80,behavior:'smooth'});
+  zumFragebogen();
   trackEvent('rechner_gestartet','start');
 });
-document.getElementById('prevBtn').addEventListener('click',function(){ if(stepIdx>0){stepIdx--;renderStep();} });
+document.getElementById('prevBtn').addEventListener('click',function(){
+  if(stepIdx>0){ stepIdx--; renderStep(); zumFragebogen(); }
+});
 document.getElementById('nextBtn').addEventListener('click',function(){
   if(!validateStep()) return;
-  if(stepIdx<STEPS.length-1){ stepIdx++; renderStep(); trackEvent('rechner_schritt',String(stepIdx+1)); }
+  if(stepIdx<STEPS.length-1){ stepIdx++; renderStep(); zumFragebogen(); trackEvent('rechner_schritt',String(stepIdx+1)); }
   else zeigeErgebnis();
 });
 
