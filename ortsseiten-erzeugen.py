@@ -605,6 +605,15 @@ def seite(o):
 'use strict';
 (function(){{
   var ORTSNAME = '{ort}';
+
+  /* Kopfzeile beim Scrollen einfaerben. Ohne diesen Handler bleibt der fixe
+     Kopf durchsichtig und der Seiteninhalt schiebt sich sichtbar durch die
+     Navigation - die CSS-Klasse .stuck kommt aus der Startseite. */
+  var kopfzeile = document.querySelector('.site-header');
+  function beimScrollen(){{ kopfzeile.classList.toggle('stuck', window.scrollY > 24); }}
+  beimScrollen();
+  window.addEventListener('scroll', beimScrollen, {{passive:true}});
+
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobileNav');
   function setNav(open){{

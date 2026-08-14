@@ -904,7 +904,10 @@ section{position:relative}
 .rg-text h3{font-size:1.16rem;margin:30px 0 10px}
 .rg-text p{margin-bottom:15px;color:var(--ink-2)}
 .rg-text ul{margin:0 0 18px}
-.rg-text ul li{display:flex;gap:11px;margin-bottom:10px;color:var(--ink-2)}
+/* hyphens + overflow-wrap: Die Punkte sind Flexcontainer, deren Mindestbreite
+   vom laengsten Wort bestimmt wird. Ein langes Kompositum ("Mindest-
+   anforderungen") schob sonst auf schmalen Handys die ganze Seite auf. */
+.rg-text ul li{display:flex;gap:11px;margin-bottom:10px;color:var(--ink-2);hyphens:auto;overflow-wrap:anywhere}
 .rg-text ul li::before{content:"";width:7px;height:7px;flex:none;margin-top:10px;border-radius:50%;background:var(--amber)}
 .rg-text ol{counter-reset:rg;list-style:none;margin:0 0 18px}
 .rg-text ol li{counter-increment:rg;position:relative;padding-left:44px;margin-bottom:14px;color:var(--ink-2)}
@@ -938,7 +941,11 @@ section{position:relative}
 .rg-mehr a:hover{color:var(--amber-deep)}
 
 /* Brotkrumen - stehen nicht im CSS der Startseite, dort gibt es sie nicht */
-.krumen{padding:22px 0 0;font-size:.82rem;color:var(--muted)}
+/* WICHTIG: Der Seitenkopf ist position:fixed und rund 77px hoch. Die
+   Startseite loest das ueber das grosse Hero-Padding - die Ratgeber fangen
+   aber direkt mit den Brotkrumen an, deshalb muss der Abstand HIER stehen,
+   sonst liegen Brotkrumen und Ueberschrift unter dem festen Kopf. */
+.krumen{padding:108px 0 0;font-size:.82rem;color:var(--muted)}
 .krumen ol{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
 .krumen li::after{content:"\203A";margin-left:8px;color:var(--line)}
 .krumen li:last-child::after{content:""}
@@ -1183,6 +1190,14 @@ section{position:relative}
 <script>
 'use strict';
 (function(){
+  /* Kopfzeile beim Scrollen einfaerben. Ohne diesen Handler bleibt der fixe
+     Kopf durchsichtig und der Artikeltext schiebt sich sichtbar durch die
+     Navigation - die CSS-Klasse .stuck kommt aus der Startseite. */
+  var kopfzeile = document.querySelector('.site-header');
+  function beimScrollen(){ kopfzeile.classList.toggle('stuck', window.scrollY > 24); }
+  beimScrollen();
+  window.addEventListener('scroll', beimScrollen, {passive:true});
+
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobileNav');
   function setNav(open){
