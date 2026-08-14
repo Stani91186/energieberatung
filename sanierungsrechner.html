@@ -217,29 +217,13 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 /* Energieklassen-Skala im Energieausweis-Stil (Pfeile A+ … H) */
 .band-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:26px 28px;margin:14px 0 26px}
 
-/* Bericht-Band: der wichtigste Handlungsschritt nach dem Ergebnis - deshalb
-   gross, amberfarben eingefasst und direkt unter der Zusammenfassung. */
-.bericht-band{
-  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
-  margin:26px 0 44px;padding:24px 28px;
-  background:linear-gradient(120deg,var(--amber-soft),#FBF3E4);
-  border:1px solid #EAD9BC;border-left:5px solid var(--amber);
-  border-radius:var(--radius);box-shadow:var(--shadow-md);
-}
-.bericht-symbol{
-  width:52px;height:52px;flex:none;display:grid;place-items:center;
-  background:var(--white);border-radius:14px;color:var(--amber-deep);
-  box-shadow:var(--shadow-sm);
-}
-.bericht-symbol svg{width:26px;height:26px}
-.bericht-text{flex:1;min-width:min(100%,30ch)}
-.bericht-text b{display:block;font-size:1.08rem;margin-bottom:3px}
-.bericht-text span{font-size:.88rem;color:var(--ink-2)}
-.bericht-knopf{padding:16px 30px;font-size:1rem}
-@media (max-width:640px){
-  .bericht-band{padding:20px}
-  .bericht-knopf{width:100%;justify-content:center}
-}
+/* Bericht-Knopf in der mitlaufenden Karte: immer sichtbar, waehrend man
+   mit den Reglern spielt - deutlich praesenter als der alte Platz ganz
+   unten. Der kleine Zweitknopf am Seitenende bleibt. */
+.sim-bericht{margin-top:16px;padding-top:16px;border-top:1px solid var(--line-soft);display:grid;gap:8px}
+.sim-bericht .btn{width:100%;justify-content:center;padding:15px 20px;font-size:.98rem}
+.sim-bericht .btn svg{width:19px;height:19px}
+.sim-bericht span{font-size:.76rem;color:var(--muted);text-align:center;line-height:1.45}
 .ea{display:grid;gap:5px;margin-top:18px}
 .ea-row{display:flex;align-items:center;gap:10px}
 .ea-arrow{height:29px;display:flex;align-items:center;padding-left:12px;color:rgba(255,255,255,.96);font-weight:700;font-size:.84rem;border-radius:4px 0 0 4px;flex:none;
@@ -840,23 +824,6 @@ details.annahmen[open] summary::after{content:"–"}
     <div class="kalib" id="kalibBox"></div>
   </div>
 
-  <!-- Bericht-Band: auffaellig direkt unter der Zusammenfassung. Der zweite,
-       kleinere Knopf am Seitenende bleibt - beide oeffnen dasselbe
-       Lead-Formular (openLead). -->
-  <div class="bericht-band no-print">
-    <div class="bericht-symbol" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/>
-      </svg>
-    </div>
-    <div class="bericht-text">
-      <b>Ihr vollständiger Bericht als PDF – kostenlos</b>
-      <span>Alle Zahlen, Maßnahmen und Fördersätze zum Ausdrucken, Weitergeben oder fürs Bankgespräch.</span>
-    </div>
-    <button class="btn btn-amber bericht-knopf" id="berichtBtnOben">Bericht herunterladen</button>
-  </div>
-
   <h2 class="section-h">Wo die Wärme verloren geht – und was dagegen hilft</h2>
   <p class="section-sub">
     Die Pfeile am Haus zeigen die Wärmeverluste (Dicke = Anteil).
@@ -872,6 +839,16 @@ details.annahmen[open] summary::after{content:"–"}
         <summary>Wärmeverluste im Detail (Ist-Zustand, kWh &amp; €)</summary>
         <div class="bars" id="bars"></div>
       </details>
+      <!-- Bericht-Knopf hier statt am Seitenende: die Karte laeuft beim
+           Scrollen neben den Reglern mit, der Knopf bleibt also immer im
+           Bild (Wunsch des Betreibers). -->
+      <div class="sim-bericht no-print">
+        <button class="btn btn-amber" id="berichtBtnOben">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
+          Bericht als PDF
+        </button>
+        <span>Kostenlos – alle Zahlen, Maßnahmen und Fördersätze zum Mitnehmen.</span>
+      </div>
     </div>
     <div>
       <div class="sim-cards" id="simCards"></div>
