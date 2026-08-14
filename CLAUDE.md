@@ -59,9 +59,12 @@ Prüfbefehl nach Änderungen an der Datenbank: ein `GET` auf
 
 `energieberatung-*.html` werden von `ortsseiten-erzeugen.py` erzeugt – **nicht
 von Hand bearbeiten**, Änderungen gehen beim nächsten Lauf verloren. Der
-Generator schneidet CSS, Hero-Grafik, Förderblock, Ablauf und Kontaktabschnitt
+Generator schneidet CSS, Förderblock, Rechner-Teaser, Ablauf, Kontaktabschnitt
+sowie die interaktive Haus-Grafik **samt Popup-JavaScript und Ereignis-Tracking**
 bei jedem Durchlauf frisch aus `index.html`; Orts- und Startseite können also
-nicht auseinanderlaufen. Nach Änderungen an `index.html` einmal
+nicht auseinanderlaufen. Aufbau je Ortsseite: Stadtfoto im Hero (Tabelle
+`ORTSFOTOS`, Lizenzen in `bilder/LIZENZ.txt`), das anklickbare Haus steht
+neben dem Ortstext. Nach Änderungen an `index.html` einmal
 `python ortsseiten-erzeugen.py` ausführen.
 
 Ortsspezifische Texte stehen in der Tabelle `ORTE` im Generator. Achtung:

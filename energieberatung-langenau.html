@@ -902,7 +902,19 @@ section{position:relative}
 }
 
 /* ==== Ortsseiten ==== */
-/* Stadtfoto im Hero (statt der Haus-Grafik der Startseite) */
+/* Ortsteil zweispaltig: Fliesstext links, interaktives Haus rechts.
+   Gleiches Muster wie .rg-inhalt im Ratgeber-Generator - bewusst NICHT
+   klebend, die Grafik laeuft mit dem Text durch. Das Haus behaelt seine
+   Klassen von der Startseite (.hero-visual/.hero-illu), damit CSS und
+   Popup-Skript unveraendert greifen. */
+.ort-inhalt{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:center}
+/* min-width:0: eine 1fr-Spalte schrumpft sonst nicht unter ihre
+   min-content-Breite - ein langes Kompositum wuerde das Raster aufblaehen
+   und die Seite seitwaerts scrollen lassen (Lektion aus .rg-inhalt). */
+.ort-inhalt>*{min-width:0}
+@media (max-width:1000px){ .ort-inhalt{grid-template-columns:1fr;gap:32px} }
+
+/* Stadtfoto mit Lizenznachweis als Unterschrift */
 .ort-foto{margin:0}
 .ort-foto img{width:100%;height:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg)}
 .ort-foto figcaption{margin-top:9px;font-size:.72rem;color:var(--muted);text-align:right}
@@ -1218,7 +1230,10 @@ section{position:relative}
       <p class="lead">Langenau liegt nordöstlich von Ulm im flachen Donauried. Die offene Lage bedeutet mehr Windangriff als in den Tälern der Alb – bei undichten Gebäuden macht sich das unmittelbar in der Heizkostenabrechnung bemerkbar.</p>
     </div>
 
-    <div class="ort-text reveal">
+    <!-- Zweispaltig: Fliesstext links, Stadtfoto rechts. Ein gemeinsames
+         reveal fuer beide Spalten, damit Text und Bild zusammen einblenden. -->
+    <div class="ort-inhalt reveal">
+    <div class="ort-text">
       <p>
         Unser Büro sitzt in Dornstadt, Langenau (89129, rund 15.500 Einwohner) liegt
         etwa 20 Kilometer entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch
@@ -1248,6 +1263,139 @@ section{position:relative}
         <li>Heizlastberechnung und hydraulischer Abgleich</li>
         <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>
       </ul>
+    </div>
+
+    <!-- Das interaktive Haus der Startseite - samt Klickflaechen und
+         Popup (das Skript dazu steht am Seitenende). -->
+    <div class="hero-visual">
+      <div class="hero-illu">
+        <svg viewBox="0 50 680 520" role="img" aria-label="Isometrische Illustration eines Wohnhauses mit Solarmodulen auf dem Dach und Wärmepumpe neben dem Haus – die vier Stellschrauben Dach, Fassade, Fenster und Heizung sind markiert">
+
+          <!-- Sonne -->
+          <g class="il-spin-slow">
+            <circle cx="86" cy="112" r="20" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.8"/>
+            <path class="il-amber" stroke-width="1.8" d="M86 84V73M86 140v11M114 112h11M58 112H47M106 92l8-8M66 132l-8 8M106 132l8 8M66 92l-8-8"/>
+          </g>
+
+          <!-- Grundstueck und Baeume liegen VOR dem Haus im Quelltext, damit
+               das Haus darueber gezeichnet wird und davor steht. -->
+          <use href="#grundstueck"/>
+          <use href="#baumRechts"/>
+          <use href="#baumLinks"/>
+
+          <!-- Isometrisches Haus aus den gemeinsamen Definitionen -->
+          <use href="#isoHouse"/>
+
+          <!-- Wärmepumpe (isometrischer Block mit rotierendem Lüfter) -->
+          <g class="hotspot" data-key="heizung" tabindex="0" role="button" aria-label="Wärmepumpe – Einsparpotenzial anzeigen" transform="translate(0,16)">
+            <polygon points="465.9,437 518.3,467.5 465.9,498 413.5,467.5" fill="rgba(60,46,28,.10)" filter="url(#fBlur)"/>
+            <polygon points="465.9,398 513.5,425.5 465.9,453 418.25,425.5" fill="#FBF7EF" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+            <polygon points="418.25,425.5 465.9,453 465.9,495 418.25,467.5" fill="#F2EBDC" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+            <polygon points="465.9,453 513.5,425.5 513.5,467.5 465.9,495" fill="#E2D8C2" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+            <g transform="matrix(0.866,0.5,0,-1,418.25,467.5)">
+              <circle cx="24" cy="21" r="13.5" fill="#E4EDE7" stroke="#2E4A3C" stroke-width="1.6"/>
+              <g class="il-spin">
+                <path d="M24 21c0-5.5 2.8-8.5 6.5-8.5M24 21c4.6 2.8 5.6 6.5 3.7 9.3M24 21c-4.6 2.8-9.3.9-10.2-3" fill="none" stroke="#2E4A3C" stroke-width="1.9" stroke-linecap="round"/>
+              </g>
+              <circle cx="24" cy="21" r="1.8" fill="#2E4A3C"/>
+            </g>
+            <g transform="matrix(-0.866,0.5,0,-1,513.5,467.5)" opacity=".35">
+              <path d="M12 14h32M12 21h32M12 28h32" fill="none" stroke="#1D1A15" stroke-width="1.1"/>
+            </g>
+          </g>
+
+          <!-- Abwärme über der alten Dachhälfte -->
+          <g class="il-amber" stroke-width="2.2">
+            <path class="il-wave" style="animation-delay:0s"   d="M258 172c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
+            <path class="il-wave" style="animation-delay:.55s" d="M296 190c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
+            <path class="il-wave" style="animation-delay:1.1s" d="M334 208c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
+          </g>
+
+          <!-- Unsichtbare Klick-/Hover-Flächen auf den Bauteilen -->
+          <g class="hotspot" data-key="dach" tabindex="0" role="button" aria-label="Dach – Einsparpotenzial anzeigen">
+            <polygon class="hitshape" points="188.8,280 362,380 422.6,285 249.4,185"/>
+            <polygon class="hitshape" points="310,210 483.2,310 422.6,285 249.4,185"/>
+          </g>
+          <g class="hotspot" data-key="fassade" tabindex="0" role="button" aria-label="Fassade – Einsparpotenzial anzeigen">
+            <polygon class="hitshape" points="188.8,390 362,490 362,380 188.8,280"/>
+            <polygon class="hitshape" points="483.2,420 362,490 362,380 483.2,310"/>
+            <polygon class="hitshape" points="362,380 483.2,310 422.6,285"/>
+          </g>
+          <g class="hotspot" data-key="kellerdecke" tabindex="0" role="button" aria-label="Kellerdecke – Einsparpotenzial anzeigen">
+            <polygon class="hitshape" points="188.8,390 362,490 362,506 188.8,406"/>
+            <polygon class="hitshape" points="483.2,420 362,490 362,506 483.2,436"/>
+          </g>
+          <g class="hotspot" data-key="fenster" tabindex="0" role="button" aria-label="Fenster – Einsparpotenzial anzeigen">
+            <g transform="matrix(0.866,0.5,0,-1,188.8,390)">
+              <rect class="hitshape" x="22" y="36" width="52" height="50"/>
+              <rect class="hitshape" x="92" y="40" width="44" height="46"/>
+            </g>
+            <g transform="matrix(-0.866,0.5,0,-1,483.2,420)">
+              <rect class="hitshape" x="50" y="46" width="40" height="42"/>
+            </g>
+          </g>
+
+          <!-- Beschriftungen -->
+          <g class="il-tag hotspot" data-key="dach" style="animation-delay:.45s">
+            <circle class="il-ping" cx="310" cy="288" r="9" fill="var(--amber)"/>
+            <circle cx="310" cy="288" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M318 281L384 152"/>
+            <rect class="il-pill" x="378" y="122" width="74" height="30" rx="15"/>
+            <text class="il-label" x="394" y="142">Dach</text>
+          </g>
+
+          <g class="il-tag hotspot" data-key="fassade" style="animation-delay:.65s">
+            <circle class="il-ping" cx="203" cy="348" r="9" fill="var(--amber)"/>
+            <circle cx="203" cy="348" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M195 344L134 322"/>
+            <rect class="il-pill" x="30" y="306" width="98" height="30" rx="15"/>
+            <text class="il-label" x="46" y="326">Fassade</text>
+          </g>
+
+          <g class="il-tag hotspot" data-key="fenster" style="animation-delay:.85s">
+            <circle class="il-ping" cx="287" cy="384" r="9" fill="var(--amber)"/>
+            <circle cx="287" cy="384" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M281 390L158 476"/>
+            <rect class="il-pill" x="64" y="470" width="92" height="30" rx="15"/>
+            <text class="il-label" x="80" y="490">Fenster</text>
+          </g>
+
+          <g class="il-tag hotspot" data-key="kellerdecke" style="animation-delay:1.05s">
+            <circle class="il-ping" cx="275" cy="448" r="9" fill="var(--amber)"/>
+            <circle cx="275" cy="448" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M280 456L300 528"/>
+            <rect class="il-pill" x="240" y="530" width="132" height="30" rx="15"/>
+            <text class="il-label" x="256" y="550">Kellerdecke</text>
+          </g>
+
+          <g class="il-tag hotspot" data-key="heizung" style="animation-delay:1.25s">
+            <circle class="il-ping" cx="466" cy="466" r="9" fill="var(--amber)"/>
+            <circle cx="466" cy="466" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M474 474L520 508"/>
+            <rect class="il-pill" x="500" y="510" width="98" height="30" rx="15"/>
+            <text class="il-label" x="516" y="530">Heizung</text>
+          </g>
+
+        </svg>
+        <ul class="illu-legend">
+          <li data-key="dach" tabindex="0" role="button"><i></i>Dach</li><li data-key="fassade" tabindex="0" role="button"><i></i>Fassade</li><li data-key="fenster" tabindex="0" role="button"><i></i>Fenster</li><li data-key="kellerdecke" tabindex="0" role="button"><i></i>Kellerdecke</li><li data-key="heizung" tabindex="0" role="button"><i></i>Heizung</li>
+        </ul>
+        <p class="illu-caption">Tippen oder klicken Sie Dach, Fassade, Fenster, Kellerdecke oder Wärmepumpe an – dahinter steckt das jeweilige Einsparpotenzial.</p>
+
+        <!-- Popup mit Einsparwerten (wird per JavaScript gefüllt und positioniert).
+             "inert" statt nur aria-hidden: sonst steckt der Schließen-Button in
+             einem aria-hidden-Bereich und bleibt trotzdem per Tab erreichbar. -->
+        <div class="illu-pop" id="illuPop" role="tooltip" aria-hidden="true" inert>
+          <div class="pop-head">
+            <i></i><b id="popTitle"></b>
+            <button type="button" class="pop-x" id="popClose" aria-label="Schließen">×</button>
+          </div>
+          <div class="pop-num" id="popNum"></div>
+          <p class="pop-text" id="popText"></p>
+          <p class="pop-foot">Richtwerte (co2online, Verbraucherzentrale, ADAC) – was Ihr Haus wirklich spart, zeigt erst die Berechnung.</p>
+        </div>
+      </div>
+    </div>
     </div>
 
     <div class="cta-band reveal">
@@ -1733,6 +1881,18 @@ section{position:relative}
 (function(){
   var ORTSNAME = 'Langenau';
 
+  /* --- Ereignis-Tracking ---
+     Sendet Ereignisse an Plausible, Google Analytics 4 oder Matomo,
+     sobald eines dieser Tools eingebunden ist (siehe Kommentar vor </body>).
+     Ist kein Tool eingebunden, passiert schlicht nichts. --- */
+  function trackEvent(name, label){
+    try{
+      if(window.plausible){ window.plausible(name, {props:{label: label || ''}}); }
+      if(window.gtag){ window.gtag('event', name, {event_label: label || ''}); }
+      if(window._paq){ window._paq.push(['trackEvent', 'Interaktion', name, label || '']); }
+    }catch(e){ /* Tracking darf die Seite nie stören */ }
+  }
+
   /* Kopfzeile beim Scrollen einfaerben. Ohne diesen Handler bleibt der fixe
      Kopf durchsichtig und der Seiteninhalt schiebt sich sichtbar durch die
      Navigation - die CSS-Klasse .stuck kommt aus der Startseite. */
@@ -1886,6 +2046,124 @@ section{position:relative}
       });
     }, 120);
   }, {passive:true});
+
+  /* --- Interaktive Hero-Grafik: Einsparwerte als Popup ---
+     Richtwerte aus öffentlichen Quellen (Stand Juli 2026):
+     Dach 20–30 % Wärmeverlust / Einsparung bis ~20 % (co2online),
+     Außenwand 20–35 % Wärmeverlust (co2online),
+     Fenstertausch 10–20 % Heizkosten (Verbraucherzentrale Energieberatung),
+     Kellerdecke bis 10 % Heizenergie (ADAC),
+     Wärmepumpe: 1 kWh Strom -> 3–5 kWh Wärme (Verbraucherzentrale). */
+  var ILLU_DATA = {
+    dach:        { t:'Dach dämmen',          n:'bis zu 20 %', x:'weniger Heizenergie. Über ein ungedämmtes Dach entweichen 20–30 % der Wärme – nach oben verliert das Haus am schnellsten.' },
+    fassade:     { t:'Fassade dämmen',       n:'20–35 %',     x:'der Wärme eines Altbaus gehen über ungedämmte Außenwände verloren – die größte Einzelfläche und entsprechend großes Einsparpotenzial.' },
+    fenster:     { t:'Fenster tauschen',     n:'10–20 %',     x:'weniger Heizkosten, wenn alte Fenster gegen 3-fach-Wärmeschutzverglasung getauscht werden. Nebeneffekt: kein Zug, keine kalten Scheiben.' },
+    kellerdecke: { t:'Kellerdecke dämmen',   n:'bis zu 10 %', x:'weniger Heizenergie – die günstigste Dämmmaßnahme, oft an einem Wochenende in Eigenleistung machbar. Schluss mit kalten Füßen im Erdgeschoss.' },
+    heizung:     { t:'Wärmepumpe',           n:'1 kWh → 3–5 kWh', x:'Aus einer Kilowattstunde Strom macht eine effiziente Wärmepumpe drei bis fünf Kilowattstunden Wärme (Jahresarbeitszahl 3–5).' }
+  };
+
+  var illu = document.querySelector('.hero-illu');
+  var pop = document.getElementById('illuPop');
+  if(illu && pop){
+    var popTitle = document.getElementById('popTitle');
+    var popNum = document.getElementById('popNum');
+    var popText = document.getElementById('popText');
+    var sticky = false, curKey = null, hideTimer = null;
+
+    function anchorOf(el, key){
+      /* Popup bevorzugt am Beschriftungspunkt verankern – wirkt ruhiger.
+         Auf Mobilgeräten sind die Pins ausgeblendet (Rechteck = 0),
+         dann dient das angeklickte Element selbst als Anker. */
+      var dot = document.querySelector('.il-tag[data-key="' + key + '"] .il-ping');
+      if(dot){
+        var r = dot.getBoundingClientRect();
+        if(r.width > 1 || r.height > 1){ return dot; }
+      }
+      return el;
+    }
+    function setActive(key, on){
+      document.querySelectorAll('.hotspot[data-key="' + key + '"], .illu-legend li[data-key="' + key + '"]').forEach(function(el){
+        el.classList.toggle('active', on);
+      });
+    }
+    function hidePop(){
+      if(curKey){ setActive(curKey, false); }
+      pop.classList.remove('show');
+      pop.setAttribute('aria-hidden','true');
+      /* inert nimmt den Schließen-Button aus der Tab-Reihenfolge, solange das
+         Popup zu ist. Ohne das wäre er in einem aria-hidden-Bereich fokussierbar. */
+      pop.setAttribute('inert','');
+      sticky = false; curKey = null;
+    }
+    function showPop(key, el, stick){
+      var d = ILLU_DATA[key];
+      if(!d){ return; }
+      if(curKey && curKey !== key){ setActive(curKey, false); }
+      popTitle.textContent = d.t;
+      popNum.textContent = d.n;
+      popText.textContent = d.x;
+      pop.classList.add('show');
+      pop.setAttribute('aria-hidden','false');
+      pop.removeAttribute('inert');
+      curKey = key; sticky = !!stick;
+      setActive(key, true);
+
+      var c = illu.getBoundingClientRect();
+      var r = anchorOf(el, key).getBoundingClientRect();
+      var pw = pop.offsetWidth, ph = pop.offsetHeight;
+      var dx = r.left - c.left + r.width/2;
+      var dy = r.top - c.top + r.height/2;
+      var x, y;
+      var above = dy - ph - 16;
+      if(above >= -6){
+        x = dx - pw/2; y = above;              /* über dem Punkt */
+      } else if(dx < c.width/2){
+        x = dx + 18; y = dy - ph/2;            /* rechts daneben */
+      } else {
+        x = dx - pw - 18; y = dy - ph/2;       /* links daneben */
+      }
+      x = Math.max(6, Math.min(x, c.width - pw - 6));
+      y = Math.max(-6, Math.min(y, c.height - ph - 4));
+      pop.style.left = Math.round(x) + 'px';
+      pop.style.top = Math.round(y) + 'px';
+      trackEvent('einsparung_angesehen', key);
+    }
+
+    var spots = document.querySelectorAll('.hero-illu .hotspot, .illu-legend li[data-key]');
+    spots.forEach(function(el){
+      var key = el.getAttribute('data-key');
+      el.addEventListener('mouseenter', function(){
+        clearTimeout(hideTimer);
+        if(!sticky){ showPop(key, el, false); }
+      });
+      el.addEventListener('mouseleave', function(){
+        if(!sticky){ hideTimer = setTimeout(hidePop, 160); }
+      });
+      el.addEventListener('click', function(e){
+        e.stopPropagation();
+        if(sticky && curKey === key){ hidePop(); }
+        else { showPop(key, el, true); }
+      });
+      el.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          if(sticky && curKey === key){ hidePop(); }
+          else { showPop(key, el, true); }
+        }
+      });
+    });
+    pop.addEventListener('mouseenter', function(){ clearTimeout(hideTimer); });
+    pop.addEventListener('mouseleave', function(){ if(!sticky){ hidePop(); } });
+    pop.addEventListener('click', function(e){ e.stopPropagation(); });
+    document.getElementById('popClose').addEventListener('click', hidePop);
+    document.addEventListener('click', function(e){
+      if(pop.classList.contains('show') && !pop.contains(e.target)){ hidePop(); }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ hidePop(); }
+    });
+    window.addEventListener('resize', hidePop);
+  }
 })();
 </script>
 

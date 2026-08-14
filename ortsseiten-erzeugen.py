@@ -291,10 +291,10 @@ ORTSFOTOS = {
 }
 
 def ortsfoto(ort):
-    """Stadtfoto fuer den Hero - ersetzt dort die Haus-Grafik der Startseite.
-    Die Haus-Grafik hatte auf den Ortsseiten keine Klickflaechen mehr, ihre
-    Beschriftungen (Fassade, Dach ...) sahen aber klickbar aus - genau die
-    Sorte kaputt, die Besucher melden."""
+    """Stadtfoto fuer den Hero - der Ort ist das Erste, was man sieht.
+    Die interaktive Haus-Grafik steht dafuer weiter unten neben dem
+    Ortstext (Entscheidung des Betreibers: Foto oben, Haus unten).
+    CC-BY(-SA) verlangt Namensnennung - sie steht als Unterschrift am Bild."""
     datei, alt, wer, lizenz, lizenz_url, quelle = ORTSFOTOS[ort]
     if lizenz_url:
         nachweis = (f'Foto: <a href="{quelle}" rel="noopener">{wer}</a>, '
@@ -310,16 +310,43 @@ def ortsfoto(ort):
     </div>"""
 
 
-def hero_teil():
-    """Hero-Grafik ohne die anklickbaren Flaechen und ohne Popup - dafuer
-    muesste sonst das gesamte Popup-JavaScript auf jede Ortsseite."""
-    h = _schnitt(r'(<div class="hero-visual">.*?</div>\s*</div>\s*\n)', "Hero")
-    h = re.sub(r'\s*<div class="illu-pop".*?</div>\s*</div>\s*$', '\n      </div>', h, flags=re.S)
-    h = re.sub(r'\s*<!-- Unsichtbare Klick-.*?(?=\s*<!-- Beschriftungen -->)', '', h, flags=re.S)
-    h = h.replace('class="il-tag hotspot"', 'class="il-tag"').replace(' class="hotspot"', '')
-    h = re.sub(r'\s*tabindex="0" role="button" aria-label="[^"]*"', '', h)
-    h = re.sub(r'<li data-key="[^"]*"[^>]*>', '<li>', h)
-    return h.rstrip()
+def hausgrafik():
+    """Interaktive Haus-Grafik der Startseite - komplett, mit Klickflaechen
+    und Popup. Frueher stand hier eine entschaerfte Fassung ohne Popup; die
+    Beschriftungen sahen dann klickbar aus, ohne es zu sein.
+
+    Zum Muster: der Anker '<div class="illu-pop"' erzwingt, dass der Schnitt
+    am Popup vorbei muss - sonst bliebe '.*?' frueher stehen. Die DREI
+    schliessenden divs am Ende sind illu-pop, hero-illu und hero-visual. Das
+    fruehere Muster '</div>\\s*</div>\\s*\\n' traf nur zwei davon und lieferte
+    unbalanciertes HTML (5 oeffnende gegen 4 schliessende divs)."""
+    h = _schnitt(
+        r'(<div class="hero-visual">.*?<div class="illu-pop".*?'
+        r'</div>\s*</div>\s*</div>)', "Haus-Grafik")
+    if len(re.findall(r'<div\b', h)) != h.count("</div>"):
+        raise SystemExit("Haus-Grafik: div-Bilanz stimmt nicht - Hero in "
+                         "index.html umgebaut? Muster in hausgrafik() pruefen.")
+    return h
+
+
+def popup_skript():
+    """Popup-Logik der Haus-Grafik, 1:1 aus index.html. Abgegrenzt nach unten
+    durch den Folgekommentar '/* --- Formular:' - beide Marker kommen in
+    index.html genau einmal vor. Der Block sichert sich selbst mit
+    if(illu && pop) ab und stoert nichts, falls die Grafik mal fehlt."""
+    return _schnitt(
+        r'(/\* --- Interaktive Hero-Grafik: Einsparwerte als Popup ---.*?)'
+        r'\n\s*/\* --- Formular:', "Popup-JavaScript")
+
+
+def tracking_skript():
+    """Ereignis-Tracking aus index.html. Wird gebraucht, weil showPop() im
+    Popup-Skript trackEvent() aufruft - ohne Definition gaebe es bei jedem
+    Popup einen ReferenceError. Ohne eingebundenes Analysewerkzeug tut die
+    Funktion nichts und laedt auch nichts nach."""
+    return _schnitt(r'(  /\* --- Ereignis-Tracking ---.*?\n  \}\n)',
+                    "Ereignis-Tracking")
+
 
 def defs_teil():
     return _schnitt(r'(<svg width="0" height="0".*?</svg>)', "SVG-Definitionen")
@@ -370,7 +397,19 @@ def fussbereich(aktuell=None):
 ORTS_CSS = """
 
 /* ==== Ortsseiten ==== */
-/* Stadtfoto im Hero (statt der Haus-Grafik der Startseite) */
+/* Ortsteil zweispaltig: Fliesstext links, interaktives Haus rechts.
+   Gleiches Muster wie .rg-inhalt im Ratgeber-Generator - bewusst NICHT
+   klebend, die Grafik laeuft mit dem Text durch. Das Haus behaelt seine
+   Klassen von der Startseite (.hero-visual/.hero-illu), damit CSS und
+   Popup-Skript unveraendert greifen. */
+.ort-inhalt{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:center}
+/* min-width:0: eine 1fr-Spalte schrumpft sonst nicht unter ihre
+   min-content-Breite - ein langes Kompositum wuerde das Raster aufblaehen
+   und die Seite seitwaerts scrollen lassen (Lektion aus .rg-inhalt). */
+.ort-inhalt>*{min-width:0}
+@media (max-width:1000px){ .ort-inhalt{grid-template-columns:1fr;gap:32px} }
+
+/* Stadtfoto mit Lizenznachweis als Unterschrift */
 .ort-foto{margin:0}
 .ort-foto img{width:100%;height:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg)}
 .ort-foto figcaption{margin-top:9px;font-size:.72rem;color:var(--muted);text-align:right}
@@ -411,7 +450,10 @@ def seite(o):
         f'      <a href="{x["datei"]}">Energieberatung {x["ort"]}</a>' for x in andere)
 
     # Bausteine aus der Startseite - halten Orts- und Startseite im Gleichstand
-    hero_grafik  = ortsfoto(ort)
+    hero_grafik  = ortsfoto(ort)        # Stadtfoto oben im Hero
+    haus_grafik  = hausgrafik()         # interaktives Haus neben dem Ortstext
+    tracking_js  = tracking_skript()
+    popup_js     = popup_skript()
     foerderblock = abschnitt("ZAHLEN")
     rechnerteaser = abschnitt("RECHNER")
     ablauf       = abschnitt("ABLAUF")
@@ -548,7 +590,10 @@ def seite(o):
       <p class="lead">{lage}</p>
     </div>
 
-    <div class="ort-text reveal">
+    <!-- Zweispaltig: Fliesstext links, Stadtfoto rechts. Ein gemeinsames
+         reveal fuer beide Spalten, damit Text und Bild zusammen einblenden. -->
+    <div class="ort-inhalt reveal">
+    <div class="ort-text">
       <p>
         Unser Büro sitzt in Dornstadt, {ort} ({plz}, {einwohner} Einwohner) liegt
         {entfernung} entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch
@@ -578,6 +623,11 @@ def seite(o):
         <li>Heizlastberechnung und hydraulischer Abgleich</li>
         <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>
       </ul>
+    </div>
+
+    <!-- Das interaktive Haus der Startseite - samt Klickflaechen und
+         Popup (das Skript dazu steht am Seitenende). -->
+    {haus_grafik}
     </div>
 
     <div class="cta-band reveal">
@@ -642,6 +692,7 @@ def seite(o):
 (function(){{
   var ORTSNAME = '{ort}';
 
+{tracking_js}
   /* Kopfzeile beim Scrollen einfaerben. Ohne diesen Handler bleibt der fixe
      Kopf durchsichtig und der Seiteninhalt schiebt sich sichtbar durch die
      Navigation - die CSS-Klasse .stuck kommt aus der Startseite. */
@@ -795,6 +846,8 @@ def seite(o):
       }});
     }}, 120);
   }}, {{passive:true}});
+
+  {popup_js}
 }})();
 </script>
 
