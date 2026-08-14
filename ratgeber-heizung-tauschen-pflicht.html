@@ -930,9 +930,11 @@ section{position:relative}
 .rg-tabelle th{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .rg-tabelle td{color:var(--ink-2)}
 .rg-tabelle td:first-child{color:var(--ink);font-weight:500}
-/* Artikelbild - eigene Zeichnung, kein Foto. Siehe Kommentar in BILDER. */
+/* Artikelbild - Foto aus bilder/ (Pexels, selbst gehostet). In der
+   Karte auf feste Hoehe beschnitten, damit alle Karten gleich hoch
+   beginnen; object-fit haelt dabei den Bildausschnitt. */
 .rg-bild{display:block;width:100%;height:auto;border-radius:var(--radius);margin:0 0 34px}
-.rg-eintrag .rg-bild{margin:-28px -30px 18px;width:calc(100% + 60px);border-radius:var(--radius) var(--radius) 0 0}
+.rg-eintrag .rg-bild{margin:-28px -30px 18px;width:calc(100% + 60px);height:190px;object-fit:cover;border-radius:var(--radius) var(--radius) 0 0}
 .rg-hinweis{margin-top:34px;padding-top:18px;border-top:1px solid var(--line-soft);font-size:.85rem;color:var(--muted)}
 .rg-spalte{position:sticky;top:104px;display:grid;gap:18px}
 .rg-karte{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px 26px}
@@ -1135,31 +1137,9 @@ section{position:relative}
     </header>
 
     <div class="wrap">
-      <svg class="rg-bild" viewBox="0 0 800 300" role="img" aria-label="Links ein alter Heizkessel, rechts eine Waermepumpe, dazwischen ein Pfeil">
-        <rect width="800" height="300" rx="18" fill="var(--forest-soft)"/>
-        <path d="M56 252 H744" stroke="var(--forest)" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
-        <g stroke="var(--forest)" stroke-width="4" fill="var(--white)" stroke-linejoin="round" stroke-linecap="round">
-          <path d="M188 78 V52 h84"/>
-          <rect x="140" y="78" width="128" height="174" rx="10"/>
-          <rect x="164" y="186" width="80" height="44" rx="7" fill="var(--amber-soft)"/>
-        </g>
-        <path d="M206 222c9-13 7-24-2-33 1 10-6 14-10 21-4 8 1 15 12 12z" fill="var(--amber)"/>
-        <g stroke="var(--forest)" stroke-width="4" stroke-linecap="round" opacity=".45">
-          <path d="M164 112 H244"/><path d="M164 138 H212"/>
-        </g>
-        <g stroke="var(--amber)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
-          <path d="M320 165 H454"/><path d="M430 141 L458 165 L430 189"/>
-        </g>
-        <g stroke="var(--forest)" stroke-width="4" fill="var(--white)" stroke-linejoin="round">
-          <rect x="516" y="112" width="176" height="140" rx="12"/>
-          <circle cx="604" cy="182" r="44"/>
-        </g>
-        <g stroke="var(--amber)" stroke-width="6" stroke-linecap="round" fill="none">
-          <path d="M604 148 a34 34 0 0 1 29 51"/>
-          <path d="M604 216 a34 34 0 0 1 -29 -51"/>
-        </g>
-        <circle cx="604" cy="182" r="9" fill="var(--forest)"/>
-      </svg>
+      <img class="rg-bild" src="bilder/ratgeber-heizung.jpg" width="1200" height="800"
+           alt="Luft-Wasser-Wärmepumpe im Garten vor einem Backsteinhaus"
+           loading="lazy" decoding="async">
     </div>
 
     <div class="wrap rg-inhalt">

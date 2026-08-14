@@ -79,11 +79,12 @@ seine eigenen FAQ-Paare mit, aus denen das `FAQPage`-Schema entsteht. Neue
 Artikel dort ergänzen, dann `python ratgeber-erzeugen.py` ausführen und die
 Adresse in `sitemap.xml` eintragen.
 
-Jeder Artikel bringt eine eigene SVG-Illustration im Feld `bild` mit. Bewusst
-**keine Fotos**: Eine Suche nach echten CC0-Bildern zu diesen Themen liefert
-nichts Brauchbares, und Unsplash/Pexels/Pixabay sind trotz anderslautender
-Erwartung **nicht** CC0, sondern haben eigene, änderbare Lizenzen. Eigene
-Zeichnungen kosten rund 2 KB statt 200 KB und haben kein Lizenzrisiko.
+Jeder Artikel bringt im Feld `bild` ein Foto aus `bilder/` mit (Wunsch des
+Betreibers: echte Fotos von Pexels). Die Dateien liegen **selbst gehostet**
+in `bilder/` – niemals von images.pexels.com hotlinken (Regel 2). Für jedes
+Bild steht der Nachweis (ID, Fotograf, Quelle, Lizenz) in `bilder/LIZENZ.txt`;
+neue Bilder dort nachtragen. Die Pexels-Lizenz erlaubt kommerzielle Nutzung
+ohne Namensnennung, ist aber **nicht** CC0.
 
 ## Kopf und Fuß
 

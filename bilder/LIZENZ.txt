@@ -1,0 +1,30 @@
+BILDNACHWEIS – Ratgeber-Fotos
+=============================
+
+Alle Fotos in diesem Ordner stammen von Pexels (www.pexels.com) und werden
+unter der Pexels-Lizenz genutzt (https://www.pexels.com/license/):
+kostenlose kommerzielle Nutzung, keine Namensnennung vorgeschrieben,
+Bearbeitung erlaubt. Die Dateien liegen bewusst HIER auf dem eigenen Server –
+nichts wird von images.pexels.com nachgeladen (Projektregel: keine fremden
+Server, DSGVO).
+
+Wichtig: Die Pexels-Lizenz ist NICHT CC0. Sie erlaubt die Nutzung, aber
+Pexels kann die Bedingungen fuer kuenftige Downloads aendern. Fuer die hier
+bereits heruntergeladenen Dateien gilt die Lizenz zum Zeitpunkt des
+Downloads (14.08.2026). Diese Datei ist der Nachweis dafuer.
+
+Datei                       Pexels-ID   Fotograf/in        Quelle
+--------------------------  ----------  -----------------  ----------------------------------------------
+ratgeber-heizung.jpg        38067300    alpha innotec      https://www.pexels.com/photo/38067300/
+ratgeber-reihenfolge.jpg    27134625    Sergei Starostin   https://www.pexels.com/photo/27134625/
+ratgeber-foerderung.jpg     30991552    Willfried Wende    https://www.pexels.com/photo/30991552/
+ratgeber-kellerdecke.jpg     6124239    Erik Mclean        https://www.pexels.com/photo/6124239/
+ratgeber-alb.jpg            17760084    Joerg Hartmann     https://www.pexels.com/photo/17760084/
+
+Bearbeitung: auf 1200px Breite verkleinert und nachverdichtet (JPEG),
+inhaltlich unveraendert.
+
+Hinweis zu ratgeber-heizung.jpg: Auf dem Geraet ist das Logo des Herstellers
+alpha innotec zu erkennen (der Fotograf ist der Hersteller selbst). Die
+Beratung bleibt produktneutral - das Bild zeigt ein Beispielgeraet, keine
+Empfehlung. Bei Gelegenheit gegen ein herstellerneutrales Foto tauschen.
