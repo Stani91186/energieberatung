@@ -95,7 +95,7 @@ RATGEBER_CSS = """
    Startseite loest das ueber das grosse Hero-Padding - die Ratgeber fangen
    aber direkt mit den Brotkrumen an, deshalb muss der Abstand HIER stehen,
    sonst liegen Brotkrumen und Ueberschrift unter dem festen Kopf. */
-.krumen{padding:108px 0 0;font-size:.82rem;color:var(--muted)}
+.krumen{padding:calc(var(--kopf) + 31px) 0 0;font-size:.82rem;color:var(--muted)}
 .krumen ol{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
 .krumen li::after{content:"\\203A";margin-left:8px;color:var(--line)}
 .krumen li:last-child::after{content:""}

@@ -81,6 +81,9 @@
   --shadow-md:    0 2px 4px rgba(45,35,20,.04), 0 12px 32px rgba(45,35,20,.07);
   --shadow-lg:    0 4px 8px rgba(45,35,20,.05), 0 24px 60px rgba(45,35,20,.10);
 
+  --kopf:        116px;   /* Kopfzeile oben, mit grossem Logo */
+  --kopf-klein:  80px;    /* nach dem Scrollen */
+
   --maxw:         1180px;
   --ease:         cubic-bezier(.22,.61,.36,1);
 }
@@ -89,7 +92,7 @@
    2. RESET & BASIS
    ======================================================================== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--kopf-klein) + 12px);-webkit-text-size-adjust:100%}
 body{
   font-family:var(--font-sans);
   background:var(--cream);
@@ -207,13 +210,19 @@ section{position:relative}
   border-bottom-color:var(--line-soft);
   box-shadow:0 1px 20px rgba(45,35,20,.05);
 }
-.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px}
+.site-header.stuck .header-inner{height:var(--kopf-klein)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:var(--kopf);transition:height .35s var(--ease)}
 
 .logo{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:-.02em}
 /* Logo: Original-Grafik als PNG (logo.png), unveraendert uebernommen.
    Lokale Datei wie die Schriften in fonts/ - kein fremder Server. */
-.logo img{height:64px;width:auto;display:block}
-@media (max-width:640px){ .logo img{height:52px} }
+.logo img{height:99px;width:auto;display:block;transition:height .35s var(--ease)}
+.site-header.stuck .logo img{height:56px}
+@media (max-width:640px){
+  :root{--kopf:92px;--kopf-klein:64px}
+  .logo img{height:76px}
+  .site-header.stuck .logo img{height:44px}
+}
 
 /* gap 26 statt 32: schafft 30px, die der Header bei voller Breite braucht,
    damit Logo + Menü + Telefon + Knopf sicher in eine Zeile passen */
@@ -247,13 +256,14 @@ section{position:relative}
 .burger.open span:nth-child(3){transform:translateY(-6.1px) rotate(-45deg)}
 
 .mobile-nav{
-  position:fixed;inset:76px 0 auto 0;z-index:99;
+  position:fixed;inset:var(--kopf) 0 auto 0;z-index:99;
   background:var(--cream);border-bottom:1px solid var(--line);
   padding:18px 24px 30px;
   transform:translateY(calc(-100% - 140px));visibility:hidden;
   transition:transform .45s var(--ease),visibility 0s .45s;
   box-shadow:0 20px 40px rgba(45,35,20,.09);
 }
+.site-header.stuck ~ .mobile-nav{top:var(--kopf-klein)}  /* Kopfzeile geschrumpft -> Menue rutscht mit hoch */
 .mobile-nav.open{transform:translateY(0);visibility:visible;transition:transform .45s var(--ease)}
 .mobile-nav a{display:block;padding:14px 0;font-size:1.05rem;font-weight:500;border-bottom:1px solid var(--line-soft)}
 .mobile-nav .btn{width:100%;margin-top:20px}
@@ -262,7 +272,8 @@ section{position:relative}
    5. HERO
    ======================================================================== */
 .hero{
-  padding:150px 0 92px;
+  /* 74px Luft unter der Kopfzeile - waechst automatisch mit --kopf mit */
+  padding:calc(var(--kopf) + 74px) 0 92px;
   background:
     radial-gradient(900px 520px at 78% 6%, rgba(192,122,46,.11), transparent 62%),
     radial-gradient(760px 480px at 8% 30%, rgba(46,74,60,.08), transparent 60%),

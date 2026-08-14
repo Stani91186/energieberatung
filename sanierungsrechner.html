@@ -52,13 +52,17 @@
   --radius:18px;--radius-sm:12px;--radius-lg:26px;
   --shadow-sm:0 1px 2px rgba(45,35,20,.04),0 2px 8px rgba(45,35,20,.04);
   --shadow-md:0 2px 4px rgba(45,35,20,.04),0 12px 32px rgba(45,35,20,.07);
+  --kopf:        116px;   /* Kopfzeile oben, mit grossem Logo */
+  --kopf-klein:  80px;    /* nach dem Scrollen */
   --maxw:980px;--ease:cubic-bezier(.22,.61,.36,1);
   /* Status (Ampel) – nur hierfür reserviert */
   --ok:#2F7D46;--ok-soft:#E3F0E7;--warn:#B98514;--warn-soft:#F8EFD8;--bad:#B3402E;--bad-soft:#F6E3DF;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--font-sans);background:var(--cream);color:var(--ink);line-height:1.6;font-size:16.5px;-webkit-font-smoothing:antialiased}
+/* scroll-padding-top: Die Kopfzeile ist fest (fixed). Ohne diesen Abstand
+   landet ein Sprungziel exakt unter ihr und ist nicht zu sehen. */
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--kopf-klein) + 12px)}
+body{font-family:var(--font-sans);background:var(--cream);color:var(--ink);line-height:1.6;font-size:16.5px;-webkit-font-smoothing:antialiased;padding-top:var(--kopf)}
 
 /* Betonung ohne Kursiv: <em> bleibt fuer Screenreader erhalten, wird
    aber durch Gewicht statt Schraeglage ausgezeichnet. */
@@ -83,13 +87,21 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .btn[disabled]{opacity:.45;pointer-events:none}
 
 /* ==== Header ==== */
-.site-header{position:sticky;top:0;z-index:50;background:rgba(253,251,247,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+/* fixed statt sticky: die Kopfzeile schrumpft beim Scrollen. Bliebe sie im
+   Textfluss, wuerde der ganze Inhalt in dem Moment nach oben springen. */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(253,251,247,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;height:var(--kopf);transition:height .35s var(--ease)}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600}
 /* Logo: Original-Grafik als PNG (logo.png), unveraendert uebernommen.
    Lokale Datei wie die Schriften in fonts/ - kein fremder Server. */
-.logo img{height:64px;width:auto;display:block}
-@media (max-width:640px){ .logo img{height:52px} }
+.logo img{height:99px;width:auto;display:block;transition:height .35s var(--ease)}
+.site-header.stuck .logo img{height:56px}
+@media (max-width:640px){
+  :root{--kopf:92px;--kopf-klein:64px}
+  .logo img{height:76px}
+  .site-header.stuck .logo img{height:44px}
+}
+.site-header.stuck .header-inner{height:var(--kopf-klein)}
 .header-links{display:flex;align-items:center;gap:14px}
 .header-links .back{font-size:.88rem;color:var(--ink-2);font-weight:500}
 .header-links .back:hover{color:var(--amber-deep)}
@@ -113,13 +125,14 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .burger.open span:nth-child(3){transform:translateY(-6.1px) rotate(-45deg)}
 
 .mobile-nav{
-  position:fixed;inset:68px 0 auto 0;z-index:49;
+  position:fixed;inset:var(--kopf) 0 auto 0;z-index:49;
   background:var(--cream);border-bottom:1px solid var(--line);
   padding:16px 22px 26px;
   transform:translateY(calc(-100% - 140px));visibility:hidden;
   transition:transform .45s var(--ease),visibility 0s .45s;
   box-shadow:0 20px 40px rgba(45,35,20,.09);
 }
+.site-header.stuck ~ .mobile-nav{top:var(--kopf-klein)}  /* Kopfzeile geschrumpft -> Menue rutscht mit hoch */
 .mobile-nav.open{transform:translateY(0);visibility:visible;transition:transform .45s var(--ease)}
 .mobile-nav a{display:block;padding:13px 0;font-size:1.02rem;font-weight:500;border-bottom:1px solid var(--line-soft)}
 .mobile-nav .btn{width:100%;margin-top:18px}
@@ -517,7 +530,7 @@ details.annahmen[open] summary::after{content:"–"}
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header" id="header">
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
       <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
@@ -1594,7 +1607,7 @@ function zeigeErgebnis(){
   $('wizardWrap').style.display='none';
   $('ergebnis').style.display='block';
   $('ergebnis').classList.add('fx');
-  window.scrollTo({top:$('ergebnis').offsetTop-70,behavior:'smooth'});
+  window.scrollTo({top:$('ergebnis').offsetTop-92,behavior:'smooth'});
   trackEvent('rechner_ergebnis', kl+' '+nf(kwReal));
 }
 
@@ -2207,7 +2220,7 @@ function zumFragebogen(){
   var ziel = $('wizardWrap');
   if(!ziel) return;
   var sanft = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var y = ziel.getBoundingClientRect().top + window.scrollY - 80;   // 80 = Platz für die Kopfzeile
+  var y = ziel.getBoundingClientRect().top + window.scrollY - 92;   // 92 = geschrumpfte Kopfzeile (80) plus Luft
   window.scrollTo({ top: Math.max(0, y), behavior: sanft ? 'smooth' : 'auto' });
 }
 
@@ -2272,6 +2285,18 @@ document.getElementById('nextBtn').addEventListener('click',function(){
   var okSum = summe < gesamt;
   console.log((okSum?'✅ PASS':'❌ FAIL')+' – Einzelersparnisse ('+eur(summe)+') < Gesamtkosten ('+eur(gesamt)+')');
   console.log(alle&&okSum ? '✅ SELBSTTEST BESTANDEN' : '❌ SELBSTTEST: Abweichungen – CONFIG prüfen');
+})();
+</script>
+<script>
+'use strict';
+/* Kopfzeile beim Scrollen verkleinern - dasselbe Verhalten wie auf der
+   Startseite. Ohne das bliebe das grosse Logo dauerhaft im Weg. */
+(function(){
+  var header = document.getElementById('header');
+  if(!header) return;
+  function onScroll(){ header.classList.toggle('stuck', window.scrollY > 24); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
 })();
 </script>
 </body>
