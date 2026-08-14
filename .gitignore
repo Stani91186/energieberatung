@@ -17,3 +17,8 @@ desktop.ini
 
 # Zwischendatei des Ortsseiten-Generators (wird beim Lauf neu erzeugt)
 _ortsseite-stil.css
+_ortsseite-defs.svg
+_ortsseite-hero.html
+_ortsseite-foerder.html
+_ortsseite-ablauf.html
+_ortsseite-kontakt.html

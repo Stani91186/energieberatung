@@ -24,37 +24,90 @@
 <meta property="og:url" content="https://energieberater-albdonau.de/energieberatung-blaubeuren.html">
 <meta name="twitter:card" content="summary_large_image">
 <style>
+/* ===========================================================================
+   0. SCHRIFTEN – lokal gehostet, damit keine Verbindung zu Google entsteht.
+      Beides sind Variable Fonts: eine Datei deckt 400–700 komplett ab.
+      Wenn die Dateien fehlen, greift der System-Fallback weiter unten.
+   ======================================================================== */
 @font-face{
-  font-family:'Inter';src:url('fonts/inter-latin-var.woff2') format('woff2');
-  font-weight:400 700;font-style:normal;font-display:swap;
+  font-family:'Inter';
+  src:url('fonts/inter-latin-var.woff2') format('woff2');
+  font-weight:400 700;
+  font-style:normal;
+  font-display:swap;
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face{
-  font-family:'Fraunces';src:url('fonts/fraunces-latin-var.woff2') format('woff2');
-  font-weight:400 700;font-style:normal;font-display:swap;
+  font-family:'Fraunces';
+  src:url('fonts/fraunces-latin-var.woff2') format('woff2');
+  font-weight:400 700;
+  font-style:normal;
+  font-display:swap;
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
+/* ===========================================================================
+   1. DESIGN TOKENS – hier die Farben ändern
+   ======================================================================== */
 :root{
-  --cream:#FDFBF7; --cream-2:#F6F1E8; --cream-3:#EFE8DB; --white:#FFFFFF;
-  --ink:#1D1A15; --ink-2:#4B453D; --muted:#6F685C;
-  --line:#E7DFD1; --line-soft:#F0E9DC;
-  --amber:#C07A2E; --amber-deep:#9C5F1E; --amber-soft:#F7E9D5;
-  --forest:#2E4A3C; --forest-soft:#E4EDE7;
-  --radius:18px; --radius-sm:12px; --radius-lg:26px;
-  --shadow-sm:0 1px 2px rgba(45,35,20,.04),0 2px 8px rgba(45,35,20,.04);
-  --shadow-md:0 2px 4px rgba(45,35,20,.04),0 12px 32px rgba(45,35,20,.07);
-  --maxw:1180px; --ease:cubic-bezier(.22,.61,.36,1);
-  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  --font-serif:'Fraunces','Iowan Old Style',Georgia,'Times New Roman',serif;
+  /* Helle, warme Basis */
+  --cream:        #FDFBF7;
+  --cream-2:      #F6F1E8;
+  --cream-3:      #EFE8DB;
+  --white:        #FFFFFF;
+
+  /* Schrift */
+  --ink:          #1D1A15;
+  --ink-2:        #4B453D;
+  /* --muted war #837B70 = 4,05:1 auf Cream und damit unter dem WCAG-AA-Minimum
+     von 4,5:1. Die Farbe wird für Kleinschrift (0,72–0,83rem) verwendet. */
+  --muted:        #6F685C;
+
+  /* Schriftstapel – der Fallback greift, wenn fonts/ fehlt */
+  --font-sans:    'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-serif:   'Fraunces','Iowan Old Style',Georgia,'Times New Roman',serif;
+
+  /* Linien & Flächen */
+  --line:         #E7DFD1;
+  --line-soft:    #F0E9DC;
+
+  /* Akzent 1 – warmes Amber (Fuchs) */
+  --amber:        #C07A2E;
+  --amber-deep:   #9C5F1E;
+  --amber-soft:   #F7E9D5;
+
+  /* Akzent 2 – ruhiges Waldgrün (Eule) */
+  --forest:       #2E4A3C;
+  --forest-soft:  #E4EDE7;
+
+  --radius:       18px;
+  --radius-sm:    12px;
+  --radius-lg:    26px;
+
+  --shadow-sm:    0 1px 2px rgba(45,35,20,.04), 0 2px 8px rgba(45,35,20,.04);
+  --shadow-md:    0 2px 4px rgba(45,35,20,.04), 0 12px 32px rgba(45,35,20,.07);
+  --shadow-lg:    0 4px 8px rgba(45,35,20,.05), 0 24px 60px rgba(45,35,20,.10);
+
+  --maxw:         1180px;
+  --ease:         cubic-bezier(.22,.61,.36,1);
 }
 
+/* ===========================================================================
+   2. RESET & BASIS
+   ======================================================================== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
 body{
-  font-family:var(--font-sans);background:var(--cream);color:var(--ink);
-  line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased;
-  overflow-x:hidden;overflow-x:clip;
+  font-family:var(--font-sans);
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.65;
+  font-size:17px;
+  -webkit-font-smoothing:antialiased;
+  /* clip statt hidden: "hidden" macht den Body zum Scroll-Container und
+     zerstört damit das position:sticky der FAQ-Spalte. */
+  overflow-x:hidden;
+  overflow-x:clip;
 }
 img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
@@ -65,164 +118,803 @@ ul{list-style:none}
    aber durch Gewicht statt Schraeglage ausgezeichnet. */
 em{font-style:normal;font-weight:600;color:var(--ink)}
 i{font-style:normal}
+
+/* Einheitlicher, gut sichtbarer Fokusring für Tastaturbedienung */
 :focus-visible{outline:2.5px solid var(--amber-deep);outline-offset:3px;border-radius:4px}
-.skip-link{position:absolute;left:-9999px;top:0;z-index:200;background:var(--forest);color:#FBF8F2;padding:13px 22px;border-radius:0 0 var(--radius-sm) 0;font-size:.92rem;font-weight:600}
+
+/* Sprungmarke: erstes fokussierbares Element der Seite */
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--forest);color:#FBF8F2;
+  padding:13px 22px;border-radius:0 0 var(--radius-sm) 0;
+  font-size:.92rem;font-weight:600;
+}
 .skip-link:focus{left:0}
 
-h1,h2,h3{font-family:var(--font-serif);font-weight:500;line-height:1.15;letter-spacing:-.015em;color:var(--ink)}
-h1{font-size:clamp(2rem,4.2vw,3.1rem)}
-h2{font-size:clamp(1.6rem,2.8vw,2.2rem);margin:52px 0 16px}
-h3{font-size:1.18rem;line-height:1.3;margin:32px 0 10px}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+h1,h2,h3,.serif{
+  font-family:var(--font-serif);
+  font-weight:500;
+  line-height:1.12;
+  letter-spacing:-.015em;
+  color:var(--ink);
+}
+h1{font-size:clamp(2.4rem,5.4vw,4.1rem)}
+h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+h3{font-size:clamp(1.15rem,1.7vw,1.35rem);line-height:1.3}
 
-/* ==== Kopfzeile (identisch zur Startseite) ==== */
-.site-header{position:sticky;top:0;z-index:100;background:rgba(253,251,247,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+section{position:relative}
+
+/* ===========================================================================
+   3. WIEDERKEHRENDE ELEMENTE
+   ======================================================================== */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:.74rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--amber-deep);margin-bottom:20px;
+}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--amber);border-radius:2px}
+
+.lead{font-size:clamp(1.02rem,1.35vw,1.16rem);color:var(--ink-2);max-width:62ch}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 28px;border-radius:100px;
+  font-size:.95rem;font-weight:600;letter-spacing:-.005em;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .25s,color .25s,border-color .25s;
+  white-space:nowrap;
+}
+.btn svg{width:17px;height:17px;transition:transform .35s var(--ease)}
+.btn-primary{background:var(--forest);color:#FBF8F2;box-shadow:0 6px 18px rgba(46,74,60,.22)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(46,74,60,.28)}
+.btn-primary:hover svg{transform:translateX(4px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--forest);background:var(--white);transform:translateY(-2px)}
+.btn-amber{background:var(--amber);color:#fff;box-shadow:0 6px 18px rgba(192,122,46,.26)}
+.btn-amber:hover{background:var(--amber-deep);transform:translateY(-2px)}
+.btn-sm{padding:11px 20px;font-size:.87rem}
+
+.card{
+  background:var(--white);
+  border:1px solid var(--line-soft);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s;
+}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:var(--line)}
+
+/* Sanftes Punktraster als Hintergrundtextur */
+.dots{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle, rgba(140,120,85,.16) 1px, transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 20%,transparent 75%);
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 20%,transparent 75%);
+}
+
+/* Scroll-Animation */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ===========================================================================
+   4. HEADER
+   ======================================================================== */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .4s var(--ease),box-shadow .4s var(--ease),border-color .4s;
+  border-bottom:1px solid transparent;
+}
+.site-header.stuck{
+  background:rgba(253,251,247,.86);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom-color:var(--line-soft);
+  box-shadow:0 1px 20px rgba(45,35,20,.05);
+}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px}
+
 .logo{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:-.02em}
-.logo-mark{width:38px;height:38px;flex:none;border-radius:11px;background:linear-gradient(145deg,var(--amber),var(--amber-deep));display:grid;place-items:center;box-shadow:0 3px 10px rgba(192,122,46,.3)}
+.logo-mark{
+  width:38px;height:38px;flex:none;border-radius:11px;
+  background:linear-gradient(145deg,var(--amber) 0%,var(--amber-deep) 100%);
+  display:grid;place-items:center;box-shadow:0 3px 10px rgba(192,122,46,.3);
+}
 .logo-mark svg{width:21px;height:21px;stroke:#fff}
 .logo-text{display:flex;flex-direction:column;line-height:1.15}
 .logo-text b{font-size:1.02rem;font-weight:600}
 .logo-text span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+/* gap 26 statt 32: schafft 30px, die der Header bei voller Breite braucht,
+   damit Logo + Menü + Telefon + Knopf sicher in eine Zeile passen */
 .nav{display:flex;align-items:center;gap:26px}
+/* nowrap: sonst bricht "Über mich" bei knappem Platz in zwei Zeilen um */
 .nav a{font-size:.93rem;font-weight:500;color:var(--ink-2);position:relative;padding:4px 0;transition:color .25s;white-space:nowrap}
-.nav a::after{content:"";position:absolute;left:0;bottom:0;height:1.5px;width:0;background:var(--amber);border-radius:2px;transition:width .35s var(--ease)}
+.nav a::after{
+  content:"";position:absolute;left:0;bottom:0;height:1.5px;width:0;background:var(--amber);
+  border-radius:2px;transition:width .35s var(--ease);
+}
 .nav a:hover{color:var(--ink)}
 .nav a:hover::after{width:100%}
-.nav a[aria-current="page"]{color:var(--ink);font-weight:600}
-.nav a[aria-current="page"]::after{width:100%}
+
 .header-cta{display:flex;align-items:center;gap:14px}
+/* Direktwahl im Header – für die Zielgruppe der schnellste Weg zum Kontakt */
+.header-phone{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.93rem;font-weight:600;color:var(--ink);
+  padding:9px 15px;border-radius:100px;border:1.5px solid var(--line);
+  transition:border-color .25s,background .25s;white-space:nowrap;
+}
+.header-phone:hover{border-color:var(--amber);background:var(--white)}
+.header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
+/* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
+.cta-kurz{display:none}
 .burger{display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
 .burger span+span{margin-top:4.5px}
 .burger.open span:nth-child(1){transform:translateY(6.1px) rotate(45deg)}
 .burger.open span:nth-child(2){opacity:0}
 .burger.open span:nth-child(3){transform:translateY(-6.1px) rotate(-45deg)}
-.mobile-nav{position:fixed;inset:76px 0 auto 0;z-index:99;background:var(--cream);border-bottom:1px solid var(--line);padding:18px 24px 30px;transform:translateY(calc(-100% - 140px));visibility:hidden;transition:transform .45s var(--ease),visibility 0s .45s;box-shadow:0 20px 40px rgba(45,35,20,.09)}
+
+.mobile-nav{
+  position:fixed;inset:76px 0 auto 0;z-index:99;
+  background:var(--cream);border-bottom:1px solid var(--line);
+  padding:18px 24px 30px;
+  transform:translateY(calc(-100% - 140px));visibility:hidden;
+  transition:transform .45s var(--ease),visibility 0s .45s;
+  box-shadow:0 20px 40px rgba(45,35,20,.09);
+}
 .mobile-nav.open{transform:translateY(0);visibility:visible;transition:transform .45s var(--ease)}
 .mobile-nav a{display:block;padding:14px 0;font-size:1.05rem;font-weight:500;border-bottom:1px solid var(--line-soft)}
 .mobile-nav .btn{width:100%;margin-top:20px}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 28px;border-radius:100px;font-size:.95rem;font-weight:600;transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .25s;white-space:nowrap}
-.btn svg{width:17px;height:17px}
-.btn-primary{background:var(--forest);color:#FBF8F2;box-shadow:0 6px 18px rgba(46,74,60,.22)}
-.btn-primary:hover{transform:translateY(-2px)}
-.btn-amber{background:var(--amber);color:#fff;box-shadow:0 6px 18px rgba(192,122,46,.26)}
-.btn-amber:hover{background:var(--amber-deep);transform:translateY(-2px)}
-.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
-.btn-ghost:hover{border-color:var(--forest);background:var(--white)}
-.btn-sm{padding:11px 20px;font-size:.87rem}
+/* ===========================================================================
+   5. HERO
+   ======================================================================== */
+.hero{
+  padding:150px 0 92px;
+  background:
+    radial-gradient(900px 520px at 78% 6%, rgba(192,122,46,.11), transparent 62%),
+    radial-gradient(760px 480px at 8% 30%, rgba(46,74,60,.08), transparent 60%),
+    linear-gradient(178deg, var(--cream) 0%, var(--cream-2) 100%);
+  overflow:hidden;
+}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:64px;align-items:center;position:relative;z-index:2}
+/* Auszeichnung nur ueber Farbe, nicht ueber Kursiv. Die kursive Fraunces hat
+   sehr verspielte Formen - im wichtigsten Satz der Seite wirkte das eher
+   charmant als kompetent. Fuer eine technische Beratung ist ruhiger besser. */
+.hero h1 .accent{
+  color:var(--amber-deep);
+}
+.hero-sub{margin:26px 0 34px;font-size:clamp(1.04rem,1.5vw,1.2rem);color:var(--ink-2);max-width:52ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:44px}
 
-/* ==== Brotkrumen ==== */
+.trust-row{display:flex;flex-wrap:wrap;gap:10px 26px;padding-top:26px;border-top:1px solid var(--line)}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--ink-2);font-weight:500}
+.trust-item svg{width:16px;height:16px;stroke:var(--forest);flex:none}
+
+/* ---------------------------------------------------------------------------
+   HERO-ILLUSTRATION – Gebäudeschnitt mit Dämmebenen und Wärmepumpe
+   Alle Strichstärken und Farben laufen über die Klassen .il-*
+------------------------------------------------------------------------- */
+.hero-visual{position:relative}
+.hero-illu{position:relative;width:100%}
+.hero-illu svg{width:100%;height:auto;display:block;overflow:visible}
+.illu-caption{margin-top:14px;font-size:.79rem;color:var(--muted);text-align:center;max-width:38ch;margin-inline:auto}
+
+.il-line{fill:none;stroke:var(--ink);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.il-thin{fill:none;stroke:var(--ink);stroke-width:1.3;stroke-linecap:round}
+.il-soft{fill:none;stroke:var(--line);stroke-width:1.6;stroke-linecap:round}
+.il-green{fill:none;stroke:var(--forest);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.il-amber{fill:none;stroke:var(--amber);stroke-width:2.3;stroke-linecap:round}
+.il-lead{fill:none;stroke:var(--amber);stroke-width:1.3;stroke-dasharray:3 4;opacity:.8}
+.il-pill{fill:var(--white);stroke:var(--line);stroke-width:1.4}
+.il-label{font-family:var(--font-sans);font-size:15px;font-weight:600;fill:var(--ink)}
+
+.il-wave{opacity:0;transform-box:fill-box;animation:waveUp 3.6s var(--ease) infinite}
+@keyframes waveUp{
+  0%{opacity:0;transform:translateY(8px)}
+  22%{opacity:.9}
+  65%{opacity:.4}
+  100%{opacity:0;transform:translateY(-22px)}
+}
+.il-spin{transform-box:fill-box;transform-origin:center;animation:ilSpin 7s linear infinite}
+.il-spin-slow{transform-box:fill-box;transform-origin:center;animation:ilSpin 44s linear infinite}
+@keyframes ilSpin{to{transform:rotate(360deg)}}
+
+.il-ping{transform-box:fill-box;transform-origin:center;animation:ilPing 2.8s var(--ease) infinite}
+@keyframes ilPing{0%{transform:scale(.55);opacity:.5}70%{transform:scale(1.7);opacity:0}100%{opacity:0}}
+
+.il-tag{opacity:0;animation:ilTagIn .8s var(--ease) forwards}
+@keyframes ilTagIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+
+/* ---------------------------------------------------------------------------
+   Kleine Bewegungen in den drei Karten-Grafiken.
+   Bewusst langsam und dezent - die Seite soll ruhig wirken, nicht zappeln.
+   transform-box:view-box laesst transform-origin in viewBox-Koordinaten
+   rechnen, sonst dreht sich der Uhrzeiger um seine eigene Mitte.
+------------------------------------------------------------------------- */
+/* Die drei Schritt-Ringe pulsieren nacheinander - zeigt die Reihenfolge */
+.il-schritt-ring{transform-box:fill-box;transform-origin:center;animation:ringPuls 4.5s var(--ease) infinite}
+.il-schritt-ring:nth-of-type(2){animation-delay:.55s}
+.il-schritt-ring:nth-of-type(3){animation-delay:1.1s}
+@keyframes ringPuls{
+  0%,55%,100%{transform:scale(1)}
+  25%{transform:scale(1.14)}
+}
+
+.il-muenze{transform-box:fill-box;transform-origin:center;animation:muenzeWippt 5s ease-in-out infinite}
+@keyframes muenzeWippt{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-3px) scale(1.05)}
+}
+
+.il-zeiger{transform-box:view-box;transform-origin:216px 36px;animation:zeigerLauf 9s linear infinite}
+@keyframes zeigerLauf{to{transform:rotate(360deg)}}
+
+@media (prefers-reduced-motion:reduce){
+  .il-schritt-ring,.il-muenze,.il-zeiger{animation:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .il-wave,.il-spin,.il-spin-slow,.il-ping{animation:none}
+  .il-wave{opacity:.55}
+  .il-tag{animation:none;opacity:1}
+}
+
+/* Auf schmalen Displays sind SVG-Beschriftungen zu klein – dafür eine Legende */
+.illu-legend{display:none;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+.illu-legend li{
+  display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:500;color:var(--ink-2);
+  background:var(--white);border:1px solid var(--line);border-radius:100px;padding:6px 13px;
+}
+.illu-legend i{width:7px;height:7px;border-radius:50%;background:var(--amber);flex:none}
+.illu-legend li{cursor:pointer}
+
+/* Interaktive Bauteil-Flächen + Popup mit Einsparwerten */
+.hotspot{cursor:pointer;outline:none}
+.il-ping,.il-lead,.il-label{pointer-events:none}
+.hitshape{fill:transparent;stroke:none;transition:fill .25s}
+.hotspot:hover .hitshape,.hotspot.active .hitshape,.hotspot:focus-visible .hitshape{fill:rgba(192,122,46,.12)}
+.hotspot:hover .il-pill,.hotspot.active .il-pill,.hotspot:focus-visible .il-pill{stroke:var(--amber)}
+
+.illu-pop{
+  position:absolute;left:0;top:0;z-index:30;width:min(272px,80vw);
+  background:var(--white);border:1px solid var(--line);border-radius:15px;
+  box-shadow:var(--shadow-lg);padding:15px 17px 13px;
+  opacity:0;transform:translateY(8px) scale(.97);pointer-events:none;
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+.illu-pop.show{opacity:1;transform:none;pointer-events:auto}
+.pop-head{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.pop-head i{width:9px;height:9px;border-radius:50%;background:var(--amber);flex:none}
+.pop-head b{font-size:.85rem;flex:1;line-height:1.25}
+.pop-x{width:24px;height:24px;flex:none;border-radius:50%;display:grid;place-items:center;color:var(--muted);font-size:1.05rem;line-height:1}
+.pop-x:hover{background:var(--cream-2);color:var(--ink)}
+.pop-num{font-family:var(--font-serif);font-size:1.8rem;line-height:1.05;color:var(--forest);margin-bottom:6px}
+.pop-text{font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.pop-foot{margin-top:10px;padding-top:8px;border-top:1px solid var(--line-soft);font-size:.68rem;color:var(--muted);line-height:1.45}
+
+/* ===========================================================================
+   5b. LOGO-BAND (Qualifikationen & Programme)
+   Typografische Platzhalter-Kacheln. Offizielle Logos erst einsetzen, wenn
+   die Nutzung erlaubt ist – Anleitung im HTML-Kommentar bei der Sektion.
+   ======================================================================== */
+.logo-band{background:var(--white);border-bottom:1px solid var(--line-soft);padding:34px 0 26px}
+.band-label{
+  text-align:center;font-size:.72rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:20px;
+}
+.band-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.band-tile{
+  min-width:0;display:flex;align-items:center;gap:13px;padding:15px 18px;
+  background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius-sm);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .35s;
+}
+.band-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);background:var(--white)}
+.band-ic{width:38px;height:38px;flex:none;border-radius:10px;background:var(--forest-soft);display:grid;place-items:center}
+.band-ic svg{width:19px;height:19px;stroke:var(--forest);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.band-tile > div{min-width:0}
+.band-tile b{display:block;font-size:.86rem;line-height:1.25;font-weight:600;overflow-wrap:break-word}
+.band-tile span{font-size:.73rem;color:var(--muted);overflow-wrap:break-word;hyphens:auto}
+.band-note{margin-top:14px;text-align:center;font-size:.72rem;color:var(--muted)}
+
+/* ===========================================================================
+   6. PROBLEME
+   ======================================================================== */
+.section-pad{padding:96px 0}
+.section-head{max-width:64ch;margin-bottom:52px}
+.section-head h2{margin-bottom:18px}
+
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.problem{padding:0;display:flex;flex-direction:column;overflow:hidden}
+
+/* Illustrationsband am Kartenkopf */
+.problem-illu{
+  position:relative;padding:22px 22px 0;
+  background:linear-gradient(168deg,var(--cream-2) 0%,var(--cream) 78%);
+  border-bottom:1px solid var(--line-soft);
+}
+.problem-illu::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(circle, rgba(140,120,85,.17) 1px, transparent 1px);
+  background-size:15px 15px;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 82%);
+  mask-image:linear-gradient(180deg,#000,transparent 82%);
+}
+.problem-illu svg{position:relative;z-index:2;width:100%;height:auto;display:block}
+.problem-body{padding:26px 30px 30px;display:flex;flex-direction:column;flex:1}
+
+.problem-num{
+  font-family:var(--font-serif);font-size:.95rem;color:var(--amber-deep);
+  letter-spacing:.06em;margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.problem-num::after{content:"";flex:1;height:1px;background:var(--line)}
+.problem h3{margin-bottom:12px}
+.problem p{font-size:.94rem;color:var(--ink-2);margin-bottom:20px}
+.problem-answer{
+  margin-top:auto;padding:16px 18px;background:var(--forest-soft);border-radius:var(--radius-sm);
+  font-size:.88rem;color:var(--forest);
+}
+.problem-answer b{display:block;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:6px;opacity:.75}
+
+/* ===========================================================================
+   7. LEISTUNGEN
+   ======================================================================== */
+.services{background:var(--white);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.service{
+  padding:36px 34px;background:var(--cream);border:1px solid var(--line-soft);
+  border-radius:var(--radius);transition:transform .45s var(--ease),box-shadow .45s var(--ease),background .45s;
+}
+.service:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);background:var(--white)}
+.service-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px}
+.service-icon{width:48px;height:48px;flex:none;border-radius:13px;background:var(--forest);display:grid;place-items:center}
+.service-icon svg{width:23px;height:23px;stroke:#FBF8F2}
+.service h3{margin-bottom:6px}
+.service-kicker{font-size:.79rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--amber-deep)}
+.service > p{font-size:.94rem;color:var(--ink-2);margin-bottom:22px}
+.service ul li{
+  display:flex;gap:11px;font-size:.9rem;color:var(--ink-2);padding:9px 0;border-top:1px solid var(--line-soft);
+}
+.service ul li:first-child{border-top:none}
+.service ul svg{width:16px;height:16px;stroke:var(--amber);flex:none;margin-top:4px}
+
+/* ===========================================================================
+   7b. RECHNER-VORSTELLUNG
+   Der Sanierungsrechner ist das stärkste Werkzeug der Seite. Ein blosser Link
+   in der Navigation wird ihm nicht gerecht - hier bekommt er einen eigenen
+   Abschnitt mit Erklaerung.
+   ======================================================================== */
+.rechner-teaser{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius-lg);
+  padding:46px 50px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;
+}
+.rechner-teaser::before{
+  content:"";position:absolute;right:-80px;top:-90px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(192,122,46,.13),transparent 68%);pointer-events:none;
+}
+.rechner-teaser > *{position:relative;z-index:2}
+.rechner-teaser h2{margin-bottom:16px}
+.rechner-teaser .lead{margin-bottom:24px}
+.rechner-punkte{display:grid;gap:11px;margin-bottom:28px}
+.rechner-punkte li{display:flex;gap:11px;font-size:.93rem;color:var(--ink-2)}
+.rechner-punkte svg{width:16px;height:16px;stroke:var(--amber);flex:none;margin-top:4px}
+.rechner-aktionen{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+
+/* Der (i)-Knopf mit der Kurzerklaerung */
+.info-btn{
+  width:40px;height:40px;flex:none;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--white);
+  font-family:var(--font-serif);font-size:1.1rem;font-style:normal;color:var(--ink-2);
+  display:grid;place-items:center;transition:.3s var(--ease);
+}
+.info-btn:hover{border-color:var(--amber);color:var(--amber-deep);transform:translateY(-2px)}
+.info-btn[aria-expanded="true"]{background:var(--forest);border-color:var(--forest);color:#FBF8F2}
+.info-panel{
+  margin-top:22px;padding:20px 22px;
+  background:var(--cream-2);border-radius:var(--radius-sm);
+  border-left:3px solid var(--amber);
+  font-size:.9rem;color:var(--ink-2);
+}
+.info-panel p{margin-bottom:10px}
+.info-panel p:last-child{margin-bottom:0}
+.info-panel b{color:var(--ink)}
+
+/* Vorschau: Energieklassen-Skala */
+.rechner-vorschau{background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius);padding:26px 24px}
+.rechner-vorschau svg{width:100%;height:auto}
+.rechner-vorschau figcaption{margin-top:14px;font-size:.76rem;color:var(--muted);text-align:center}
+
+@media (max-width:900px){
+  .rechner-teaser{grid-template-columns:1fr;gap:34px;padding:34px 26px}
+}
+
+/* ===========================================================================
+   8. ABLAUF
+   ======================================================================== */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.step{padding:0 26px 0 0;position:relative}
+.step-dot{
+  width:15px;height:15px;border-radius:50%;background:var(--amber);
+  border:3.5px solid var(--cream);box-shadow:0 0 0 1.5px var(--amber);
+  margin-bottom:24px;position:relative;z-index:2;
+}
+.step-line{position:absolute;top:6.5px;left:0;right:0;height:1.5px;background:var(--line);z-index:1}
+.step h3{font-size:1.08rem;margin-bottom:9px}
+.step .num{font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block}
+.step p{font-size:.9rem;color:var(--ink-2)}
+
+/* ===========================================================================
+   9. ZAHLEN
+   ======================================================================== */
+.stats{
+  background:linear-gradient(165deg,var(--forest) 0%,#22392E 100%);
+  color:#F4EFE6;border-radius:var(--radius-lg);padding:62px 52px;position:relative;overflow:hidden;
+}
+.stats::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background-image:radial-gradient(circle, rgba(255,255,255,.075) 1px, transparent 1px);
+  background-size:18px 18px;
+  -webkit-mask-image:radial-gradient(ellipse 65% 75% at 82% 22%,#000,transparent 72%);
+  mask-image:radial-gradient(ellipse 65% 75% at 82% 22%,#000,transparent 72%);
+}
+
+.stats-inner{position:relative;z-index:2}
+.stats h2{color:#FBF8F2;max-width:22ch;margin-bottom:14px}
+.stats-lead{font-size:1.02rem;color:rgba(244,239,230,.86);max-width:60ch;margin-bottom:40px}
+/* .55 ergab nur 3,85:1 auf dem dunklen Grün – zu wenig für WCAG AA */
+.stats-note{margin-top:34px;font-size:.78rem;color:rgba(244,239,230,.78)}
+
+/* ===========================================================================
+   9b. FÖRDERÜBERSICHT
+   Der Betreiber berät nicht nur zur Heizung, sondern zu allen Programmen
+   rund um die Sanierung. Die Übersicht zeigt dieses Spektrum.
+   ======================================================================== */
+/* Die Karten liegen IM dunkelgruenen Block. Deshalb helle Schrift und
+   durchscheinende Flaechen statt weisser Karten. */
+.foerder-liste{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.foerder-karte{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius);padding:24px 24px 22px;
+  display:flex;flex-direction:column;
+  transition:background .4s var(--ease),border-color .4s var(--ease),transform .4s var(--ease);
+}
+.foerder-karte:hover{background:rgba(255,255,255,.09);border-color:rgba(232,184,122,.45);transform:translateY(-3px)}
+.foerder-traeger{
+  display:block;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:#E8B87A;margin-bottom:10px;
+}
+.foerder-karte h3{color:#FBF8F2;font-size:1.1rem;margin-bottom:9px}
+/* Bewusst ".foerder-karte p.foerder-satz": Die generische Regel
+   ".foerder-karte p" weiter unten hat sonst gleiche Spezifitaet und
+   gewinnt durch die Reihenfolge - der Satz waere dann klein und nicht amber. */
+.foerder-karte p.foerder-satz{
+  font-family:var(--font-serif);font-size:1.75rem;line-height:1.1;color:#E8B87A;margin-bottom:12px;
+}
+.foerder-karte p.foerder-deckel{
+  margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.16);
+  font-size:.82rem;color:rgba(244,239,230,.7);
+}
+.foerder-satz em{
+  font-family:var(--font-sans);font-style:normal;font-size:.78rem;
+  color:rgba(244,239,230,.75);display:block;margin-top:5px;
+}
+.foerder-karte p{font-size:.88rem;color:rgba(244,239,230,.82);margin-bottom:11px}
+.foerder-deckel{
+  margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.16);
+  font-size:.82rem;color:rgba(244,239,230,.7);
+}
+.foerder-fuss{margin-top:22px;border-top:1px solid rgba(255,255,255,.2);padding-top:24px}
+.foerder-fuss p{font-size:.92rem;color:rgba(244,239,230,.86);margin-bottom:12px}
+.foerder-fuss b{color:#FBF8F2}
+.foerder-fuss .stats-note{margin-top:0}
+.foerder-cta{margin-top:20px}
+
+/* ===========================================================================
+   9c. HANDLUNGSAUFRUFE ZWISCHEN DEN ABSCHNITTEN
+   Nach jedem groesseren Block soll ein Weg zum Kontakt sichtbar sein, ohne
+   dass man scrollen muss. Bewusst schlank gehalten und im Text jeweils an
+   den Abschnitt darueber angeknuepft - viermal derselbe Satz waere Werbung,
+   ein passender Satz ist ein Angebot.
+   ======================================================================== */
+.cta-band{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:22px 32px;margin-top:52px;padding:28px 32px;
+  background:var(--white);border:1px solid var(--line-soft);
+  border-left:4px solid var(--amber);border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+}
+.cta-band-text{min-width:min(100%,26ch);flex:1}
+.cta-band b{
+  display:block;font-family:var(--font-serif);font-weight:500;
+  font-size:1.22rem;line-height:1.25;color:var(--ink);margin-bottom:5px;
+}
+.cta-band span{font-size:.92rem;color:var(--ink-2)}
+.cta-band-knoepfe{display:flex;flex-wrap:wrap;gap:11px}
+/* Auf Cremehintergrund die Karte etwas absetzen */
+.services .cta-band,.faq .cta-band{background:var(--cream)}
+
+@media (max-width:700px){
+  .cta-band{padding:22px 20px;gap:16px;margin-top:38px}
+  .cta-band-knoepfe{width:100%}
+  .cta-band-knoepfe .btn{flex:1;justify-content:center}
+}
+
+@media (max-width:1000px){ .foerder-liste{grid-template-columns:1fr 1fr} }
+@media (max-width:700px){ .foerder-liste{grid-template-columns:1fr} }
+
+
+
+/* ===========================================================================
+   11. STIMMEN
+   ======================================================================== */
+.quotes{position:relative}
+.quote-viewport{overflow:hidden}
+.quote-track{display:flex;transition:transform .6s var(--ease)}
+.quote-slide{min-width:100%;padding:4px}
+.quote-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:48px 52px;box-shadow:var(--shadow-sm)}
+.quote-mark{font-family:var(--font-serif);font-size:3.4rem;color:var(--amber-soft);line-height:.7;margin-bottom:16px}
+.quote-card blockquote{font-family:var(--font-serif);font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.45;color:var(--ink);margin-bottom:28px}
+.quote-author{display:flex;align-items:center;gap:14px}
+.quote-avatar{width:44px;height:44px;border-radius:50%;background:var(--cream-3);display:grid;place-items:center;font-weight:600;color:var(--ink-2);font-size:.9rem;flex:none}
+.quote-author b{display:block;font-size:.93rem}
+.quote-author span{font-size:.83rem;color:var(--muted)}
+.quote-nav{display:flex;align-items:center;gap:12px;margin-top:26px}
+.qbtn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;background:var(--white);transition:.3s var(--ease)}
+.qbtn:hover{border-color:var(--forest);transform:translateY(-2px)}
+.qbtn svg{width:16px;height:16px;stroke:var(--ink)}
+.qcount{font-size:.85rem;color:var(--muted);margin-left:6px;font-variant-numeric:tabular-nums}
+.placeholder-hint{
+  margin-top:20px;font-size:.8rem;color:var(--amber-deep);background:var(--amber-soft);
+  display:inline-block;padding:8px 14px;border-radius:100px;
+}
+
+/* ===========================================================================
+   12. FAQ
+   ======================================================================== */
+.faq{background:var(--white);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:start}
+.faq-intro{position:sticky;top:112px}
+.faq-item{border-bottom:1px solid var(--line-soft)}
+.faq-q{
+  width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
+  padding:22px 0;text-align:left;font-size:1.02rem;font-weight:600;transition:color .25s;
+}
+.faq-q:hover{color:var(--amber-deep)}
+.faq-icon{position:relative;width:24px;height:24px;flex:none;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;margin-top:2px;transition:.35s var(--ease)}
+.faq-icon::before,.faq-icon::after{content:"";position:absolute;background:var(--ink);border-radius:2px;transition:.35s var(--ease)}
+.faq-icon::before{width:10px;height:1.6px}
+.faq-icon::after{width:1.6px;height:10px}
+.faq-item.open .faq-icon{background:var(--forest);border-color:var(--forest);transform:rotate(90deg)}
+.faq-item.open .faq-icon::before,.faq-item.open .faq-icon::after{background:#fff}
+.faq-item.open .faq-icon::after{opacity:0}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+.faq-a p{padding:0 0 22px;font-size:.94rem;color:var(--ink-2);max-width:60ch}
+
+/* ===========================================================================
+   13. KONTAKT
+   ======================================================================== */
+.contact-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:start}
+.contact-info .lead{margin-bottom:34px}
+.contact-line{display:flex;gap:15px;align-items:flex-start;padding:18px 0;border-top:1px solid var(--line)}
+.contact-line svg{width:20px;height:20px;stroke:var(--amber-deep);flex:none;margin-top:3px}
+.contact-line b{display:block;font-size:.79rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;font-weight:600}
+.contact-line span{font-size:1rem;color:var(--ink)}
+.contact-line a{transition:color .25s}
+.contact-line a:hover{color:var(--amber-deep);text-decoration:underline;text-underline-offset:3px}
+
+.form-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:38px;box-shadow:var(--shadow-md)}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:.84rem;font-weight:600;margin-bottom:7px}
+.field input,.field select,.field textarea{
+  width:100%;padding:13px 15px;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--cream);font-family:inherit;font-size:.94rem;color:var(--ink);
+  transition:border-color .25s,background .25s,box-shadow .25s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--amber);background:var(--white);
+  box-shadow:0 0 0 3.5px rgba(192,122,46,.13);
+}
+.field textarea{resize:vertical;min-height:110px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.consent{display:flex;gap:11px;align-items:flex-start;margin:20px 0 22px;font-size:.82rem;color:var(--muted)}
+.consent input{width:17px;height:17px;flex:none;margin-top:3px;accent-color:var(--forest)}
+.form-card .btn{width:100%}
+.form-note{margin-top:16px;font-size:.76rem;color:var(--muted);text-align:center}
+
+/* ===========================================================================
+   14. FOOTER
+   ======================================================================== */
+.site-footer{background:var(--cream-2);border-top:1px solid var(--line);padding:66px 0 30px;margin-top:0}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:34px;padding-bottom:44px}
+.footer-brand p{font-size:.9rem;color:var(--ink-2);margin:18px 0 22px;max-width:34ch}
+.footer-col h4{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
+.footer-col a{display:block;font-size:.9rem;color:var(--ink-2);padding:6px 0;transition:color .25s}
+.footer-col a:hover{color:var(--amber-deep)}
+.badges{display:flex;flex-wrap:wrap;gap:9px;padding:26px 0;border-top:1px solid var(--line)}
+.badge{
+  font-size:.75rem;font-weight:600;color:var(--ink-2);background:var(--white);
+  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
+}
+.footer-bottom{
+  display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;align-items:center;
+  padding-top:24px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted);
+}
+.footer-bottom nav{display:flex;gap:22px;flex-wrap:wrap}
+
+/* ===========================================================================
+   14b. MOBILE AKTIONSLEISTE
+   Unter 760px blendet die Seite den Header-CTA aus – ohne diese Leiste gäbe es
+   auf dem Handy gar keinen sichtbaren Kontaktweg mehr.
+   ======================================================================== */
+.mobile-bar{
+  display:none;
+  position:fixed;left:0;right:0;bottom:0;z-index:98;
+  gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(253,251,247,.94);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+  box-shadow:0 -2px 20px rgba(45,35,20,.08);
+}
+.mobile-bar .btn{flex:1;padding:13px 16px;font-size:.9rem}
+.mobile-bar .btn svg{width:16px;height:16px}
+
+/* ===========================================================================
+   14c. FORMULAR – Validierung & Spamschutz
+   ======================================================================== */
+/* Honigtopf: für Menschen unsichtbar, Bots füllen ihn aus.
+   Bewusst kein display:none – manche Bots ignorieren solche Felder. */
+.hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.field.invalid input,.field.invalid select,.field.invalid textarea{
+  border-color:#B4442F;background:#FDF4F2;
+}
+.field.invalid input:focus,.field.invalid textarea:focus{box-shadow:0 0 0 3.5px rgba(180,68,47,.13)}
+.field-error{
+  display:none;margin-top:6px;font-size:.79rem;font-weight:500;color:#B4442F;
+}
+.field.invalid .field-error{display:block}
+.consent.invalid{color:#B4442F}
+.consent.invalid input{outline:2px solid #B4442F;outline-offset:2px}
+.form-note.is-error{color:#B4442F;font-weight:600}
+.form-note.is-ok{color:var(--forest);font-weight:600}
+
+/* ===========================================================================
+   14d. KLEINE BEWEGUNGEN AUF DER ÜBRIGEN SEITE
+   Grundsatz: Dauerhaft laufen nur zwei Dinge, und zwar dort, wo die Bewegung
+   etwas ERKLÄRT (Reihenfolge der Schritte, Wertigkeit der Zahlen). Alles
+   andere bewegt sich erst, wenn man mit der Maus darauf geht - das hält die
+   Seite ruhig und schont auf dem Handy den Akku.
+   ======================================================================== */
+
+/* Ablauf: die vier Punkte leuchten nacheinander auf und zeigen so die
+   Reihenfolge, ohne dass man sie lesen muss. */
+/* Der Ring ist ein eigenes Element, das nur skaliert und ausblendet.
+   Ueber box-shadow zu animieren waere einfacher, zwingt den Browser aber
+   zum Neuzeichnen bei jedem Bild - transform und opacity uebernimmt die
+   Grafikkarte. */
+.step-dot::after{
+  content:"";position:absolute;inset:-2px;border-radius:50%;
+  border:1.5px solid var(--amber);pointer-events:none;
+  opacity:0;animation:punktRing 5.2s var(--ease) infinite;
+}
+.steps .step:nth-child(3) .step-dot::after{animation-delay:.45s}
+.steps .step:nth-child(4) .step-dot::after{animation-delay:.9s}
+.steps .step:nth-child(5) .step-dot::after{animation-delay:1.35s}
+@keyframes punktRing{
+  0%{transform:scale(1);opacity:0}
+  8%{opacity:.55}
+  30%{transform:scale(2.7);opacity:0}
+  100%{transform:scale(2.7);opacity:0}
+}
+
+
+/* Ab hier: nur bei Mausberuehrung */
+.service-icon svg,.band-ic svg,.contact-line svg{
+  transition:transform .45s var(--ease);
+}
+.service:hover .service-icon svg{transform:scale(1.12) rotate(-7deg)}
+.band-tile:hover .band-ic svg{transform:scale(1.16)}
+.contact-line:hover svg{transform:translateX(3px) scale(1.1)}
+
+@media (prefers-reduced-motion:reduce){
+  .step-dot::after{animation:none}
+  .step-dot::after{display:none}
+  .service-icon svg,.band-ic svg,.contact-line svg{transition:none}
+  .service:hover .service-icon svg,.band-tile:hover .band-ic svg,
+  .contact-line:hover svg{transform:none}
+}
+
+/* ===========================================================================
+   15. RESPONSIVE
+   ======================================================================== */
+@media (max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .hero{padding:126px 0 76px}
+  .faq-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+  .faq-intro{position:static}
+  .problem-grid{grid-template-columns:1fr}
+  .service-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:34px 20px}
+  .step-line{display:none}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:34px}
+  .band-row{grid-template-columns:1fr 1fr}
+}
+
+/* ---------------------------------------------------------------------------
+   HEADER-STUFEN
+   Der Header hat drei Dinge nebeneinander: Logo, Menü, Kontaktknöpfe. Zusammen
+   brauchen sie in voller Größe rund 1.110 px. Statt sie umbrechen zu lassen,
+   wird in drei Stufen Platz gespart – zuletzt übernimmt das Burger-Menü.
+------------------------------------------------------------------------- */
+
+/* Stufe 1: Die Telefonnummer weicht – sie steht weiterhin in der Kontaktsektion
+   und auf dem Handy in der festen Leiste unten. */
+@media (max-width:1200px){
+  .header-phone{display:none}
+}
+
+/* Stufe 2: Menü und Knopf werden kompakter, damit alles in einer Zeile bleibt.
+   Der Knopf trägt hier die Kurzfassung "Erstgespräch". */
+@media (max-width:1080px){
+  .nav{gap:19px}
+  .nav a{font-size:.86rem}
+  .header-cta .btn{padding:11px 17px;font-size:.83rem}
+  .cta-lang{display:none}
+  .cta-kurz{display:inline}
+}
+
+/* Stufe 3: Jetzt reicht auch das nicht mehr – Burger-Menü und die feste
+   Aktionsleiste unten übernehmen. */
+@media (max-width:880px){
+  body{padding-bottom:78px} /* Platz für die fixe Aktionsleiste */
+  .nav,.header-cta .btn{display:none}
+  .burger{display:grid}
+  .mobile-bar{display:flex}
+}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .section-pad{padding:66px 0}
+  .stats{padding:44px 26px;border-radius:var(--radius)}
+  .stat-grid{grid-template-columns:1fr;gap:26px}
+  .quote-card{padding:32px 26px}
+  .form-card{padding:26px 22px}
+  .field-row{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:28px}
+  .footer-grid{grid-template-columns:1fr}
+  .trust-row{flex-direction:column;gap:11px}
+  .hero-illu .il-tag,.hero-illu .il-lead{display:none}
+  .illu-legend{display:flex}
+  .band-tile{padding:12px 13px;gap:10px}
+  .band-ic{width:32px;height:32px;border-radius:8px}
+  .band-tile b{font-size:.8rem}
+  .problem-body{padding:22px 22px 26px}
+  .problem-illu{padding:18px 18px 0}
+}
+
+/* ==== Ortsseiten: die ortseigenen Textabschnitte ==== */
+.ort-text{max-width:74ch}
+.ort-text h3{margin:34px 0 10px;font-size:1.2rem}
+.ort-text p{margin-bottom:15px;color:var(--ink-2)}
+.ort-text .merksatz{background:var(--forest-soft);border-radius:var(--radius-sm);padding:20px 24px;margin:26px 0;color:var(--forest);font-size:.97rem}
+.ort-text .merksatz b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.75}
 .krumen{padding:22px 0 0;font-size:.82rem;color:var(--muted)}
 .krumen ol{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
 .krumen li::after{content:"›";margin-left:8px;color:var(--line)}
 .krumen li:last-child::after{content:""}
 .krumen a:hover{color:var(--amber-deep);text-decoration:underline;text-underline-offset:3px}
-
-/* ==== Kopfbereich der Seite ==== */
-.seiten-kopf{padding:26px 0 44px}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.74rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:18px}
-.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--amber);border-radius:2px}
-.seiten-kopf .lead{font-size:clamp(1.04rem,1.5vw,1.18rem);color:var(--ink-2);max-width:60ch;margin-top:20px}
-.kopf-aktionen{display:flex;flex-wrap:wrap;gap:13px;margin-top:30px}
-
-/* ==== Textbereich ==== */
-.inhalt{display:grid;grid-template-columns:1fr 330px;gap:56px;align-items:start;padding-bottom:80px}
-.text{max-width:70ch}
-.text p{margin-bottom:16px;color:var(--ink-2)}
-.text strong{color:var(--ink)}
-.text a{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
-.text a:hover{color:var(--ink)}
-.text ul.liste{margin:0 0 18px}
-.text ul.liste li{display:flex;gap:11px;margin-bottom:10px;color:var(--ink-2)}
-.text ul.liste li::before{content:"";width:7px;height:7px;flex:none;margin-top:10px;border-radius:50%;background:var(--amber)}
-.text ol.schritte{counter-reset:s;list-style:none;margin:0 0 18px}
-.text ol.schritte li{counter-increment:s;position:relative;padding-left:44px;margin-bottom:16px;color:var(--ink-2)}
-.text ol.schritte li::before{
-  content:counter(s);position:absolute;left:0;top:-1px;width:30px;height:30px;
-  border-radius:50%;background:var(--forest-soft);color:var(--forest);
-  display:grid;place-items:center;font-family:var(--font-serif);font-size:.95rem;font-weight:600;
+.ort-nachbarn{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.ort-nachbarn a{
+  font-size:.86rem;font-weight:500;color:var(--ink-2);background:var(--white);
+  border:1px solid var(--line);border-radius:100px;padding:8px 16px;transition:.25s var(--ease);
 }
-.merksatz{background:var(--forest-soft);border-radius:var(--radius-sm);padding:20px 24px;margin:26px 0;color:var(--forest);font-size:.97rem}
-.merksatz b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.75}
+.ort-nachbarn a:hover{border-color:var(--amber);color:var(--amber-deep);transform:translateY(-2px)}
 
-/* Tabelle */
-.tab-wrap{overflow-x:auto;margin:22px 0}
-table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:440px}
-th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line-soft)}
-th{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
-td{color:var(--ink-2)}
-td:first-child{color:var(--ink);font-weight:500}
-
-/* ==== Seitenspalte ==== */
-.spalte{position:sticky;top:104px;display:grid;gap:18px}
-.karte{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px 26px}
-.karte h3{margin:0 0 12px;font-size:1.05rem}
-.karte p{font-size:.89rem;color:var(--ink-2);margin-bottom:16px}
-.karte .btn{width:100%}
-.karte-kontakt{background:linear-gradient(165deg,var(--forest),#22392E);border-color:transparent;color:#F4EFE6}
-.karte-kontakt h3{color:#FBF8F2}
-.karte-kontakt p{color:rgba(244,239,230,.8)}
-.tel-gross{display:flex;align-items:center;gap:10px;font-size:1.12rem;font-weight:600;color:#FBF8F2;margin-bottom:6px}
-.tel-gross svg{width:19px;height:19px;stroke:#E8B87A;fill:none;stroke-width:1.9;flex:none}
-.spalte-links{display:grid;gap:2px}
-.spalte-links a{display:block;padding:9px 0;font-size:.9rem;color:var(--ink-2);border-bottom:1px solid var(--line-soft);transition:color .25s}
-.spalte-links a:last-child{border-bottom:none}
-.spalte-links a:hover{color:var(--amber-deep)}
-
-/* ==== FAQ ==== */
-.faq-item{border-bottom:1px solid var(--line-soft)}
-.faq-q{width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:20px 0;text-align:left;font-size:1rem;font-weight:600;transition:color .25s}
-.faq-q:hover{color:var(--amber-deep)}
-.faq-icon{position:relative;width:22px;height:22px;flex:none;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;margin-top:3px;transition:.35s var(--ease)}
-.faq-icon::before,.faq-icon::after{content:"";position:absolute;background:var(--ink);border-radius:2px;transition:.35s var(--ease)}
-.faq-icon::before{width:9px;height:1.6px}
-.faq-icon::after{width:1.6px;height:9px}
-.faq-item.open .faq-icon{background:var(--forest);border-color:var(--forest);transform:rotate(90deg)}
-.faq-item.open .faq-icon::before,.faq-item.open .faq-icon::after{background:#fff}
-.faq-item.open .faq-icon::after{opacity:0}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
-.faq-a p{padding:0 0 20px;font-size:.94rem;color:var(--ink-2)}
-
-/* ==== Abschluss-Aufruf ==== */
-.abschluss{background:var(--white);border-top:1px solid var(--line-soft);padding:66px 0}
-.abschluss-inner{display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:space-between}
-.abschluss h2{margin:0 0 8px}
-.abschluss p{color:var(--ink-2);max-width:52ch}
-
-/* ==== Fussbereich ==== */
-.site-footer{background:var(--cream-2);border-top:1px solid var(--line);padding:56px 0 26px;font-size:.85rem;color:var(--muted)}
-.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding-bottom:36px}
-.footer-brand p{font-size:.88rem;color:var(--ink-2);margin:16px 0 18px;max-width:34ch}
-.footer-col h4{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
-.footer-col a,.footer-col address{display:block;font-size:.88rem;color:var(--ink-2);padding:5px 0;transition:color .25s;font-style:normal}
-.footer-col a:hover{color:var(--amber-deep)}
-.footer-bottom{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:center;padding-top:22px;border-top:1px solid var(--line)}
-.footer-bottom nav{display:flex;gap:20px;flex-wrap:wrap}
-.footer-bottom a:hover{color:var(--amber-deep)}
-
-/* ==== Mobile Aktionsleiste ==== */
-.mobile-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:98;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(253,251,247,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);box-shadow:0 -2px 20px rgba(45,35,20,.08)}
-.mobile-bar .btn{flex:1;padding:13px 16px;font-size:.9rem}
-
-@media (max-width:1000px){
-  .inhalt{grid-template-columns:1fr;gap:40px}
-  .spalte{position:static;grid-template-columns:1fr 1fr;display:grid}
-}
-@media (max-width:880px){
-  body{padding-bottom:78px}
-  .nav{display:none}
-  .header-cta .btn{display:none}
-  .burger{display:grid}
-  .mobile-bar{display:flex}
-}
-@media (max-width:760px){
-  body{font-size:16px}
-  .spalte{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr;gap:28px}
-  h2{margin:40px 0 14px}
-}
 </style>
 
 <script type="application/ld+json">
@@ -258,6 +950,148 @@ td:first-child{color:var(--ink);font-weight:500}
 <body>
 
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Häkchen: stand 19× identisch im Dokument. Farbe und Größe kommen
+         weiterhin per CSS vom umgebenden <svg>-Element. -->
+    <g id="icCheck" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 6 9 17l-5-5"/>
+    </g>
+
+    <linearGradient id="gWallF" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F5EEE0"/>
+    </linearGradient>
+    <linearGradient id="gWallS" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EBE2D0"/><stop offset="1" stop-color="#DCD1B9"/>
+    </linearGradient>
+    <!-- Dach in dunklem, warmem Grau (Ziegel), statt vorher Amber -->
+    <linearGradient id="gRoofF" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6E655C"/><stop offset="1" stop-color="#4A433B"/>
+    </linearGradient>
+    <linearGradient id="gRoofB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#453F38"/><stop offset="1" stop-color="#332E29"/>
+    </linearGradient>
+    <!-- Solarmodule blaeulich, damit sie sich vom dunklen Dach abheben -->
+    <linearGradient id="gPanel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#40608A"/><stop offset="1" stop-color="#27405E"/>
+    </linearGradient>
+
+    <!-- Rasen und Baumkronen -->
+    <linearGradient id="gGrass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#93BC7B"/><stop offset="1" stop-color="#5D8A51"/>
+    </linearGradient>
+    <linearGradient id="gLaubHell" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#9CC685"/><stop offset="1" stop-color="#6B9A5B"/>
+    </linearGradient>
+    <linearGradient id="gLaubDunkel" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#7CAA68"/><stop offset="1" stop-color="#4E7A46"/>
+    </linearGradient>
+
+    <!-- Grundstueck: Rasen-Insel mit Steinkante. Bewusst AUSSERHALB von
+         #isoHouse, weil die kleinen Karten-Grafiken das Haus in einem engen
+         Ausschnitt zeigen - dort wuerde die Insel ueber den Rand laufen. -->
+    <!-- WICHTIG ZUR GEOMETRIE:
+         Das Haus ist isometrisch mit den Bodenrichtungen (0.866, 0.5) und
+         (0.866, -0.5) gezeichnet. Eine in Wirklichkeit KREISRUNDE Flaeche
+         erscheint dadurch als Ellipse im Verhaeltnis Wurzel(3) = 1.732 : 1.
+         Ein flacherer Wert sieht aus wie ein Teppich vor dem Haus statt wie
+         Boden darunter - genau das war der erste Versuch (3.67 : 1).
+
+         Der Grundriss beruehrt den Boden bei
+             (188.8,406) (362,506) (483.2,436) und (310,336).
+         Mittelpunkt daraus: (336, 421) - das ist der Mittelpunkt der Insel.
+         Mit rx=222 / ry=126 liegen alle vier Ecken bei rund 46 % des Radius,
+         also mit gleichmaessigem Rand rundum. Beim Aendern beides im
+         Verhaeltnis 1.73 : 1 halten, sonst schwebt das Haus wieder. -->
+    <g id="grundstueck">
+      <ellipse cx="340" cy="436" rx="238" ry="130" fill="rgba(60,46,28,.13)" filter="url(#fBlur)"/>
+      <ellipse cx="336" cy="430" rx="236" ry="134" fill="#ADA492"/>
+      <ellipse cx="336" cy="420" rx="236" ry="134" fill="#D5CDBC"/>
+      <ellipse cx="336" cy="421" rx="222" ry="126" fill="url(#gGrass)"/>
+      <g fill="none" stroke="#4E7A46" stroke-width="2" stroke-linecap="round" opacity=".5">
+        <path d="M200 511c2-8 3-11 1-18M210 515c3-7 5-10 4-17M262 529c2-8 3-11 1-18M272 532c3-7 5-10 4-17
+                 M398 532c2-8 3-11 1-18M408 529c3-7 5-10 4-17M468 511c2-8 3-11 1-18M478 507c3-7 5-10 4-17"/>
+      </g>
+    </g>
+
+    <!-- Baeume. Stehen hinter dem Haus, damit sie die anklickbaren
+         Bauteilflaechen nicht verdecken. -->
+    <!-- Stammfuss muss auf der Rasenflaeche liegen, mit Abstand zum Rand.
+         (528,452) entspricht 90 % des Radius - noch deutlich innerhalb,
+         und der Stamm bleibt rechts neben der Waermepumpe (endet bei x=518). -->
+    <g id="baumRechts">
+      <path d="M528 452V326" fill="none" stroke="#8C7F6C" stroke-width="7" stroke-linecap="round"/>
+      <path d="M528 364l-24-26M528 348l26-24" fill="none" stroke="#8C7F6C" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="528" cy="276" rx="62" ry="54" fill="url(#gLaubDunkel)"/>
+      <ellipse cx="486" cy="302" rx="38" ry="31" fill="url(#gLaubHell)"/>
+      <ellipse cx="568" cy="298" rx="36" ry="30" fill="url(#gLaubHell)"/>
+      <ellipse cx="536" cy="232" rx="40" ry="33" fill="url(#gLaubHell)"/>
+    </g>
+    <!-- Position bewusst gewaehlt: rechts vom "Fassade"-Schild (endet bei x=128)
+         und oberhalb des "Fenster"-Schilds (beginnt bei y=470). Beim Verschieben
+         diese beiden Grenzen beachten, sonst liegt Laub unter den Beschriftungen. -->
+    <g id="baumLinks">
+      <path d="M175 464V382" fill="none" stroke="#9C907D" stroke-width="5" stroke-linecap="round"/>
+      <path d="M175 410l-18-18" fill="none" stroke="#9C907D" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="175" cy="356" rx="44" ry="38" fill="url(#gLaubDunkel)"/>
+      <ellipse cx="149" cy="376" rx="27" ry="22" fill="url(#gLaubHell)"/>
+      <ellipse cx="201" cy="374" rx="25" ry="21" fill="url(#gLaubHell)"/>
+    </g>
+    <filter id="fBlur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="fDrop" x="-25%" y="-25%" width="150%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#2D2314" flood-opacity=".16"/>
+    </filter>
+
+    <!-- Isometrisches Haus: Grundriss 200×140, Wandhöhe 110, First 170 -->
+    <g id="isoHouse">
+      <polygon points="307,324 501,436 365,514 171,402" fill="rgba(60,46,28,.10)" filter="url(#fBlur)"/>
+      <polygon points="310,210 483.2,310 422.6,285 249.4,185" fill="url(#gRoofB)" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="188.8,390 362,490 362,380 188.8,280" fill="url(#gWallF)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
+      <polygon points="483.2,420 362,490 362,380 483.2,310" fill="url(#gWallS)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
+      <polygon points="362,380 483.2,310 422.6,285" fill="url(#gWallS)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
+
+      <!-- Fassade (Fläche y=140): u entlang der Wand, v = Höhe -->
+      <g transform="matrix(0.866,0.5,0,-1,188.8,390)">
+        <rect x="22" y="36" width="52" height="50" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
+        <path d="M48 36v50M22 61h52" fill="none" stroke="#1D1A15" stroke-width="1"/>
+        <rect x="92" y="40" width="44" height="46" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
+        <path d="M114 40v46M92 63h44" fill="none" stroke="#1D1A15" stroke-width="1"/>
+        <rect x="148" y="0" width="40" height="78" rx="2" fill="#EFE7D7" stroke="#1D1A15" stroke-width="1.5"/>
+        <circle cx="182" cy="40" r="2.6" fill="#1D1A15"/>
+      </g>
+
+      <!-- Giebelwand (Fläche x=200) -->
+      <g transform="matrix(-0.866,0.5,0,-1,483.2,420)">
+        <rect x="50" y="46" width="40" height="42" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
+        <path d="M70 46v42M50 67h40" fill="none" stroke="#1D1A15" stroke-width="1"/>
+      </g>
+
+      <!-- Vordere Dachfläche mit Solarmodulen -->
+      <polygon points="188.8,280 362,380 422.6,285 249.4,185" fill="url(#gRoofF)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
+      <g transform="matrix(0.866,0.5,0.606,-0.95,188.8,280)">
+        <rect x="26" y="22" width="64" height="52" rx="2" fill="url(#gPanel)" stroke="#F4EFE6" stroke-width="1.2"/>
+        <path d="M26 48h64M47 22v52M69 22v52" fill="none" stroke="#F4EFE6" stroke-width=".8" opacity=".7"/>
+        <rect x="104" y="22" width="64" height="52" rx="2" fill="url(#gPanel)" stroke="#F4EFE6" stroke-width="1.2"/>
+        <path d="M104 48h64M125 22v52M147 22v52" fill="none" stroke="#F4EFE6" stroke-width=".8" opacity=".7"/>
+      </g>
+      <path d="M249.4 185 L422.6 285" fill="none" stroke="#1D1A15" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- Sockel / Kellergeschoss mit gedämmter Kellerdecke -->
+      <polygon points="188.8,390 362,490 362,506 188.8,406" fill="#D9CDB3" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="483.2,420 362,490 362,506 483.2,436" fill="#CBBFA4" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M188.8 396 L362 496" fill="none" stroke="#2E4A3C" stroke-width="2" stroke-dasharray="6 5"/>
+      <path d="M362 496 L483.2 426" fill="none" stroke="#2E4A3C" stroke-width="2" stroke-dasharray="6 5"/>
+
+      <!-- Büsche -->
+      <ellipse cx="160" cy="464" rx="28" ry="5" fill="rgba(60,46,28,.09)"/>
+      <circle cx="168" cy="442" r="17" fill="#DCE8DF" stroke="#1D1A15" stroke-width="1.3"/>
+      <circle cx="146" cy="454" r="10.5" fill="#CFDFD4" stroke="#1D1A15" stroke-width="1.3"/>
+    </g>
+  </defs>
+</svg>
 
 <header class="site-header">
   <div class="wrap header-inner">
@@ -300,6 +1134,135 @@ td:first-child{color:var(--ink);font-weight:500}
 
 <main id="inhalt">
 
+<!-- ========================= HERO ========================= -->
+<section class="hero" id="top">
+  <div class="dots"></div>
+  <div class="wrap hero-grid">
+
+    <div class="hero-copy">
+      <span class="eyebrow">Erst rechnen. Dann sanieren.</span>
+      <h1>Energieberatung <span class="accent">Blaubeuren</span></h1>
+      <p class="hero-sub">
+        <strong>Energieberatung für Blaubeuren und Umgebung.</strong> Sanieren ist teuer –
+        falsch sanieren ist teurer. Wir rechnen Ihnen vor, welche Maßnahmen sich bei
+        <em>Ihrem</em> Gebäude wirklich lohnen, in welcher Reihenfolge sie sinnvoll sind
+        und welche Fördermittel Sie dafür bekommen.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#kontakt" class="btn btn-primary">
+          Gratis Erstgespräch vereinbaren
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="sanierungsrechner.html" class="btn btn-ghost">Sanierungsrechner starten</a>
+      </div>
+
+      <div class="trust-row">
+        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Energie-Effizienz-Expertenliste (dena)</span>
+        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> BAFA- &amp; KfW-förderfähig</span>
+        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Keine Provisionen, kein Produktverkauf</span>
+        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Blaubeuren: etwa 15 Kilometer von unserem Büro</span>
+      </div>
+    </div>
+
+<div class="hero-visual">
+      <div class="hero-illu">
+        <svg viewBox="0 50 680 520" role="img" aria-label="Isometrische Illustration eines Wohnhauses mit Solarmodulen auf dem Dach und Wärmepumpe neben dem Haus – die vier Stellschrauben Dach, Fassade, Fenster und Heizung sind markiert">
+
+          <!-- Sonne -->
+          <g class="il-spin-slow">
+            <circle cx="86" cy="112" r="20" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.8"/>
+            <path class="il-amber" stroke-width="1.8" d="M86 84V73M86 140v11M114 112h11M58 112H47M106 92l8-8M66 132l-8 8M106 132l8 8M66 92l-8-8"/>
+          </g>
+
+          <!-- Grundstueck und Baeume liegen VOR dem Haus im Quelltext, damit
+               das Haus darueber gezeichnet wird und davor steht. -->
+          <use href="#grundstueck"/>
+          <use href="#baumRechts"/>
+          <use href="#baumLinks"/>
+
+          <!-- Isometrisches Haus aus den gemeinsamen Definitionen -->
+          <use href="#isoHouse"/>
+
+          <!-- Wärmepumpe (isometrischer Block mit rotierendem Lüfter) -->
+          <g data-key="heizung" transform="translate(0,16)">
+            <polygon points="465.9,437 518.3,467.5 465.9,498 413.5,467.5" fill="rgba(60,46,28,.10)" filter="url(#fBlur)"/>
+            <polygon points="465.9,398 513.5,425.5 465.9,453 418.25,425.5" fill="#FBF7EF" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+            <polygon points="418.25,425.5 465.9,453 465.9,495 418.25,467.5" fill="#F2EBDC" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+            <polygon points="465.9,453 513.5,425.5 513.5,467.5 465.9,495" fill="#E2D8C2" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+            <g transform="matrix(0.866,0.5,0,-1,418.25,467.5)">
+              <circle cx="24" cy="21" r="13.5" fill="#E4EDE7" stroke="#2E4A3C" stroke-width="1.6"/>
+              <g class="il-spin">
+                <path d="M24 21c0-5.5 2.8-8.5 6.5-8.5M24 21c4.6 2.8 5.6 6.5 3.7 9.3M24 21c-4.6 2.8-9.3.9-10.2-3" fill="none" stroke="#2E4A3C" stroke-width="1.9" stroke-linecap="round"/>
+              </g>
+              <circle cx="24" cy="21" r="1.8" fill="#2E4A3C"/>
+            </g>
+            <g transform="matrix(-0.866,0.5,0,-1,513.5,467.5)" opacity=".35">
+              <path d="M12 14h32M12 21h32M12 28h32" fill="none" stroke="#1D1A15" stroke-width="1.1"/>
+            </g>
+          </g>
+
+          <!-- Abwärme über der alten Dachhälfte -->
+          <g class="il-amber" stroke-width="2.2">
+            <path class="il-wave" style="animation-delay:0s"   d="M258 172c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
+            <path class="il-wave" style="animation-delay:.55s" d="M296 190c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
+            <path class="il-wave" style="animation-delay:1.1s" d="M334 208c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
+          </g>
+
+          <!-- Beschriftungen -->
+          <g class="il-tag" data-key="dach" style="animation-delay:.45s">
+            <circle class="il-ping" cx="310" cy="288" r="9" fill="var(--amber)"/>
+            <circle cx="310" cy="288" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M318 281L384 152"/>
+            <rect class="il-pill" x="378" y="122" width="74" height="30" rx="15"/>
+            <text class="il-label" x="394" y="142">Dach</text>
+          </g>
+
+          <g class="il-tag" data-key="fassade" style="animation-delay:.65s">
+            <circle class="il-ping" cx="203" cy="348" r="9" fill="var(--amber)"/>
+            <circle cx="203" cy="348" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M195 344L134 322"/>
+            <rect class="il-pill" x="30" y="306" width="98" height="30" rx="15"/>
+            <text class="il-label" x="46" y="326">Fassade</text>
+          </g>
+
+          <g class="il-tag" data-key="fenster" style="animation-delay:.85s">
+            <circle class="il-ping" cx="287" cy="384" r="9" fill="var(--amber)"/>
+            <circle cx="287" cy="384" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M281 390L158 476"/>
+            <rect class="il-pill" x="64" y="470" width="92" height="30" rx="15"/>
+            <text class="il-label" x="80" y="490">Fenster</text>
+          </g>
+
+          <g class="il-tag" data-key="kellerdecke" style="animation-delay:1.05s">
+            <circle class="il-ping" cx="275" cy="448" r="9" fill="var(--amber)"/>
+            <circle cx="275" cy="448" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M280 456L300 528"/>
+            <rect class="il-pill" x="240" y="530" width="132" height="30" rx="15"/>
+            <text class="il-label" x="256" y="550">Kellerdecke</text>
+          </g>
+
+          <g class="il-tag" data-key="heizung" style="animation-delay:1.25s">
+            <circle class="il-ping" cx="466" cy="466" r="9" fill="var(--amber)"/>
+            <circle cx="466" cy="466" r="5" fill="var(--amber)"/>
+            <path class="il-lead" d="M474 474L520 508"/>
+            <rect class="il-pill" x="500" y="510" width="98" height="30" rx="15"/>
+            <text class="il-label" x="516" y="530">Heizung</text>
+          </g>
+
+        </svg>
+        <ul class="illu-legend">
+          <li><i></i>Dach</li><li><i></i>Fassade</li><li><i></i>Fenster</li><li><i></i>Kellerdecke</li><li><i></i>Heizung</li>
+        </ul>
+        <p class="illu-caption">Tippen oder klicken Sie Dach, Fassade, Fenster, Kellerdecke oder Wärmepumpe an – dahinter steckt das jeweilige Einsparpotenzial.</p>
+
+        <!-- Popup mit Einsparwerten (wird per JavaScript gefüllt und positioniert).
+             "inert" statt nur aria-hidden: sonst steckt der Schließen-Button in
+             einem aria-hidden-Bereich und bleibt trotzdem per Tab erreichbar. -->
+      </div>
+  </div>
+</section>
+
 <div class="wrap">
   <nav class="krumen" aria-label="Brotkrumennavigation">
     <ol>
@@ -309,121 +1272,356 @@ td:first-child{color:var(--ink);font-weight:500}
   </nav>
 </div>
 
-<section class="wrap seiten-kopf">
-  <span class="eyebrow">Alb-Donau-Kreis &amp; Umgebung</span>
-  <h1>Energieberatung Blaubeuren</h1>
-  <p class="lead">
-    Erst rechnen, dann sanieren – auch in Blaubeuren. Wir zeigen Ihnen, welche
-    Maßnahmen sich bei Ihrem Gebäude wirklich lohnen, in welcher Reihenfolge sie sinnvoll
-    sind und welche Fördermittel Sie dafür bekommen. Produktneutral, ohne Provision.
-  </p>
-  <div class="kopf-aktionen">
-    <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
-    <a href="tel:+4915224290826" class="btn btn-ghost">0152 24290826</a>
+<!-- ======= ORTSTEIL: der eigene Inhalt dieser Seite ======= -->
+<section class="section-pad">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Vor Ort</span>
+      <h2>Energieberatung in Blaubeuren – wir sind etwa 15 Kilometer entfernt</h2>
+      <p class="lead">Blaubeuren liegt eingebettet im engen Blautal, umgeben von den Felswänden der Alb. Die Tallage bringt im Winter ausgeprägte Kaltluftansammlungen mit sich, gleichzeitig ist der Ort vor Wind gut geschützt.</p>
+    </div>
+
+    <div class="ort-text reveal">
+      <p>
+        Unser Büro sitzt in Dornstadt, Blaubeuren (89143, rund 12.500 Einwohner) liegt
+        etwa 15 Kilometer entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch
+        mehrfach, wenn es die Bauphase erfordert.
+      </p>
+
+      <h3>Gebäudestruktur und energetische Ausgangslage in Blaubeuren</h3>
+      <p>Der historische Ortskern mit Fachwerk und dem Kloster steht unter besonderem Schutz. Daneben gibt es Wohngebiete der Nachkriegszeit und die Teilorte auf der Albhochfläche, die klimatisch schon zur Höhenlage zählen – innerhalb einer Gemeinde also zwei unterschiedliche Ausgangslagen.</p>
+      <p>Denkmalschutz ist hier keine Randnotiz, sondern die Regel. Bei geschützten Gebäuden gelten erleichterte Anforderungen im Gebäudeenergiegesetz, gleichzeitig sind viele Standardmaßnahmen nicht zulässig. Fachwerk verträgt zudem nur bestimmte Dämmsysteme – hier ist die Reihenfolge besonders wichtig.</p>
+
+      <h3>Was Blaubeuren typischerweise bedeutet</h3>
+      <p>Bei denkmalgeschützten Gebäuden in Blaubeuren beginnt jede Beratung mit der Denkmalbehörde, nicht mit dem Rechenblatt. Erst wenn feststeht, was zulässig ist, ergibt eine Wirtschaftlichkeitsrechnung Sinn. Häufig bleiben dann Kellerdecke, oberste Geschossdecke, Fenster in Zweitfassung und die Heizungsanlage – zusammen erreicht man damit erstaunlich viel, ohne das Erscheinungsbild anzutasten.</p>
+
+      <div class="merksatz">
+        <b>Warum das für Ihre Sanierung zählt</b>
+        Wer die örtlichen Gegebenheiten kennt, rechnet genauer. Klimaregion, Baualter und
+        Untergrund entscheiden mit darüber, welche Maßnahme sich lohnt – und welche man
+        besser sein lässt.
+      </div>
+
+      <h3>Was wir in Blaubeuren für Sie tun</h3>
+      <ul class="liste">
+        <li><a href="sanierungsfahrplan.html">Individueller Sanierungsfahrplan (iSFP)</a> mit Kosten, Einsparung und Amortisation je Maßnahme</li>
+        <li>Fördermittel-Management: Antrag bei BAFA und KfW, Fristen im Blick, Verwendungsnachweis</li>
+        <li>Energieausweis nach GEG – Bedarfs- und Verbrauchsausweis</li>
+        <li>Baubegleitung und Qualitätssicherung während der Umsetzung</li>
+        <li>Heizlastberechnung und hydraulischer Abgleich</li>
+        <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>
+      </ul>
+    </div>
+
+    <div class="cta-band reveal">
+      <div class="cta-band-text">
+        <b>Ihr Gebäude in Blaubeuren durchrechnen lassen?</b>
+        <span>20 Minuten am Telefon, kostenlos. Danach wissen Sie, ob und wie es weitergeht.</span>
+      </div>
+      <div class="cta-band-knoepfe">
+        <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+        <a href="tel:+4915224290826" class="btn btn-ghost">Direkt anrufen</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="wrap inhalt">
-  <article class="text">
+<!-- ========================= ZAHLEN ========================= -->
+<section class="section-pad" style="padding-top:0">
+  <div class="wrap">
+    <div class="stats reveal">
 
-    <h2>Energieberatung in Blaubeuren – wir sind etwa 15 Kilometer entfernt</h2>
-    <p>Blaubeuren liegt eingebettet im engen Blautal, umgeben von den Felswänden der Alb. Die Tallage bringt im Winter ausgeprägte Kaltluftansammlungen mit sich, gleichzeitig ist der Ort vor Wind gut geschützt.</p>
-    <p>
-      Unser Büro sitzt in Dornstadt, Blaubeuren (89143, rund 12.500 Einwohner) liegt
-      etwa 15 Kilometer entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch
-      mehrfach, wenn es die Bauphase erfordert.
-    </p>
+      <div class="stats-inner">
+        <h2>Was in der aktuellen Förderlandschaft möglich ist.</h2>
+        <p class="stats-lead">
+          Nicht nur die Heizung: Fast alles rund um die Sanierung ist förderfähig – von der
+          Dämmung über die Heizungsoptimierung bis zur Baubegleitung. Entscheidend ist, beim
+          richtigen Träger und vor der Auftragsvergabe zu beantragen.
+        </p>
 
-    <h2>Gebäudestruktur und energetische Ausgangslage in Blaubeuren</h2>
-    <p>Der historische Ortskern mit Fachwerk und dem Kloster steht unter besonderem Schutz. Daneben gibt es Wohngebiete der Nachkriegszeit und die Teilorte auf der Albhochfläche, die klimatisch schon zur Höhenlage zählen – innerhalb einer Gemeinde also zwei unterschiedliche Ausgangslagen.</p>
-    <p>Denkmalschutz ist hier keine Randnotiz, sondern die Regel. Bei geschützten Gebäuden gelten erleichterte Anforderungen im Gebäudeenergiegesetz, gleichzeitig sind viele Standardmaßnahmen nicht zulässig. Fachwerk verträgt zudem nur bestimmte Dämmsysteme – hier ist die Reihenfolge besonders wichtig.</p>
+    <!--
+      ###################################################################
+      #  [PRÜFEN] Alle Sätze und Höchstbeträge dieser Übersicht gegen   #
+      #  die aktuelle Richtlinie abgleichen. Sie stehen hier sichtbar    #
+      #  auf der Website - Fehler fallen auf Sie zurück.                 #
+      #  Zuletzt geprüft am: ____________                                #
+      ###################################################################
+    -->
+    <div class="foerder-liste">
 
-    <h2>Was Blaubeuren typischerweise bedeutet</h2>
-    <p>Bei denkmalgeschützten Gebäuden in Blaubeuren beginnt jede Beratung mit der Denkmalbehörde, nicht mit dem Rechenblatt. Erst wenn feststeht, was zulässig ist, ergibt eine Wirtschaftlichkeitsrechnung Sinn. Häufig bleiben dann Kellerdecke, oberste Geschossdecke, Fenster in Zweitfassung und die Heizungsanlage – zusammen erreicht man damit erstaunlich viel, ohne das Erscheinungsbild anzutasten.</p>
+      <article class="foerder-karte reveal">
+        <span class="foerder-traeger">BAFA · BEG Einzelmaßnahmen</span>
+        <h3>Gebäudehülle</h3>
+        <p class="foerder-satz">15 % <em>· mit Sanierungsfahrplan 20 %</em></p>
+        <p>Dämmung von Dach, Außenwand, Kellerdecke und oberster Geschossdecke, Fenster, Außentüren, sommerlicher Wärmeschutz.</p>
+        <p class="foerder-deckel">Förderfähig bis 30.000 € je Wohneinheit und Jahr – mit Sanierungsfahrplan bis 60.000 €.</p>
+      </article>
 
-    <div class="merksatz">
-      <b>Warum das für Ihre Sanierung zählt</b>
-      Wer die örtlichen Gegebenheiten kennt, rechnet genauer. Klimaregion, Baualter und
-      Untergrund entscheiden mit darüber, welche Maßnahme sich lohnt – und welche man
-      besser sein lässt.
+      <article class="foerder-karte reveal">
+        <span class="foerder-traeger">KfW · Heizungsförderung</span>
+        <h3>Heizungstausch</h3>
+        <p class="foerder-satz">30 – 70 %</p>
+        <p>Grundförderung 30 %, dazu Klimageschwindigkeitsbonus 20 % beim Austausch einer alten Öl- oder Gasheizung, Einkommensbonus 30 % und Effizienzbonus 5 %.</p>
+        <p class="foerder-deckel">Förderfähig bis 30.000 € für die erste Wohneinheit. Die Boni sind kombinierbar, gedeckelt bei 70 %.</p>
+      </article>
+
+      <article class="foerder-karte reveal">
+        <span class="foerder-traeger">BAFA · BEG Einzelmaßnahmen</span>
+        <h3>Heizungsoptimierung &amp; Anlagentechnik</h3>
+        <p class="foerder-satz">15 % <em>· mit Sanierungsfahrplan 20 %</em></p>
+        <p>Hydraulischer Abgleich, Pumpentausch, Dämmung der Rohrleitungen, Lüftungsanlagen mit Wärmerückgewinnung, digitale Regelungstechnik.</p>
+        <p class="foerder-deckel">Oft der günstigste Hebel überhaupt – kleine Investition, sofortige Wirkung.</p>
+      </article>
+
+      <article class="foerder-karte reveal">
+        <span class="foerder-traeger">KfW · Wohngebäude Kredit</span>
+        <h3>Komplettsanierung zum Effizienzhaus</h3>
+        <p class="foerder-satz">Kredit + Tilgungszuschuss</p>
+        <p>Für die Sanierung in einem Zug statt in Etappen. Der Tilgungszuschuss steigt mit der erreichten Effizienzhaus-Stufe; für besonders schlechte Gebäude gibt es einen Zuschlag.</p>
+        <p class="foerder-deckel">Kredit bis 150.000 € je Wohneinheit. Lohnt sich vor allem, wenn ohnehin finanziert wird.</p>
+      </article>
+
+      <article class="foerder-karte reveal">
+        <span class="foerder-traeger">BAFA · Energieberatung &amp; Baubegleitung</span>
+        <h3>Beratung und Begleitung</h3>
+        <p class="foerder-satz">50 %</p>
+        <p>Sowohl der Sanierungsfahrplan als auch die fachliche Begleitung der Baustelle werden bezuschusst – die Beratung finanziert sich damit zu großen Teilen selbst.</p>
+        <p class="foerder-deckel">Sanierungsfahrplan bis 650 € (Ein-/Zweifamilienhaus) bzw. 850 € ab drei Wohneinheiten. Baubegleitung gesondert.</p>
+      </article>
+
+      <article class="foerder-karte reveal">
+        <span class="foerder-traeger">Finanzamt · §35c EStG</span>
+        <h3>Steuerliche Alternative</h3>
+        <p class="foerder-satz">20 % über drei Jahre</p>
+        <p>Wer keine Förderung beantragt, kann Sanierungskosten stattdessen von der Steuer absetzen. Für selbstgenutztes Wohneigentum ab einem bestimmten Gebäudealter.</p>
+        <p class="foerder-deckel">Wichtig: entweder Förderung <em>oder</em> Steuerermäßigung – beides zusammen geht nicht. Was günstiger ist, rechnen wir vorher durch.</p>
+      </article>
+
     </div>
 
-    <h2>Was wir in Blaubeuren für Sie tun</h2>
-    <ul class="liste">
-      <li><a href="sanierungsfahrplan.html">Individueller Sanierungsfahrplan (iSFP)</a> mit Kosten, Einsparung und Amortisation je Maßnahme</li>
-      <li>Fördermittel-Management: Antrag bei BAFA und KfW, Fristen im Blick, Verwendungsnachweis</li>
-      <li>Energieausweis nach GEG – Bedarfs- und Verbrauchsausweis</li>
-      <li>Baubegleitung und Qualitätssicherung während der Umsetzung</li>
-      <li>Heizlastberechnung und hydraulischer Abgleich</li>
-      <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>
-    </ul>
+    <div class="foerder-fuss reveal">
+      <p>
+        <b>Dazu kommen Landes- und Kommunalprogramme.</b> Baden-Württemberg und einzelne
+        Gemeinden im Alb-Donau-Kreis legen eigene Töpfe auf, die sich teilweise mit der
+        Bundesförderung kombinieren lassen. Welche das für Ihre Adresse sind, prüfen wir im
+        Erstgespräch mit.
+      </p>
+      <p class="stats-note" style="color:var(--muted)">
+        Stand Juli 2026. Fördersätze, Boni und Höchstbeträge ändern sich kurzfristig und hängen
+        immer vom Einzelfall ab – diese Übersicht ist eine Orientierung, keine Zusage und keine
+        Rechts- oder Steuerberatung. Verbindlich sind die jeweils aktuellen Richtlinien der
+        Fördergeber. Entscheidend ist außerdem der Zeitpunkt: Der Antrag muss gestellt sein,
+        bevor der Handwerkerauftrag vergeben wird.
+      </p>
 
-    <h2>Vorab selbst rechnen</h2>
-    <p>
-      Bevor wir sprechen, können Sie sich selbst ein Bild machen: Der kostenlose
-      <a href="sanierungsrechner.html">Sanierungsrechner</a> ermittelt in etwa zehn Minuten
-      die Energieklasse Ihres Gebäudes und zeigt für jede Maßnahme, was sie spart und was
-      sie kosten darf. Ohne Anmeldung, ohne Datenübertragung, solange Sie nur rechnen.
-    </p>
-
-    <h2>Häufige Fragen aus Blaubeuren</h2>
-
-    <div class="faq-item">
-      <button class="faq-q">Kommen Sie für den Vor-Ort-Termin nach Blaubeuren?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Ja. Blaubeuren liegt etwa 15 Kilometer von unserem Büro in Dornstadt entfernt und gehört zum regulären Einsatzgebiet. Anfahrtskosten fallen innerhalb des Alb-Donau-Kreises und im Umkreis von rund 50 Kilometern um Ulm nicht gesondert an.</p></div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-q">Was kostet eine Energieberatung in Blaubeuren?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Das hängt von Gebäudegröße und Umfang ab. Für ein Einfamilienhaus liegt ein individueller Sanierungsfahrplan üblicherweise im niedrigen vierstelligen Bereich – abzüglich der Förderung von 50 % bleibt ein deutlich kleinerer Eigenanteil. Sie erhalten vorab ein Festpreisangebot.</p></div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-q">Wie schnell bekomme ich einen Termin?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Das Erstgespräch am Telefon meist innerhalb weniger Tage. Für den Vor-Ort-Termin planen wir gemeinsam einen Zeitpunkt, an dem Sie ohnehin zu Hause sind – er dauert zwei bis drei Stunden.</p></div>
-    </div>
-
-  </article>
-
-  <aside class="spalte">
-    <div class="karte karte-kontakt">
-      <h3>Kurz sprechen?</h3>
-      <p>20 Minuten, kostenlos, unverbindlich. Danach wissen Sie, ob und wie es für Ihr Gebäude weitergeht.</p>
-      <a href="tel:+4915224290826" class="tel-gross">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-        0152 24290826
+      <a href="#kontakt" class="btn btn-amber foerder-cta">
+        Aktuelle Förderungen für mein Vorhaben prüfen
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-      <p style="font-size:.8rem;margin:0">Montag bis Freitag, 8–18 Uhr</p>
     </div>
 
-    <div class="karte">
-      <h3>Erst selbst rechnen</h3>
-      <p>Energieklasse und Einsparpotenzial Ihres Hauses in zehn Minuten – kostenlos und ohne Anmeldung.</p>
-      <a href="sanierungsrechner.html" class="btn btn-amber btn-sm">Rechner starten</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= ABLAUF ========================= -->
+<section class="section-pad" id="ablauf">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Ablauf</span>
+      <h2>Vier Schritte. Keine Überraschungen.</h2>
+      <p class="lead">Sie wissen von Anfang an, was wann passiert, was es kostet und was am Ende in Ihren Händen liegt.</p>
     </div>
 
-    <div class="karte">
-      <h3>Auch in Ihrer Nähe</h3>
-      <nav class="spalte-links" aria-label="Weitere Orte">
-        <a href="energieberatung-ulm.html">Energieberatung Ulm</a>
-        <a href="energieberatung-blaustein.html">Energieberatung Blaustein</a>
-        <a href="energieberatung-langenau.html">Energieberatung Langenau</a>
-        <a href="energieberatung-ehingen.html">Energieberatung Ehingen</a>
-        <a href="energieberatung-laichingen.html">Energieberatung Laichingen</a>
-        <a href="energieberatung-erbach.html">Energieberatung Erbach</a>
-        <a href="energieberatung-dornstadt.html">Energieberatung Dornstadt</a>
-      </nav>
-    </div>
-  </aside>
-</div>
+    <div class="steps">
+      <div class="step-line"></div>
 
-<section class="abschluss">
-  <div class="wrap abschluss-inner">
-    <div>
-      <h2>Reden wir über Ihr Gebäude in Blaubeuren.</h2>
-      <p>Das Erstgespräch dauert etwa 20 Minuten, kostet nichts und endet entweder mit einem Angebot oder mit einer ehrlichen Empfehlung, was Sie stattdessen tun sollten.</p>
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <span class="num">Schritt 01</span>
+        <h3>Erstgespräch</h3>
+        <p>20 Minuten am Telefon, kostenlos. Wir klären, worum es geht, was realistisch ist und ob wir die Richtigen für Ihr Vorhaben sind.</p>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <span class="num">Schritt 02</span>
+        <h3>Vor-Ort-Termin</h3>
+        <p>Zwei bis drei Stunden am Gebäude: Bauteile, Heizung, Verbrauchsdaten, Ihre Pläne. Fotos und Messwerte inklusive.</p>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <span class="num">Schritt 03</span>
+        <h3>Bericht &amp; Fahrplan</h3>
+        <p>Innerhalb von rund drei Wochen erhalten Sie Ihren Sanierungsfahrplan – und wir gehen ihn gemeinsam durch, Seite für Seite.</p>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <span class="num">Schritt 04</span>
+        <h3>Förderung &amp; Umsetzung</h3>
+        <p>Anträge raus, Handwerker anfragen, Bauphase begleiten. Sie entscheiden, ob Sie das selbst übernehmen oder wir es tun.</p>
+      </div>
+
     </div>
-    <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+
+    <div class="cta-band reveal">
+      <div class="cta-band-text">
+        <b>Schritt 1 kostet Sie nichts.</b>
+        <span>Ein Anruf, 20 Minuten, danach wissen Sie, ob und wie es für Ihr Gebäude weitergeht.</span>
+      </div>
+      <div class="cta-band-knoepfe">
+        <a href="tel:+4915224290826" class="btn btn-ghost">Direkt anrufen</a>
+        <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= FAQ ========================= -->
+<section class="section-pad faq" id="faq">
+  <div class="wrap faq-grid">
+    <div class="reveal faq-intro">
+      <span class="eyebrow">Häufige Fragen</span>
+      <h2>Aus Blaubeuren und Umgebung.</h2>
+      <p class="lead" style="margin-top:16px">Wenn Ihre Frage nicht dabei ist: einfach stellen. Das Erstgespräch kostet nichts und verpflichtet zu nichts.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="faq-item">
+        <button class="faq-q">Kommen Sie für den Vor-Ort-Termin nach Blaubeuren?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Ja. Blaubeuren liegt etwa 15 Kilometer von unserem Büro in Dornstadt entfernt und gehört zum regulären Einsatzgebiet. Anfahrtskosten fallen innerhalb des Alb-Donau-Kreises und im Umkreis von rund 50 Kilometern um Ulm nicht gesondert an.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Was kostet eine Energieberatung in Blaubeuren?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Das hängt von Gebäudegröße und Umfang ab. Für ein Einfamilienhaus liegt ein individueller Sanierungsfahrplan üblicherweise im niedrigen vierstelligen Bereich – abzüglich der Förderung von 50 % bleibt ein deutlich kleinerer Eigenanteil. Sie erhalten vorab ein Festpreisangebot.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Wie schnell bekomme ich einen Termin?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Das Erstgespräch am Telefon meist innerhalb weniger Tage. Für den Vor-Ort-Termin planen wir gemeinsam einen Zeitpunkt, an dem Sie ohnehin zu Hause sind – er dauert zwei bis drei Stunden.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="ort-nachbarn">
+      <a href="energieberatung-ulm.html">Energieberatung Ulm</a>
+      <a href="energieberatung-blaustein.html">Energieberatung Blaustein</a>
+      <a href="energieberatung-langenau.html">Energieberatung Langenau</a>
+      <a href="energieberatung-ehingen.html">Energieberatung Ehingen</a>
+      <a href="energieberatung-laichingen.html">Energieberatung Laichingen</a>
+      <a href="energieberatung-erbach.html">Energieberatung Erbach</a>
+      <a href="energieberatung-dornstadt.html">Energieberatung Dornstadt</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= KONTAKT ========================= -->
+<section class="section-pad" id="kontakt">
+  <div class="wrap contact-grid">
+
+    <div class="contact-info reveal">
+      <span class="eyebrow">Kontakt</span>
+      <h2>Reden wir über Ihr Gebäude.</h2>
+      <p class="lead" style="margin-top:18px">Das Erstgespräch dauert etwa 20 Minuten, kostet nichts und endet entweder mit einem Angebot oder mit einer ehrlichen Empfehlung, was Sie stattdessen tun sollten.</p>
+
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        <div><b>Telefon</b><span><a href="tel:+4915224290826">0152 24290826</a></span></div>
+      </div>
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+        <!-- [TODO] echte E-Mail-Adresse eintragen – auch im mailto: und im Impressum -->
+        <div><b>E-Mail</b><span><a href="mailto:kontakt@ihre-domain.de">[kontakt@ihre-domain.de]</a></span></div>
+      </div>
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <div><b>Erreichbarkeit</b><span>Montag bis Freitag, 8–18 Uhr</span></div>
+      </div>
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-7-10a7 7 0 0 1 14 0c0 5.4-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+        <div><b>Einsatzgebiet</b><span>Ulm, Alb-Donau-Kreis und rund 50 km Umkreis</span></div>
+      </div>
+    </div>
+
+    <!--
+      KONTAKTFORMULAR
+      Die Anfragen landen in der eigenen Supabase-Datenbank, nicht bei einem
+      Formulardienst. Ansehen im Supabase-Dashboard unter Table Editor ->
+      Tabelle "leads". Zugangsdaten und Erklärung stehen im JavaScript ganz
+      unten beim Block "Formular".
+    -->
+    <!-- novalidate schaltet die Browser-Sprechblasen ab, damit die eigene
+         Prüfung unten im JavaScript greift – die meldet auf Deutsch, markiert
+         das Feld farbig und springt den ersten Fehler an. -->
+    <form class="form-card reveal" id="contactForm" novalidate>
+      <div class="field-row">
+        <div class="field">
+          <label for="f-name">Name</label>
+          <input id="f-name" name="name" type="text" placeholder="Vor- und Nachname" maxlength="100"
+                 autocomplete="name" required aria-describedby="err-name">
+          <span class="field-error" id="err-name">Bitte tragen Sie Ihren Namen ein.</span>
+        </div>
+        <div class="field">
+          <label for="f-phone">Telefon</label>
+          <input id="f-phone" name="telefon" type="tel" placeholder="Für den Rückruf" maxlength="40"
+                 autocomplete="tel" inputmode="tel">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-mail">E-Mail</label>
+        <input id="f-mail" name="email" type="email" placeholder="name@beispiel.de"
+               autocomplete="email" inputmode="email" required aria-describedby="err-mail">
+        <span class="field-error" id="err-mail">Bitte eine gültige E-Mail-Adresse angeben.</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-type">Gebäudetyp</label>
+          <select id="f-type" name="gebaeudetyp">
+            <option>Einfamilienhaus</option>
+            <option>Zweifamilienhaus</option>
+            <option>Mehrfamilienhaus</option>
+            <option>Eigentumswohnung / WEG</option>
+            <option>Gewerbeobjekt</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-year">Baujahr (ca.)</label>
+          <input id="f-year" name="baujahr" type="text" placeholder="z. B. 1978" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-msg">Worum geht es?</label>
+        <!-- maxlength passend zu den Grenzen der Datenbank (siehe CLAUDE.md).
+             Ohne sie wird ein zu langer Text erst von der Datenbank abgewiesen –
+             der Absender sähe nur eine allgemeine Fehlermeldung. -->
+        <textarea id="f-msg" name="nachricht" maxlength="5000" placeholder="Ein paar Sätze genügen – z. B. hohe Heizkosten, geplanter Heizungstausch, Fördermittelfrage."></textarea>
+      </div>
+
+      <!-- Honigtopf gegen Spam-Bots: per CSS aus dem Blickfeld geschoben.
+           Wird dieses Feld ausgefüllt, war es kein Mensch. -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="f-website">Website (bitte frei lassen)</label>
+        <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <label class="consent" id="consentBox">
+        <input type="checkbox" name="datenschutz" id="f-consent" required>
+        <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden. Hinweise dazu in der <a href="datenschutz.html" style="text-decoration:underline">Datenschutzerklärung</a>.</span>
+      </label>
+
+      <button type="submit" class="btn btn-primary">
+        Anfrage senden
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <p class="form-note" id="formNote" role="status" aria-live="polite">Antwort in der Regel innerhalb eines Werktags.</p>
+    </form>
+
   </div>
 </section>
 
@@ -476,6 +1674,7 @@ td:first-child{color:var(--ink);font-weight:500}
 <script>
 'use strict';
 (function(){
+  var ORTSNAME = 'Blaubeuren';
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobileNav');
   function setNav(open){
@@ -488,6 +1687,106 @@ td:first-child{color:var(--ink);font-weight:500}
   mobileNav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setNav(false); }); });
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && mobileNav.classList.contains('open')){ setNav(false); burger.focus(); }
+  });
+
+  /* Scroll-Reveal. OHNE DAS BLEIBT DIE GANZE SEITE UNSICHTBAR:
+     .reveal steht auf opacity:0 und wird erst durch die Klasse "in" sichtbar. */
+  var reveals = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(eintraege){
+      eintraege.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.12, rootMargin:'0px 0px -60px 0px'});
+    reveals.forEach(function(el, i){
+      el.style.transitionDelay = (i % 4) * 70 + 'ms';
+      io.observe(el);
+    });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* Kontaktformular - dieselbe Supabase-Datenbank wie auf der Startseite */
+  var SUPABASE_URL = 'https://lgabyzhzbosbzlyfnknf.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_sTIrPusPKapueKw7ARBQEw_HNIvKDRt';
+  var form = document.getElementById('contactForm');
+  var note = document.getElementById('formNote');
+  var consentBox = document.getElementById('consentBox');
+  var honeypot = document.getElementById('f-website');
+
+  function markiere(el, ok){
+    var w = el.closest('.field');
+    if(w) w.classList.toggle('invalid', !ok);
+    el.setAttribute('aria-invalid', ok ? 'false' : 'true');
+  }
+  function pruefe(){
+    var ersterFehler = null;
+    var name = document.getElementById('f-name');
+    var nameOk = name.value.trim().length >= 2;
+    markiere(name, nameOk); if(!nameOk) ersterFehler = name;
+    var mail = document.getElementById('f-mail');
+    var mailOk = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(mail.value.trim());
+    markiere(mail, mailOk); if(!mailOk && !ersterFehler) ersterFehler = mail;
+    var consent = document.getElementById('f-consent');
+    consentBox.classList.toggle('invalid', !consent.checked);
+    if(!consent.checked && !ersterFehler) ersterFehler = consent;
+    return ersterFehler;
+  }
+  ['f-name','f-mail'].forEach(function(id){
+    var el = document.getElementById(id);
+    el.addEventListener('input', function(){
+      if(el.closest('.field').classList.contains('invalid')) pruefe();
+    });
+  });
+  document.getElementById('f-consent').addEventListener('change', function(){
+    if(consentBox.classList.contains('invalid')) pruefe();
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    note.classList.remove('is-error','is-ok');
+    if(honeypot && honeypot.value !== '') return;      // Bot
+    var fehler = pruefe();
+    if(fehler){
+      fehler.focus();
+      note.textContent = 'Bitte prüfen Sie die markierten Felder.';
+      note.classList.add('is-error');
+      return;
+    }
+    var btn = form.querySelector('button[type="submit"]');
+    var btnText = btn.innerHTML;
+    btn.disabled = true; btn.textContent = 'Wird gesendet …'; note.textContent = '';
+
+    fetch(SUPABASE_URL + '/rest/v1/leads', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        quelle: 'kontaktformular',
+        name: document.getElementById('f-name').value.trim(),
+        email: document.getElementById('f-mail').value.trim(),
+        telefon: document.getElementById('f-phone').value.trim() || null,
+        gebaeudetyp: document.getElementById('f-type').value,
+        baujahr: document.getElementById('f-year').value.trim() || null,
+        nachricht: (document.getElementById('f-msg').value.trim() || '') + ' [Ortsseite: ' + ORTSNAME + ']',
+        einwilligung: true
+      })
+    })
+    .then(function(r){
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      form.reset(); btn.disabled = false; btn.innerHTML = btnText;
+      note.textContent = 'Vielen Dank, Ihre Anfrage ist angekommen. Wir melden uns in der Regel innerhalb eines Werktags.';
+      note.classList.add('is-ok');
+    })
+    .catch(function(){
+      btn.disabled = false; btn.innerHTML = btnText;
+      note.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder rufen Sie an: 0152 24290826';
+      note.classList.add('is-error');
+    });
   });
 
   document.querySelectorAll('.faq-item').forEach(function(item, i){

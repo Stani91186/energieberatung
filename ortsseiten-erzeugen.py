@@ -218,8 +218,14 @@ ORTE = [
 
 # ---------------------------------------------------------------------------
 
+def teil(datei):
+    """Baustein aus der Startseite laden. Die _ortsseite-*-Dateien werden vor
+    dem Lauf aus index.html extrahiert - so bleiben Ortsseiten und Startseite
+    automatisch im gleichen Stand."""
+    return io.open(datei, encoding="utf-8").read()
+
 def stil():
-    return io.open("_ortsseite-stil.css", encoding="utf-8").read()
+    return teil("_ortsseite-stil.css")
 
 def seite(o):
     ort = o["ort"]
@@ -229,6 +235,21 @@ def seite(o):
     url = f'{DOMAIN}/{o["datei"]}'
 
     andere = [x for x in ORTE if x["datei"] != o["datei"]]
+    nachbar_chips = "\n".join(
+        f'      <a href="{x["datei"]}">Energieberatung {x["ort"]}</a>' for x in andere)
+
+    # Bausteine aus der Startseite - halten Orts- und Startseite im Gleichstand
+    hero_grafik  = teil("_ortsseite-hero.html").rstrip()
+    foerderblock = teil("_ortsseite-foerder.html")
+    ablauf       = teil("_ortsseite-ablauf.html")
+    kontakt      = teil("_ortsseite-kontakt.html")
+    defs_svg     = teil("_ortsseite-defs.svg")
+
+    artikel   = o["artikel"];   plz          = o["plz"]
+    einwohner = o["einwohner"]; entfernung   = o["entfernung"]
+    lage      = o["lage"];      bausubstanz  = o["bausubstanz"]
+    besonderheit = o["besonderheit"]; typisch = o["typisch"]
+    tel_link  = TEL_LINK
     nachbar_links = "\n".join(
         f'        <a href="{x["datei"]}">Energieberatung {x["ort"]}</a>' for x in andere)
 
@@ -295,6 +316,8 @@ def seite(o):
 
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 
+{defs_svg}
+
 <header class="site-header">
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
@@ -336,6 +359,41 @@ def seite(o):
 
 <main id="inhalt">
 
+<!-- ========================= HERO ========================= -->
+<section class="hero" id="top">
+  <div class="dots"></div>
+  <div class="wrap hero-grid">
+
+    <div class="hero-copy">
+      <span class="eyebrow">Erst rechnen. Dann sanieren.</span>
+      <h1>Energieberatung <span class="accent">{ort}</span></h1>
+      <p class="hero-sub">
+        <strong>Energieberatung für {ort} und Umgebung.</strong> Sanieren ist teuer –
+        falsch sanieren ist teurer. Wir rechnen Ihnen vor, welche Maßnahmen sich bei
+        <em>Ihrem</em> Gebäude wirklich lohnen, in welcher Reihenfolge sie sinnvoll sind
+        und welche Fördermittel Sie dafür bekommen.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#kontakt" class="btn btn-primary">
+          Gratis Erstgespräch vereinbaren
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="sanierungsrechner.html" class="btn btn-ghost">Sanierungsrechner starten</a>
+      </div>
+
+      <div class="trust-row">
+        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Energie-Effizienz-Expertenliste (dena)</span>
+        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> BAFA- &amp; KfW-förderfähig</span>
+        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Keine Provisionen, kein Produktverkauf</span>
+        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> {ort}: {entfernung} von unserem Büro</span>
+      </div>
+    </div>
+
+{hero_grafik}
+  </div>
+</section>
+
 <div class="wrap">
   <nav class="krumen" aria-label="Brotkrumennavigation">
     <ol>
@@ -345,117 +403,97 @@ def seite(o):
   </nav>
 </div>
 
-<section class="wrap seiten-kopf">
-  <span class="eyebrow">Alb-Donau-Kreis &amp; Umgebung</span>
-  <h1>Energieberatung {ort}</h1>
-  <p class="lead">
-    Erst rechnen, dann sanieren – auch {o['artikel']} {ort}. Wir zeigen Ihnen, welche
-    Maßnahmen sich bei Ihrem Gebäude wirklich lohnen, in welcher Reihenfolge sie sinnvoll
-    sind und welche Fördermittel Sie dafür bekommen. Produktneutral, ohne Provision.
-  </p>
-  <div class="kopf-aktionen">
-    <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
-    <a href="tel:{TEL_LINK}" class="btn btn-ghost">{TEL_ANZEIGE}</a>
+<!-- ======= ORTSTEIL: der eigene Inhalt dieser Seite ======= -->
+<section class="section-pad">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Vor Ort</span>
+      <h2>Energieberatung {artikel} {ort} – wir sind {entfernung} entfernt</h2>
+      <p class="lead">{lage}</p>
+    </div>
+
+    <div class="ort-text reveal">
+      <p>
+        Unser Büro sitzt in Dornstadt, {ort} ({plz}, {einwohner} Einwohner) liegt
+        {entfernung} entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch
+        mehrfach, wenn es die Bauphase erfordert.
+      </p>
+
+      <h3>Gebäudestruktur und energetische Ausgangslage {artikel} {ort}</h3>
+      <p>{bausubstanz}</p>
+      <p>{besonderheit}</p>
+
+      <h3>Was {ort} typischerweise bedeutet</h3>
+      <p>{typisch}</p>
+
+      <div class="merksatz">
+        <b>Warum das für Ihre Sanierung zählt</b>
+        Wer die örtlichen Gegebenheiten kennt, rechnet genauer. Klimaregion, Baualter und
+        Untergrund entscheiden mit darüber, welche Maßnahme sich lohnt – und welche man
+        besser sein lässt.
+      </div>
+
+      <h3>Was wir {artikel} {ort} für Sie tun</h3>
+      <ul class="liste">
+        <li><a href="sanierungsfahrplan.html">Individueller Sanierungsfahrplan (iSFP)</a> mit Kosten, Einsparung und Amortisation je Maßnahme</li>
+        <li>Fördermittel-Management: Antrag bei BAFA und KfW, Fristen im Blick, Verwendungsnachweis</li>
+        <li>Energieausweis nach GEG – Bedarfs- und Verbrauchsausweis</li>
+        <li>Baubegleitung und Qualitätssicherung während der Umsetzung</li>
+        <li>Heizlastberechnung und hydraulischer Abgleich</li>
+        <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>
+      </ul>
+    </div>
+
+    <div class="cta-band reveal">
+      <div class="cta-band-text">
+        <b>Ihr Gebäude {artikel} {ort} durchrechnen lassen?</b>
+        <span>20 Minuten am Telefon, kostenlos. Danach wissen Sie, ob und wie es weitergeht.</span>
+      </div>
+      <div class="cta-band-knoepfe">
+        <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+        <a href="tel:{tel_link}" class="btn btn-ghost">Direkt anrufen</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="wrap inhalt">
-  <article class="text">
+{foerderblock}
 
-    <h2>Energieberatung {o['artikel']} {ort} – wir sind {o['entfernung']} entfernt</h2>
-    <p>{o['lage']}</p>
-    <p>
-      Unser Büro sitzt in Dornstadt, {ort} ({o['plz']}, {o['einwohner']} Einwohner) liegt
-      {o['entfernung']} entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch
-      mehrfach, wenn es die Bauphase erfordert.
-    </p>
+{ablauf}
 
-    <h2>Gebäudestruktur und energetische Ausgangslage {o['artikel']} {ort}</h2>
-    <p>{o['bausubstanz']}</p>
-    <p>{o['besonderheit']}</p>
-
-    <h2>Was {ort} typischerweise bedeutet</h2>
-    <p>{o['typisch']}</p>
-
-    <div class="merksatz">
-      <b>Warum das für Ihre Sanierung zählt</b>
-      Wer die örtlichen Gegebenheiten kennt, rechnet genauer. Klimaregion, Baualter und
-      Untergrund entscheiden mit darüber, welche Maßnahme sich lohnt – und welche man
-      besser sein lässt.
+<!-- ========================= FAQ ========================= -->
+<section class="section-pad faq" id="faq">
+  <div class="wrap faq-grid">
+    <div class="reveal faq-intro">
+      <span class="eyebrow">Häufige Fragen</span>
+      <h2>Aus {ort} und Umgebung.</h2>
+      <p class="lead" style="margin-top:16px">Wenn Ihre Frage nicht dabei ist: einfach stellen. Das Erstgespräch kostet nichts und verpflichtet zu nichts.</p>
     </div>
 
-    <h2>Was wir {o['artikel']} {ort} für Sie tun</h2>
-    <ul class="liste">
-      <li><a href="sanierungsfahrplan.html">Individueller Sanierungsfahrplan (iSFP)</a> mit Kosten, Einsparung und Amortisation je Maßnahme</li>
-      <li>Fördermittel-Management: Antrag bei BAFA und KfW, Fristen im Blick, Verwendungsnachweis</li>
-      <li>Energieausweis nach GEG – Bedarfs- und Verbrauchsausweis</li>
-      <li>Baubegleitung und Qualitätssicherung während der Umsetzung</li>
-      <li>Heizlastberechnung und hydraulischer Abgleich</li>
-      <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>
-    </ul>
-
-    <h2>Vorab selbst rechnen</h2>
-    <p>
-      Bevor wir sprechen, können Sie sich selbst ein Bild machen: Der kostenlose
-      <a href="sanierungsrechner.html">Sanierungsrechner</a> ermittelt in etwa zehn Minuten
-      die Energieklasse Ihres Gebäudes und zeigt für jede Maßnahme, was sie spart und was
-      sie kosten darf. Ohne Anmeldung, ohne Datenübertragung, solange Sie nur rechnen.
-    </p>
-
-    <h2>Häufige Fragen aus {ort}</h2>
-
-    <div class="faq-item">
-      <button class="faq-q">Kommen Sie für den Vor-Ort-Termin nach {ort}?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Ja. {ort} liegt {o['entfernung']} von unserem Büro in Dornstadt entfernt und gehört zum regulären Einsatzgebiet. Anfahrtskosten fallen innerhalb des Alb-Donau-Kreises und im Umkreis von rund 50 Kilometern um Ulm nicht gesondert an.</p></div>
+    <div class="reveal">
+      <div class="faq-item">
+        <button class="faq-q">Kommen Sie für den Vor-Ort-Termin nach {ort}?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Ja. {ort} liegt {entfernung} von unserem Büro in Dornstadt entfernt und gehört zum regulären Einsatzgebiet. Anfahrtskosten fallen innerhalb des Alb-Donau-Kreises und im Umkreis von rund 50 Kilometern um Ulm nicht gesondert an.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Was kostet eine Energieberatung {artikel} {ort}?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Das hängt von Gebäudegröße und Umfang ab. Für ein Einfamilienhaus liegt ein individueller Sanierungsfahrplan üblicherweise im niedrigen vierstelligen Bereich – abzüglich der Förderung von 50 % bleibt ein deutlich kleinerer Eigenanteil. Sie erhalten vorab ein Festpreisangebot.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Wie schnell bekomme ich einen Termin?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Das Erstgespräch am Telefon meist innerhalb weniger Tage. Für den Vor-Ort-Termin planen wir gemeinsam einen Zeitpunkt, an dem Sie ohnehin zu Hause sind – er dauert zwei bis drei Stunden.</p></div>
+      </div>
     </div>
+  </div>
 
-    <div class="faq-item">
-      <button class="faq-q">Was kostet eine Energieberatung {o['artikel']} {ort}?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Das hängt von Gebäudegröße und Umfang ab. Für ein Einfamilienhaus liegt ein individueller Sanierungsfahrplan üblicherweise im niedrigen vierstelligen Bereich – abzüglich der Förderung von 50 % bleibt ein deutlich kleinerer Eigenanteil. Sie erhalten vorab ein Festpreisangebot.</p></div>
+  <div class="wrap">
+    <div class="ort-nachbarn">
+{nachbar_chips}
     </div>
-
-    <div class="faq-item">
-      <button class="faq-q">Wie schnell bekomme ich einen Termin?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Das Erstgespräch am Telefon meist innerhalb weniger Tage. Für den Vor-Ort-Termin planen wir gemeinsam einen Zeitpunkt, an dem Sie ohnehin zu Hause sind – er dauert zwei bis drei Stunden.</p></div>
-    </div>
-
-  </article>
-
-  <aside class="spalte">
-    <div class="karte karte-kontakt">
-      <h3>Kurz sprechen?</h3>
-      <p>20 Minuten, kostenlos, unverbindlich. Danach wissen Sie, ob und wie es für Ihr Gebäude weitergeht.</p>
-      <a href="tel:{TEL_LINK}" class="tel-gross">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-        {TEL_ANZEIGE}
-      </a>
-      <p style="font-size:.8rem;margin:0">Montag bis Freitag, 8–18 Uhr</p>
-    </div>
-
-    <div class="karte">
-      <h3>Erst selbst rechnen</h3>
-      <p>Energieklasse und Einsparpotenzial Ihres Hauses in zehn Minuten – kostenlos und ohne Anmeldung.</p>
-      <a href="sanierungsrechner.html" class="btn btn-amber btn-sm">Rechner starten</a>
-    </div>
-
-    <div class="karte">
-      <h3>Auch in Ihrer Nähe</h3>
-      <nav class="spalte-links" aria-label="Weitere Orte">
-{nachbar_links}
-      </nav>
-    </div>
-  </aside>
-</div>
-
-<section class="abschluss">
-  <div class="wrap abschluss-inner">
-    <div>
-      <h2>Reden wir über Ihr Gebäude {o['artikel']} {ort}.</h2>
-      <p>Das Erstgespräch dauert etwa 20 Minuten, kostet nichts und endet entweder mit einem Angebot oder mit einer ehrlichen Empfehlung, was Sie stattdessen tun sollten.</p>
-    </div>
-    <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
   </div>
 </section>
+
+{kontakt}
 
 </main>
 
@@ -500,6 +538,7 @@ def seite(o):
 <script>
 'use strict';
 (function(){{
+  var ORTSNAME = '{ort}';
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobileNav');
   function setNav(open){{
@@ -512,6 +551,106 @@ def seite(o):
   mobileNav.querySelectorAll('a').forEach(function(a){{ a.addEventListener('click', function(){{ setNav(false); }}); }});
   document.addEventListener('keydown', function(e){{
     if(e.key === 'Escape' && mobileNav.classList.contains('open')){{ setNav(false); burger.focus(); }}
+  }});
+
+  /* Scroll-Reveal. OHNE DAS BLEIBT DIE GANZE SEITE UNSICHTBAR:
+     .reveal steht auf opacity:0 und wird erst durch die Klasse "in" sichtbar. */
+  var reveals = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){{
+    var io = new IntersectionObserver(function(eintraege){{
+      eintraege.forEach(function(e){{
+        if(e.isIntersecting){{ e.target.classList.add('in'); io.unobserve(e.target); }}
+      }});
+    }}, {{threshold:.12, rootMargin:'0px 0px -60px 0px'}});
+    reveals.forEach(function(el, i){{
+      el.style.transitionDelay = (i % 4) * 70 + 'ms';
+      io.observe(el);
+    }});
+  }} else {{
+    reveals.forEach(function(el){{ el.classList.add('in'); }});
+  }}
+
+  /* Kontaktformular - dieselbe Supabase-Datenbank wie auf der Startseite */
+  var SUPABASE_URL = 'https://lgabyzhzbosbzlyfnknf.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_sTIrPusPKapueKw7ARBQEw_HNIvKDRt';
+  var form = document.getElementById('contactForm');
+  var note = document.getElementById('formNote');
+  var consentBox = document.getElementById('consentBox');
+  var honeypot = document.getElementById('f-website');
+
+  function markiere(el, ok){{
+    var w = el.closest('.field');
+    if(w) w.classList.toggle('invalid', !ok);
+    el.setAttribute('aria-invalid', ok ? 'false' : 'true');
+  }}
+  function pruefe(){{
+    var ersterFehler = null;
+    var name = document.getElementById('f-name');
+    var nameOk = name.value.trim().length >= 2;
+    markiere(name, nameOk); if(!nameOk) ersterFehler = name;
+    var mail = document.getElementById('f-mail');
+    var mailOk = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{{2,}}$/.test(mail.value.trim());
+    markiere(mail, mailOk); if(!mailOk && !ersterFehler) ersterFehler = mail;
+    var consent = document.getElementById('f-consent');
+    consentBox.classList.toggle('invalid', !consent.checked);
+    if(!consent.checked && !ersterFehler) ersterFehler = consent;
+    return ersterFehler;
+  }}
+  ['f-name','f-mail'].forEach(function(id){{
+    var el = document.getElementById(id);
+    el.addEventListener('input', function(){{
+      if(el.closest('.field').classList.contains('invalid')) pruefe();
+    }});
+  }});
+  document.getElementById('f-consent').addEventListener('change', function(){{
+    if(consentBox.classList.contains('invalid')) pruefe();
+  }});
+
+  form.addEventListener('submit', function(e){{
+    e.preventDefault();
+    note.classList.remove('is-error','is-ok');
+    if(honeypot && honeypot.value !== '') return;      // Bot
+    var fehler = pruefe();
+    if(fehler){{
+      fehler.focus();
+      note.textContent = 'Bitte prüfen Sie die markierten Felder.';
+      note.classList.add('is-error');
+      return;
+    }}
+    var btn = form.querySelector('button[type="submit"]');
+    var btnText = btn.innerHTML;
+    btn.disabled = true; btn.textContent = 'Wird gesendet …'; note.textContent = '';
+
+    fetch(SUPABASE_URL + '/rest/v1/leads', {{
+      method: 'POST',
+      headers: {{
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      }},
+      body: JSON.stringify({{
+        quelle: 'kontaktformular',
+        name: document.getElementById('f-name').value.trim(),
+        email: document.getElementById('f-mail').value.trim(),
+        telefon: document.getElementById('f-phone').value.trim() || null,
+        gebaeudetyp: document.getElementById('f-type').value,
+        baujahr: document.getElementById('f-year').value.trim() || null,
+        nachricht: (document.getElementById('f-msg').value.trim() || '') + ' [Ortsseite: ' + ORTSNAME + ']',
+        einwilligung: true
+      }})
+    }})
+    .then(function(r){{
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      form.reset(); btn.disabled = false; btn.innerHTML = btnText;
+      note.textContent = 'Vielen Dank, Ihre Anfrage ist angekommen. Wir melden uns in der Regel innerhalb eines Werktags.';
+      note.classList.add('is-ok');
+    }})
+    .catch(function(){{
+      btn.disabled = false; btn.innerHTML = btnText;
+      note.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder rufen Sie an: 0152 24290826';
+      note.classList.add('is-error');
+    }});
   }});
 
   document.querySelectorAll('.faq-item').forEach(function(item, i){{
