@@ -234,14 +234,22 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .sim-cards{display:grid;gap:10px}
 .sim-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);padding:13px 16px}
 .sim-card-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.sim-card-head h3{font-size:.93rem;flex:1;line-height:1.25}
+/* Nicht die Ueberschrift dehnt sich, sondern der kWh-Wert dahinter. Dadurch
+   werden Kennzeichnung und Sanieren-Schalter in JEDER Karte an den rechten
+   Rand geschoben und stehen sauber untereinander. */
+.sim-card-head h3{font-size:.93rem;line-height:1.25}
 /* Erklaerung, warum eine Karte ausnahmsweise keinen Sanieren-Schalter hat */
 .sim-hinweis{
   margin-top:9px;padding:8px 11px;border-radius:9px;
   background:var(--cream-2);border-left:3px solid var(--line);
   font-size:.74rem;line-height:1.5;color:var(--muted);
 }
-.sim-kwh{font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sim-kwh{flex:1;font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sw-mini{margin-left:auto}
+/* Die Heizungskarte hat zwei Schalter. Untereinander statt nebeneinander,
+   damit ALLE Schalter der Seite auf einer senkrechten Linie sitzen. */
+.sw-spalte{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:7px}
+.sw-spalte .sw-mini{margin-left:0}
 .sim-card input[type=range]{width:100%;accent-color:var(--amber);height:26px;margin:2px 0 3px;cursor:pointer}
 .sim-stop{font-size:.74rem;color:var(--ink-2);display:flex;justify-content:space-between;gap:10px}
 .sim-stop b{color:var(--amber-deep);font-weight:600}
@@ -1084,7 +1092,15 @@ function massnahmen(e, basis, kal){
     var foerd = foerderSatz * Math.min(invest, deckel);
     var netto = invest - foerd;
     var bw = barwert(ersparnis, leben);
+    /* Obergrenze: bis zu welchem Preis traegt sich die Massnahme noch?
+       Gesucht ist der Eigenanteil = Barwert, also
+           invest - satz * min(invest, deckel) = bw
+       Unterhalb des Deckels wird jeder Euro gefoerdert -> invest = bw/(1-satz).
+       Oberhalb ist die Foerderung konstant satz*deckel -> invest = bw + satz*deckel.
+       Ohne diese Fallunterscheidung wurde die Grenze deutlich zu hoch
+       angesetzt (Waermepumpe: 44.236 statt 39.965 EUR). */
     var maxInvest = bw / (1-foerderSatz);
+    if(maxInvest > deckel) maxInvest = bw + foerderSatz * deckel;
     var ampel = invest < 0.7*maxInvest ? 'ok' : (invest <= 1.1*maxInvest ? 'warn' : 'bad');
     out.push({ id:id, name:name, ersparnis:ersparnis,
       ersparnisKwh:(basis.eEnd-mod.eEnd)*k,
@@ -1826,8 +1842,10 @@ function buildSim(e0){
     '</div>';
   }
   var heizBtns='<div class="sim-card"><div class="sim-card-head" style="flex-wrap:wrap"><h3>Heizung</h3><span class="sim-kwh" id="simkwh_heiz"></span>'+
-    '<span class="sw-mini">Hydraulischer Abgleich'+infoIcon('abgleich')+' <span class="switch"><input type="checkbox" id="simtg_abgleich"><i></i></span></span>'+
-    (SIM.rohrMoeglich?'<span class="sw-mini">Rohre dämmen <span class="tag-diy" style="padding:2px 8px;font-size:.62rem">selbst machbar</span> <span class="switch"><input type="checkbox" id="simtg_rohr"><i></i></span></span>':'')+
+    '<div class="sw-spalte">'+
+      '<span class="sw-mini">Hydraulischer Abgleich'+infoIcon('abgleich')+' <span class="switch"><input type="checkbox" id="simtg_abgleich"><i></i></span></span>'+
+      (SIM.rohrMoeglich?'<span class="sw-mini">Rohre dämmen <span class="tag-diy" style="padding:2px 8px;font-size:.62rem">selbst machbar</span> <span class="switch"><input type="checkbox" id="simtg_rohr"><i></i></span></span>':'')+
+    '</div>'+
     '</div>'+
     '<div class="heiz-btns" id="simHeizBtns">'+
     '<button type="button" data-h="ist" class="on">Ist belassen</button>'+
