@@ -902,8 +902,10 @@ section{position:relative}
 .ort-text h3{margin:34px 0 10px;font-size:1.2rem}
 .ort-text p{margin-bottom:15px;color:var(--ink-2)}
 .ort-text .liste{margin:0 0 18px}
-.ort-text .liste li{display:flex;gap:11px;margin-bottom:10px;color:var(--ink-2)}
-.ort-text .liste li::before{content:"";width:7px;height:7px;flex:none;margin-top:10px;border-radius:50%;background:var(--amber)}
+/* Punkt absolut statt Flexcontainer - in einem Flex-li wuerden <b> oder <a>
+   im Satz zu eigenen Spalten (siehe gleicher Fix im Ratgeber-Generator). */
+.ort-text .liste li{position:relative;padding-left:20px;margin-bottom:10px;color:var(--ink-2)}
+.ort-text .liste li::before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--amber)}
 .ort-text .merksatz{background:var(--forest-soft);border-radius:var(--radius-sm);padding:20px 24px;margin:26px 0;color:var(--forest);font-size:.97rem}
 .ort-text .merksatz b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.75}
 .krumen{padding:22px 0 0;font-size:.82rem;color:var(--muted)}

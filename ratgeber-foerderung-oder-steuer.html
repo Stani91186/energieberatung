@@ -910,11 +910,12 @@ section{position:relative}
 .rg-text h3{font-size:1.16rem;margin:30px 0 10px}
 .rg-text p{margin-bottom:15px;color:var(--ink-2)}
 .rg-text ul{margin:0 0 18px}
-/* hyphens + overflow-wrap: Die Punkte sind Flexcontainer, deren Mindestbreite
-   vom laengsten Wort bestimmt wird. Ein langes Kompositum ("Mindest-
-   anforderungen") schob sonst auf schmalen Handys die ganze Seite auf. */
-.rg-text ul li{display:flex;gap:11px;margin-bottom:10px;color:var(--ink-2);hyphens:auto;overflow-wrap:anywhere}
-.rg-text ul li::before{content:"";width:7px;height:7px;flex:none;margin-top:10px;border-radius:50%;background:var(--amber)}
+/* Punkt absolut positioniert, NICHT als Flexcontainer: In einem Flex-li
+   werden <strong> und der restliche Text zu getrennten Spalten - die fette
+   Einleitung ("Beheizter Keller:") brach dann schmal um und der Satz stand
+   daneben statt dahinter. Mit padding-left fliesst alles normal. */
+.rg-text ul li{position:relative;padding-left:20px;margin-bottom:10px;color:var(--ink-2);hyphens:auto}
+.rg-text ul li::before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--amber)}
 .rg-text ol{counter-reset:rg;list-style:none;margin:0 0 18px}
 .rg-text ol li{counter-increment:rg;position:relative;padding-left:44px;margin-bottom:14px;color:var(--ink-2)}
 .rg-text ol li::before{content:counter(rg);position:absolute;left:0;top:-1px;width:30px;height:30px;border-radius:50%;background:var(--forest-soft);color:var(--forest);display:grid;place-items:center;font-weight:700;font-size:.92rem}

@@ -154,8 +154,10 @@ h3{font-size:1.18rem;line-height:1.3;margin:32px 0 10px}
 .text a{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .text a:hover{color:var(--ink)}
 .text ul.liste{margin:0 0 18px}
-.text ul.liste li{display:flex;gap:11px;margin-bottom:10px;color:var(--ink-2)}
-.text ul.liste li::before{content:"";width:7px;height:7px;flex:none;margin-top:10px;border-radius:50%;background:var(--amber)}
+/* Punkt absolut statt Flexcontainer - in einem Flex-li wuerden <strong> oder
+   <a> im Satz zu eigenen Spalten neben dem Text (Fix wie im Ratgeber). */
+.text ul.liste li{position:relative;padding-left:20px;margin-bottom:10px;color:var(--ink-2)}
+.text ul.liste li::before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--amber)}
 .text ol.schritte{counter-reset:s;list-style:none;margin:0 0 18px}
 .text ol.schritte li{counter-increment:s;position:relative;padding-left:44px;margin-bottom:16px;color:var(--ink-2)}
 .text ol.schritte li::before{
