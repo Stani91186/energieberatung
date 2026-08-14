@@ -60,6 +60,11 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--font-sans);background:var(--cream);color:var(--ink);line-height:1.6;font-size:16.5px;-webkit-font-smoothing:antialiased}
+
+/* Betonung ohne Kursiv: <em> bleibt fuer Screenreader erhalten, wird
+   aber durch Gewicht statt Schraeglage ausgezeichnet. */
+em{font-style:normal;font-weight:600;color:var(--ink)}
+i{font-style:normal}
 h1,h2,h3,.serif{font-family:var(--font-serif);font-weight:500;line-height:1.15;letter-spacing:-.015em}
 h1{font-size:clamp(1.9rem,4.5vw,2.9rem)}
 h2{font-size:clamp(1.4rem,2.6vw,1.9rem)}
@@ -293,7 +298,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .info-i{
   display:inline-grid;place-items:center;width:20px;height:20px;margin-left:8px;vertical-align:-4px;
   border:1.5px solid var(--amber);border-radius:50%;background:var(--amber-soft);
-  font-family:var(--font-serif);font-style:italic;font-size:.78rem;font-weight:600;color:var(--amber-deep);
+  font-family:var(--font-serif);font-style:normal;font-size:.78rem;font-weight:600;color:var(--amber-deep);
   cursor:pointer;transition:.2s;box-shadow:0 1px 3px rgba(192,122,46,.18);
 }
 .info-i:hover,.info-i.on{background:var(--amber);color:#fff;transform:scale(1.08)}
@@ -396,7 +401,7 @@ details.annahmen[open] summary::after{content:"–"}
   width:28px;height:28px;flex:none;border-radius:50%;
   background:var(--forest-soft);color:var(--forest);
   display:grid;place-items:center;
-  font-family:var(--font-serif);font-style:italic;font-size:.95rem;font-weight:600;
+  font-family:var(--font-serif);font-style:normal;font-size:.95rem;font-weight:600;
 }
 .erklaer-i::before{content:"i"}
 .erklaer-pfeil{

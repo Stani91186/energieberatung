@@ -62,6 +62,11 @@ body{
 }
 svg{display:block;max-width:100%}
 a{color:inherit}
+
+/* Betonung ohne Kursiv: <em> bleibt fuer Screenreader erhalten, wird
+   aber durch Gewicht statt Schraeglage ausgezeichnet. */
+em{font-style:normal;font-weight:600;color:var(--ink)}
+i{font-style:normal}
 :focus-visible{outline:2.5px solid var(--amber-deep);outline-offset:3px;border-radius:4px}
 .skip-link{position:absolute;left:-9999px;top:0;z-index:200;background:var(--forest);color:#FBF8F2;padding:13px 22px;border-radius:0 0 var(--radius-sm) 0;font-size:.92rem;font-weight:600;text-decoration:none}
 .skip-link:focus{left:0}
