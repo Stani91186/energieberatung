@@ -323,8 +323,11 @@ section{position:relative}
   overflow:hidden;
 }
 .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:64px;align-items:center;position:relative;z-index:2}
+/* Auszeichnung nur ueber Farbe, nicht ueber Kursiv. Die kursive Fraunces hat
+   sehr verspielte Formen - im wichtigsten Satz der Seite wirkte das eher
+   charmant als kompetent. Fuer eine technische Beratung ist ruhiger besser. */
 .hero h1 .accent{
-  color:var(--amber-deep);font-style:italic;
+  color:var(--amber-deep);
 }
 .hero-sub{margin:26px 0 34px;font-size:clamp(1.04rem,1.5vw,1.2rem);color:var(--ink-2);max-width:52ch}
 .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:44px}
@@ -651,6 +654,36 @@ section{position:relative}
 .foerder-fuss b{color:#FBF8F2}
 .foerder-fuss .stats-note{margin-top:0}
 .foerder-cta{margin-top:20px}
+
+/* ===========================================================================
+   9c. HANDLUNGSAUFRUFE ZWISCHEN DEN ABSCHNITTEN
+   Nach jedem groesseren Block soll ein Weg zum Kontakt sichtbar sein, ohne
+   dass man scrollen muss. Bewusst schlank gehalten und im Text jeweils an
+   den Abschnitt darueber angeknuepft - viermal derselbe Satz waere Werbung,
+   ein passender Satz ist ein Angebot.
+   ======================================================================== */
+.cta-band{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:22px 32px;margin-top:52px;padding:28px 32px;
+  background:var(--white);border:1px solid var(--line-soft);
+  border-left:4px solid var(--amber);border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+}
+.cta-band-text{min-width:min(100%,26ch);flex:1}
+.cta-band b{
+  display:block;font-family:var(--font-serif);font-weight:500;
+  font-size:1.22rem;line-height:1.25;color:var(--ink);margin-bottom:5px;
+}
+.cta-band span{font-size:.92rem;color:var(--ink-2)}
+.cta-band-knoepfe{display:flex;flex-wrap:wrap;gap:11px}
+/* Auf Cremehintergrund die Karte etwas absetzen */
+.services .cta-band,.faq .cta-band{background:var(--cream)}
+
+@media (max-width:700px){
+  .cta-band{padding:22px 20px;gap:16px;margin-top:38px}
+  .cta-band-knoepfe{width:100%}
+  .cta-band-knoepfe .btn{flex:1;justify-content:center}
+}
 
 @media (max-width:1000px){ .foerder-liste{grid-template-columns:1fr 1fr} }
 @media (max-width:700px){ .foerder-liste{grid-template-columns:1fr} }
@@ -1548,6 +1581,17 @@ section{position:relative}
       </article>
 
     </div>
+
+    <div class="cta-band reveal">
+      <div class="cta-band-text">
+        <b>Klingt nach Ihrer Situation?</b>
+        <span>Im Erstgespräch klären wir in 20 Minuten, welche dieser Fragen bei Ihrem Gebäude die wichtigste ist.</span>
+      </div>
+      <div class="cta-band-knoepfe">
+        <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+        <a href="tel:+4915224290826" class="btn btn-ghost">Direkt anrufen</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1646,6 +1690,17 @@ section{position:relative}
         </ul>
       </article>
 
+    </div>
+
+    <div class="cta-band reveal">
+      <div class="cta-band-text">
+        <b>Nicht sicher, welcher Baustein passt?</b>
+        <span>Das klären wir gemeinsam – kostenlos und ohne dass Sie sich zu etwas verpflichten.</span>
+      </div>
+      <div class="cta-band-knoepfe">
+        <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+        <a href="sanierungsrechner.html" class="btn btn-ghost">Erst selbst rechnen</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1774,6 +1829,17 @@ section{position:relative}
         <p>Anträge raus, Handwerker anfragen, Bauphase begleiten. Sie entscheiden, ob Sie das selbst übernehmen oder wir es tun.</p>
       </div>
 
+    </div>
+
+    <div class="cta-band reveal">
+      <div class="cta-band-text">
+        <b>Schritt 1 kostet Sie nichts.</b>
+        <span>Ein Anruf, 20 Minuten, danach wissen Sie, ob und wie es für Ihr Gebäude weitergeht.</span>
+      </div>
+      <div class="cta-band-knoepfe">
+        <a href="tel:+4915224290826" class="btn btn-ghost">Direkt anrufen</a>
+        <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1983,6 +2049,17 @@ section{position:relative}
         <div class="faq-a"><p>Oft gerade dann. Eine Zweitmeinung klärt, ob die Anlage richtig dimensioniert ist, ob die Reihenfolge stimmt und ob durch den Antragszeitpunkt Förderung verloren geht. Das ist meist die günstigste Stunde des ganzen Projekts.</p></div>
       </div>
 
+    </div>
+
+    <div class="cta-band reveal">
+      <div class="cta-band-text">
+        <b>Ihre Frage war nicht dabei?</b>
+        <span>Dann stellen Sie sie direkt. Das Erstgespräch kostet nichts und verpflichtet zu nichts.</span>
+      </div>
+      <div class="cta-band-knoepfe">
+        <a href="#kontakt" class="btn btn-amber">Kostenloses Erstgespräch</a>
+        <a href="tel:+4915224290826" class="btn btn-ghost">Direkt anrufen</a>
+      </div>
     </div>
   </div>
 </section>
