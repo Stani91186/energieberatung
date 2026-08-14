@@ -517,8 +517,10 @@ section{position:relative}
 .info-panel b{color:var(--ink)}
 
 /* Vorschau: Energieklassen-Skala */
-.rechner-vorschau{background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius);padding:26px 24px}
+.rechner-vorschau{background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius);padding:22px 24px 26px}
 .rechner-vorschau svg{width:100%;height:auto}
+/* Haus oben, darunter die Skala – durch eine feine Linie getrennt */
+.vorschau-haus{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
 .rechner-vorschau figcaption{margin-top:14px;font-size:.76rem;color:var(--muted);text-align:center}
 
 @media (max-width:900px){
@@ -1101,6 +1103,7 @@ section{position:relative}
     <nav class="nav" aria-label="Hauptnavigation">
       <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
       <a href="sanierungsrechner.html">Rechner</a>
+      <a href="ratgeber.html">Ratgeber</a>
       <a href="index.html#leistungen">Leistungen</a>
       <a href="index.html#kontakt">Kontakt</a>
     </nav>
@@ -1117,6 +1120,7 @@ section{position:relative}
   <a href="index.html">Startseite</a>
   <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
   <a href="sanierungsrechner.html">Sanierungsrechner</a>
+  <a href="ratgeber.html">Ratgeber</a>
   <a href="index.html#leistungen">Leistungen</a>
   <a href="index.html#kontakt">Kontakt</a>
   <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
@@ -1322,7 +1326,8 @@ section{position:relative}
 </section>
 
 <!-- ========================= ZAHLEN ========================= -->
-<section class="section-pad" style="padding-top:0">
+<!-- id="foerderung": Sprungziel fuer die Ratgeber-Artikel und fuer externe Links -->
+<section class="section-pad" id="foerderung" style="padding-top:0">
   <div class="wrap">
     <div class="stats reveal">
 
@@ -1646,6 +1651,14 @@ section{position:relative}
         <a href="energieberatung-laichingen.html">Energieberatung Laichingen</a>
         <a href="energieberatung-blaubeuren.html">Energieberatung Blaubeuren</a>
         <a href="energieberatung-dornstadt.html">Energieberatung Dornstadt</a>
+      </div>
+      <div class="footer-col">
+        <h4>Ratgeber</h4>
+        <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a>
+        <a href="ratgeber-reihenfolge-sanierung.html">Richtige Reihenfolge</a>
+        <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer</a>
+        <a href="ratgeber-sanieren-schwaebische-alb.html">Sanieren auf der Alb</a>
+        <a href="ratgeber.html">Alle Beiträge</a>
       </div>
       <div class="footer-col">
         <h4>Kontakt</h4>

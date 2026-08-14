@@ -64,6 +64,20 @@ Ortsspezifische Texte stehen in der Tabelle `ORTE` im Generator. Achtung:
 Seiten, die sich nur im Ortsnamen unterscheiden, straft Google als
 Doorway Pages ab – die Wortüberschneidung sollte gemessen unter 65 % bleiben.
 
+## Ratgeber
+
+`ratgeber.html` und `ratgeber-*.html` werden von `ratgeber-erzeugen.py` erzeugt –
+ebenfalls **nicht von Hand bearbeiten**. Kopfzeile, Fußbereich und CSS schneidet
+der Generator bei jedem Lauf frisch aus `index.html`.
+
+Artikeltexte stehen in der Liste `ARTIKEL` im Generator; jeder Eintrag bringt
+seine eigenen FAQ-Paare mit, aus denen das `FAQPage`-Schema entsteht. Neue
+Artikel dort ergänzen, dann `python ratgeber-erzeugen.py` ausführen und die
+Adresse in `sitemap.xml` eintragen.
+
+Wenn sich die Navigation ändert, müssen **beide** Generatoren angefasst werden
+(`ortsseiten-erzeugen.py` und `ratgeber-erzeugen.py`) und danach beide laufen.
+
 ## Qualitätsprüfung nach JEDER Änderung am Rechner
 
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:

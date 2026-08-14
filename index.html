@@ -563,8 +563,10 @@ section{position:relative}
 .info-panel b{color:var(--ink)}
 
 /* Vorschau: Energieklassen-Skala */
-.rechner-vorschau{background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius);padding:26px 24px}
+.rechner-vorschau{background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius);padding:22px 24px 26px}
 .rechner-vorschau svg{width:100%;height:auto}
+/* Haus oben, darunter die Skala – durch eine feine Linie getrennt */
+.vorschau-haus{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
 .rechner-vorschau figcaption{margin-top:14px;font-size:.76rem;color:var(--muted);text-align:center}
 
 @media (max-width:900px){
@@ -1046,8 +1048,8 @@ section{position:relative}
     <nav class="nav" aria-label="Hauptnavigation">
       <a href="#leistungen">Leistungen</a>
       <a href="sanierungsrechner.html">Rechner</a>
+      <a href="ratgeber.html">Ratgeber</a>
       <a href="#ablauf">Ablauf</a>
-      <a href="#faq">Fragen</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
 
@@ -1070,6 +1072,7 @@ section{position:relative}
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
   <a href="#leistungen">Leistungen</a>
   <a href="sanierungsrechner.html">Sanierungsrechner</a>
+  <a href="ratgeber.html">Ratgeber</a>
   <a href="#ablauf">Ablauf</a>
   <a href="#faq">Fragen</a>
   <a href="#kontakt">Kontakt</a>
@@ -1751,6 +1754,13 @@ section{position:relative}
       </div>
 
       <figure class="rechner-vorschau">
+        <!-- Dasselbe Haus wie im Hero, aus den gemeinsamen SVG-Definitionen.
+             translate(0,-64) scale(.4) zentriert es im 260x150-Ausschnitt. -->
+        <svg class="vorschau-haus" viewBox="0 0 260 150" role="img"
+             aria-label="Isometrische Darstellung eines Wohnhauses mit Solarmodulen auf dem Dach und Wärmepumpe daneben">
+          <use href="#isoHouse" transform="translate(0,-64) scale(.4)"/>
+        </svg>
+
         <svg viewBox="0 0 260 172" role="img" aria-label="Beispiel einer Energieklassen-Skala von A plus bis H, markiert ist Klasse F">
           <text x="0" y="12" font-size="10" font-weight="600" fill="var(--muted)" letter-spacing="1.2">IHRE ENERGIEKLASSE</text>
           <g font-size="10" font-weight="600" fill="#FBF8F2" text-anchor="middle">
@@ -1843,7 +1853,8 @@ section{position:relative}
 </section>
 
 <!-- ========================= ZAHLEN ========================= -->
-<section class="section-pad" style="padding-top:0">
+<!-- id="foerderung": Sprungziel fuer die Ratgeber-Artikel und fuer externe Links -->
+<section class="section-pad" id="foerderung" style="padding-top:0">
   <div class="wrap">
     <div class="stats reveal">
 
@@ -2217,10 +2228,13 @@ section{position:relative}
       </div>
 
       <div class="footer-col">
-        <h4>Unternehmen</h4>
-        <a href="#ablauf">Ablauf</a>
+        <h4>Ratgeber</h4>
+        <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a>
+        <a href="ratgeber-reihenfolge-sanierung.html">Richtige Reihenfolge</a>
+        <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer</a>
+        <a href="ratgeber-kellerdecke-daemmen.html">Kellerdecke dämmen</a>
+        <a href="ratgeber.html">Alle Beiträge</a>
         <a href="#faq">Häufige Fragen</a>
-        <a href="#kontakt">Kontakt</a>
       </div>
 
       <div class="footer-col">

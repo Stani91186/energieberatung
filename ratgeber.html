@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  ORTSSEITE BLAUBEUREN – ERZEUGT, NICHT VON HAND BEARBEITEN!
-  Änderungen in ortsseiten-erzeugen.py vornehmen und das Skript erneut laufen
+  RATGEBER – ERZEUGT, NICHT VON HAND BEARBEITEN!
+  Änderungen in ratgeber-erzeugen.py vornehmen und das Skript erneut laufen
   lassen, sonst sind sie beim nächsten Durchlauf wieder weg.
   ============================================================================
 -->
@@ -10,18 +10,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Energieberatung Blaubeuren – Sanierungsfahrplan & Förderung</title>
-<meta name="description" content="Energieberatung in Blaubeuren: Sanierungsfahrplan und Förderung, auch für denkmalgeschützte Gebäude. Produktneutral und ohne Provision.">
-<link rel="canonical" href="https://energieberater-albdonau.de/energieberatung-blaubeuren.html">
+<title>Ratgeber Energetische Sanierung | Tsukerman Energieberatung</title>
+<meta name="description" content="Verständliche Antworten zu Heizungstausch, Sanierungsreihenfolge, Förderung und Dämmung – von einem Energieberater aus dem Alb-Donau-Kreis.">
+<link rel="canonical" href="https://energieberater-albdonau.de/ratgeber.html">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#FDFBF7">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23C07A2E'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 15 16 8l9 7'/%3E%3Cpath d='M9.5 13.6V24h13V13.6'/%3E%3Cpath d='M13.5 24v-5h5v5'/%3E%3C/g%3E%3C/svg%3E">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="Tsukerman Energieberatung">
-<meta property="og:title" content="Energieberatung Blaubeuren – erst rechnen, dann sanieren">
-<meta property="og:description" content="Energieberatung in Blaubeuren: Sanierungsfahrplan und Förderung, auch für denkmalgeschützte Gebäude. Produktneutral und ohne Provision.">
-<meta property="og:url" content="https://energieberater-albdonau.de/energieberatung-blaubeuren.html">
+<meta property="og:title" content="Ratgeber Energetische Sanierung | Tsukerman Energieberatung">
+<meta property="og:description" content="Verständliche Antworten zu Heizungstausch, Sanierungsreihenfolge, Förderung und Dämmung – von einem Energieberater aus dem Alb-Donau-Kreis.">
+<meta property="og:url" content="https://energieberater-albdonau.de/ratgeber.html">
 <meta name="twitter:card" content="summary_large_image">
 <style>
 /* ===========================================================================
@@ -891,204 +891,82 @@ section{position:relative}
   .problem-illu{padding:18px 18px 0}
 }
 
-/* ==== Ortsseiten ==== */
-.ort-text{max-width:74ch}
-.ort-text h3{margin:34px 0 10px;font-size:1.2rem}
-.ort-text p{margin-bottom:15px;color:var(--ink-2)}
-.ort-text .liste{margin:0 0 18px}
-.ort-text .liste li{display:flex;gap:11px;margin-bottom:10px;color:var(--ink-2)}
-.ort-text .liste li::before{content:"";width:7px;height:7px;flex:none;margin-top:10px;border-radius:50%;background:var(--amber)}
-.ort-text .merksatz{background:var(--forest-soft);border-radius:var(--radius-sm);padding:20px 24px;margin:26px 0;color:var(--forest);font-size:.97rem}
-.ort-text .merksatz b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.75}
+/* ==== Ratgeber ==== */
+.rg-kopf{padding:30px 0 40px}
+.rg-meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px;font-size:.84rem;color:var(--muted)}
+.rg-meta span{display:inline-flex;align-items:center;gap:7px}
+.rg-inhalt{display:grid;grid-template-columns:1fr 320px;gap:56px;align-items:start;padding-bottom:76px}
+/* Ohne min-width:0 waechst die 1fr-Spalte auf die Mindestbreite der Tabelle
+   (min-width:420px) - auf dem Handy scrollt dann die ganze Seite seitwaerts. */
+.rg-inhalt>*{min-width:0}
+.rg-text{max-width:70ch}
+.rg-text h2{font-size:clamp(1.5rem,2.6vw,2rem);margin:46px 0 14px}
+.rg-text h3{font-size:1.16rem;margin:30px 0 10px}
+.rg-text p{margin-bottom:15px;color:var(--ink-2)}
+.rg-text ul{margin:0 0 18px}
+.rg-text ul li{display:flex;gap:11px;margin-bottom:10px;color:var(--ink-2)}
+.rg-text ul li::before{content:"";width:7px;height:7px;flex:none;margin-top:10px;border-radius:50%;background:var(--amber)}
+.rg-text ol{counter-reset:rg;list-style:none;margin:0 0 18px}
+.rg-text ol li{counter-increment:rg;position:relative;padding-left:44px;margin-bottom:14px;color:var(--ink-2)}
+.rg-text ol li::before{content:counter(rg);position:absolute;left:0;top:-1px;width:30px;height:30px;border-radius:50%;background:var(--forest-soft);color:var(--forest);display:grid;place-items:center;font-weight:700;font-size:.92rem}
+.rg-text strong{color:var(--ink)}
+.rg-text a{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.rg-kasten{background:var(--forest-soft);border-radius:var(--radius-sm);padding:20px 24px;margin:26px 0;color:var(--forest);font-size:.96rem}
+.rg-kasten b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.75}
+.rg-warnung{background:var(--amber-soft);border-left:4px solid var(--amber);border-radius:var(--radius-sm);padding:18px 22px;margin:24px 0;font-size:.94rem;color:#6B5638}
+.rg-warnung b{color:#5A4526}
+.rg-tabelle{overflow-x:auto;margin:22px 0}
+.rg-tabelle table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:420px}
+.rg-tabelle th,.rg-tabelle td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line-soft)}
+.rg-tabelle th{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.rg-tabelle td{color:var(--ink-2)}
+.rg-tabelle td:first-child{color:var(--ink);font-weight:500}
+.rg-hinweis{margin-top:34px;padding-top:18px;border-top:1px solid var(--line-soft);font-size:.85rem;color:var(--muted)}
+.rg-spalte{position:sticky;top:104px;display:grid;gap:18px}
+.rg-karte{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px 26px}
+.rg-karte h3{margin:0 0 12px;font-size:1.05rem}
+.rg-karte p{font-size:.89rem;color:var(--ink-2);margin-bottom:16px}
+.rg-karte .btn{width:100%}
+.rg-karte-kontakt{background:linear-gradient(165deg,var(--forest),#22392E);border-color:transparent;color:#F4EFE6}
+.rg-karte-kontakt h3{color:#FBF8F2}
+.rg-karte-kontakt p{color:rgba(244,239,230,.82)}
+.rg-tel{display:flex;align-items:center;gap:10px;font-size:1.1rem;font-weight:700;color:#FBF8F2;margin-bottom:6px}
+.rg-tel svg{width:19px;height:19px;stroke:#E8B87A;fill:none;stroke-width:1.9;flex:none}
+.rg-mehr{display:grid;gap:2px}
+.rg-mehr a{display:block;padding:9px 0;font-size:.9rem;color:var(--ink-2);border-bottom:1px solid var(--line-soft);transition:color .25s}
+.rg-mehr a:last-child{border-bottom:none}
+.rg-mehr a:hover{color:var(--amber-deep)}
+
+/* Brotkrumen - stehen nicht im CSS der Startseite, dort gibt es sie nicht */
 .krumen{padding:22px 0 0;font-size:.82rem;color:var(--muted)}
 .krumen ol{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
 .krumen li::after{content:"\203A";margin-left:8px;color:var(--line)}
 .krumen li:last-child::after{content:""}
 .krumen a:hover{color:var(--amber-deep);text-decoration:underline;text-underline-offset:3px}
-.ort-nachbarn{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
-.ort-nachbarn a{
-  font-size:.86rem;font-weight:500;color:var(--ink-2);background:var(--white);
-  border:1px solid var(--line);border-radius:100px;padding:8px 16px;transition:.25s var(--ease);
+
+/* Uebersichtsseite */
+.rg-liste{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;padding-bottom:70px}
+.rg-eintrag{
+  background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);padding:28px 30px;display:flex;flex-direction:column;
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s;
 }
-.ort-nachbarn a:hover{border-color:var(--amber);color:var(--amber-deep);transform:translateY(-2px)}
+.rg-eintrag:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:var(--line)}
+.rg-eintrag .rubrik{display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:11px}
+.rg-eintrag h2{font-size:1.24rem;margin-bottom:10px;line-height:1.3}
+.rg-eintrag h2 a:hover{color:var(--amber-deep)}
+.rg-eintrag p{font-size:.92rem;color:var(--ink-2);margin-bottom:18px}
+.rg-eintrag .weiter{margin-top:auto;font-size:.9rem;font-weight:600;color:var(--amber-deep);display:inline-flex;align-items:center;gap:7px}
+.rg-eintrag:hover .weiter{gap:11px}
+
+@media (max-width:1000px){ .rg-inhalt{grid-template-columns:1fr;gap:40px} .rg-spalte{position:static} }
+@media (max-width:760px){ .rg-liste{grid-template-columns:1fr} }
 
 </style>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Tsukerman Energieberatung",
-  "description": "Energieberatung für Wohngebäude in Blaubeuren: Sanierungsfahrplan, Fördermittel und Energieausweis.",
-  "url": "https://energieberater-albdonau.de/energieberatung-blaubeuren.html",
-  "telephone": "+4915224290826",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Griesweg 20",
-    "postalCode": "89160",
-    "addressLocality": "Dornstadt",
-    "addressRegion": "Baden-Württemberg",
-    "addressCountry": "DE"
-  },
-  "areaServed": { "@type": "City", "name": "Blaubeuren" }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://energieberater-albdonau.de/" },
-    { "@type": "ListItem", "position": 2, "name": "Energieberatung Blaubeuren", "item": "https://energieberater-albdonau.de/energieberatung-blaubeuren.html" }
-  ]
-}
-</script>
 </head>
 <body>
 
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <!-- Häkchen: stand 19× identisch im Dokument. Farbe und Größe kommen
-         weiterhin per CSS vom umgebenden <svg>-Element. -->
-    <g id="icCheck" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M20 6 9 17l-5-5"/>
-    </g>
-
-    <linearGradient id="gWallF" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F5EEE0"/>
-    </linearGradient>
-    <linearGradient id="gWallS" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#EBE2D0"/><stop offset="1" stop-color="#DCD1B9"/>
-    </linearGradient>
-    <!-- Dach in dunklem, warmem Grau (Ziegel), statt vorher Amber -->
-    <linearGradient id="gRoofF" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#6E655C"/><stop offset="1" stop-color="#4A433B"/>
-    </linearGradient>
-    <linearGradient id="gRoofB" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#453F38"/><stop offset="1" stop-color="#332E29"/>
-    </linearGradient>
-    <!-- Solarmodule blaeulich, damit sie sich vom dunklen Dach abheben -->
-    <linearGradient id="gPanel" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#40608A"/><stop offset="1" stop-color="#27405E"/>
-    </linearGradient>
-
-    <!-- Rasen und Baumkronen -->
-    <linearGradient id="gGrass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#93BC7B"/><stop offset="1" stop-color="#5D8A51"/>
-    </linearGradient>
-    <linearGradient id="gLaubHell" x1="0" y1="0" x2="0.3" y2="1">
-      <stop offset="0" stop-color="#9CC685"/><stop offset="1" stop-color="#6B9A5B"/>
-    </linearGradient>
-    <linearGradient id="gLaubDunkel" x1="0" y1="0" x2="0.3" y2="1">
-      <stop offset="0" stop-color="#7CAA68"/><stop offset="1" stop-color="#4E7A46"/>
-    </linearGradient>
-
-    <!-- Grundstueck: Rasen-Insel mit Steinkante. Bewusst AUSSERHALB von
-         #isoHouse, weil die kleinen Karten-Grafiken das Haus in einem engen
-         Ausschnitt zeigen - dort wuerde die Insel ueber den Rand laufen. -->
-    <!-- WICHTIG ZUR GEOMETRIE:
-         Das Haus ist isometrisch mit den Bodenrichtungen (0.866, 0.5) und
-         (0.866, -0.5) gezeichnet. Eine in Wirklichkeit KREISRUNDE Flaeche
-         erscheint dadurch als Ellipse im Verhaeltnis Wurzel(3) = 1.732 : 1.
-         Ein flacherer Wert sieht aus wie ein Teppich vor dem Haus statt wie
-         Boden darunter - genau das war der erste Versuch (3.67 : 1).
-
-         Der Grundriss beruehrt den Boden bei
-             (188.8,406) (362,506) (483.2,436) und (310,336).
-         Mittelpunkt daraus: (336, 421) - das ist der Mittelpunkt der Insel.
-         Mit rx=222 / ry=126 liegen alle vier Ecken bei rund 46 % des Radius,
-         also mit gleichmaessigem Rand rundum. Beim Aendern beides im
-         Verhaeltnis 1.73 : 1 halten, sonst schwebt das Haus wieder. -->
-    <g id="grundstueck">
-      <ellipse cx="340" cy="436" rx="238" ry="130" fill="rgba(60,46,28,.13)" filter="url(#fBlur)"/>
-      <ellipse cx="336" cy="430" rx="236" ry="134" fill="#ADA492"/>
-      <ellipse cx="336" cy="420" rx="236" ry="134" fill="#D5CDBC"/>
-      <ellipse cx="336" cy="421" rx="222" ry="126" fill="url(#gGrass)"/>
-      <g fill="none" stroke="#4E7A46" stroke-width="2" stroke-linecap="round" opacity=".5">
-        <path d="M200 511c2-8 3-11 1-18M210 515c3-7 5-10 4-17M262 529c2-8 3-11 1-18M272 532c3-7 5-10 4-17
-                 M398 532c2-8 3-11 1-18M408 529c3-7 5-10 4-17M468 511c2-8 3-11 1-18M478 507c3-7 5-10 4-17"/>
-      </g>
-    </g>
-
-    <!-- Baeume. Stehen hinter dem Haus, damit sie die anklickbaren
-         Bauteilflaechen nicht verdecken. -->
-    <!-- Stammfuss muss auf der Rasenflaeche liegen, mit Abstand zum Rand.
-         (528,452) entspricht 90 % des Radius - noch deutlich innerhalb,
-         und der Stamm bleibt rechts neben der Waermepumpe (endet bei x=518). -->
-    <g id="baumRechts">
-      <path d="M528 452V326" fill="none" stroke="#8C7F6C" stroke-width="7" stroke-linecap="round"/>
-      <path d="M528 364l-24-26M528 348l26-24" fill="none" stroke="#8C7F6C" stroke-width="4" stroke-linecap="round"/>
-      <ellipse cx="528" cy="276" rx="62" ry="54" fill="url(#gLaubDunkel)"/>
-      <ellipse cx="486" cy="302" rx="38" ry="31" fill="url(#gLaubHell)"/>
-      <ellipse cx="568" cy="298" rx="36" ry="30" fill="url(#gLaubHell)"/>
-      <ellipse cx="536" cy="232" rx="40" ry="33" fill="url(#gLaubHell)"/>
-    </g>
-    <!-- Position bewusst gewaehlt: rechts vom "Fassade"-Schild (endet bei x=128)
-         und oberhalb des "Fenster"-Schilds (beginnt bei y=470). Beim Verschieben
-         diese beiden Grenzen beachten, sonst liegt Laub unter den Beschriftungen. -->
-    <g id="baumLinks">
-      <path d="M175 464V382" fill="none" stroke="#9C907D" stroke-width="5" stroke-linecap="round"/>
-      <path d="M175 410l-18-18" fill="none" stroke="#9C907D" stroke-width="3" stroke-linecap="round"/>
-      <ellipse cx="175" cy="356" rx="44" ry="38" fill="url(#gLaubDunkel)"/>
-      <ellipse cx="149" cy="376" rx="27" ry="22" fill="url(#gLaubHell)"/>
-      <ellipse cx="201" cy="374" rx="25" ry="21" fill="url(#gLaubHell)"/>
-    </g>
-    <filter id="fBlur" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="6"/>
-    </filter>
-    <filter id="fDrop" x="-25%" y="-25%" width="150%" height="160%">
-      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#2D2314" flood-opacity=".16"/>
-    </filter>
-
-    <!-- Isometrisches Haus: Grundriss 200×140, Wandhöhe 110, First 170 -->
-    <g id="isoHouse">
-      <polygon points="307,324 501,436 365,514 171,402" fill="rgba(60,46,28,.10)" filter="url(#fBlur)"/>
-      <polygon points="310,210 483.2,310 422.6,285 249.4,185" fill="url(#gRoofB)" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
-      <polygon points="188.8,390 362,490 362,380 188.8,280" fill="url(#gWallF)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
-      <polygon points="483.2,420 362,490 362,380 483.2,310" fill="url(#gWallS)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
-      <polygon points="362,380 483.2,310 422.6,285" fill="url(#gWallS)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
-
-      <!-- Fassade (Fläche y=140): u entlang der Wand, v = Höhe -->
-      <g transform="matrix(0.866,0.5,0,-1,188.8,390)">
-        <rect x="22" y="36" width="52" height="50" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
-        <path d="M48 36v50M22 61h52" fill="none" stroke="#1D1A15" stroke-width="1"/>
-        <rect x="92" y="40" width="44" height="46" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
-        <path d="M114 40v46M92 63h44" fill="none" stroke="#1D1A15" stroke-width="1"/>
-        <rect x="148" y="0" width="40" height="78" rx="2" fill="#EFE7D7" stroke="#1D1A15" stroke-width="1.5"/>
-        <circle cx="182" cy="40" r="2.6" fill="#1D1A15"/>
-      </g>
-
-      <!-- Giebelwand (Fläche x=200) -->
-      <g transform="matrix(-0.866,0.5,0,-1,483.2,420)">
-        <rect x="50" y="46" width="40" height="42" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
-        <path d="M70 46v42M50 67h40" fill="none" stroke="#1D1A15" stroke-width="1"/>
-      </g>
-
-      <!-- Vordere Dachfläche mit Solarmodulen -->
-      <polygon points="188.8,280 362,380 422.6,285 249.4,185" fill="url(#gRoofF)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
-      <g transform="matrix(0.866,0.5,0.606,-0.95,188.8,280)">
-        <rect x="26" y="22" width="64" height="52" rx="2" fill="url(#gPanel)" stroke="#F4EFE6" stroke-width="1.2"/>
-        <path d="M26 48h64M47 22v52M69 22v52" fill="none" stroke="#F4EFE6" stroke-width=".8" opacity=".7"/>
-        <rect x="104" y="22" width="64" height="52" rx="2" fill="url(#gPanel)" stroke="#F4EFE6" stroke-width="1.2"/>
-        <path d="M104 48h64M125 22v52M147 22v52" fill="none" stroke="#F4EFE6" stroke-width=".8" opacity=".7"/>
-      </g>
-      <path d="M249.4 185 L422.6 285" fill="none" stroke="#1D1A15" stroke-width="2" stroke-linecap="round"/>
-
-      <!-- Sockel / Kellergeschoss mit gedämmter Kellerdecke -->
-      <polygon points="188.8,390 362,490 362,506 188.8,406" fill="#D9CDB3" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
-      <polygon points="483.2,420 362,490 362,506 483.2,436" fill="#CBBFA4" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
-      <path d="M188.8 396 L362 496" fill="none" stroke="#2E4A3C" stroke-width="2" stroke-dasharray="6 5"/>
-      <path d="M362 496 L483.2 426" fill="none" stroke="#2E4A3C" stroke-width="2" stroke-dasharray="6 5"/>
-
-      <!-- Büsche -->
-      <ellipse cx="160" cy="464" rx="28" ry="5" fill="rgba(60,46,28,.09)"/>
-      <circle cx="168" cy="442" r="17" fill="#DCE8DF" stroke="#1D1A15" stroke-width="1.3"/>
-      <circle cx="146" cy="454" r="10.5" fill="#CFDFD4" stroke="#1D1A15" stroke-width="1.3"/>
-    </g>
-  </defs>
-</svg>
 
 <header class="site-header">
   <div class="wrap header-inner">
@@ -1103,7 +981,7 @@ section{position:relative}
     <nav class="nav" aria-label="Hauptnavigation">
       <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
       <a href="sanierungsrechner.html">Rechner</a>
-      <a href="ratgeber.html">Ratgeber</a>
+      <a href="ratgeber.html" aria-current="page">Ratgeber</a>
       <a href="index.html#leistungen">Leistungen</a>
       <a href="index.html#kontakt">Kontakt</a>
     </nav>
@@ -1118,10 +996,9 @@ section{position:relative}
 
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
   <a href="index.html">Startseite</a>
+  <a href="ratgeber.html">Ratgeber</a>
   <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
   <a href="sanierungsrechner.html">Sanierungsrechner</a>
-  <a href="ratgeber.html">Ratgeber</a>
-  <a href="index.html#leistungen">Leistungen</a>
   <a href="index.html#kontakt">Kontakt</a>
   <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
 </nav>
@@ -1130,501 +1007,136 @@ section{position:relative}
   <a href="tel:+4915224290826" class="btn btn-amber">Anrufen</a>
   <a href="index.html#kontakt" class="btn btn-primary">Anfrage senden</a>
 </div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "name": "Ratgeber Energetische Sanierung",
+      "description": "Verständliche Antworten zu Heizungstausch, Sanierungsreihenfolge, Förderung und Dämmung – von einem Energieberater aus dem Alb-Donau-Kreis.",
+      "inLanguage": "de-DE",
+      "url": "https://energieberater-albdonau.de/ratgeber.html"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Startseite",
+          "item": "https://energieberater-albdonau.de/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Ratgeber"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Heizung tauschen: Was gilt wirklich?",
+          "url": "https://energieberater-albdonau.de/ratgeber-heizung-tauschen-pflicht.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "In welcher Reihenfolge sanieren?",
+          "url": "https://energieberater-albdonau.de/ratgeber-reihenfolge-sanierung.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Förderung oder Steuerermäßigung?",
+          "url": "https://energieberater-albdonau.de/ratgeber-foerderung-oder-steuer.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Kellerdecke dämmen: der günstigste Einstieg",
+          "url": "https://energieberater-albdonau.de/ratgeber-kellerdecke-daemmen.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Sanieren auf der Schwäbischen Alb",
+          "url": "https://energieberater-albdonau.de/ratgeber-sanieren-schwaebische-alb.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
 
 <main id="inhalt">
+<nav class="krumen wrap" aria-label="Sie sind hier">
+  <ol>
+    <li><a href="index.html">Startseite</a></li>
+    <li>Ratgeber</li>
+  </ol>
+</nav>
 
-<!-- ========================= HERO ========================= -->
-<section class="hero" id="top">
-  <div class="dots"></div>
-  <div class="wrap hero-grid">
+  <header class="wrap rg-kopf">
+    <span class="eyebrow">Ratgeber</span>
+    <h1>Sanieren verstehen, bevor Sie investieren</h1>
+    <p class="lead">
+      Die Fragen, die uns im Erstgespräch am häufigsten gestellt werden – hier
+      ausführlich beantwortet. Ohne Verkaufsabsicht, ohne Vorliebe für ein bestimmtes
+      Gewerk.
+    </p>
+  </header>
 
-    <div class="hero-copy">
-      <span class="eyebrow">Erst rechnen. Dann sanieren.</span>
-      <h1>Energieberatung <span class="accent">Blaubeuren</span></h1>
-      <p class="hero-sub">
-        <strong>Energieberatung für Blaubeuren und Umgebung.</strong> Sanieren ist teuer –
-        falsch sanieren ist teurer. Wir rechnen Ihnen vor, welche Maßnahmen sich bei
-        <em>Ihrem</em> Gebäude wirklich lohnen, in welcher Reihenfolge sie sinnvoll sind
-        und welche Fördermittel Sie dafür bekommen.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#kontakt" class="btn btn-primary">
-          Gratis Erstgespräch vereinbaren
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a href="sanierungsrechner.html" class="btn btn-ghost">Sanierungsrechner starten</a>
-      </div>
-
-      <div class="trust-row">
-        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Energie-Effizienz-Expertenliste (dena)</span>
-        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> BAFA- &amp; KfW-förderfähig</span>
-        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Keine Provisionen, kein Produktverkauf</span>
-        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Blaubeuren: etwa 15 Kilometer von unserem Büro</span>
-      </div>
-    </div>
-
-<div class="hero-visual">
-      <div class="hero-illu">
-        <svg viewBox="0 50 680 520" role="img" aria-label="Isometrische Illustration eines Wohnhauses mit Solarmodulen auf dem Dach und Wärmepumpe neben dem Haus – die vier Stellschrauben Dach, Fassade, Fenster und Heizung sind markiert">
-
-          <!-- Sonne -->
-          <g class="il-spin-slow">
-            <circle cx="86" cy="112" r="20" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.8"/>
-            <path class="il-amber" stroke-width="1.8" d="M86 84V73M86 140v11M114 112h11M58 112H47M106 92l8-8M66 132l-8 8M106 132l8 8M66 92l-8-8"/>
-          </g>
-
-          <!-- Grundstueck und Baeume liegen VOR dem Haus im Quelltext, damit
-               das Haus darueber gezeichnet wird und davor steht. -->
-          <use href="#grundstueck"/>
-          <use href="#baumRechts"/>
-          <use href="#baumLinks"/>
-
-          <!-- Isometrisches Haus aus den gemeinsamen Definitionen -->
-          <use href="#isoHouse"/>
-
-          <!-- Wärmepumpe (isometrischer Block mit rotierendem Lüfter) -->
-          <g data-key="heizung" transform="translate(0,16)">
-            <polygon points="465.9,437 518.3,467.5 465.9,498 413.5,467.5" fill="rgba(60,46,28,.10)" filter="url(#fBlur)"/>
-            <polygon points="465.9,398 513.5,425.5 465.9,453 418.25,425.5" fill="#FBF7EF" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
-            <polygon points="418.25,425.5 465.9,453 465.9,495 418.25,467.5" fill="#F2EBDC" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
-            <polygon points="465.9,453 513.5,425.5 513.5,467.5 465.9,495" fill="#E2D8C2" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
-            <g transform="matrix(0.866,0.5,0,-1,418.25,467.5)">
-              <circle cx="24" cy="21" r="13.5" fill="#E4EDE7" stroke="#2E4A3C" stroke-width="1.6"/>
-              <g class="il-spin">
-                <path d="M24 21c0-5.5 2.8-8.5 6.5-8.5M24 21c4.6 2.8 5.6 6.5 3.7 9.3M24 21c-4.6 2.8-9.3.9-10.2-3" fill="none" stroke="#2E4A3C" stroke-width="1.9" stroke-linecap="round"/>
-              </g>
-              <circle cx="24" cy="21" r="1.8" fill="#2E4A3C"/>
-            </g>
-            <g transform="matrix(-0.866,0.5,0,-1,513.5,467.5)" opacity=".35">
-              <path d="M12 14h32M12 21h32M12 28h32" fill="none" stroke="#1D1A15" stroke-width="1.1"/>
-            </g>
-          </g>
-
-          <!-- Abwärme über der alten Dachhälfte -->
-          <g class="il-amber" stroke-width="2.2">
-            <path class="il-wave" style="animation-delay:0s"   d="M258 172c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
-            <path class="il-wave" style="animation-delay:.55s" d="M296 190c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
-            <path class="il-wave" style="animation-delay:1.1s" d="M334 208c-9-10 9-20 0-30c-9-10 9-20 0-30"/>
-          </g>
-
-          <!-- Beschriftungen -->
-          <g class="il-tag" data-key="dach" style="animation-delay:.45s">
-            <circle class="il-ping" cx="310" cy="288" r="9" fill="var(--amber)"/>
-            <circle cx="310" cy="288" r="5" fill="var(--amber)"/>
-            <path class="il-lead" d="M318 281L384 152"/>
-            <rect class="il-pill" x="378" y="122" width="74" height="30" rx="15"/>
-            <text class="il-label" x="394" y="142">Dach</text>
-          </g>
-
-          <g class="il-tag" data-key="fassade" style="animation-delay:.65s">
-            <circle class="il-ping" cx="203" cy="348" r="9" fill="var(--amber)"/>
-            <circle cx="203" cy="348" r="5" fill="var(--amber)"/>
-            <path class="il-lead" d="M195 344L134 322"/>
-            <rect class="il-pill" x="30" y="306" width="98" height="30" rx="15"/>
-            <text class="il-label" x="46" y="326">Fassade</text>
-          </g>
-
-          <g class="il-tag" data-key="fenster" style="animation-delay:.85s">
-            <circle class="il-ping" cx="287" cy="384" r="9" fill="var(--amber)"/>
-            <circle cx="287" cy="384" r="5" fill="var(--amber)"/>
-            <path class="il-lead" d="M281 390L158 476"/>
-            <rect class="il-pill" x="64" y="470" width="92" height="30" rx="15"/>
-            <text class="il-label" x="80" y="490">Fenster</text>
-          </g>
-
-          <g class="il-tag" data-key="kellerdecke" style="animation-delay:1.05s">
-            <circle class="il-ping" cx="275" cy="448" r="9" fill="var(--amber)"/>
-            <circle cx="275" cy="448" r="5" fill="var(--amber)"/>
-            <path class="il-lead" d="M280 456L300 528"/>
-            <rect class="il-pill" x="240" y="530" width="132" height="30" rx="15"/>
-            <text class="il-label" x="256" y="550">Kellerdecke</text>
-          </g>
-
-          <g class="il-tag" data-key="heizung" style="animation-delay:1.25s">
-            <circle class="il-ping" cx="466" cy="466" r="9" fill="var(--amber)"/>
-            <circle cx="466" cy="466" r="5" fill="var(--amber)"/>
-            <path class="il-lead" d="M474 474L520 508"/>
-            <rect class="il-pill" x="500" y="510" width="98" height="30" rx="15"/>
-            <text class="il-label" x="516" y="530">Heizung</text>
-          </g>
-
-        </svg>
-        <ul class="illu-legend">
-          <li><i></i>Dach</li><li><i></i>Fassade</li><li><i></i>Fenster</li><li><i></i>Kellerdecke</li><li><i></i>Heizung</li>
-        </ul>
-        <p class="illu-caption">Tippen oder klicken Sie Dach, Fassade, Fenster, Kellerdecke oder Wärmepumpe an – dahinter steckt das jeweilige Einsparpotenzial.</p>
-
-        <!-- Popup mit Einsparwerten (wird per JavaScript gefüllt und positioniert).
-             "inert" statt nur aria-hidden: sonst steckt der Schließen-Button in
-             einem aria-hidden-Bereich und bleibt trotzdem per Tab erreichbar. -->
-      </div>
+  <div class="wrap rg-liste">
+      <article class="rg-eintrag reveal">
+        <span class="rubrik">Gesetz & Pflichten</span>
+        <h2><a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen: Was gilt wirklich?</a></h2>
+        <p>Die verbreitetste Sorge unter Eigentümern – und in den meisten Fällen unbegründet. Was das Gesetz verlangt, welche Ausnahmen greifen und wann ein Austausch trotzdem sinnvoll ist.</p>
+        <a class="weiter" href="ratgeber-heizung-tauschen-pflicht.html">Weiterlesen <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="rg-eintrag reveal">
+        <span class="rubrik">Strategie</span>
+        <h2><a href="ratgeber-reihenfolge-sanierung.html">In welcher Reihenfolge sanieren?</a></h2>
+        <p>Die falsche Reihenfolge kostet schnell fünfstellig und verbaut Fördermöglichkeiten. Die Regel dahinter ist einfacher, als die meisten denken.</p>
+        <a class="weiter" href="ratgeber-reihenfolge-sanierung.html">Weiterlesen <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="rg-eintrag reveal">
+        <span class="rubrik">Förderung</span>
+        <h2><a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuerermäßigung?</a></h2>
+        <p>Zuschuss oder Steuerermäßigung – beides zusammen ist ausgeschlossen. Die Entscheidung fällt vor dem ersten Auftrag und lässt sich später nicht mehr korrigieren.</p>
+        <a class="weiter" href="ratgeber-foerderung-oder-steuer.html">Weiterlesen <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="rg-eintrag reveal">
+        <span class="rubrik">Selbst machen</span>
+        <h2><a href="ratgeber-kellerdecke-daemmen.html">Kellerdecke dämmen: der günstigste Einstieg</a></h2>
+        <p>Überschaubare Materialkosten, ein Wochenende Arbeit, spürbar wärmere Böden im Erdgeschoss. Warum diese Maßnahme fast immer der richtige erste Schritt ist.</p>
+        <a class="weiter" href="ratgeber-kellerdecke-daemmen.html">Weiterlesen <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="rg-eintrag reveal">
+        <span class="rubrik">Region</span>
+        <h2><a href="ratgeber-sanieren-schwaebische-alb.html">Sanieren auf der Schwäbischen Alb</a></h2>
+        <p>Wer Kennwerte aus dem Donautal auf ein Haus in 750 Metern Höhe überträgt, rechnet falsch. Was die Höhenlage für Heizlast, Wärmepumpe und Dämmung bedeutet.</p>
+        <a class="weiter" href="ratgeber-sanieren-schwaebische-alb.html">Weiterlesen <span aria-hidden="true">&rarr;</span></a>
+      </article>
   </div>
-</section>
 
-<div class="wrap">
-  <nav class="krumen" aria-label="Brotkrumennavigation">
-    <ol>
-      <li><a href="index.html">Startseite</a></li>
-      <li>Energieberatung Blaubeuren</li>
-    </ol>
-  </nav>
-</div>
-
-<!-- ======= ORTSTEIL: der eigene Inhalt dieser Seite ======= -->
-<section class="section-pad">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Vor Ort</span>
-      <h2>Energieberatung in Blaubeuren – wir sind etwa 15 Kilometer entfernt</h2>
-      <p class="lead">Blaubeuren liegt eingebettet im engen Blautal, umgeben von den Felswänden der Alb. Die Tallage bringt im Winter ausgeprägte Kaltluftansammlungen mit sich, gleichzeitig ist der Ort vor Wind gut geschützt.</p>
-    </div>
-
-    <div class="ort-text reveal">
-      <p>
-        Unser Büro sitzt in Dornstadt, Blaubeuren (89143, rund 12.500 Einwohner) liegt
-        etwa 15 Kilometer entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch
-        mehrfach, wenn es die Bauphase erfordert.
-      </p>
-
-      <h3>Gebäudestruktur und energetische Ausgangslage in Blaubeuren</h3>
-      <p>Der historische Ortskern mit Fachwerk und dem Kloster steht unter besonderem Schutz. Daneben gibt es Wohngebiete der Nachkriegszeit und die Teilorte auf der Albhochfläche, die klimatisch schon zur Höhenlage zählen – innerhalb einer Gemeinde also zwei unterschiedliche Ausgangslagen.</p>
-      <p>Denkmalschutz ist hier keine Randnotiz, sondern die Regel. Bei geschützten Gebäuden gelten erleichterte Anforderungen im Gebäudeenergiegesetz, gleichzeitig sind viele Standardmaßnahmen nicht zulässig. Fachwerk verträgt zudem nur bestimmte Dämmsysteme – hier ist die Reihenfolge besonders wichtig.</p>
-
-      <h3>Was Blaubeuren typischerweise bedeutet</h3>
-      <p>Bei denkmalgeschützten Gebäuden in Blaubeuren beginnt jede Beratung mit der Denkmalbehörde, nicht mit dem Rechenblatt. Erst wenn feststeht, was zulässig ist, ergibt eine Wirtschaftlichkeitsrechnung Sinn. Häufig bleiben dann Kellerdecke, oberste Geschossdecke, Fenster in Zweitfassung und die Heizungsanlage – zusammen erreicht man damit erstaunlich viel, ohne das Erscheinungsbild anzutasten.</p>
-
-      <div class="merksatz">
-        <b>Warum das für Ihre Sanierung zählt</b>
-        Wer die örtlichen Gegebenheiten kennt, rechnet genauer. Klimaregion, Baualter und
-        Untergrund entscheiden mit darüber, welche Maßnahme sich lohnt – und welche man
-        besser sein lässt.
-      </div>
-
-      <h3>Was wir in Blaubeuren für Sie tun</h3>
-      <ul class="liste">
-        <li><a href="sanierungsfahrplan.html">Individueller Sanierungsfahrplan (iSFP)</a> mit Kosten, Einsparung und Amortisation je Maßnahme</li>
-        <li>Fördermittel-Management: Antrag bei BAFA und KfW, Fristen im Blick, Verwendungsnachweis</li>
-        <li>Energieausweis nach GEG – Bedarfs- und Verbrauchsausweis</li>
-        <li>Baubegleitung und Qualitätssicherung während der Umsetzung</li>
-        <li>Heizlastberechnung und hydraulischer Abgleich</li>
-        <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>
-      </ul>
-    </div>
-
     <div class="cta-band reveal">
       <div class="cta-band-text">
-        <b>Ihr Gebäude in Blaubeuren durchrechnen lassen?</b>
-        <span>20 Minuten am Telefon, kostenlos. Danach wissen Sie, ob und wie es weitergeht.</span>
+        <b>Wie sieht das bei Ihrem Haus aus?</b>
+        <span>Im kostenlosen Erstgespräch klären wir in 20 Minuten, welcher Schritt
+              bei Ihnen wirklich der erste sein sollte.</span>
       </div>
       <div class="cta-band-knoepfe">
-        <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+        <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
         <a href="tel:+4915224290826" class="btn btn-ghost">Direkt anrufen</a>
       </div>
     </div>
   </div>
-</section>
-
-<!-- ========================= ZAHLEN ========================= -->
-<!-- id="foerderung": Sprungziel fuer die Ratgeber-Artikel und fuer externe Links -->
-<section class="section-pad" id="foerderung" style="padding-top:0">
-  <div class="wrap">
-    <div class="stats reveal">
-
-      <div class="stats-inner">
-        <h2>Was in der aktuellen Förderlandschaft möglich ist.</h2>
-        <p class="stats-lead">
-          Nicht nur die Heizung: Fast alles rund um die Sanierung ist förderfähig – von der
-          Dämmung über die Heizungsoptimierung bis zur Baubegleitung. Entscheidend ist, beim
-          richtigen Träger und vor der Auftragsvergabe zu beantragen.
-        </p>
-
-    <!--
-      ###################################################################
-      #  [PRÜFEN] Alle Sätze und Höchstbeträge dieser Übersicht gegen   #
-      #  die aktuelle Richtlinie abgleichen. Sie stehen hier sichtbar    #
-      #  auf der Website - Fehler fallen auf Sie zurück.                 #
-      #  Zuletzt geprüft am: ____________                                #
-      ###################################################################
-    -->
-    <div class="foerder-liste">
-
-      <article class="foerder-karte reveal">
-        <span class="foerder-traeger">BAFA · BEG Einzelmaßnahmen</span>
-        <h3>Gebäudehülle</h3>
-        <p class="foerder-satz">15 % <em>· mit Sanierungsfahrplan 20 %</em></p>
-        <p>Dämmung von Dach, Außenwand, Kellerdecke und oberster Geschossdecke, Fenster, Außentüren, sommerlicher Wärmeschutz.</p>
-        <p class="foerder-deckel">Förderfähig bis 30.000 € je Wohneinheit und Jahr – mit Sanierungsfahrplan bis 60.000 €.</p>
-      </article>
-
-      <article class="foerder-karte reveal">
-        <span class="foerder-traeger">KfW · Heizungsförderung</span>
-        <h3>Heizungstausch</h3>
-        <p class="foerder-satz">30 – 70 %</p>
-        <p>Grundförderung 30 %, dazu Klimageschwindigkeitsbonus 20 % beim Austausch einer alten Öl- oder Gasheizung, Einkommensbonus 30 % und Effizienzbonus 5 %.</p>
-        <p class="foerder-deckel">Förderfähig bis 30.000 € für die erste Wohneinheit. Die Boni sind kombinierbar, gedeckelt bei 70 %.</p>
-      </article>
-
-      <article class="foerder-karte reveal">
-        <span class="foerder-traeger">BAFA · BEG Einzelmaßnahmen</span>
-        <h3>Heizungsoptimierung &amp; Anlagentechnik</h3>
-        <p class="foerder-satz">15 % <em>· mit Sanierungsfahrplan 20 %</em></p>
-        <p>Hydraulischer Abgleich, Pumpentausch, Dämmung der Rohrleitungen, Lüftungsanlagen mit Wärmerückgewinnung, digitale Regelungstechnik.</p>
-        <p class="foerder-deckel">Oft der günstigste Hebel überhaupt – kleine Investition, sofortige Wirkung.</p>
-      </article>
-
-      <article class="foerder-karte reveal">
-        <span class="foerder-traeger">KfW · Wohngebäude Kredit</span>
-        <h3>Komplettsanierung zum Effizienzhaus</h3>
-        <p class="foerder-satz">Kredit + Tilgungszuschuss</p>
-        <p>Für die Sanierung in einem Zug statt in Etappen. Der Tilgungszuschuss steigt mit der erreichten Effizienzhaus-Stufe; für besonders schlechte Gebäude gibt es einen Zuschlag.</p>
-        <p class="foerder-deckel">Kredit bis 150.000 € je Wohneinheit. Lohnt sich vor allem, wenn ohnehin finanziert wird.</p>
-      </article>
-
-      <article class="foerder-karte reveal">
-        <span class="foerder-traeger">BAFA · Energieberatung &amp; Baubegleitung</span>
-        <h3>Beratung und Begleitung</h3>
-        <p class="foerder-satz">50 %</p>
-        <p>Sowohl der Sanierungsfahrplan als auch die fachliche Begleitung der Baustelle werden bezuschusst – die Beratung finanziert sich damit zu großen Teilen selbst.</p>
-        <p class="foerder-deckel">Sanierungsfahrplan bis 650 € (Ein-/Zweifamilienhaus) bzw. 850 € ab drei Wohneinheiten. Baubegleitung gesondert.</p>
-      </article>
-
-      <article class="foerder-karte reveal">
-        <span class="foerder-traeger">Finanzamt · §35c EStG</span>
-        <h3>Steuerliche Alternative</h3>
-        <p class="foerder-satz">20 % über drei Jahre</p>
-        <p>Wer keine Förderung beantragt, kann Sanierungskosten stattdessen von der Steuer absetzen. Für selbstgenutztes Wohneigentum ab einem bestimmten Gebäudealter.</p>
-        <p class="foerder-deckel">Wichtig: entweder Förderung <em>oder</em> Steuerermäßigung – beides zusammen geht nicht. Was günstiger ist, rechnen wir vorher durch.</p>
-      </article>
-
-    </div>
-
-    <div class="foerder-fuss reveal">
-      <p>
-        <b>Dazu kommen Landes- und Kommunalprogramme.</b> Baden-Württemberg und einzelne
-        Gemeinden im Alb-Donau-Kreis legen eigene Töpfe auf, die sich teilweise mit der
-        Bundesförderung kombinieren lassen. Welche das für Ihre Adresse sind, prüfen wir im
-        Erstgespräch mit.
-      </p>
-      <p class="stats-note" style="color:var(--muted)">
-        Stand Juli 2026. Fördersätze, Boni und Höchstbeträge ändern sich kurzfristig und hängen
-        immer vom Einzelfall ab – diese Übersicht ist eine Orientierung, keine Zusage und keine
-        Rechts- oder Steuerberatung. Verbindlich sind die jeweils aktuellen Richtlinien der
-        Fördergeber. Entscheidend ist außerdem der Zeitpunkt: Der Antrag muss gestellt sein,
-        bevor der Handwerkerauftrag vergeben wird.
-      </p>
-
-      <a href="#kontakt" class="btn btn-amber foerder-cta">
-        Aktuelle Förderungen für mein Vorhaben prüfen
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========================= ABLAUF ========================= -->
-<section class="section-pad" id="ablauf">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Ablauf</span>
-      <h2>Vier Schritte. Keine Überraschungen.</h2>
-      <p class="lead">Sie wissen von Anfang an, was wann passiert, was es kostet und was am Ende in Ihren Händen liegt.</p>
-    </div>
-
-    <div class="steps">
-      <div class="step-line"></div>
-
-      <div class="step reveal">
-        <div class="step-dot"></div>
-        <span class="num">Schritt 01</span>
-        <h3>Erstgespräch</h3>
-        <p>20 Minuten am Telefon, kostenlos. Wir klären, worum es geht, was realistisch ist und ob wir die Richtigen für Ihr Vorhaben sind.</p>
-      </div>
-
-      <div class="step reveal">
-        <div class="step-dot"></div>
-        <span class="num">Schritt 02</span>
-        <h3>Vor-Ort-Termin</h3>
-        <p>Zwei bis drei Stunden am Gebäude: Bauteile, Heizung, Verbrauchsdaten, Ihre Pläne. Fotos und Messwerte inklusive.</p>
-      </div>
-
-      <div class="step reveal">
-        <div class="step-dot"></div>
-        <span class="num">Schritt 03</span>
-        <h3>Bericht &amp; Fahrplan</h3>
-        <p>Innerhalb von rund drei Wochen erhalten Sie Ihren Sanierungsfahrplan – und wir gehen ihn gemeinsam durch, Seite für Seite.</p>
-      </div>
-
-      <div class="step reveal">
-        <div class="step-dot"></div>
-        <span class="num">Schritt 04</span>
-        <h3>Förderung &amp; Umsetzung</h3>
-        <p>Anträge raus, Handwerker anfragen, Bauphase begleiten. Sie entscheiden, ob Sie das selbst übernehmen oder wir es tun.</p>
-      </div>
-
-    </div>
-
-    <div class="cta-band reveal">
-      <div class="cta-band-text">
-        <b>Schritt 1 kostet Sie nichts.</b>
-        <span>Ein Anruf, 20 Minuten, danach wissen Sie, ob und wie es für Ihr Gebäude weitergeht.</span>
-      </div>
-      <div class="cta-band-knoepfe">
-        <a href="tel:+4915224290826" class="btn btn-ghost">Direkt anrufen</a>
-        <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========================= FAQ ========================= -->
-<section class="section-pad faq" id="faq">
-  <div class="wrap faq-grid">
-    <div class="reveal faq-intro">
-      <span class="eyebrow">Häufige Fragen</span>
-      <h2>Aus Blaubeuren und Umgebung.</h2>
-      <p class="lead" style="margin-top:16px">Wenn Ihre Frage nicht dabei ist: einfach stellen. Das Erstgespräch kostet nichts und verpflichtet zu nichts.</p>
-    </div>
-
-    <div class="reveal">
-      <div class="faq-item">
-        <button class="faq-q">Kommen Sie für den Vor-Ort-Termin nach Blaubeuren?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Ja. Blaubeuren liegt etwa 15 Kilometer von unserem Büro in Dornstadt entfernt und gehört zum regulären Einsatzgebiet. Anfahrtskosten fallen innerhalb des Alb-Donau-Kreises und im Umkreis von rund 50 Kilometern um Ulm nicht gesondert an.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Was kostet eine Energieberatung in Blaubeuren?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Das hängt von Gebäudegröße und Umfang ab. Für ein Einfamilienhaus liegt ein individueller Sanierungsfahrplan üblicherweise im niedrigen vierstelligen Bereich – abzüglich der Förderung von 50 % bleibt ein deutlich kleinerer Eigenanteil. Sie erhalten vorab ein Festpreisangebot.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Wie schnell bekomme ich einen Termin?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Das Erstgespräch am Telefon meist innerhalb weniger Tage. Für den Vor-Ort-Termin planen wir gemeinsam einen Zeitpunkt, an dem Sie ohnehin zu Hause sind – er dauert zwei bis drei Stunden.</p></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="ort-nachbarn">
-      <a href="energieberatung-ulm.html">Energieberatung Ulm</a>
-      <a href="energieberatung-blaustein.html">Energieberatung Blaustein</a>
-      <a href="energieberatung-langenau.html">Energieberatung Langenau</a>
-      <a href="energieberatung-ehingen.html">Energieberatung Ehingen</a>
-      <a href="energieberatung-laichingen.html">Energieberatung Laichingen</a>
-      <a href="energieberatung-erbach.html">Energieberatung Erbach</a>
-      <a href="energieberatung-dornstadt.html">Energieberatung Dornstadt</a>
-    </div>
-  </div>
-</section>
-
-<!-- ========================= KONTAKT ========================= -->
-<section class="section-pad" id="kontakt">
-  <div class="wrap contact-grid">
-
-    <div class="contact-info reveal">
-      <span class="eyebrow">Kontakt</span>
-      <h2>Reden wir über Ihr Gebäude.</h2>
-      <p class="lead" style="margin-top:18px">Das Erstgespräch dauert etwa 20 Minuten, kostet nichts und endet entweder mit einem Angebot oder mit einer ehrlichen Empfehlung, was Sie stattdessen tun sollten.</p>
-
-      <div class="contact-line">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-        <div><b>Telefon</b><span><a href="tel:+4915224290826">0152 24290826</a></span></div>
-      </div>
-      <div class="contact-line">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-        <!-- [TODO] echte E-Mail-Adresse eintragen – auch im mailto: und im Impressum -->
-        <div><b>E-Mail</b><span><a href="mailto:kontakt@ihre-domain.de">[kontakt@ihre-domain.de]</a></span></div>
-      </div>
-      <div class="contact-line">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-        <div><b>Erreichbarkeit</b><span>Montag bis Freitag, 8–18 Uhr</span></div>
-      </div>
-      <div class="contact-line">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-7-10a7 7 0 0 1 14 0c0 5.4-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
-        <div><b>Einsatzgebiet</b><span>Ulm, Alb-Donau-Kreis und rund 50 km Umkreis</span></div>
-      </div>
-    </div>
-
-    <!--
-      KONTAKTFORMULAR
-      Die Anfragen landen in der eigenen Supabase-Datenbank, nicht bei einem
-      Formulardienst. Ansehen im Supabase-Dashboard unter Table Editor ->
-      Tabelle "leads". Zugangsdaten und Erklärung stehen im JavaScript ganz
-      unten beim Block "Formular".
-    -->
-    <!-- novalidate schaltet die Browser-Sprechblasen ab, damit die eigene
-         Prüfung unten im JavaScript greift – die meldet auf Deutsch, markiert
-         das Feld farbig und springt den ersten Fehler an. -->
-    <form class="form-card reveal" id="contactForm" novalidate>
-      <div class="field-row">
-        <div class="field">
-          <label for="f-name">Name</label>
-          <input id="f-name" name="name" type="text" placeholder="Vor- und Nachname" maxlength="100"
-                 autocomplete="name" required aria-describedby="err-name">
-          <span class="field-error" id="err-name">Bitte tragen Sie Ihren Namen ein.</span>
-        </div>
-        <div class="field">
-          <label for="f-phone">Telefon</label>
-          <input id="f-phone" name="telefon" type="tel" placeholder="Für den Rückruf" maxlength="40"
-                 autocomplete="tel" inputmode="tel">
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="f-mail">E-Mail</label>
-        <input id="f-mail" name="email" type="email" placeholder="name@beispiel.de"
-               autocomplete="email" inputmode="email" required aria-describedby="err-mail">
-        <span class="field-error" id="err-mail">Bitte eine gültige E-Mail-Adresse angeben.</span>
-      </div>
-
-      <div class="field-row">
-        <div class="field">
-          <label for="f-type">Gebäudetyp</label>
-          <select id="f-type" name="gebaeudetyp">
-            <option>Einfamilienhaus</option>
-            <option>Zweifamilienhaus</option>
-            <option>Mehrfamilienhaus</option>
-            <option>Eigentumswohnung / WEG</option>
-            <option>Gewerbeobjekt</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="f-year">Baujahr (ca.)</label>
-          <input id="f-year" name="baujahr" type="text" placeholder="z. B. 1978" inputmode="numeric">
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="f-msg">Worum geht es?</label>
-        <!-- maxlength passend zu den Grenzen der Datenbank (siehe CLAUDE.md).
-             Ohne sie wird ein zu langer Text erst von der Datenbank abgewiesen –
-             der Absender sähe nur eine allgemeine Fehlermeldung. -->
-        <textarea id="f-msg" name="nachricht" maxlength="5000" placeholder="Ein paar Sätze genügen – z. B. hohe Heizkosten, geplanter Heizungstausch, Fördermittelfrage."></textarea>
-      </div>
-
-      <!-- Honigtopf gegen Spam-Bots: per CSS aus dem Blickfeld geschoben.
-           Wird dieses Feld ausgefüllt, war es kein Mensch. -->
-      <div class="hp-field" aria-hidden="true">
-        <label for="f-website">Website (bitte frei lassen)</label>
-        <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
-      </div>
-
-      <label class="consent" id="consentBox">
-        <input type="checkbox" name="datenschutz" id="f-consent" required>
-        <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden. Hinweise dazu in der <a href="datenschutz.html" style="text-decoration:underline">Datenschutzerklärung</a>.</span>
-      </label>
-
-      <button type="submit" class="btn btn-primary">
-        Anfrage senden
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </button>
-      <p class="form-note" id="formNote" role="status" aria-live="polite">Antwort in der Regel innerhalb eines Werktags.</p>
-    </form>
-
-  </div>
-</section>
-
 </main>
 
 <footer class="site-footer">
@@ -1643,29 +1155,18 @@ section{position:relative}
         <a href="index.html#kontakt" class="btn btn-primary btn-sm">Kostenloses Erstgespräch</a>
       </div>
       <div class="footer-col">
-        <h4>Orte</h4>
-        <a href="energieberatung-ulm.html">Energieberatung Ulm</a>
-        <a href="energieberatung-blaustein.html">Energieberatung Blaustein</a>
-        <a href="energieberatung-langenau.html">Energieberatung Langenau</a>
-        <a href="energieberatung-ehingen.html">Energieberatung Ehingen</a>
-        <a href="energieberatung-laichingen.html">Energieberatung Laichingen</a>
-        <a href="energieberatung-erbach.html">Energieberatung Erbach</a>
-        <a href="energieberatung-dornstadt.html">Energieberatung Dornstadt</a>
-      </div>
-      <div class="footer-col">
         <h4>Ratgeber</h4>
-        <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a>
-        <a href="ratgeber-reihenfolge-sanierung.html">Richtige Reihenfolge</a>
-        <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer</a>
-        <a href="ratgeber-sanieren-schwaebische-alb.html">Sanieren auf der Alb</a>
-        <a href="ratgeber.html">Alle Beiträge</a>
+        <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen: Was gilt wirklich?</a>
+        <a href="ratgeber-reihenfolge-sanierung.html">In welcher Reihenfolge sanieren?</a>
+        <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuerermäßigung?</a>
+        <a href="ratgeber-kellerdecke-daemmen.html">Kellerdecke dämmen: der günstigste Einstieg</a>
       </div>
       <div class="footer-col">
         <h4>Kontakt</h4>
         <a href="tel:+4915224290826">0152 24290826</a>
         <!-- [TODO] echte E-Mail-Adresse eintragen -->
         <a href="mailto:kontakt@energieberater-albdonau.de">[E-Mail eintragen]</a>
-        <address>Griesweg 20<br>89160 Dornstadt</address>
+        <address style="font-style:normal">Griesweg 20<br>89160 Dornstadt</address>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1682,7 +1183,6 @@ section{position:relative}
 <script>
 'use strict';
 (function(){
-  var ORTSNAME = 'Blaubeuren';
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobileNav');
   function setNav(open){
@@ -1697,12 +1197,13 @@ section{position:relative}
     if(e.key === 'Escape' && mobileNav.classList.contains('open')){ setNav(false); burger.focus(); }
   });
 
-  /* Scroll-Reveal. OHNE DAS BLEIBT DIE GANZE SEITE UNSICHTBAR:
-     .reveal steht auf opacity:0 und wird erst durch die Klasse "in" sichtbar. */
+  /* Scroll-Reveal - ohne diesen Teil bleiben alle .reveal-Elemente
+     dauerhaft unsichtbar (opacity:0). Genau das ist bei den Ortsseiten
+     einmal passiert. */
   var reveals = document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(eintraege){
-      eintraege.forEach(function(e){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
         if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
       });
     }, {threshold:.12, rootMargin:'0px 0px -60px 0px'});
@@ -1713,121 +1214,6 @@ section{position:relative}
   } else {
     reveals.forEach(function(el){ el.classList.add('in'); });
   }
-
-  /* Kontaktformular - dieselbe Supabase-Datenbank wie auf der Startseite */
-  var SUPABASE_URL = 'https://lgabyzhzbosbzlyfnknf.supabase.co';
-  var SUPABASE_KEY = 'sb_publishable_sTIrPusPKapueKw7ARBQEw_HNIvKDRt';
-  var form = document.getElementById('contactForm');
-  var note = document.getElementById('formNote');
-  var consentBox = document.getElementById('consentBox');
-  var honeypot = document.getElementById('f-website');
-
-  function markiere(el, ok){
-    var w = el.closest('.field');
-    if(w) w.classList.toggle('invalid', !ok);
-    el.setAttribute('aria-invalid', ok ? 'false' : 'true');
-  }
-  function pruefe(){
-    var ersterFehler = null;
-    var name = document.getElementById('f-name');
-    var nameOk = name.value.trim().length >= 2;
-    markiere(name, nameOk); if(!nameOk) ersterFehler = name;
-    var mail = document.getElementById('f-mail');
-    var mailOk = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(mail.value.trim());
-    markiere(mail, mailOk); if(!mailOk && !ersterFehler) ersterFehler = mail;
-    var consent = document.getElementById('f-consent');
-    consentBox.classList.toggle('invalid', !consent.checked);
-    if(!consent.checked && !ersterFehler) ersterFehler = consent;
-    return ersterFehler;
-  }
-  ['f-name','f-mail'].forEach(function(id){
-    var el = document.getElementById(id);
-    el.addEventListener('input', function(){
-      if(el.closest('.field').classList.contains('invalid')) pruefe();
-    });
-  });
-  document.getElementById('f-consent').addEventListener('change', function(){
-    if(consentBox.classList.contains('invalid')) pruefe();
-  });
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    note.classList.remove('is-error','is-ok');
-    if(honeypot && honeypot.value !== '') return;      // Bot
-    var fehler = pruefe();
-    if(fehler){
-      fehler.focus();
-      note.textContent = 'Bitte prüfen Sie die markierten Felder.';
-      note.classList.add('is-error');
-      return;
-    }
-    var btn = form.querySelector('button[type="submit"]');
-    var btnText = btn.innerHTML;
-    btn.disabled = true; btn.textContent = 'Wird gesendet …'; note.textContent = '';
-
-    fetch(SUPABASE_URL + '/rest/v1/leads', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({
-        quelle: 'kontaktformular',
-        name: document.getElementById('f-name').value.trim(),
-        email: document.getElementById('f-mail').value.trim(),
-        telefon: document.getElementById('f-phone').value.trim() || null,
-        gebaeudetyp: document.getElementById('f-type').value,
-        baujahr: document.getElementById('f-year').value.trim() || null,
-        nachricht: (document.getElementById('f-msg').value.trim() || '') + ' [Ortsseite: ' + ORTSNAME + ']',
-        einwilligung: true
-      })
-    })
-    .then(function(r){
-      if(!r.ok) throw new Error('HTTP ' + r.status);
-      form.reset(); btn.disabled = false; btn.innerHTML = btnText;
-      note.textContent = 'Vielen Dank, Ihre Anfrage ist angekommen. Wir melden uns in der Regel innerhalb eines Werktags.';
-      note.classList.add('is-ok');
-    })
-    .catch(function(){
-      btn.disabled = false; btn.innerHTML = btnText;
-      note.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder rufen Sie an: 0152 24290826';
-      note.classList.add('is-error');
-    });
-  });
-
-  document.querySelectorAll('.faq-item').forEach(function(item, i){
-    var q = item.querySelector('.faq-q'), a = item.querySelector('.faq-a');
-    q.id = 'fq'+(i+1); a.id = 'fa'+(i+1);
-    q.setAttribute('aria-expanded','false');
-    q.setAttribute('aria-controls', a.id);
-    a.setAttribute('role','region');
-    a.setAttribute('aria-labelledby', q.id);
-    var ic = item.querySelector('.faq-icon'); if(ic) ic.setAttribute('aria-hidden','true');
-    q.addEventListener('click', function(){
-      var offen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(function(o){
-        o.classList.remove('open');
-        o.querySelector('.faq-a').style.maxHeight = null;
-        o.querySelector('.faq-q').setAttribute('aria-expanded','false');
-      });
-      if(!offen){
-        item.classList.add('open');
-        a.style.maxHeight = a.scrollHeight + 'px';
-        q.setAttribute('aria-expanded','true');
-      }
-    });
-  });
-  var t = null;
-  window.addEventListener('resize', function(){
-    clearTimeout(t);
-    t = setTimeout(function(){
-      document.querySelectorAll('.faq-item.open .faq-a').forEach(function(a){
-        a.style.maxHeight = a.scrollHeight + 'px';
-      });
-    }, 120);
-  }, {passive:true});
 })();
 </script>
 

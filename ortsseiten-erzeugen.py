@@ -387,6 +387,7 @@ def seite(o):
     <nav class="nav" aria-label="Hauptnavigation">
       <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
       <a href="sanierungsrechner.html">Rechner</a>
+      <a href="ratgeber.html">Ratgeber</a>
       <a href="index.html#leistungen">Leistungen</a>
       <a href="index.html#kontakt">Kontakt</a>
     </nav>
@@ -403,6 +404,7 @@ def seite(o):
   <a href="index.html">Startseite</a>
   <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
   <a href="sanierungsrechner.html">Sanierungsrechner</a>
+  <a href="ratgeber.html">Ratgeber</a>
   <a href="index.html#leistungen">Leistungen</a>
   <a href="index.html#kontakt">Kontakt</a>
   <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
@@ -573,6 +575,14 @@ def seite(o):
 {nachbar_links}
       </div>
       <div class="footer-col">
+        <h4>Ratgeber</h4>
+        <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a>
+        <a href="ratgeber-reihenfolge-sanierung.html">Richtige Reihenfolge</a>
+        <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer</a>
+        <a href="ratgeber-sanieren-schwaebische-alb.html">Sanieren auf der Alb</a>
+        <a href="ratgeber.html">Alle Beiträge</a>
+      </div>
+      <div class="footer-col">
         <h4>Kontakt</h4>
         <a href="tel:{TEL_LINK}">{TEL_ANZEIGE}</a>
         <!-- [TODO] echte E-Mail-Adresse eintragen -->
@@ -645,7 +655,7 @@ def seite(o):
     var nameOk = name.value.trim().length >= 2;
     markiere(name, nameOk); if(!nameOk) ersterFehler = name;
     var mail = document.getElementById('f-mail');
-    var mailOk = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{{2,}}$/.test(mail.value.trim());
+    var mailOk = /^[^\\s@]+@[^\\s@]+\\.[a-zA-Z]{{2,}}$/.test(mail.value.trim());
     markiere(mail, mailOk); if(!mailOk && !ersterFehler) ersterFehler = mail;
     var consent = document.getElementById('f-consent');
     consentBox.classList.toggle('invalid', !consent.checked);
