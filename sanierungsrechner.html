@@ -2071,6 +2071,16 @@ var SUPABASE_KEY = 'sb_publishable_sTIrPusPKapueKw7ARBQEw_HNIvKDRt';
 var LEAD_ZIEL = SUPABASE_URL ? SUPABASE_URL + '/rest/v1/leads' : '';
 var LETZTES_ERGEBNIS = null;
 
+/* Ergebnis nur mitschicken, wenn es in die Spalte passt (Grenze: 20.000
+   Zeichen). Sonst wuerde die Datenbank den kompletten Datensatz abweisen –
+   und damit ginge die Anfrage selbst verloren, nicht nur das Ergebnis. */
+function ergebnisFuerDb(){
+  if(!LETZTES_ERGEBNIS) return null;
+  try{
+    return JSON.stringify(LETZTES_ERGEBNIS).length <= 19000 ? LETZTES_ERGEBNIS : null;
+  }catch(e){ return null; }
+}
+
 (function leadSetup(){
   var modal=$('leadModal');
   function openLead(){
@@ -2113,8 +2123,11 @@ var LETZTES_ERGEBNIS = null;
       name:name, email:mail, telefon:$('lead-tel').value.trim() || null,
       nachricht: wunsch ? 'Erstgespräch gewünscht' : 'Nur Bericht angefordert',
       /* Das komplette Rechner-Ergebnis als JSON – damit im Gespräch direkt
-         am konkreten Haus weitergedacht werden kann. */
-      rechner_daten: LETZTES_ERGEBNIS,
+         am konkreten Haus weitergedacht werden kann.
+         Die Datenbank begrenzt dieses Feld auf 20.000 Zeichen. Lieber das
+         Ergebnis weglassen als die ganze Anfrage zu verlieren: Name, E-Mail
+         und Beratungswunsch sind das Wertvolle daran. */
+      rechner_daten: ergebnisFuerDb(),
       einwilligung: true
     };
     if(!LEAD_ZIEL){ fertig(art); return; }

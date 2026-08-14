@@ -2019,13 +2019,13 @@ section{position:relative}
       <div class="field-row">
         <div class="field">
           <label for="f-name">Name</label>
-          <input id="f-name" name="name" type="text" placeholder="Vor- und Nachname"
+          <input id="f-name" name="name" type="text" placeholder="Vor- und Nachname" maxlength="100"
                  autocomplete="name" required aria-describedby="err-name">
           <span class="field-error" id="err-name">Bitte tragen Sie Ihren Namen ein.</span>
         </div>
         <div class="field">
           <label for="f-phone">Telefon</label>
-          <input id="f-phone" name="telefon" type="tel" placeholder="Für den Rückruf"
+          <input id="f-phone" name="telefon" type="tel" placeholder="Für den Rückruf" maxlength="40"
                  autocomplete="tel" inputmode="tel">
         </div>
       </div>
@@ -2056,7 +2056,10 @@ section{position:relative}
 
       <div class="field">
         <label for="f-msg">Worum geht es?</label>
-        <textarea id="f-msg" name="nachricht" placeholder="Ein paar Sätze genügen – z. B. hohe Heizkosten, geplanter Heizungstausch, Fördermittelfrage."></textarea>
+        <!-- maxlength passend zu den Grenzen der Datenbank (siehe CLAUDE.md).
+             Ohne sie wird ein zu langer Text erst von der Datenbank abgewiesen –
+             der Absender sähe nur eine allgemeine Fehlermeldung. -->
+        <textarea id="f-msg" name="nachricht" maxlength="5000" placeholder="Ein paar Sätze genügen – z. B. hohe Heizkosten, geplanter Heizungstausch, Fördermittelfrage."></textarea>
       </div>
 
       <!-- Honigtopf gegen Spam-Bots: per CSS aus dem Blickfeld geschoben.
