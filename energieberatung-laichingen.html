@@ -907,7 +907,10 @@ section{position:relative}
    klebend, die Grafik laeuft mit dem Text durch. Das Haus behaelt seine
    Klassen von der Startseite (.hero-visual/.hero-illu), damit CSS und
    Popup-Skript unveraendert greifen. */
-.ort-inhalt{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:center}
+.ort-inhalt{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start}
+/* Die Grafik beginnt auf Hoehe der Ueberschrift; etwas Luft nach oben,
+   damit sie optisch an der H2 haengt und nicht am Eyebrow klebt. */
+.ort-inhalt .hero-visual{margin-top:14px}
 /* min-width:0: eine 1fr-Spalte schrumpft sonst nicht unter ihre
    min-content-Breite - ein langes Kompositum wuerde das Raster aufblaehen
    und die Seite seitwaerts scrollen lassen (Lektion aus .rg-inhalt). */
@@ -1224,16 +1227,16 @@ section{position:relative}
 <!-- ======= ORTSTEIL: der eigene Inhalt dieser Seite ======= -->
 <section class="section-pad">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Vor Ort</span>
-      <h2>Energieberatung in Laichingen – wir sind etwa 30 Kilometer entfernt</h2>
-      <p class="lead">Laichingen liegt auf der Albhochfläche in rund 750 Metern Höhe. Das ist der entscheidende Unterschied zu Ulm oder dem Donautal: Die Heizperiode ist länger, die Normaußentemperatur niedriger. Wer hier mit Kennwerten aus dem Tal rechnet, unterschätzt den Wärmebedarf.</p>
-    </div>
-
-    <!-- Zweispaltig: Fliesstext links, Stadtfoto rechts. Ein gemeinsames
-         reveal fuer beide Spalten, damit Text und Bild zusammen einblenden. -->
+    <!-- Zweispaltig: Fliesstext links, Haus-Grafik rechts. Die Ueberschrift
+         steht IN der linken Spalte, damit die Grafik oben auf Hoehe der
+         Ueberschrift beginnt statt erst neben dem Fliesstext. -->
     <div class="ort-inhalt reveal">
     <div class="ort-text">
+      <div class="section-head">
+        <span class="eyebrow">Vor Ort</span>
+        <h2>Energieberatung in Laichingen – wir sind etwa 30 Kilometer entfernt</h2>
+        <p class="lead">Laichingen liegt auf der Albhochfläche in rund 750 Metern Höhe. Das ist der entscheidende Unterschied zu Ulm oder dem Donautal: Die Heizperiode ist länger, die Normaußentemperatur niedriger. Wer hier mit Kennwerten aus dem Tal rechnet, unterschätzt den Wärmebedarf.</p>
+      </div>
       <p>
         Unser Büro sitzt in Dornstadt, Laichingen (89150, rund 11.500 Einwohner) liegt
         etwa 30 Kilometer entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch

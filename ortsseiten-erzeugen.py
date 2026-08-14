@@ -402,7 +402,10 @@ ORTS_CSS = """
    klebend, die Grafik laeuft mit dem Text durch. Das Haus behaelt seine
    Klassen von der Startseite (.hero-visual/.hero-illu), damit CSS und
    Popup-Skript unveraendert greifen. */
-.ort-inhalt{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:center}
+.ort-inhalt{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start}
+/* Die Grafik beginnt auf Hoehe der Ueberschrift; etwas Luft nach oben,
+   damit sie optisch an der H2 haengt und nicht am Eyebrow klebt. */
+.ort-inhalt .hero-visual{margin-top:14px}
 /* min-width:0: eine 1fr-Spalte schrumpft sonst nicht unter ihre
    min-content-Breite - ein langes Kompositum wuerde das Raster aufblaehen
    und die Seite seitwaerts scrollen lassen (Lektion aus .rg-inhalt). */
@@ -584,16 +587,16 @@ def seite(o):
 <!-- ======= ORTSTEIL: der eigene Inhalt dieser Seite ======= -->
 <section class="section-pad">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Vor Ort</span>
-      <h2>Energieberatung {artikel} {ort} – wir sind {entfernung} entfernt</h2>
-      <p class="lead">{lage}</p>
-    </div>
-
-    <!-- Zweispaltig: Fliesstext links, Stadtfoto rechts. Ein gemeinsames
-         reveal fuer beide Spalten, damit Text und Bild zusammen einblenden. -->
+    <!-- Zweispaltig: Fliesstext links, Haus-Grafik rechts. Die Ueberschrift
+         steht IN der linken Spalte, damit die Grafik oben auf Hoehe der
+         Ueberschrift beginnt statt erst neben dem Fliesstext. -->
     <div class="ort-inhalt reveal">
     <div class="ort-text">
+      <div class="section-head">
+        <span class="eyebrow">Vor Ort</span>
+        <h2>Energieberatung {artikel} {ort} – wir sind {entfernung} entfernt</h2>
+        <p class="lead">{lage}</p>
+      </div>
       <p>
         Unser Büro sitzt in Dornstadt, {ort} ({plz}, {einwohner} Einwohner) liegt
         {entfernung} entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch
