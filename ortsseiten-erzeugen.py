@@ -242,6 +242,74 @@ def stil():
     """CSS der Startseite plus die Ergaenzungen fuer die Ortsseiten."""
     return _schnitt(r"<style>\n(.*?)\n</style>", "CSS") + ORTS_CSS
 
+# ---------------------------------------------------------------------------
+# ORTSFOTOS
+# Echte Stadtansichten von Wikimedia Commons, selbst gehostet in bilder/.
+# Quellen, Lizenzen und Pruefvermerke: bilder/LIZENZ.txt. CC-BY(-SA)
+# verlangt Namensnennung - sie steht als Unterschrift direkt am Bild.
+# ---------------------------------------------------------------------------
+ORTSFOTOS = {
+    "Ulm": ("bilder/ort-ulm.jpg",
+            "Luftaufnahme des Ulmer Muensters ueber den Daechern der Altstadt",
+            "Seematze", "CC BY 3.0",
+            "https://creativecommons.org/licenses/by/3.0/deed.de",
+            "https://commons.wikimedia.org/wiki/File:Luftbild_Ulmer_Muenster.JPG"),
+    "Blaustein": ("bilder/ort-blaustein.jpg",
+            "Blick ueber Blaustein-Herrlingen im Blautal mit bewaldeten Haengen",
+            "Franzfoto", "CC BY-SA 3.0",
+            "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
+            "https://commons.wikimedia.org/wiki/File:Blaustein_-_Herrlingen_mit_Blautal.JPG"),
+    "Langenau": ("bilder/ort-langenau.jpg",
+            "Daecher von Langenau mit dem weissen Turm der Martinskirche",
+            "Checker1234", "CC BY-SA 3.0",
+            "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
+            "https://commons.wikimedia.org/wiki/File:Martinskirche1.JPG"),
+    "Ehingen": ("bilder/ort-ehingen.jpg",
+            "Kirchtuerme von Ehingen an der Donau hinter Baumwipfeln",
+            "Dr. Eugen Lehle", "CC BY-SA 3.0",
+            "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
+            "https://commons.wikimedia.org/wiki/File:Ehingen_(Donau).jpg"),
+    "Laichingen": ("bilder/ort-laichingen.jpg",
+            "Luftaufnahme von Laichingen auf der Albhochflaeche",
+            "Karle3", "CC BY-SA 3.0",
+            "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
+            "https://commons.wikimedia.org/wiki/File:Laichingen_200209.jpg"),
+    "Blaubeuren": ("bilder/ort-blaubeuren.jpg",
+            "Hammermuehle am Blautopf in Blaubeuren mit Fachwerk und tuerkisfarbenem Wasser",
+            "Olga Ernst", "CC BY-SA 4.0",
+            "https://creativecommons.org/licenses/by-sa/4.0/deed.de",
+            "https://commons.wikimedia.org/wiki/File:Hammerm%C3%BChle_am_Blautopf,_Blaubeuren_(2019).jpg"),
+    "Erbach": ("bilder/ort-erbach.jpg",
+            "Torhaus von Schloss Erbach an der Donau mit Kirchturm im Hintergrund",
+            "Richard Mayer", "CC BY 3.0",
+            "https://creativecommons.org/licenses/by/3.0/deed.de",
+            "https://commons.wikimedia.org/wiki/File:Torhaus_-_panoramio_(1).jpg"),
+    "Dornstadt": ("bilder/ort-dornstadt.jpg",
+            "Blick ueber Dornstadt mit dem Turm der Christuskirche",
+            "Effi Schweizer", "gemeinfrei", None,
+            "https://commons.wikimedia.org/wiki/File:Dornstadt.jpeg"),
+}
+
+def ortsfoto(ort):
+    """Stadtfoto fuer den Hero - ersetzt dort die Haus-Grafik der Startseite.
+    Die Haus-Grafik hatte auf den Ortsseiten keine Klickflaechen mehr, ihre
+    Beschriftungen (Fassade, Dach ...) sahen aber klickbar aus - genau die
+    Sorte kaputt, die Besucher melden."""
+    datei, alt, wer, lizenz, lizenz_url, quelle = ORTSFOTOS[ort]
+    if lizenz_url:
+        nachweis = (f'Foto: <a href="{quelle}" rel="noopener">{wer}</a>, '
+                    f'<a href="{lizenz_url}" rel="noopener">{lizenz}</a>, Zuschnitt')
+    else:
+        nachweis = f'Foto: <a href="{quelle}" rel="noopener">{wer}</a>, gemeinfrei'
+    return f"""    <div class="hero-visual">
+      <figure class="ort-foto">
+        <img src="{datei}" alt="{alt}" width="1000" height="750"
+             fetchpriority="high" decoding="async">
+        <figcaption>{nachweis}</figcaption>
+      </figure>
+    </div>"""
+
+
 def hero_teil():
     """Hero-Grafik ohne die anklickbaren Flaechen und ohne Popup - dafuer
     muesste sonst das gesamte Popup-JavaScript auf jede Ortsseite."""
@@ -302,6 +370,12 @@ def fussbereich(aktuell=None):
 ORTS_CSS = """
 
 /* ==== Ortsseiten ==== */
+/* Stadtfoto im Hero (statt der Haus-Grafik der Startseite) */
+.ort-foto{margin:0}
+.ort-foto img{width:100%;height:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg)}
+.ort-foto figcaption{margin-top:9px;font-size:.72rem;color:var(--muted);text-align:right}
+.ort-foto figcaption a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.ort-foto figcaption a:hover{color:var(--amber-deep)}
 .ort-text{max-width:74ch}
 .ort-text h3{margin:34px 0 10px;font-size:1.2rem}
 .ort-text p{margin-bottom:15px;color:var(--ink-2)}
@@ -337,7 +411,7 @@ def seite(o):
         f'      <a href="{x["datei"]}">Energieberatung {x["ort"]}</a>' for x in andere)
 
     # Bausteine aus der Startseite - halten Orts- und Startseite im Gleichstand
-    hero_grafik  = hero_teil()
+    hero_grafik  = ortsfoto(ort)
     foerderblock = abschnitt("ZAHLEN")
     ablauf       = abschnitt("ABLAUF")
     kontakt      = abschnitt("KONTAKT")

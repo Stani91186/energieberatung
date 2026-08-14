@@ -28,3 +28,29 @@ Hinweis zu ratgeber-heizung.jpg: Auf dem Geraet ist das Logo des Herstellers
 alpha innotec zu erkennen (der Fotograf ist der Hersteller selbst). Die
 Beratung bleibt produktneutral - das Bild zeigt ein Beispielgeraet, keine
 Empfehlung. Bei Gelegenheit gegen ein herstellerneutrales Foto tauschen.
+
+
+BILDNACHWEIS – Ortsseiten-Fotos (Wikimedia Commons)
+===================================================
+
+Herkunft: Wikimedia Commons. Alle Lizenzen erlauben die kommerzielle
+Nutzung. CC-BY und CC-BY-SA verlangen Namensnennung - sie steht als
+Bildunterschrift direkt unter dem Foto auf der jeweiligen Ortsseite und
+hier. Bearbeitung jeweils: auf 4:3 beschnitten und verkleinert; bei
+CC-BY-SA-Bildern steht der Zuschnitt unter derselben Lizenz.
+
+Datei                  Fotograf/in       Lizenz        Quelle (commons.wikimedia.org/wiki/)
+---------------------  ----------------  ------------  -------------------------------------------------
+ort-ulm.jpg            Seematze          CC BY 3.0     File:Luftbild_Ulmer_Muenster.JPG
+ort-blaustein.jpg      Franzfoto         CC BY-SA 3.0  File:Blaustein_-_Herrlingen_mit_Blautal.JPG
+ort-langenau.jpg       Checker1234       CC BY-SA 3.0  File:Martinskirche1.JPG
+ort-ehingen.jpg        Dr. Eugen Lehle   CC BY-SA 3.0  File:Ehingen_(Donau).jpg
+ort-laichingen.jpg     Karle3            CC BY-SA 3.0  File:Laichingen_200209.jpg
+ort-blaubeuren.jpg     Olga Ernst        CC BY-SA 4.0  File:Hammermühle_am_Blautopf,_Blaubeuren_(2019).jpg
+ort-erbach.jpg         Richard Mayer     CC BY 3.0     File:Torhaus_-_panoramio_(1).jpg
+ort-dornstadt.jpg      Effi Schweizer    gemeinfrei    File:Dornstadt.jpeg
+
+Sorgfaltshinweis: Zwei zunaechst gefundene "Dornstadt"-Fotos (Schloss
+Hirschbrunn, St. Nikolaus) zeigen das gleichnamige Dorf bei Auhausen in
+Bayern und wurden verworfen. Herkunft von Erbach (Torhaus Schloss Erbach/
+Donau) und Dornstadt ueber die Commons-Dateiseiten verifiziert.
