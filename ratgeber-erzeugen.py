@@ -147,6 +147,10 @@ RATGEBER_CSS = """
 .krumen li:last-child::after{content:""}
 .krumen a:hover{color:var(--amber-deep);text-decoration:underline;text-underline-offset:3px}
 
+/* Das CTA-Band ist auf jeder Ratgeberseite das letzte Element - 50px
+   Abstand zum Fussbereich, einheitlich mit allen anderen Seiten. */
+main .cta-band{margin-bottom:50px}
+
 /* Uebersichtsseite */
 .rg-liste{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;padding-bottom:70px}
 .rg-eintrag{
