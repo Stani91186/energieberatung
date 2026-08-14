@@ -930,6 +930,9 @@ section{position:relative}
 .rg-tabelle th{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .rg-tabelle td{color:var(--ink-2)}
 .rg-tabelle td:first-child{color:var(--ink);font-weight:500}
+/* Artikelbild - eigene Zeichnung, kein Foto. Siehe Kommentar in BILDER. */
+.rg-bild{display:block;width:100%;height:auto;border-radius:var(--radius);margin:0 0 34px}
+.rg-eintrag .rg-bild{margin:-28px -30px 18px;width:calc(100% + 60px);border-radius:var(--radius) var(--radius) 0 0}
 .rg-hinweis{margin-top:34px;padding-top:18px;border-top:1px solid var(--line-soft);font-size:.85rem;color:var(--muted)}
 .rg-spalte{position:sticky;top:104px;display:grid;gap:18px}
 .rg-karte{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px 26px}
@@ -1122,6 +1125,28 @@ section{position:relative}
         <span>Von Stanislaw Tsukerman, Energieberater</span>
       </div>
     </header>
+
+    <div class="wrap">
+      <svg class="rg-bild" viewBox="0 0 800 300" role="img" aria-label="Weggabelung: links ein Muenzstapel für den Zuschuss, rechts ein Formular für die Steuerermaessigung">
+        <rect width="800" height="300" rx="18" fill="var(--forest-soft)"/>
+        <path d="M400 272 V198" stroke="var(--forest)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M400 198 C400 154 340 146 286 132" fill="none" stroke="var(--amber)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M400 198 C400 154 460 146 514 132" fill="none" stroke="var(--forest)" stroke-width="7" stroke-linecap="round" stroke-dasharray="15 14"/>
+        <g stroke="var(--forest)" stroke-width="4" stroke-linejoin="round">
+          <path d="M172 62 V112 a54 19 0 0 0 108 0 V62" fill="var(--white)"/>
+          <path d="M172 88 a54 19 0 0 0 108 0" fill="none"/>
+          <ellipse cx="226" cy="62" rx="54" ry="19" fill="var(--amber-soft)"/>
+        </g>
+        <text x="226" y="72" text-anchor="middle" font-family="Roboto,Arial,sans-serif" font-size="26" font-weight="700" fill="var(--amber-deep)">€</text>
+        <g stroke="var(--forest)" stroke-width="4" fill="var(--white)" stroke-linejoin="round">
+          <rect x="520" y="40" width="130" height="94" rx="8"/>
+        </g>
+        <g stroke="var(--forest)" stroke-width="4" stroke-linecap="round" opacity=".5">
+          <path d="M542 66 H606"/><path d="M542 86 H628"/>
+        </g>
+        <text x="596" y="120" text-anchor="middle" font-family="Roboto,Arial,sans-serif" font-size="26" font-weight="700" fill="var(--amber-deep)">20 %</text>
+      </svg>
+    </div>
 
     <div class="wrap rg-inhalt">
       <div class="rg-text">

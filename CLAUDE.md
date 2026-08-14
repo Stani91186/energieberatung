@@ -79,8 +79,24 @@ seine eigenen FAQ-Paare mit, aus denen das `FAQPage`-Schema entsteht. Neue
 Artikel dort ergänzen, dann `python ratgeber-erzeugen.py` ausführen und die
 Adresse in `sitemap.xml` eintragen.
 
-Wenn sich die Navigation ändert, müssen **beide** Generatoren angefasst werden
-(`ortsseiten-erzeugen.py` und `ratgeber-erzeugen.py`) und danach beide laufen.
+Jeder Artikel bringt eine eigene SVG-Illustration im Feld `bild` mit. Bewusst
+**keine Fotos**: Eine Suche nach echten CC0-Bildern zu diesen Themen liefert
+nichts Brauchbares, und Unsplash/Pexels/Pixabay sind trotz anderslautender
+Erwartung **nicht** CC0, sondern haben eigene, änderbare Lizenzen. Eigene
+Zeichnungen kosten rund 2 KB statt 200 KB und haben kein Lizenzrisiko.
+
+## Kopf und Fuß
+
+`index.html` ist die Vorlage für Kopfzeile, Handy-Menü, Aktionsleiste und
+Fußbereich. Wer daran etwas ändert, ändert es **dort** und lässt danach laufen:
+
+    python kopf-fuss-abgleichen.py     # Rechner, Fahrplan, Impressum, Datenschutz
+    python ortsseiten-erzeugen.py
+    python ratgeber-erzeugen.py
+
+Die abgeglichenen Bereiche stehen zwischen `GEMEINSAM:`-Markierungen – von Hand
+Geändertes wird beim nächsten Lauf überschrieben. Nicht mit übertragen wird
+`--maxw`: Der Rechner ist absichtlich schmaler als die Startseite.
 
 ## Qualitätsprüfung nach JEDER Änderung am Rechner
 
