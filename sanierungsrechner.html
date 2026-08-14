@@ -886,7 +886,18 @@ var CONFIG = {
   preise:{ gas:0.12, oel:0.11, pellets:0.07, holz:0.06, strom:0.32, wpStrom:0.26, fernwaerme:0.13 },
   preissteigerung:0.03, zins:0.03,
   foerderHuelle:0.15, foerderHuelleISFP:0.20, foerderDeckelHuelle:30000,
-  foerderWP:0.30, foerderWPHinweis:'Grundförderung 30 % – mit Klimageschwindigkeits- und Einkommensbonus je nach Haushalt bis ca. 70 %', foerderDeckelWP:30000,
+  /* HEIZUNGSFÖRDERUNG (BEG). Gerechnet wird der REGELFALL, nicht der
+     Mindestfall: 30 % Grundförderung + 20 % Klimageschwindigkeitsbonus für
+     den Austausch einer alten Öl- oder Gasheizung = 50 %. Bei 30.000 €
+     förderfähigen Höchstkosten sind das 15.000 €.
+     foerderWPMaxBetrag begrenzt den Betrag zusätzlich nach oben – dort greift
+     die Obergrenze, wenn Einkommens- und Effizienzbonus dazukommen.
+     Vorher stand hier 0.30, also der Fall ohne jeden Bonus – der kommt in der
+     Praxis am seltensten vor und hat die Förderung deutlich zu klein gezeigt. */
+  foerderWP:0.50,
+  foerderWPMaxBetrag:22400,
+  foerderWPHinweis:'Gerechnet mit 50 % (Grundförderung 30 % + Klimageschwindigkeitsbonus 20 % beim Austausch einer alten Öl- oder Gasheizung). Mit Einkommens- und Effizienzbonus sind bis zu 22.400 € möglich.',
+  foerderDeckelWP:30000,
   zielU:{ wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25, fenster:0.95, tuer:1.3 },
   kosten:{ // €/m² bzw. pauschal [von, bis]
     wand:[130,250], dach:[70,120], ogd:[20,70], kellerdecke:[20,60],
@@ -1081,7 +1092,14 @@ function massnahmen(e, basis, kal){
   var k = kal.k, out=[];
   var kostenBasis = kostenJahr(e, basis, k);
 
-  function bewerte(id, name, mods, investSpanne, flaeche, leben, foerderSatz, deckel, hinweis){
+  /* Förderbetrag: Satz auf die förderfähigen Kosten, gedeckelt – und optional
+     zusätzlich als absoluter Höchstbetrag begrenzt (Heizungsförderung). */
+  function foerderBetrag(invest, satz, deckel, maxBetrag){
+    var f = satz * Math.min(invest, deckel);
+    return maxBetrag ? Math.min(f, maxBetrag) : f;
+  }
+
+  function bewerte(id, name, mods, investSpanne, flaeche, leben, foerderSatz, deckel, hinweis, maxBetrag){
     var mod = berechne(e, mods);
     var kostenMod = kostenJahr(e, mod, k);
     var ersparnis = kostenBasis - kostenMod;
@@ -1089,7 +1107,7 @@ function massnahmen(e, basis, kal){
     var investVon = flaeche!=null ? investSpanne[0]*flaeche : investSpanne[0];
     var investBis = flaeche!=null ? investSpanne[1]*flaeche : investSpanne[1];
     var invest = (investVon+investBis)/2;
-    var foerd = foerderSatz * Math.min(invest, deckel);
+    var foerd = foerderBetrag(invest, foerderSatz, deckel, maxBetrag);
     var netto = invest - foerd;
     var bw = barwert(ersparnis, leben);
     /* Obergrenze: bis zu welchem Preis traegt sich die Massnahme noch?
@@ -1100,7 +1118,7 @@ function massnahmen(e, basis, kal){
        Ohne diese Fallunterscheidung wurde die Grenze deutlich zu hoch
        angesetzt (Waermepumpe: 44.236 statt 39.965 EUR). */
     var maxInvest = bw / (1-foerderSatz);
-    if(maxInvest > deckel) maxInvest = bw + foerderSatz * deckel;
+    if(maxInvest > deckel) maxInvest = bw + foerderBetrag(deckel, foerderSatz, deckel, maxBetrag);
     var ampel = invest < 0.7*maxInvest ? 'ok' : (invest <= 1.1*maxInvest ? 'warn' : 'bad');
     out.push({ id:id, name:name, ersparnis:ersparnis,
       ersparnisKwh:(basis.eEnd-mod.eEnd)*k,
@@ -1127,7 +1145,7 @@ function massnahmen(e, basis, kal){
   if(basis.uWerte.tuer > 1.6)
     bewerte('tuer','Neue Haustür', {u:{tuer:Z.tuer}}, K.tuer, null, L.tuer, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
   if(e.heizungTyp!=='wp')
-    bewerte('wp','Wärmepumpe (Luft/Wasser) statt '+traegerName(e.traeger), {heizung:'wp'}, K.wp, null, L.wp, CONFIG.foerderWP, CONFIG.foerderDeckelWP, CONFIG.foerderWPHinweis+'. Gerechnet mit 30 % – mit Boni deutlich besser.');
+    bewerte('wp','Wärmepumpe (Luft/Wasser) statt '+traegerName(e.traeger), {heizung:'wp'}, K.wp, null, L.wp, CONFIG.foerderWP, CONFIG.foerderDeckelWP, CONFIG.foerderWPHinweis, CONFIG.foerderWPMaxBetrag);
   if((e.heizungTyp==='standard'||e.heizungTyp==='nt') && (e.traeger==='gas'||e.traeger==='oel'))
     bewerte('brennwert','Brennwertkessel (Ersatz, ohne Förderung neuer Öl/Gas)', {heizung:'brennwert'}, K.brennwert, null, L.brennwert, 0, 1,'Neue reine Öl-/Gaskessel werden nicht mehr gefördert.');
   bewerte('abgleich','Hydraulischer Abgleich + Hocheffizienzpumpe', {extraFaktor:1-CONFIG.abgleichEinsparung}, K.abgleich, null, L.abgleich, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
@@ -1941,7 +1959,12 @@ function updateSim(){
   var kostenVor = vor.eEnd*k*preisFuer(e0, vor.traeger);
   var kostenNach = nach.eEnd*kEff*preisFuer(e0, nach.traeger);
   var invest=0, foerd=0;
-  function add(betrag, satz, deckel){ invest+=betrag; foerd+=satz*Math.min(betrag,deckel); }
+  /* maxBetrag: zusaetzliche absolute Obergrenze (Heizungsfoerderung) */
+  function add(betrag, satz, deckel, maxBetrag){
+    invest += betrag;
+    var f = satz * Math.min(betrag, deckel);
+    foerd += maxBetrag ? Math.min(f, maxBetrag) : f;
+  }
   if(tg.wand) add(vor.aWand*(K.wand[0]+K.wand[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
   if(tg.dach){
     if(SIM.dachIstOgd) add(vor.aOgd*(K.ogd[0]+K.ogd[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
@@ -1949,7 +1972,7 @@ function updateSim(){
   }
   if(tg.keller) add(vor.aKellerdecke*(K.kellerdecke[0]+K.kellerdecke[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
   if(tg.fenster){ var stk=Math.max(4,Math.round(vor.aFenster/K.fensterM2ProStk)); add(stk*(K.fensterStk[0]+K.fensterStk[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle); }
-  if(SIM.heiz==='wp') add((K.wp[0]+K.wp[1])/2, CONFIG.foerderWP, CONFIG.foerderDeckelWP);
+  if(SIM.heiz==='wp') add((K.wp[0]+K.wp[1])/2, CONFIG.foerderWP, CONFIG.foerderDeckelWP, CONFIG.foerderWPMaxBetrag);
   if(SIM.heiz==='brennwert') add((K.brennwert[0]+K.brennwert[1])/2, 0, 1);
   if(tg.abgleich) add((K.abgleich[0]+K.abgleich[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
   if(tg.rohr) add((K.rohr[0]+K.rohr[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
