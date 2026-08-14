@@ -31,22 +31,21 @@
 /* ==== Schriften: lokal gehostet, KEINE Google-Fonts-Einbindung (DSGVO).
         Identisch zur Startseite, Details in fonts/README.txt ==== */
 @font-face{
-  font-family:'Inter';src:url('fonts/inter-latin-var.woff2') format('woff2');
-  font-weight:400 700;font-style:normal;font-display:swap;
+  font-family:'Roboto';
+  src:url('fonts/roboto-latin-var.woff2') format('woff2');
+  font-weight:400 700;
+  font-style:normal;
+  font-display:swap;
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
-@font-face{
-  font-family:'Fraunces';src:url('fonts/fraunces-latin-var.woff2') format('woff2');
-  font-weight:400 700;font-style:normal;font-display:swap;
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
+
 /* ==== Design-Tokens (identisch zur Hauptseite) ==== */
 :root{
   --cream:#FDFBF7;--cream-2:#F6F1E8;--cream-3:#EFE8DB;--white:#FFFFFF;
   /* --muted war #837B70 = 4,05:1 auf Cream, unter dem WCAG-AA-Minimum */
   --ink:#1D1A15;--ink-2:#4B453D;--muted:#6F685C;
-  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  --font-serif:'Fraunces','Iowan Old Style',Georgia,'Times New Roman',serif;
+  --font-sans:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  --font-serif:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
   --line:#E7DFD1;--line-soft:#F0E9DC;
   --amber:#C07A2E;--amber-deep:#9C5F1E;--amber-soft:#F7E9D5;
   --forest:#2E4A3C;--forest-soft:#E4EDE7;
@@ -65,7 +64,7 @@ body{font-family:var(--font-sans);background:var(--cream);color:var(--ink);line-
    aber durch Gewicht statt Schraeglage ausgezeichnet. */
 em{font-style:normal;font-weight:600;color:var(--ink)}
 i{font-style:normal}
-h1,h2,h3,.serif{font-family:var(--font-serif);font-weight:500;line-height:1.15;letter-spacing:-.015em}
+h1,h2,h3,.serif{font-family:var(--font-serif);font-weight:700;line-height:1.15;letter-spacing:-.015em}
 h1{font-size:clamp(1.9rem,4.5vw,2.9rem)}
 h2{font-size:clamp(1.4rem,2.6vw,1.9rem)}
 h3{font-size:1.1rem;line-height:1.3}
@@ -1696,7 +1695,7 @@ function isoHausSvg(sh, san, opt){
   function sw(a){ return Math.max(3, Math.round(3 + a*22)); }
   function pct(a){ return Math.round(a*100)+' %'; }
   function pill(x,y,txt,id){ return '<g><rect x="'+(x-24)+'" y="'+(y-11)+'" width="48" height="22" rx="11" fill="#FFFFFF" stroke="#E7DFD1"/>'+
-    '<text '+(id?'id="'+id+'" ':'')+'x="'+x+'" y="'+(y+4)+'" text-anchor="middle" font-size="12.5" font-weight="600" fill="'+INK+'" font-family="Inter,sans-serif">'+txt+'</text></g>'; }
+    '<text '+(id?'id="'+id+'" ':'')+'x="'+x+'" y="'+(y+4)+'" text-anchor="middle" font-size="12.5" font-weight="600" fill="'+INK+'" font-family="Roboto,sans-serif">'+txt+'</text></g>'; }
   var roofF = san.dach?'#D9EDE0':'url(#gRF'+m+')', roofB = san.dach?'#C4E0CE':'url(#gRB'+m+')';
   var wallF = san.wand?'#F1F7F3':'url(#gWF'+m+')', wallS = san.wand?'#E2EEE7':'url(#gWS'+m+')';
   var winF  = san.fenster?'#D9EDE0':'#E4EDE7', winS = san.fenster?G:INK, winW = san.fenster?2.2:1.4;
@@ -1784,7 +1783,7 @@ function isoHausSvg(sh, san, opt){
     s+='<path '+aid('keller')+'d="M336 510 L336 552" stroke="'+A+'" stroke-width="'+sw(sh.keller)+'" marker-end="url(#ar'+m+')"/>'+pill(390,536,pct(sh.keller),pid('keller'));
     s+='<path '+aid('lueftung')+'d="M390 240 L450 205" stroke="'+A+'" stroke-width="'+sw(sh.lueftung)+'" marker-end="url(#ar'+m+')" stroke-dasharray="10 7"/>'+pill(478,190,pct(sh.lueftung),pid('lueftung'));
   }
-  if(opt.caption) s+='<text x="363" y="576" text-anchor="middle" font-size="12" fill="#837B70" font-family="Inter,sans-serif">'+opt.caption+'</text>';
+  if(opt.caption) s+='<text x="363" y="576" text-anchor="middle" font-size="12" fill="#837B70" font-family="Roboto,sans-serif">'+opt.caption+'</text>';
   return s+'</svg>';
 }
 

@@ -20,7 +20,7 @@ die der Betreiber bestaetigen oder ersetzen muss - erfundene Ortsdetails
 waeren schlimmer als gar keine.
 """
 
-import io, os
+import io, os, re
 
 DOMAIN = "https://energieberater-albdonau.de"
 TEL_ANZEIGE = "0152 24290826"
@@ -218,14 +218,70 @@ ORTE = [
 
 # ---------------------------------------------------------------------------
 
-def teil(datei):
-    """Baustein aus der Startseite laden. Die _ortsseite-*-Dateien werden vor
-    dem Lauf aus index.html extrahiert - so bleiben Ortsseiten und Startseite
-    automatisch im gleichen Stand."""
-    return io.open(datei, encoding="utf-8").read()
+# ---------------------------------------------------------------------------
+# BAUSTEINE AUS DER STARTSEITE
+# Werden bei JEDEM Lauf frisch aus index.html geschnitten. Frueher lagen sie
+# als Zwischendateien daneben und konnten veralten - bei der Umstellung auf
+# Roboto hatten die Ortsseiten dadurch noch die alten Schriften.
+# ---------------------------------------------------------------------------
+_CACHE = {}
+
+def _startseite():
+    if "html" not in _CACHE:
+        _CACHE["html"] = io.open("index.html", encoding="utf-8").read()
+    return _CACHE["html"]
+
+def _schnitt(muster, name):
+    m = re.search(muster, _startseite(), re.S)
+    if not m:
+        raise SystemExit(f"Baustein '{name}' nicht in index.html gefunden - "
+                         f"wurde die Startseite umgebaut? Muster pruefen.")
+    return m.group(1)
 
 def stil():
-    return teil("_ortsseite-stil.css")
+    """CSS der Startseite plus die Ergaenzungen fuer die Ortsseiten."""
+    return _schnitt(r"<style>\n(.*?)\n</style>", "CSS") + ORTS_CSS
+
+def hero_teil():
+    """Hero-Grafik ohne die anklickbaren Flaechen und ohne Popup - dafuer
+    muesste sonst das gesamte Popup-JavaScript auf jede Ortsseite."""
+    h = _schnitt(r'(<div class="hero-visual">.*?</div>\s*</div>\s*\n)', "Hero")
+    h = re.sub(r'\s*<div class="illu-pop".*?</div>\s*</div>\s*$', '\n      </div>', h, flags=re.S)
+    h = re.sub(r'\s*<!-- Unsichtbare Klick-.*?(?=\s*<!-- Beschriftungen -->)', '', h, flags=re.S)
+    h = h.replace('class="il-tag hotspot"', 'class="il-tag"').replace(' class="hotspot"', '')
+    h = re.sub(r'\s*tabindex="0" role="button" aria-label="[^"]*"', '', h)
+    h = re.sub(r'<li data-key="[^"]*"[^>]*>', '<li>', h)
+    return h.rstrip()
+
+def defs_teil():
+    return _schnitt(r'(<svg width="0" height="0".*?</svg>)', "SVG-Definitionen")
+
+def abschnitt(name):
+    return _schnitt(r"(<!-- ={10,} " + name + r" ={10,} -->.*?</section>)", name)
+
+ORTS_CSS = """
+
+/* ==== Ortsseiten ==== */
+.ort-text{max-width:74ch}
+.ort-text h3{margin:34px 0 10px;font-size:1.2rem}
+.ort-text p{margin-bottom:15px;color:var(--ink-2)}
+.ort-text .liste{margin:0 0 18px}
+.ort-text .liste li{display:flex;gap:11px;margin-bottom:10px;color:var(--ink-2)}
+.ort-text .liste li::before{content:"";width:7px;height:7px;flex:none;margin-top:10px;border-radius:50%;background:var(--amber)}
+.ort-text .merksatz{background:var(--forest-soft);border-radius:var(--radius-sm);padding:20px 24px;margin:26px 0;color:var(--forest);font-size:.97rem}
+.ort-text .merksatz b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.75}
+.krumen{padding:22px 0 0;font-size:.82rem;color:var(--muted)}
+.krumen ol{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.krumen li::after{content:"\\203A";margin-left:8px;color:var(--line)}
+.krumen li:last-child::after{content:""}
+.krumen a:hover{color:var(--amber-deep);text-decoration:underline;text-underline-offset:3px}
+.ort-nachbarn{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.ort-nachbarn a{
+  font-size:.86rem;font-weight:500;color:var(--ink-2);background:var(--white);
+  border:1px solid var(--line);border-radius:100px;padding:8px 16px;transition:.25s var(--ease);
+}
+.ort-nachbarn a:hover{border-color:var(--amber);color:var(--amber-deep);transform:translateY(-2px)}
+"""
 
 def seite(o):
     ort = o["ort"]
@@ -239,11 +295,11 @@ def seite(o):
         f'      <a href="{x["datei"]}">Energieberatung {x["ort"]}</a>' for x in andere)
 
     # Bausteine aus der Startseite - halten Orts- und Startseite im Gleichstand
-    hero_grafik  = teil("_ortsseite-hero.html").rstrip()
-    foerderblock = teil("_ortsseite-foerder.html")
-    ablauf       = teil("_ortsseite-ablauf.html")
-    kontakt      = teil("_ortsseite-kontakt.html")
-    defs_svg     = teil("_ortsseite-defs.svg")
+    hero_grafik  = hero_teil()
+    foerderblock = abschnitt("ZAHLEN")
+    ablauf       = abschnitt("ABLAUF")
+    kontakt      = abschnitt("KONTAKT")
+    defs_svg     = defs_teil()
 
     artikel   = o["artikel"];   plz          = o["plz"]
     einwohner = o["einwohner"]; entfernung   = o["entfernung"]

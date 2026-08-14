@@ -25,15 +25,14 @@
 <style>
 /* Schriften lokal – identisch zur Startseite, keine Google-Fonts-Verbindung */
 @font-face{
-  font-family:'Inter';src:url('fonts/inter-latin-var.woff2') format('woff2');
-  font-weight:400 700;font-style:normal;font-display:swap;
+  font-family:'Roboto';
+  src:url('fonts/roboto-latin-var.woff2') format('woff2');
+  font-weight:400 700;
+  font-style:normal;
+  font-display:swap;
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
-@font-face{
-  font-family:'Fraunces';src:url('fonts/fraunces-latin-var.woff2') format('woff2');
-  font-weight:400 700;font-style:normal;font-display:swap;
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
+
 
 :root{
   --cream:#FDFBF7; --cream-2:#F6F1E8; --white:#FFFFFF;
@@ -42,8 +41,8 @@
   --amber:#C07A2E; --amber-deep:#9C5F1E;
   --forest:#2E4A3C;
   --radius:18px; --radius-sm:12px;
-  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  --font-serif:'Fraunces','Iowan Old Style',Georgia,'Times New Roman',serif;
+  --font-sans:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  --font-serif:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
   --ease:cubic-bezier(.22,.61,.36,1);
 }
 
@@ -81,9 +80,9 @@ i{font-style:normal}
 
 /* Inhalt */
 main{padding:56px 0 80px}
-h1{font-family:var(--font-serif);font-weight:500;letter-spacing:-.015em;line-height:1.15;font-size:clamp(2rem,4.5vw,2.9rem);margin-bottom:12px}
+h1{font-family:var(--font-serif);font-weight:700;letter-spacing:-.015em;line-height:1.15;font-size:clamp(2rem,4.5vw,2.9rem);margin-bottom:12px}
 .subline{color:var(--muted);font-size:.95rem;margin-bottom:44px}
-h2{font-family:var(--font-serif);font-weight:500;letter-spacing:-.01em;font-size:1.32rem;margin:40px 0 14px;line-height:1.25}
+h2{font-family:var(--font-serif);font-weight:700;letter-spacing:-.01em;font-size:1.32rem;margin:40px 0 14px;line-height:1.25}
 h2:first-of-type{margin-top:0}
 p{margin-bottom:14px;color:var(--ink-2)}
 p strong,address strong{color:var(--ink)}
@@ -235,9 +234,9 @@ li{margin-bottom:7px}
 
     <h2>Verwendete Schriftarten</h2>
     <p>
-      Diese Website verwendet die Schriftarten <em>Inter</em> und <em>Fraunces</em>.
-      Beide stehen unter der SIL Open Font License 1.1 und werden ausschließlich vom
-      eigenen Server ausgeliefert. Es besteht dabei keine Verbindung zu Servern Dritter.
+      Diese Website verwendet die Schriftart <em>Roboto</em>. Sie steht unter der
+      Apache-Lizenz 2.0 und wird ausschließlich vom eigenen Server ausgeliefert.
+      Es besteht dabei keine Verbindung zu Servern Dritter.
     </p>
 
   </div>

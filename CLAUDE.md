@@ -10,7 +10,7 @@ Kein Build-Schritt, kein Framework, keine Abhängigkeiten.
 - `impressum.html`, `datenschutz.html` – Pflichtseiten, aus beiden Hauptseiten verlinkt
 - `robots.txt`, `sitemap.xml` – SEO (Domain muss zur echten Domain passen)
 - `404.html` – Fehlerseite
-- `fonts/` – lokal gehostete Schriften Inter und Fraunces (SIL OFL)
+- `fonts/` – lokal gehostete Schrift Roboto (Apache 2.0)
 - `htaccess.txt` – nur für klassische Apache-Hoster relevant, auf GitHub Pages ohne Funktion
 
 ## Eiserne Regeln
@@ -19,8 +19,8 @@ Kein Build-Schritt, kein Framework, keine Abhängigkeiten.
    Bibliotheken (kein Three.js, GSAP, jQuery, Chart.js …). Die Seiten sind bewusst
    leichtgewichtig – das ist ein SEO-/Performance-Feature, kein Zufall.
 2. **Nichts von fremden Servern nachladen.** Insbesondere KEINE Google Fonts –
-   das ist in Deutschland ein Abmahnrisiko. Schriften liegen in `fonts/` und
-   werden per `@font-face` lokal eingebunden. Gilt auch für Icons, Bilder,
+   das ist in Deutschland ein Abmahnrisiko. Die Schrift liegt in `fonts/` und
+   wird per `@font-face` lokal eingebunden. Gilt auch für Icons, Bilder,
    Analytics und CDN-Skripte.
 3. **Kein localStorage/sessionStorage** – Zustand nur in JavaScript-Variablen.
 4. **Deutsch** in UI-Texten, Kommentaren und Commit-Messages.
@@ -49,6 +49,20 @@ ausschließlich `INSERT`, die übrigen Rechte sind per `REVOKE` entzogen.
 **Diese Regeln nicht aufweichen** – sonst kann jeder die Leads auslesen.
 Prüfbefehl nach Änderungen an der Datenbank: ein `GET` auf
 `/rest/v1/leads?select=*` mit dem öffentlichen Schlüssel muss `401` liefern.
+
+
+## Ortsseiten
+
+`energieberatung-*.html` werden von `ortsseiten-erzeugen.py` erzeugt – **nicht
+von Hand bearbeiten**, Änderungen gehen beim nächsten Lauf verloren. Der
+Generator schneidet CSS, Hero-Grafik, Förderblock, Ablauf und Kontaktabschnitt
+bei jedem Durchlauf frisch aus `index.html`; Orts- und Startseite können also
+nicht auseinanderlaufen. Nach Änderungen an `index.html` einmal
+`python ortsseiten-erzeugen.py` ausführen.
+
+Ortsspezifische Texte stehen in der Tabelle `ORTE` im Generator. Achtung:
+Seiten, die sich nur im Ortsnamen unterscheiden, straft Google als
+Doorway Pages ab – die Wortüberschneidung sollte gemessen unter 65 % bleiben.
 
 ## Qualitätsprüfung nach JEDER Änderung am Rechner
 
