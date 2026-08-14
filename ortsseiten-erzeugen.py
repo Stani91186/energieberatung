@@ -259,6 +259,46 @@ def defs_teil():
 def abschnitt(name):
     return _schnitt(r"(<!-- ={10,} " + name + r" ={10,} -->.*?</section>)", name)
 
+
+# ---------------------------------------------------------------------------
+# GEMEINSAMER RAHMEN
+# Kopf und Fuss stammen aus index.html und werden bei jedem Lauf frisch
+# geschnitten. Vorher pflegte jeder Generator eigene Kopien - dadurch hatten
+# Start-, Orts- und Ratgeberseiten unterschiedliche Menuepunkte und
+# unterschiedlich viele Fussspalten.
+# ---------------------------------------------------------------------------
+def _absolut(markup):
+    """Sprungmarken der Startseite absolut machen - '#leistungen' zeigt auf
+    einer Unterseite sonst auf einen Abschnitt, den es dort nicht gibt."""
+    markup = markup.replace('href="#top"', 'href="index.html"')
+    return re.sub(r'href="#(?!\s*")', 'href="index.html#', markup)
+
+
+def kopfbereich(aktuell=None):
+    """Kopfzeile, Handy-Menue und Aktionsleiste aus index.html.
+
+    Der Bereich endet mit der Aktionsleiste, nicht erst bei <main>: dazwischen
+    stehen in index.html die gemeinsamen SVG-Definitionen, die hier nichts zu
+    suchen haben."""
+    v = _startseite()
+    i = v.find('<header class="site-header"')
+    mb = v.find('<div class="mobile-bar">', i)
+    if i < 0 or mb < 0:
+        raise SystemExit("Kopfbereich nicht in index.html gefunden")
+    k = _absolut(v[i:v.find("</div>", mb) + len("</div>")])
+    if aktuell:
+        k = k.replace(f'<a href="{aktuell}">', f'<a href="{aktuell}" aria-current="page">')
+    return k
+
+
+def fussbereich(aktuell=None):
+    """Fussbereich aus index.html."""
+    f = _absolut(_schnitt(r'(<footer class="site-footer">.*?</footer>)', "Fussbereich"))
+    if aktuell:
+        f = f.replace(f'<a href="{aktuell}">', f'<a href="{aktuell}" aria-current="page">')
+    return f
+
+
 ORTS_CSS = """
 
 /* ==== Ortsseiten ==== */
@@ -374,41 +414,7 @@ def seite(o):
 
 {defs_svg}
 
-<header class="site-header">
-  <div class="wrap header-inner">
-    <a href="index.html" class="logo">
-      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
-    </a>
-    <nav class="nav" aria-label="Hauptnavigation">
-      <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
-      <a href="sanierungsrechner.html">Rechner</a>
-      <a href="ratgeber.html">Ratgeber</a>
-      <a href="index.html#leistungen">Leistungen</a>
-      <a href="index.html#kontakt">Kontakt</a>
-    </nav>
-    <div class="header-cta">
-      <a href="index.html#kontakt" class="btn btn-primary btn-sm">Kostenloses Erstgespräch</a>
-      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</header>
-
-<nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
-  <a href="index.html">Startseite</a>
-  <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
-  <a href="sanierungsrechner.html">Sanierungsrechner</a>
-  <a href="ratgeber.html">Ratgeber</a>
-  <a href="index.html#leistungen">Leistungen</a>
-  <a href="index.html#kontakt">Kontakt</a>
-  <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
-</nav>
-
-<div class="mobile-bar">
-  <a href="tel:{TEL_LINK}" class="btn btn-amber">Anrufen</a>
-  <a href="index.html#kontakt" class="btn btn-primary">Anfrage senden</a>
-</div>
+{kopfbereich()}
 
 <main id="inhalt">
 
@@ -550,46 +556,7 @@ def seite(o):
 
 </main>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="logo">
-      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
-    </a>
-        <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision.</p>
-        <a href="index.html#kontakt" class="btn btn-primary btn-sm">Kostenloses Erstgespräch</a>
-      </div>
-      <div class="footer-col">
-        <h4>Orte</h4>
-{nachbar_links}
-      </div>
-      <div class="footer-col">
-        <h4>Ratgeber</h4>
-        <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a>
-        <a href="ratgeber-reihenfolge-sanierung.html">Richtige Reihenfolge</a>
-        <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer</a>
-        <a href="ratgeber-sanieren-schwaebische-alb.html">Sanieren auf der Alb</a>
-        <a href="ratgeber.html">Alle Beiträge</a>
-      </div>
-      <div class="footer-col">
-        <h4>Kontakt</h4>
-        <a href="tel:{TEL_LINK}">{TEL_ANZEIGE}</a>
-        <!-- [TODO] echte E-Mail-Adresse eintragen -->
-        <a href="mailto:kontakt@energieberater-albdonau.de">[E-Mail eintragen]</a>
-        <address>Griesweg 20<br>89160 Dornstadt</address>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 EBA Energieberater Albdonau · Inhaber Stanislaw Tsukerman</span>
-      <nav aria-label="Rechtliches">
-        <a href="index.html">Startseite</a>
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
-      </nav>
-    </div>
-  </div>
-</footer>
+{fussbereich()}
 
 <script>
 'use strict';
