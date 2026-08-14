@@ -519,7 +519,6 @@ details.annahmen[open] summary::after{content:"–"}
       <a href="index.html#leistungen">Leistungen</a>
       <a href="sanierungsrechner.html" aria-current="page">Rechner</a>
       <a href="index.html#ablauf">Ablauf</a>
-      <a href="index.html#ueber-mich">Über mich</a>
       <a href="index.html#faq">Fragen</a>
       <a href="index.html#kontakt">Kontakt</a>
     </nav>
@@ -538,7 +537,6 @@ details.annahmen[open] summary::after{content:"–"}
   <a href="index.html">Startseite</a>
   <a href="index.html#leistungen">Leistungen</a>
   <a href="index.html#ablauf">Ablauf</a>
-  <a href="index.html#ueber-mich">Über mich</a>
   <a href="index.html#faq">Fragen</a>
   <a href="index.html#kontakt">Kontakt</a>
   <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
@@ -783,7 +781,6 @@ details.annahmen[open] summary::after{content:"–"}
         <h4>Unternehmen</h4>
         <a href="index.html#leistungen">Leistungen</a>
         <a href="index.html#ablauf">Ablauf</a>
-        <a href="index.html#ueber-mich">Über mich</a>
         <a href="index.html#faq">Häufige Fragen</a>
       </div>
 
@@ -971,7 +968,6 @@ function berechne(e, mods){
   var HT = htBauteile + htWB;
 
   var n = e.lueftungWRG ? CONFIG.luftwechsel.wrg : (e.verglasung==='einfach'||e.verglasung==='kasten' ? CONFIG.luftwechsel.alt : CONFIG.luftwechsel.standard);
-  if(e._nOverride) n = e._nOverride;   // Simulator: Luftdichtheit-Regler
   var V = e.wohnflaeche * e.raumhoehe * 0.80;
   var HV = 0.34 * n * V;
 
@@ -1767,8 +1763,9 @@ function buildSim(e0){
   var eraUsKel=CONFIG.uKeller.map(function(x){return x[1];});
   var vgKeys=['einfach','kasten','zweifach_alt','iso_95','ws_2001','ws_2010','dreifach'];
   var vgLabels=['Einfach','Kasten','2-fach alt','2-fach 95+','2-fach WS 01+','2-fach WSV 10+','3-fach'];
-  var luftLabels=['Undicht (n 0,7)','Normal dicht (n 0,5)','Lüftung mit WRG (n 0,25)'];
-  var luftVals=[0.7,0.5,0.25];
+  /* Luftdichtheit bewusst NICHT als Regler: Kaum ein Eigentuemer kennt die
+     Luftwechselrate seines Hauses. Der Wert steckt weiterhin in der Rechnung,
+     er wird aus dem Gebaeudezustand abgeleitet (CONFIG.luftwechsel). */
   var dachIstOgd = basis0.aOgd>0;
 
   /* Startposition der Regler = Zustand aus dem Fragebogen:
@@ -1785,8 +1782,7 @@ function buildSim(e0){
       wand:   nearestIdx(basis0.uWerte.wand, eraUsWand),
       dach:   nearestIdx(basis0.uWerte.dachOgd, eraUsDach),
       keller: nearestIdx(basis0.uWerte.keller, eraUsKel),
-      fenster:Math.max(0, vgKeys.indexOf(e0.verglasung)),
-      luft:   nearestIdx(basis0.n, luftVals)
+      fenster:Math.max(0, vgKeys.indexOf(e0.verglasung))
     },
     tg: { wand:false, dach:false, keller:false, fenster:false, abgleich:false, rohr:false },
     heiz: 'ist',
@@ -1795,8 +1791,7 @@ function buildSim(e0){
       wand:{name:'Außenwand', labels:eraLabelsWand, years:eraYearsWand},
       dach:{name: dachIstOgd?'Dach / oberste Geschossdecke':'Dach', labels:eraLabelsDach, years:eraYearsDach},
       keller:{name:'Keller / Boden', labels:eraLabelsKel, years:eraYearsKel},
-      fenster:{name:'Fenster', labels:vgLabels, keys:vgKeys},
-      luft:{name:'Luftdichtheit', labels:luftLabels, vals:luftVals}
+      fenster:{name:'Fenster', labels:vgLabels, keys:vgKeys}
     },
     dachIstOgd: dachIstOgd,
     kellerToggle: basis0.aKellerdecke>0
@@ -1810,7 +1805,6 @@ function buildSim(e0){
   /* Erklärungen zu den Begriffen im Simulator. Werden nach dem Einfügen der
      Karten über bindInfo an die (i)-Symbole gehängt. */
   var SIM_INFOS = {
-    luft: { t:'Luftdichtheit', x:'Wie viel warme Luft ungewollt durch Fugen und Ritzen entweicht – an Fensteranschlüssen, Steckdosen in Außenwänden, der Dachbodenluke oder am Übergang von Wand zu Decke. Gemessen wird das als Luftwechselrate n50 mit einem Blower-Door-Test. Ein undichter Altbau tauscht die gesamte Raumluft mehrmals pro Stunde aus, und jedes Mal geht die Wärme mit. Wichtig: Luftdicht heißt nicht, dass nicht gelüftet wird – gelüftet wird bewusst über Fenster oder eine Lüftungsanlage, statt unkontrolliert durch Ritzen.' },
     keller: { t:'Warum hier kein Schalter?', x:'Bei einem beheizten Keller oder einem Haus ohne Keller verläuft die Wärmegrenze nicht an der Kellerdecke, sondern an der Bodenplatte unter dem Haus. Die lässt sich nachträglich praktisch nicht dämmen – dafür müsste der komplette Fußboden heraus. Deshalb gibt es hier keine Sanierungsmaßnahme. Der Regler zeigt Ihnen trotzdem, wie viel Wärme über den Boden verloren geht.' },
     abgleich: { t:'Hydraulischer Abgleich', x:'Dabei wird eingestellt, wie viel Heizwasser jeder einzelne Heizkörper bekommt. Ohne Abgleich bekommen die Heizkörper nahe der Heizung zu viel und die entfernten zu wenig – man dreht die Heizung höher, damit auch das letzte Zimmer warm wird. Nach dem Abgleich reicht eine niedrigere Vorlauftemperatur. Kostet vergleichsweise wenig, spart dauerhaft, und ist bei geförderten Sanierungen sowie beim Einbau einer Wärmepumpe ohnehin vorgeschrieben.' }
   };
@@ -1845,7 +1839,7 @@ function buildSim(e0){
     (SIM.kellerToggle
       ? card('keller', true)
       : card('keller', false, '<p class="sim-hinweis">Hier ist die Bodenplatte die Wärmegrenze – sie lässt sich nachträglich nicht dämmen. Deshalb kein Sanieren-Schalter.</p>')) +
-    card('fenster', true) + card('luft', false) + heizBtns;
+    card('fenster', true) + heizBtns;
 
   /* Erklärungen an die (i)-Symbole hängen */
   $('simCards').querySelectorAll('[data-siminfo]').forEach(function(el){
@@ -1854,7 +1848,7 @@ function buildSim(e0){
   });
 
   /* Ereignisse */
-  ['wand','dach','keller','fenster','luft'].forEach(function(id){
+  ['wand','dach','keller','fenster'].forEach(function(id){
     $('simsl_'+id).addEventListener('input', function(){ SIM.slider[id]=parseInt(this.value,10); updateSim(); trackEvent('sim_regler',id); });
   });
   ['wand','dach','keller','fenster'].forEach(function(id){
@@ -1894,7 +1888,6 @@ function simEingaben(){
   e.dachGedaemmt='ja'; e.dachDaemmJahr=d.dach.years[s.dach]; e.dachDaemmDicke=0;
   e._kellerEra = d.keller.years[s.keller];
   e.verglasung = d.fenster.keys[s.fenster];
-  e._nOverride = d.luft.vals[s.luft];
   return e;
 }
 
@@ -2009,7 +2002,6 @@ function updateSim(){
   setCard('dach', ht(nach,['dach','ogd'])*Gh*kEff, SIM.defs.dach.labels[SIM.slider.dach], 'U ≈ '+nf(nach.uWerte.dachOgd,2)+(tg.dach?' saniert':''));
   setCard('keller', ht(nach,['kellerdecke','boden'])*Gh*kEff, SIM.defs.keller.labels[SIM.slider.keller], 'U ≈ '+nf(nach.uWerte.keller,2)+(tg.keller?' saniert':''));
   setCard('fenster', ht(nach,['fenster'])*Gh*kEff, SIM.defs.fenster.labels[SIM.slider.fenster], 'U ≈ '+nf(nach.uWerte.fenster,2)+(tg.fenster?' → 3-fach':''));
-  setCard('luft', nach.HV*Gh*kEff, SIM.defs.luft.labels[SIM.slider.luft], 'n = '+nf(nach.n,2)+'/h');
   $('simkwh_heiz').textContent = nach.jaz ? 'JAZ '+nf(nach.jaz,1) : 'η '+nf(nach.etaA,2);
 
   /* Auswahl für die Lead-Übermittlung mitschreiben */

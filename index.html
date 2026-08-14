@@ -397,7 +397,7 @@ section{position:relative}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .il-wave,.il-spin,.il-spin-slow,.il-ping,.stats-gem{animation:none}
+  .il-wave,.il-spin,.il-spin-slow,.il-ping{animation:none}
   .il-wave{opacity:.55}
   .il-tag{animation:none;opacity:1}
 }
@@ -600,19 +600,11 @@ section{position:relative}
   -webkit-mask-image:radial-gradient(ellipse 65% 75% at 82% 22%,#000,transparent 72%);
   mask-image:radial-gradient(ellipse 65% 75% at 82% 22%,#000,transparent 72%);
 }
-/* Wert-Motiv: facettierter Stein als Sinnbild für Substanz und Wertsteigerung */
-.stats-gem{
-  position:absolute;right:-64px;top:-72px;width:330px;z-index:1;
-  opacity:.3;pointer-events:none;
-  animation:gemFloat 16s ease-in-out infinite;
-}
-@keyframes gemFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(16px) rotate(3deg)}}
 
 .stats-inner{position:relative;z-index:2}
 .stats h2{color:#FBF8F2;max-width:17ch;margin-bottom:46px}
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
 .stat{border-top:1px solid rgba(255,255,255,.2);padding-top:22px}
-.stat-gem{width:26px;height:26px;margin-bottom:16px;display:block;filter:drop-shadow(0 2px 5px rgba(0,0,0,.28))}
 .stat b{
   display:block;font-family:var(--font-serif);font-size:clamp(2.6rem,4.4vw,3.5rem);
   line-height:1;color:#E8B87A;margin-bottom:12px;
@@ -621,23 +613,6 @@ section{position:relative}
 /* .55 ergab nur 3,85:1 auf dem dunklen Grün – zu wenig für WCAG AA */
 .stats-note{margin-top:34px;font-size:.78rem;color:rgba(244,239,230,.78)}
 
-/* ===========================================================================
-   10. ÜBER MICH
-   ======================================================================== */
-.about{background:var(--white);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
-.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
-.portrait{
-  aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;position:relative;
-  background:linear-gradient(160deg,var(--cream-2),var(--cream-3));
-  border:1px solid var(--line);display:grid;place-items:center;text-align:center;padding:30px;
-}
-.portrait svg{width:56px;height:56px;stroke:var(--muted);margin:0 auto 16px}
-.portrait span{font-size:.85rem;color:var(--muted);display:block}
-.qual-list{display:grid;gap:14px;margin:28px 0 32px}
-.qual{display:flex;gap:13px;align-items:flex-start}
-.qual svg{width:19px;height:19px;stroke:var(--forest);flex:none;margin-top:3px}
-.qual b{display:block;font-size:.95rem;font-weight:600}
-.qual span{font-size:.87rem;color:var(--muted)}
 
 /* ===========================================================================
    11. STIMMEN
@@ -802,32 +777,21 @@ section{position:relative}
   100%{transform:scale(2.7);opacity:0}
 }
 
-/* Zahlen-Sektion: die drei Steine schweben versetzt, passend zum grossen
-   Stein im Hintergrund. Negative Verzoegerung, damit sie nicht erst
-   nacheinander anlaufen, sondern sofort unterschiedlich stehen. */
-.stat-gem{animation:gemSchwebt 11s ease-in-out infinite}
-.stat:nth-child(2) .stat-gem{animation-delay:-3.7s}
-.stat:nth-child(3) .stat-gem{animation-delay:-7.4s}
-@keyframes gemSchwebt{
-  0%,100%{transform:translateY(0) rotate(0deg)}
-  50%{transform:translateY(-5px) rotate(-3deg)}
-}
 
 /* Ab hier: nur bei Mausberuehrung */
-.service-icon svg,.band-ic svg,.contact-line svg,.qual svg{
+.service-icon svg,.band-ic svg,.contact-line svg{
   transition:transform .45s var(--ease);
 }
 .service:hover .service-icon svg{transform:scale(1.12) rotate(-7deg)}
 .band-tile:hover .band-ic svg{transform:scale(1.16)}
 .contact-line:hover svg{transform:translateX(3px) scale(1.1)}
-.qual:hover svg{transform:scale(1.16)}
 
 @media (prefers-reduced-motion:reduce){
-  .step-dot::after,.stat-gem{animation:none}
+  .step-dot::after{animation:none}
   .step-dot::after{display:none}
-  .service-icon svg,.band-ic svg,.contact-line svg,.qual svg{transition:none}
+  .service-icon svg,.band-ic svg,.contact-line svg{transition:none}
   .service:hover .service-icon svg,.band-tile:hover .band-ic svg,
-  .contact-line:hover svg,.qual:hover svg{transform:none}
+  .contact-line:hover svg{transform:none}
 }
 
 /* ===========================================================================
@@ -836,9 +800,8 @@ section{position:relative}
 @media (max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:48px}
   .hero{padding:126px 0 76px}
-  .about-grid,.faq-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+  .faq-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
   .faq-intro{position:static}
-  .portrait{max-width:340px;aspect-ratio:1/1}
   .problem-grid{grid-template-columns:1fr}
   .service-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr 1fr;gap:34px 20px}
@@ -892,7 +855,6 @@ section{position:relative}
   .trust-row{flex-direction:column;gap:11px}
   .hero-illu .il-tag,.hero-illu .il-lead{display:none}
   .illu-legend{display:flex}
-  .stats-gem{width:190px;right:-46px;top:-46px}
   .band-tile{padding:12px 13px;gap:10px}
   .band-ic{width:32px;height:32px;border-radius:8px}
   .band-tile b{font-size:.8rem}
@@ -1012,7 +974,6 @@ section{position:relative}
       <a href="#leistungen">Leistungen</a>
       <a href="sanierungsrechner.html">Rechner</a>
       <a href="#ablauf">Ablauf</a>
-      <a href="#ueber-mich">Über mich</a>
       <a href="#faq">Fragen</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
@@ -1037,7 +998,6 @@ section{position:relative}
   <a href="#leistungen">Leistungen</a>
   <a href="sanierungsrechner.html">Sanierungsrechner</a>
   <a href="#ablauf">Ablauf</a>
-  <a href="#ueber-mich">Über mich</a>
   <a href="#faq">Fragen</a>
   <a href="#kontakt">Kontakt</a>
   <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
@@ -1194,18 +1154,6 @@ section{position:relative}
       <ellipse cx="160" cy="464" rx="28" ry="5" fill="rgba(60,46,28,.09)"/>
       <circle cx="168" cy="442" r="17" fill="#DCE8DF" stroke="#1D1A15" stroke-width="1.3"/>
       <circle cx="146" cy="454" r="10.5" fill="#CFDFD4" stroke="#1D1A15" stroke-width="1.3"/>
-    </g>
-
-    <!-- Facettierter Stein (Gold) -->
-    <g id="gem3d">
-      <polygon points="30,16 12,40 38,40" fill="#E8B87A" fill-opacity=".5"/>
-      <polygon points="30,16 70,16 62,40 38,40" fill="#E8B87A" fill-opacity=".75"/>
-      <polygon points="70,16 88,40 62,40" fill="#E8B87A" fill-opacity=".42"/>
-      <polygon points="12,40 38,40 50,90" fill="#E8B87A" fill-opacity=".34"/>
-      <polygon points="38,40 62,40 50,90" fill="#E8B87A" fill-opacity=".55"/>
-      <polygon points="62,40 88,40 50,90" fill="#E8B87A" fill-opacity=".22"/>
-      <path d="M38 40 L50 90 L62 40" fill="none" stroke="#E8B87A" stroke-width="1" stroke-opacity=".6" vector-effect="non-scaling-stroke"/>
-      <polygon points="30,16 70,16 88,40 50,90 12,40" fill="none" stroke="#E8B87A" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
     </g>
   </defs>
 </svg>
@@ -1790,23 +1738,18 @@ section{position:relative}
   <div class="wrap">
     <div class="stats reveal">
 
-      <svg class="stats-gem" viewBox="0 0 100 100" aria-hidden="true"><use href="#gem3d"/></svg>
-
       <div class="stats-inner">
         <h2>Was in der aktuellen Förderlandschaft möglich ist.</h2>
         <div class="stat-grid">
           <div class="stat">
-            <svg class="stat-gem" viewBox="0 0 100 100" aria-hidden="true"><use href="#gem3d"/></svg>
             <b>bis 70 %</b>
             <p>Zuschuss auf den Heizungstausch – Grundförderung plus Klimageschwindigkeits- und Einkommensbonus, begrenzt auf die förderfähigen Höchstkosten.</p>
           </div>
           <div class="stat">
-            <svg class="stat-gem" viewBox="0 0 100 100" aria-hidden="true"><use href="#gem3d"/></svg>
             <b>+ 5 %</b>
             <p>Zusätzliche Förderung auf jede Einzelmaßnahme an der Gebäudehülle, wenn ein individueller Sanierungsfahrplan vorliegt.</p>
           </div>
           <div class="stat">
-            <svg class="stat-gem" viewBox="0 0 100 100" aria-hidden="true"><use href="#gem3d"/></svg>
             <b>50 %</b>
             <p>Zuschuss auf das Beraterhonorar selbst: bis 650 € beim Ein- und Zweifamilienhaus, bis 850 € ab drei Wohneinheiten.</p>
           </div>
@@ -1817,55 +1760,6 @@ section{position:relative}
   </div>
 </section>
 
-<!-- ========================= ÜBER MICH ========================= -->
-<section class="section-pad about" id="ueber-mich">
-  <div class="wrap about-grid">
-
-    <div class="portrait reveal">
-      <div>
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8.5" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>
-        </svg>
-        <span>[Hier Ihr Portraitfoto einsetzen –<br>am besten am Gebäude oder<br>bei der Arbeit, nicht im Studio]</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <span class="eyebrow">Über mich</span>
-      <h2>Ich verkaufe keine Heizungen. Ich sage Ihnen, was Sie brauchen.</h2>
-      <p class="lead" style="margin-top:18px">
-        [Kurzer Absatz zu Ihnen: Warum sind Sie Energieberater geworden? Was haben Sie vorher gemacht?
-        Zwei bis drei Sätze reichen – Menschen beauftragen Menschen, nicht Qualifikationslisten.
-        Der wichtigste Satz ist der, warum man Ihnen vertrauen kann.]
-      </p>
-
-      <div class="qual-list">
-        <div class="qual">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
-          <div><b>[Ausbildung zum Gebäudeenergieberater]</b><span>[Institut, Abschlussjahr]</span></div>
-        </div>
-        <div class="qual">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-2.6L17 22l-1.5-8"/></svg>
-          <div><b>Energie-Effizienz-Expertenliste des Bundes</b><span>[Kategorien eintragen: Wohngebäude / Nichtwohngebäude]</span></div>
-        </div>
-        <div class="qual">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
-          <div><b>[Vorberuf / Zusatzqualifikation]</b><span>[z. B. Handwerk, Bauleitung, Technik]</span></div>
-        </div>
-        <div class="qual">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-7-10a7 7 0 0 1 14 0c0 5.4-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
-          <div><b>Ulm, Alb-Donau-Kreis und Umgebung</b><span>Vor-Ort-Termine im Umkreis von rund 50 km</span></div>
-        </div>
-      </div>
-
-      <a href="#kontakt" class="btn btn-amber">
-        Lernen wir uns kennen
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-
-  </div>
-</section>
 
 <!-- ========================= STIMMEN ========================= -->
 <section class="section-pad">
@@ -2114,7 +2008,6 @@ section{position:relative}
 
       <div class="footer-col">
         <h4>Unternehmen</h4>
-        <a href="#ueber-mich">Über mich</a>
         <a href="#ablauf">Ablauf</a>
         <a href="#faq">Häufige Fragen</a>
         <a href="#kontakt">Kontakt</a>
