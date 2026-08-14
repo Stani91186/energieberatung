@@ -54,10 +54,13 @@
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:24px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(var(--kopf-klein) + 12px)}
 body{
   font-family:var(--font-sans);background:var(--cream);color:var(--ink);
   line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased;
+  /* Ausgleich fuer die feste Kopfzeile aus dem gemeinsamen Rahmen -
+     ohne das liegt die Ueberschrift unter der Kopfzeile. */
+  padding-top:var(--kopf);
 }
 svg{display:block;max-width:100%}
 a{color:inherit}
@@ -126,6 +129,16 @@ address{font-style:normal;color:var(--ink-2)}
    Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
    laufen lassen - hier werden sie ueberschrieben. */
 :root{--kopf:116px;--kopf-klein:80px}
+.site-header a,.site-footer a,.mobile-nav a,.mobile-bar a{text-decoration:none;color:inherit}
+.site-header img,.site-header svg,.site-footer img,.site-footer svg,
+.mobile-bar svg{display:block;max-width:100%}
+.site-header ul,.site-footer ul{list-style:none;margin:0;padding:0}
+.burger{font:inherit;cursor:pointer}
+/* Der Rahmen bringt seine Breite selbst mit: Impressum/Datenschutz begrenzen
+   .wrap auf 820px (richtig fuer den Fliesstext), der Rechner auf 980px. Ohne
+   diese Regel erbt der Kopf die schmale Breite - auf dem Impressum wurde das
+   Logo dadurch bis auf 0px zusammengedrueckt. 1180px = --maxw der Startseite. */
+.site-header .wrap,.site-footer .wrap{max-width:1180px}
 /* Sprungmarke: erstes fokussierbares Element der Seite */
 .skip-link{
   position:absolute;left:-9999px;top:0;z-index:200;
@@ -188,6 +201,17 @@ address{font-style:normal;color:var(--ink-2)}
 .nav a:hover{color:var(--ink)}
 .nav a:hover::after{width:100%}
 .header-cta{display:flex;align-items:center;gap:14px}
+/* Direktwahl im Header – für die Zielgruppe der schnellste Weg zum Kontakt */
+.header-phone{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.93rem;font-weight:600;color:var(--ink);
+  padding:9px 15px;border-radius:100px;border:1.5px solid var(--line);
+  transition:border-color .25s,background .25s;white-space:nowrap;
+}
+.header-phone:hover{border-color:var(--amber);background:var(--white)}
+.header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
+/* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
+.cta-kurz{display:none}
 .burger{display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
 .burger span+span{margin-top:4.5px}
@@ -251,10 +275,15 @@ address{font-style:normal;color:var(--ink-2)}
 @media (max-width:1000px){
 .footer-grid{grid-template-columns:1fr 1fr;gap:34px}
 }
+@media (max-width:1200px){
+.header-phone{display:none}
+}
 @media (max-width:1080px){
 .nav{gap:19px}
 .nav a{font-size:.86rem}
 .header-cta .btn{padding:11px 17px;font-size:.83rem}
+.cta-lang{display:none}
+.cta-kurz{display:inline}
 }
 @media (max-width:880px){
 /* Platz für die fixe Aktionsleiste */

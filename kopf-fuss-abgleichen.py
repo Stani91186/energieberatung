@@ -48,9 +48,26 @@ ZIELE = ["sanierungsrechner.html", "sanierungsfahrplan.html",
 # CSS-Regeln, die zum gemeinsamen Rahmen gehoeren. Alles, was mit einem
 # dieser Namen anfaengt, wird mit uebernommen.
 RAHMEN = (".site-header", ".header-inner", ".header-cta", ".header-links",
+          ".header-phone", ".cta-kurz", ".cta-lang",
           ".logo", ".nav", ".burger", ".mobile-nav", ".mobile-bar",
           ".skip-link", ".site-footer", ".footer-", ".badges", ".badge",
           ".btn")
+
+# Die Startseite setzt globale Grundregeln (a ohne Unterstrich, svg als Block),
+# auf die der Rahmen baut. Die Zielseiten haben eigene, teils andere
+# Grundregeln - deshalb kommen diese hier NUR fuer den Rahmen mit, auf die
+# Rahmen-Container eingegrenzt, damit sie den Seiteninhalt nicht umstylen.
+RESETS = """\
+.site-header a,.site-footer a,.mobile-nav a,.mobile-bar a{text-decoration:none;color:inherit}
+.site-header img,.site-header svg,.site-footer img,.site-footer svg,
+.mobile-bar svg{display:block;max-width:100%}
+.site-header ul,.site-footer ul{list-style:none;margin:0;padding:0}
+.burger{font:inherit;cursor:pointer}
+/* Der Rahmen bringt seine Breite selbst mit: Impressum/Datenschutz begrenzen
+   .wrap auf 820px (richtig fuer den Fliesstext), der Rechner auf 980px. Ohne
+   diese Regel erbt der Kopf die schmale Breite - auf dem Impressum wurde das
+   Logo dadurch bis auf 0px zusammengedrueckt. 1180px = --maxw der Startseite. */
+.site-header .wrap,.site-footer .wrap{max-width:1180px}"""
 
 SKRIPT = """<script>
 'use strict';
@@ -206,7 +223,7 @@ def main():
     fuss_markup = absolut(schneide(v, '<footer class="site-footer">', "</footer>",
                                    "Fussbereich"))
     css_v = re.search(r"<style>\n(.*?)\n</style>", v, re.S).group(1)
-    css = kopfhoehen(css_v) + "\n" + rahmen_css(css_v)
+    css = kopfhoehen(css_v) + "\n" + RESETS + "\n" + rahmen_css(css_v)
 
     print(f"Vorlage {VORLAGE}: {len(kopf_markup)} Zeichen Kopf, "
           f"{len(fuss_markup)} Zeichen Fuss, {len(css)} Zeichen CSS\n")
