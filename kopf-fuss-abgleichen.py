@@ -58,7 +58,12 @@ RAHMEN = (".site-header", ".header-inner", ".header-cta", ".header-links",
 # Grundregeln - deshalb kommen diese hier NUR fuer den Rahmen mit, auf die
 # Rahmen-Container eingegrenzt, damit sie den Seiteninhalt nicht umstylen.
 RESETS = """\
-.site-header a,.site-footer a,.mobile-nav a,.mobile-bar a{text-decoration:none;color:inherit}
+.site-header a:not(.btn),.site-footer a:not(.btn),.mobile-nav a:not(.btn),.mobile-bar a:not(.btn){text-decoration:none;color:inherit}
+.site-header .btn,.site-footer .btn,.mobile-nav .btn,.mobile-bar .btn{text-decoration:none}
+/* Knopffarben ausdruecklich: die color-inherit-Grundregel oben war frueher
+   spezifischer als .btn-primary und faerbte den Text dunkel. */
+.site-header .btn-primary,.site-footer .btn-primary,.mobile-nav .btn-primary,.mobile-bar .btn-primary{color:#fff}
+.site-header .btn-amber,.site-footer .btn-amber,.mobile-nav .btn-amber,.mobile-bar .btn-amber{color:#fff}
 .site-header img,.site-header svg,.site-footer img,.site-footer svg,
 .mobile-bar svg{display:block;max-width:100%}
 .site-header ul,.site-footer ul{list-style:none;margin:0;padding:0}

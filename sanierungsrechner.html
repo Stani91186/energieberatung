@@ -217,13 +217,17 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 /* Energieklassen-Skala im Energieausweis-Stil (Pfeile A+ … H) */
 .band-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:26px 28px;margin:14px 0 26px}
 
-/* Bericht-Knopf in der mitlaufenden Karte: immer sichtbar, waehrend man
-   mit den Reglern spielt - deutlich praesenter als der alte Platz ganz
-   unten. Der kleine Zweitknopf am Seitenende bleibt. */
-.sim-bericht{margin-top:16px;padding-top:16px;border-top:1px solid var(--line-soft);display:grid;gap:8px}
+/* Bericht-Kasten in der rechten Spalte, unter der Summenkarte. Amber
+   eingefasst, damit er sich von den weissen Reglerkarten abhebt. */
+.sim-bericht{
+  margin-top:16px;padding:20px;display:grid;gap:9px;
+  background:linear-gradient(120deg,var(--amber-soft),#FBF3E4);
+  border:1px solid #EAD9BC;border-left:4px solid var(--amber);
+  border-radius:var(--radius);box-shadow:var(--shadow-sm);
+}
 .sim-bericht .btn{width:100%;justify-content:center;padding:15px 20px;font-size:.98rem}
-.sim-bericht .btn svg{width:19px;height:19px}
-.sim-bericht span{font-size:.76rem;color:var(--muted);text-align:center;line-height:1.45}
+.sim-bericht .btn svg{width:19px;height:19px;flex:none}
+.sim-bericht span{font-size:.78rem;color:#6B5638;text-align:center;line-height:1.45}
 .ea{display:grid;gap:5px;margin-top:18px}
 .ea-row{display:flex;align-items:center;gap:10px}
 .ea-arrow{height:29px;display:flex;align-items:center;padding-left:12px;color:rgba(255,255,255,.96);font-weight:700;font-size:.84rem;border-radius:4px 0 0 4px;flex:none;
@@ -477,7 +481,41 @@ details.annahmen[open] summary::after{content:"–"}
   .bar-row .b-val{grid-column:1/-1;text-align:left}
   .band-cell{font-size:.68rem;height:30px}
 }
+#druckbericht{display:none}
+
+/* ==== Druckbericht ==== */
+#druckbericht{font-size:12pt;line-height:1.55;color:#1D1A15}
+#druckbericht .db-kopf{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:2.5px solid #2E4A3C;padding-bottom:14px;margin-bottom:20px}
+#druckbericht .db-kopf img{height:64px;width:auto}
+#druckbericht .db-kopf div{text-align:right}
+#druckbericht .db-kopf b{font-size:1.3rem;display:block}
+#druckbericht .db-kopf span{font-size:.78rem;color:#6F685C}
+#druckbericht h2{font-size:1.02rem;margin:20px 0 8px;color:#2E4A3C;border-bottom:1px solid #E7DFD1;padding-bottom:4px}
+#druckbericht table{width:100%;border-collapse:collapse;font-size:.8rem}
+#druckbericht th{text-align:left;font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:#6F685C;border-bottom:1.5px solid #2E4A3C;padding:5px 7px 4px}
+#druckbericht td{padding:5px 7px;border-bottom:1px solid #EFE8DB;vertical-align:top}
+#druckbericht td:first-child{font-weight:600}
+#druckbericht .db-zahl,#druckbericht th.db-zahl{text-align:right;white-space:nowrap}
+#druckbericht .db-angaben{display:grid;grid-template-columns:repeat(3,1fr);gap:9px 20px;font-size:.85rem}
+#druckbericht .db-angaben b{display:block;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:#6F685C}
+#druckbericht .db-klasse{display:inline-block;min-width:32px;text-align:center;padding:2px 9px;border-radius:6px;color:#fff;font-weight:700}
+#druckbericht .db-kern{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 4px}
+#druckbericht .db-kern div{border:1px solid #E7DFD1;border-radius:8px;padding:9px 12px}
+#druckbericht .db-kern b{display:block;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:#6F685C;margin-bottom:2px}
+#druckbericht .db-kern span{font-size:1.02rem;font-weight:700}
+#druckbericht .db-kern small{font-size:.72rem;color:#6F685C}
+#druckbericht .db-hinweis{font-size:.74rem;color:#4B453D;background:#F6F1E8;border-radius:8px;padding:10px 13px;margin-top:9px}
+#druckbericht .db-fuss{margin-top:22px;padding-top:12px;border-top:1.5px solid #2E4A3C;font-size:.73rem;color:#4B453D}
+#druckbericht .db-fuss b{color:#1D1A15}
+#druckbericht .db-block{break-inside:avoid}
+
 @media print{
+  /* Druckmodus: NUR der Bericht. Die Seite selbst bleibt komplett weg -
+     vorher landeten Navigation und Erklaertexte mit im PDF. */
+  body.druckmodus > :not(#druckbericht){display:none !important}
+  body.druckmodus{padding-top:0 !important;background:#fff !important}
+  body.druckmodus #druckbericht{display:block}
+
   .site-header,.intro-actions,#wizardPanel,.res-cta,.site-footer,.no-print{display:none!important}
   body{background:#fff;font-size:12px}
   .panel,.tile,.mn,.szen,.band-card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
@@ -524,7 +562,12 @@ details.annahmen[open] summary::after{content:"–"}
    Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
    laufen lassen - hier werden sie ueberschrieben. */
 :root{--kopf:116px;--kopf-klein:80px}
-.site-header a,.site-footer a,.mobile-nav a,.mobile-bar a{text-decoration:none;color:inherit}
+.site-header a:not(.btn),.site-footer a:not(.btn),.mobile-nav a:not(.btn),.mobile-bar a:not(.btn){text-decoration:none;color:inherit}
+.site-header .btn,.site-footer .btn,.mobile-nav .btn,.mobile-bar .btn{text-decoration:none}
+/* Knopffarben ausdruecklich: die color-inherit-Grundregel oben war frueher
+   spezifischer als .btn-primary und faerbte den Text dunkel. */
+.site-header .btn-primary,.site-footer .btn-primary,.mobile-nav .btn-primary,.mobile-bar .btn-primary{color:#fff}
+.site-header .btn-amber,.site-footer .btn-amber,.mobile-nav .btn-amber,.mobile-bar .btn-amber{color:#fff}
 .site-header img,.site-header svg,.site-footer img,.site-footer svg,
 .mobile-bar svg{display:block;max-width:100%}
 .site-header ul,.site-footer ul{list-style:none;margin:0;padding:0}
@@ -550,7 +593,7 @@ details.annahmen[open] summary::after{content:"–"}
   white-space:nowrap;
 }
 .btn svg{width:17px;height:17px;transition:transform .35s var(--ease)}
-.btn-primary{background:var(--forest);color:#FBF8F2;box-shadow:0 6px 18px rgba(46,74,60,.22)}
+.btn-primary{background:var(--forest);color:#fff;box-shadow:0 6px 18px rgba(46,74,60,.22)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(46,74,60,.28)}
 .btn-primary:hover svg{transform:translateX(4px)}
 .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
@@ -839,20 +882,20 @@ details.annahmen[open] summary::after{content:"–"}
         <summary>Wärmeverluste im Detail (Ist-Zustand, kWh &amp; €)</summary>
         <div class="bars" id="bars"></div>
       </details>
-      <!-- Bericht-Knopf hier statt am Seitenende: die Karte laeuft beim
-           Scrollen neben den Reglern mit, der Knopf bleibt also immer im
-           Bild (Wunsch des Betreibers). -->
-      <div class="sim-bericht no-print">
-        <button class="btn btn-amber" id="berichtBtnOben">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
-          Bericht als PDF
-        </button>
-        <span>Kostenlos – alle Zahlen, Maßnahmen und Fördersätze zum Mitnehmen.</span>
-      </div>
     </div>
     <div>
       <div class="sim-cards" id="simCards"></div>
       <div class="sim-sum" id="simSum"></div>
+      <!-- Bericht-Knopf in der rechten Spalte unter der Summenkarte
+           (Wunsch des Betreibers): erst Massnahmen schalten, Summen sehen,
+           dann den Bericht mitnehmen. -->
+      <div class="sim-bericht no-print">
+        <button class="btn btn-amber" id="berichtBtnOben">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
+          Bericht als PDF herunterladen
+        </button>
+        <span>Kostenlos – Ihre Angaben, Ihr Ergebnis und alle Ersparnisse als Dokument.</span>
+      </div>
     </div>
   </div>
 
@@ -987,6 +1030,11 @@ details.annahmen[open] summary::after{content:"–"}
   </div>
 </div>
 </main>
+
+<!-- DRUCKBERICHT: eigenstaendiges Dokument fuer den PDF-Export. Auf dem
+     Bildschirm unsichtbar; beim Drucken wird alles andere ausgeblendet
+     (body.druckmodus). Inhalt baut baueDruckbericht() aus den Rechendaten. -->
+<section id="druckbericht" aria-hidden="true"></section>
 
 <!-- GEMEINSAM:FUSS -->
 <footer class="site-footer">
@@ -1809,6 +1857,11 @@ function zeigeErgebnis(){
   '<p style="margin-top:10px">*Förderung: Hülle 15 % (Deckel 30.000 €/Jahr; mit iSFP 20 % / 60.000 €), Heizungstausch 30 % Grundförderung (KfW 458, mit Boni bis ca. 70 %). Ohne Gewähr – vor Auftrag prüfen.</p>';
 
   /* Ergebnis-Zusammenfassung für die Lead-Übermittlung */
+  /* Vollstaendige Daten fuer den Druckbericht - bewusst getrennt vom
+     schlanken LETZTES_ERGEBNIS, das an die Datenbank geht. */
+  BERICHT_DATEN = { e:e, kl:kl, kwReal:kwReal, kosten:kosten, kal:kal,
+                    basis:basis, mn:mn, sz:sz };
+
   LETZTES_ERGEBNIS = {
     klasse_verbrauch: kl,
     kennwert_verbrauch_kwh_m2a: Math.round(kwReal),
@@ -2335,10 +2388,73 @@ var SUPABASE_KEY = 'sb_publishable_sTIrPusPKapueKw7ARBQEw_HNIvKDRt';
 
 var LEAD_ZIEL = SUPABASE_URL ? SUPABASE_URL + '/rest/v1/leads' : '';
 var LETZTES_ERGEBNIS = null;
+var BERICHT_DATEN = null;
 
 /* Ergebnis nur mitschicken, wenn es in die Spalte passt (Grenze: 20.000
    Zeichen). Sonst wuerde die Datenbank den kompletten Datensatz abweisen –
    und damit ginge die Anfrage selbst verloren, nicht nur das Ergebnis. */
+function baueDruckbericht(){
+  if(!BERICHT_DATEN) return false;
+  var d=BERICHT_DATEN, e=d.e, ziel=$('druckbericht');
+  var heute=new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'long',year:'numeric'});
+  var ampel={ok:'lohnt sich klar',warn:'lohnt mit Foerderung / bei Ohnehin-Sanierung',bad:'nur bei Ohnehin-Sanierung'};
+  var traeger={gas:'Erdgas',oel:'Heizöl',strom_wp:'Strom (Wärmepumpe)',fern:'Fernwärme',pellets:'Holzpellets',strom:'Strom'};
+
+  function z(l,w){ return '<div><b>'+l+'</b>'+w+'</div>'; }
+  var angaben='<div class="db-angaben">'+
+    z('Baujahr', e.baujahr)+
+    z('Wohnfläche', nf(e.wohnflaeche)+' m²')+
+    z('Haustyp', e.haustyp||'–')+
+    z('Heizung', (e.heizungTyp||'–')+(e.heizungBaujahr?' ('+e.heizungBaujahr+')':''))+
+    z('Energieträger', traeger[e.traeger]||e.traeger||'–')+
+    z('Jahresverbrauch', nf(Math.round(d.kal.real))+' kWh')+
+  '</div>';
+
+  var kern='<div class="db-kern">'+
+    '<div><b>Effizienzklasse</b><span class="db-klasse" style="background:'+(CONFIG.klassenFarben[d.kl]||'#555')+'">'+d.kl+'</span> <small>'+nf(d.kwReal)+' kWh/m²a</small></div>'+
+    '<div><b>Energiekosten</b><span>'+eur(d.kosten)+'</span> <small>pro Jahr</small></div>'+
+    '<div><b>Heizlast</b><span>'+nf(d.basis.spezHeizlast)+'</span> <small>W/m²</small></div>'+
+  '</div>';
+
+  var zeilen=d.mn.map(function(m){
+    return '<tr><td>'+m.name+(m.diy?' <small>(Eigenleistung möglich)</small>':'')+'</td>'+
+      '<td class="db-zahl">'+eur(m.investVon)+' – '+eur(m.investBis)+'</td>'+
+      '<td class="db-zahl">'+eur(m.foerd)+'</td>'+
+      '<td class="db-zahl"><b>'+eur(m.ersparnis)+'</b></td>'+
+      '<td class="db-zahl">≈ '+eur(m.bw)+'</td>'+
+      '<td>'+ampel[m.ampel]+'</td></tr>';
+  }).join('');
+
+  var pakete=d.sz.map(function(pk){
+    return '<tr><td>'+pk.name+'</td>'+
+      '<td>'+d.kl+' → '+pk.klasseNeu+' <small>('+nf(pk.kennwertNeu)+' kWh/m²a)</small></td>'+
+      '<td class="db-zahl">'+eur(pk.invest)+'</td>'+
+      '<td class="db-zahl">'+eur(pk.foerd)+'</td>'+
+      '<td class="db-zahl">'+eur(pk.netto)+'</td>'+
+      '<td class="db-zahl"><b>'+eur(pk.ersparnis)+'</b></td></tr>';
+  }).join('');
+
+  ziel.innerHTML=
+    '<div class="db-kopf">'+
+      '<img src="logo.png" alt="EBA Energieberater Albdonau">'+
+      '<div><b>Ihr Sanierungsbericht</b><span>Erstellt am '+heute+'<br>energieberater-albdonau.de · 0152 24290826</span></div>'+
+    '</div>'+
+    '<div class="db-block"><h2>Ihre Angaben</h2>'+angaben+'</div>'+
+    '<div class="db-block"><h2>Ihr Ergebnis</h2>'+kern+
+      '<p class="db-hinweis">'+($('kalibBox').textContent||'')+'</p></div>'+
+    '<div class="db-block"><h2>Was welche Maßnahme spart</h2>'+
+      '<table><thead><tr><th>Maßnahme</th><th class="db-zahl">Kosten (Spanne)</th><th class="db-zahl">Förderung*</th><th class="db-zahl">Spart pro Jahr</th><th class="db-zahl">Über Lebensdauer</th><th>Einordnung</th></tr></thead>'+
+      '<tbody>'+zeilen+'</tbody></table></div>'+
+    '<div class="db-block"><h2>Sinnvolle Pakete</h2>'+
+      '<table><thead><tr><th>Paket</th><th>Klasse</th><th class="db-zahl">Investition</th><th class="db-zahl">Förderung*</th><th class="db-zahl">Eigenanteil</th><th class="db-zahl">Spart pro Jahr</th></tr></thead>'+
+      '<tbody>'+pakete+'</tbody></table></div>'+
+    '<div class="db-fuss">'+
+      '<p><b>Wie es weitergeht:</b> Im kostenlosen Erstgespräch klären wir, welcher Schritt bei Ihrem Haus der erste sein sollte – 0152 24290826, EBA Energieberater Albdonau, Griesweg 20, 89160 Dornstadt.</p>'+
+      '<p style="margin-top:6px">Orientierungsrechnung auf Basis statistischer Kennwerte und Ihrer Angaben – ersetzt keine Energieberatung und keinen Energieausweis. Kosten sind regionale Spannen, keine Angebote. *Förderung: Hülle 15 % (mit iSFP 20 %), Heizungstausch 30–70 % – Sätze vor Auftrag prüfen, Stand Juli 2026.</p>'+
+    '</div>';
+  return true;
+}
+
 function ergebnisFuerDb(){
   if(!LETZTES_ERGEBNIS) return null;
   try{
@@ -2364,8 +2480,14 @@ function ergebnisFuerDb(){
   function fertig(art){
     trackEvent('lead_erfasst', art);
     closeLead();
+    /* Eigenstaendiger Bericht statt Abdruck der ganzen Seite. Scheitert der
+       Aufbau, faellt der Druck auf die alte Seitenansicht zurueck. */
+    if(baueDruckbericht()){ document.body.classList.add('druckmodus'); }
     setTimeout(function(){ window.print(); }, 350);
   }
+  window.addEventListener('afterprint', function(){
+    document.body.classList.remove('druckmodus');
+  });
   $('leadForm').addEventListener('submit', function(ev){
     ev.preventDefault();
     var name=$('lead-name').value.trim(), mail=$('lead-mail').value.trim();

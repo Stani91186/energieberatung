@@ -413,6 +413,7 @@ def seite(o):
     # Bausteine aus der Startseite - halten Orts- und Startseite im Gleichstand
     hero_grafik  = ortsfoto(ort)
     foerderblock = abschnitt("ZAHLEN")
+    rechnerteaser = abschnitt("RECHNER")
     ablauf       = abschnitt("ABLAUF")
     kontakt      = abschnitt("KONTAKT")
     defs_svg     = defs_teil()
@@ -593,6 +594,8 @@ def seite(o):
 </section>
 
 {foerderblock}
+
+{rechnerteaser}
 
 {ablauf}
 
