@@ -215,8 +215,25 @@ main .cta-band{margin-bottom:50px}
 def stil():
     return _schnitt(r"<style>\n(.*?)\n</style>", "CSS") + RATGEBER_CSS
 
-def kopf(titel, beschreibung, datei, aktiv_ratgeber=True):
+def vorschaubild(bild_tag=None):
+    """og:image-Block. Ein Artikel nimmt sein eigenes Foto - das ist beim
+    Teilen in WhatsApp aussagekraeftiger als eine immer gleiche Kachel.
+    Die Uebersicht faellt auf vorschau.jpg zurueck."""
+    quelle, breite, hoehe = "vorschau.jpg", 1200, 630
+    if bild_tag:
+        m = re.search(r'src="([^"]+)"[^>]*width="(\d+)"[^>]*height="(\d+)"', bild_tag)
+        if m:
+            quelle, breite, hoehe = m.group(1), m.group(2), m.group(3)
+    return (f'<meta property="og:image" content="{DOMAIN}/{quelle}">\n'
+            f'<meta property="og:image:width" content="{breite}">\n'
+            f'<meta property="og:image:height" content="{hoehe}">\n'
+            f'<meta property="og:image:alt" content="EBA Energieberater Albdonau, '
+            f'Ulm und Alb-Donau-Kreis">')
+
+
+def kopf(titel, beschreibung, datei, aktiv_ratgeber=True, bild=None):
     """Gemeinsamer Seitenkopf."""
+    vorschau = vorschaubild(bild)
     return f"""<!DOCTYPE html>
 <!--
   ============================================================================
@@ -241,6 +258,7 @@ def kopf(titel, beschreibung, datei, aktiv_ratgeber=True):
 <meta property="og:title" content="{titel}">
 <meta property="og:description" content="{beschreibung}">
 <meta property="og:url" content="{DOMAIN}/{datei}">
+{vorschau}
 <meta name="twitter:card" content="summary_large_image">
 <style>
 {stil()}
@@ -412,6 +430,35 @@ ARTIKEL = [
         Den Antrag bereiten wir vor; gestellt wird er von Ihnen als Eigentümer. Das ist
         keine Schikane, sondern Vorgabe des Förderprogramms – Antragsteller und
         Zuschussempfänger müssen dieselbe Person sein.
+      </p>
+
+      <h3>Wie sich das zum Markt verhält</h3>
+      <p>
+        Damit Sie die Zahl einordnen können: Marktübersichten nennen für den
+        Sanierungsfahrplan eines Einfamilienhauses derzeit Honorare zwischen etwa
+        1.300 und 2.100 €, in Einzelfällen bis 2.500 €. Der Eigenanteil nach Abzug
+        der Förderung liegt üblicherweise bei 940 bis 1.350 €.
+      </p>
+      <div class="rg-tabelle">
+        <table>
+          <thead>
+            <tr><th></th><th>Marktüblich</th><th>Bei uns</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Honorar Sanierungsfahrplan</td>
+                <td>ca. 1.300 – 2.100 €</td><td>ab {{PREIS_ISFP}} €</td></tr>
+            <tr><td>Eigenanteil nach Förderung</td>
+                <td>ca. 940 – 1.350 €</td><td>ab {{PREIS_EIGEN}} €</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Wir liegen damit am unteren Rand der marktüblichen Spanne. Das hat einen
+        einfachen Grund und keinen Haken: Ein Einzelbüro ohne Vertrieb, ohne
+        Franchise-Gebühr und ohne Provisionen hat eine andere Kostenstruktur als eine
+        bundesweite Plattform. Wo Ihr Gebäude mehr Aufwand macht – viele Wohneinheiten,
+        fehlende Unterlagen, Denkmalschutz –, sagen wir das vorher und nennen einen
+        entsprechend höheren Festpreis.
       </p>
 
       <div class="rg-warnung">
@@ -1597,8 +1644,20 @@ TELEFON_SVG = ('<svg viewBox="0 0 24 24" aria-hidden="true">'
 
 
 def seitenspalte(aktuell):
-    """Rechte Spalte: Rechner, Kontakt, weitere Artikel."""
-    weitere = [a for a in ARTIKEL if a["datei"] != aktuell][:3]
+    """Rechte Spalte: Rechner, Kontakt, weitere Artikel.
+
+    Die drei Empfehlungen rotieren. Vorher standen hier immer die ersten drei
+    Eintraege der Liste - dadurch bekamen drei Artikel je acht interne Links
+    und die hinteren gar keinen; "Fassade daemmen" hatte genau einen im ganzen
+    Projekt. Jetzt steht der Kosten-Artikel fest (kommerziellste Anfrage), die
+    beiden anderen sind die naechsten nach dem gerade gelesenen, rundum.
+    """
+    namen = [a["datei"] for a in ARTIKEL]
+    i = namen.index(aktuell) if aktuell in namen else -1
+    fest = [ARTIKEL[0]] if aktuell != ARTIKEL[0]["datei"] else []
+    folgend = [ARTIKEL[(i + n) % len(ARTIKEL)] for n in range(1, len(ARTIKEL))]
+    weitere = (fest + [a for a in folgend
+                       if a["datei"] != aktuell and a not in fest])[:3]
     liste = "\n        ".join(
         f'<a href="{a["datei"]}">{a["titel"]}</a>' for a in weitere)
     return f"""  <aside class="rg-spalte">
@@ -1683,7 +1742,7 @@ def artikel_seite(a):
         faq_html = f"\n      <h2>Häufige Fragen</h2>\n{stuecke}"
 
     return (
-        kopf(a["seitentitel"], a["beschreibung"], a["datei"])
+        kopf(a["seitentitel"], a["beschreibung"], a["datei"], bild=a["bild"])
         + json_ld({"@context": "https://schema.org", "@graph": graph})
         + f"""
 <main id="inhalt">

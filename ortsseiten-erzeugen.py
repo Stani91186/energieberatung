@@ -524,6 +524,9 @@ def seite(o):
     lage      = o["lage"];      bausubstanz  = o["bausubstanz"]
     besonderheit = o["besonderheit"]; typisch = o["typisch"]
     isfp_hinweis = o["isfp_hinweis"]
+    # Ulm ist kreisfrei und liegt NICHT im Alb-Donau-Kreis.
+    kreis_h2 = ("in Ulm und im Alb-Donau-Kreis" if o["ort"] == "Ulm"
+                else f'{o["artikel"]} {o["ort"]} im Alb-Donau-Kreis')
     tel_link  = TEL_LINK
     nachbar_links = "\n".join(
         f'        <a href="{x["datei"]}">Energieberatung {x["ort"]}</a>' for x in andere)
@@ -552,6 +555,14 @@ def seite(o):
 <meta property="og:title" content="{o['titel_zusatz']} – erst rechnen, dann sanieren">
 <meta property="og:description" content="{o['beschreibung']}">
 <meta property="og:url" content="{url}">
+<!-- Bewusst das eigene vorschau.jpg und NICHT das Stadtfoto: die Ortsbilder
+     stehen unter CC-BY bzw. CC-BY-SA und verlangen Namensnennung. Die steht
+     als Bildunterschrift auf der Seite - in einer WhatsApp-Vorschau reist sie
+     aber nicht mit. -->
+<meta property="og:image" content="{DOMAIN}/vorschau.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="EBA Energieberater Albdonau, Ulm und Alb-Donau-Kreis">
 <meta name="twitter:card" content="summary_large_image">
 <style>
 {stil()}
@@ -651,7 +662,7 @@ def seite(o):
     <div class="ort-text">
       <div class="section-head">
         <span class="eyebrow">Vor Ort</span>
-        <h2>Energieberatung {artikel} {ort} – Sanierungsfahrplan, Förderung, Energieausweis</h2>
+        <h2>Energieberatung {kreis_h2} – Sanierungsfahrplan, Förderung, Energieausweis</h2>
         <p class="lead">{lage}</p>
       </div>
       <p>
