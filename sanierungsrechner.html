@@ -1240,6 +1240,11 @@ var CONFIG = {
     abgleich:[800,1800], rohr:[500,1500]
   },
   lebensdauer:{ wand:40, dach:35, ogd:40, kellerdecke:40, fenster:30, tuer:30, wp:20, brennwert:20, abgleich:15, rohr:30 },
+  /* Anteil der regelmaessig beheizten Raeume. War frueher eine eigene Frage
+     (25/50/75/100 %). Sie ist entfallen, weil sie fuer die meisten Haushalte
+     ohnehin bei 90-100 % liegt und die Rechnung ohnehin am realen Verbrauch
+     kalibriert wird - der erfasst kalte Zimmer bereits. Hier aenderbar. */
+  beheizterAnteil:90,
   abgleichEinsparung:0.08, rohrEinsparung:0.03,
   /* Beim Einbau einer Waermepumpe liefert der Heizungsbetrieb den
      hydraulischen Abgleich und die Rohrdaemmung praktisch immer mit -
@@ -1340,7 +1345,7 @@ function berechne(e, mods){
   var gamma = (qi+qs)/qVerlust;
   var eta = gamma>=1 ? 5/6 : (1-Math.pow(gamma,5))/(1-Math.pow(gamma,6));
   var qHeiz = Math.max(qVerlust - eta*(qi+qs), CONFIG.minHeizbedarf*e.wohnflaeche);
-  qHeiz *= (0.55 + 0.45*(e.beheizt/100));
+  qHeiz *= (0.55 + 0.45*(CONFIG.beheizterAnteil/100));
 
   /* --- Warmwasser (3.6) --- */
   var qWW = e.personen * CONFIG.wwBasis[e.wwNiveau];
@@ -1618,8 +1623,6 @@ function icon(key){
 var STEPS = [
  { t:'Bewohner & Nutzung', s:'Wer wohnt im Haus und wie wird geheizt?', f:[
    {id:'personen',l:'Anzahl Bewohner',type:'number',min:1,max:10,def:3},
-   {id:'beheizt',l:'Anteil beheizter Räume',type:'seg',opts:[[25,'25 %'],[50,'50 %'],[75,'75 %'],[100,'100 %']],def:100,
-    info:'Zählen Sie nur Räume, die regelmäßig geheizt werden. Bleiben Schlafzimmer, Gästezimmer oder eine Einliegerwohnung meist kalt, wählen Sie 50–75 % – das macht die Rechnung deutlich realistischer.'},
    {id:'baujahr',l:'Baujahr des Hauses',type:'number',min:1850,max:2026,def:1975},
    {id:'region',l:'Klimaregion',type:'seg',opts:[['nord','Nord'],['mitte','Mitte'],['sued','Süd'],['alpen','Alpenvorland']],def:'mitte'}
  ]},
@@ -2768,7 +2771,7 @@ function ergebnisFuerDb(){
 
 /* ===== Beispielhaus & Steuerung ===== */
 var BEISPIEL = {
-  personen:4, beheizt:100, baujahr:1965, region:'mitte',
+  personen:4, baujahr:1965, region:'mitte',
   haustyp:'frei', geschosse:2,
   laengeA:10, breiteB:8, wohnflaeche:140, raumhoehe:2.5,
   wandGedaemmt:'nein', wandDaemmJahr:2000, wandDaemmDicke:0,
