@@ -56,12 +56,20 @@ Diese Punkte sind noch offen. Die ersten drei sind rechtlich zwingend.
    auf den alten Hoster (85.13.141.37) und läuft dort in eine endlose
    Weiterleitung zwischen `http://` und `https://`; das SSL-Zertifikat lautet
    auf `*.kasserver.com`. Wer die Adresse eingibt, sieht eine Fehlermeldung.
-   Zu tun: die vier A-Records auf **185.199.108.153, 185.199.109.153,
-   185.199.110.153, 185.199.111.153** setzen, die **MX-Einträge unangetastet
-   lassen** (sonst ist Ihre E-Mail weg), die alte WordPress-Installation
-   abschalten und in GitHub unter Settings → Pages die Domain eintragen und
-   „Enforce HTTPS" ankreuzen. Die Datei `CNAME` liegt bereits im Projekt.
-   Bis dahin ist die Seite nur unter
+   Zu tun, **in genau dieser Reihenfolge**:
+   1. Beim Domain-Anbieter die vier A-Records auf **185.199.108.153,
+      185.199.109.153, 185.199.110.153, 185.199.111.153** setzen.
+      Die **MX-Einträge unangetastet lassen** (sonst ist Ihre E-Mail weg).
+      Die alte WordPress-Installation abschalten.
+   2. **Erst danach** in GitHub unter Settings → Pages die Domain
+      `energieberater-albdonau.de` eintragen und „Enforce HTTPS" ankreuzen
+      (GitHub legt die Datei `CNAME` dabei selbst an).
+
+   Die Reihenfolge ist wichtig: Wird die Domain bei GitHub eingetragen,
+   solange das DNS noch auf den alten Hoster zeigt, leitet auch die
+   github.io-Adresse dorthin um – die Seite ist dann **nirgends** mehr
+   erreichbar. Genau das ist am 15.08.2026 für einige Stunden passiert.
+   Bis zur Umstellung ist die Seite nur unter
    `https://stani91186.github.io/energieberatung/` erreichbar.
 1. **E-Mail-Adresse** eintragen – im Impressum Pflichtangabe.
    Suchen nach `kontakt@ihre-domain.de` in `index.html`, `impressum.html`,
