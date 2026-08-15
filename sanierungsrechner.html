@@ -515,6 +515,30 @@ details.annahmen[open] summary::after{content:"–"}
 #druckbericht .db-fuss{margin-top:22px;padding-top:12px;border-top:1.5px solid #2E4A3C;font-size:.73rem;color:#4B453D}
 #druckbericht .db-fuss b{color:#1D1A15}
 #druckbericht .db-block{break-inside:avoid}
+/* Haus und Klassenskala nebeneinander - eine Seite, ein Blick */
+#druckbericht .db-bild{display:grid;grid-template-columns:44% 1fr;gap:18px;align-items:start;margin-top:8px}
+#druckbericht .db-bild svg{width:100%;height:auto}
+#druckbericht .db-bildunter{font-size:.68rem;color:#6F685C;margin-top:4px;text-align:center}
+#druckbericht .db-skala .ea{gap:3px;margin-top:6px}
+#druckbericht .db-skala .ea-arrow{height:21px;font-size:.72rem}
+#druckbericht .db-skala .ea-mark{font-size:.64rem;padding:3px 8px}
+#druckbericht .db-skala .ea-range{font-size:.64rem}
+/* Vier Wege: Karten statt nackter Tabelle */
+#druckbericht .db-wege{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:8px}
+#druckbericht .db-weg{border:1px solid #E7DFD1;border-radius:9px;padding:10px 12px;break-inside:avoid}
+#druckbericht .db-weg h3{font-size:.86rem;margin:0 0 2px;color:#1D1A15}
+#druckbericht .db-weg .db-weg-sub{font-size:.68rem;color:#6F685C;display:block;margin-bottom:6px}
+#druckbericht .db-weg-klassen{display:flex;align-items:center;gap:6px;margin-bottom:7px;font-size:.7rem;color:#6F685C}
+#druckbericht .db-weg-kv{display:grid;grid-template-columns:repeat(2,1fr);gap:3px 10px;font-size:.72rem}
+#druckbericht .db-weg-kv b{color:#6F685C;font-weight:600}
+#druckbericht .db-weg-kv span{float:right;font-weight:700;color:#1D1A15}
+#druckbericht .db-chips{margin-top:6px;font-size:.64rem;color:#4B453D;line-height:1.5}
+/* Auswahl des Kunden */
+#druckbericht .db-auswahl{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
+#druckbericht .db-auswahl div{border:1px solid #E7DFD1;border-radius:8px;padding:8px 10px;text-align:center}
+#druckbericht .db-auswahl b{display:block;font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:#6F685C}
+#druckbericht .db-auswahl span{font-size:.98rem;font-weight:700}
+#druckbericht .db-gewaehlt{font-size:.74rem;color:#4B453D;margin-top:7px}
 
 @media print{
   /* Druckmodus: NUR der Bericht. Die Seite selbst bleibt komplett weg -
@@ -522,6 +546,11 @@ details.annahmen[open] summary::after{content:"–"}
   body.druckmodus > :not(#druckbericht){display:none !important}
   body.druckmodus{padding-top:0 !important;background:#fff !important}
   body.druckmodus #druckbericht{display:block}
+  /* Ohne diese Zeile druckt der Browser Hintergrundfarben NICHT - die
+     Klassenskala und die Hausgrafik kaemen weiss heraus. */
+  #druckbericht,#druckbericht *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #druckbericht .ea-mark{opacity:1 !important;transform:none !important;animation:none !important}
+  #druckbericht .il-spin,#druckbericht .il-wave{animation:none !important}
 
   .site-header,.intro-actions,#wizardPanel,.res-cta,.site-footer,.no-print{display:none!important}
   body{background:#fff;font-size:12px}
@@ -2348,6 +2377,16 @@ function updateSim(){
     keller:ht(nach,['kellerdecke','boden'])/tot,
     lueftung:nach.HV/tot
   };
+  /* Stand des Simulators festhalten: Der Bericht soll zeigen, was der Kunde
+     tatsaechlich angeklickt hat - vorher enthielt er nur die Erstberechnung. */
+  SIM_BERICHT = {
+    tg: JSON.parse(JSON.stringify(tg)), heiz: SIM.heiz, shares: shares,
+    invest: invest, foerd: foerd, netto: Math.max(0, invest - foerd),
+    ersparnis: ersparnis, klVor: klV, klNach: klN,
+    kwVor: kwVor, kwNach: kwNach, kostenVor: kostenVor, kostenNach: kostenNach,
+    dachIstOgd: SIM.dachIstOgd
+  };
+
   var sig = JSON.stringify([tg, SIM.heiz]);
   function swPfeil(a){ return Math.max(3, Math.round(3 + a*22)); }
   if(SIM._sig===sig && document.getElementById('arwS_dach')){
@@ -2450,6 +2489,7 @@ var SUPABASE_KEY = 'sb_publishable_sTIrPusPKapueKw7ARBQEw_HNIvKDRt';
 var LEAD_ZIEL = SUPABASE_URL ? SUPABASE_URL + '/rest/v1/leads' : '';
 var LETZTES_ERGEBNIS = null;
 var BERICHT_DATEN = null;
+var SIM_BERICHT = null;   /* was der Kunde im Simulator eingestellt hat */
 
 /* Ergebnis nur mitschicken, wenn es in die Spalte passt (Grenze: 20.000
    Zeichen). Sonst wuerde die Datenbank den kompletten Datensatz abweisen –
@@ -2495,6 +2535,69 @@ function baueDruckbericht(){
       '<td class="db-zahl"><b>'+eur(pk.ersparnis)+'</b></td></tr>';
   }).join('');
 
+  /* Klassenskala 1:1 aus der Seite uebernehmen - so ist garantiert dasselbe
+     zu sehen wie auf dem Bildschirm. */
+  var skala = $('band') ? $('band').innerHTML : '';
+
+  /* Haus mit dem Stand, den der Kunde eingestellt hat. Ohne Simulator-
+     Zustand (falls noch nichts geklickt wurde) der Ist-Zustand. */
+  var haus = '';
+  try{
+    var sb = SIM_BERICHT;
+    haus = isoHausSvg(sb ? sb.shares : null, sb ? sb.tg : {},
+      { marker:'P', panels: sb ? sb.tg.dach : false, wp: sb ? sb.heiz==='wp' : false });
+  }catch(err){ haus=''; }
+
+  /* Was der Kunde angeklickt hat, im Klartext */
+  var gewaehlt = [];
+  if(SIM_BERICHT){
+    var t=SIM_BERICHT.tg;
+    if(t.wand) gewaehlt.push('Außenwand dämmen');
+    if(t.dach) gewaehlt.push(SIM_BERICHT.dachIstOgd?'Oberste Geschossdecke dämmen':'Dach dämmen');
+    if(t.keller) gewaehlt.push('Kellerdecke dämmen');
+    if(t.fenster) gewaehlt.push('Fenster tauschen');
+    if(t.abgleich) gewaehlt.push('Hydraulischer Abgleich');
+    if(t.rohr) gewaehlt.push('Rohrleitungen dämmen');
+    if(SIM_BERICHT.heiz==='wp') gewaehlt.push('Wärmepumpe');
+    if(SIM_BERICHT.heiz==='brennwert') gewaehlt.push('Brennwertkessel');
+  }
+
+  var auswahl='';
+  if(SIM_BERICHT && gewaehlt.length){
+    var sb2=SIM_BERICHT;
+    auswahl='<div class="db-block"><h2>Ihre Auswahl im Rechner</h2>'+
+      '<div class="db-auswahl">'+
+        '<div><b>Investition</b><span>'+eur(sb2.invest)+'</span></div>'+
+        '<div><b>Förderung*</b><span>'+eur(sb2.foerd)+'</span></div>'+
+        '<div><b>Eigenanteil</b><span>'+eur(sb2.netto)+'</span></div>'+
+        '<div><b>Spart pro Jahr</b><span>'+eur(sb2.ersparnis)+'</span></div>'+
+      '</div>'+
+      '<p class="db-gewaehlt"><b>Eingeplant:</b> '+gewaehlt.join(' · ')+'.<br>'+
+      'Effizienzklasse <b>'+sb2.klVor+'</b> ('+nf(sb2.kwVor)+' kWh/m²a) → <b>'+sb2.klNach+'</b> ('+nf(sb2.kwNach)+' kWh/m²a). '+
+      'Energiekosten '+eur(sb2.kostenVor)+' → '+eur(sb2.kostenNach)+' pro Jahr.</p></div>';
+  }
+
+  /* Vier Wege im Vergleich - als Karten, wie auf dem Bildschirm */
+  var wege=d.sz.map(function(pk){
+    var chips=(pk.ids||[]).map(function(id){ return MN_NAMEN[id]||id; }).join(' · ');
+    return '<div class="db-weg">'+
+      '<h3>'+pk.name+'</h3><span class="db-weg-sub">'+(pk.sub||'')+'</span>'+
+      '<div class="db-weg-klassen">'+
+        '<span class="db-klasse" style="background:'+(CONFIG.klassenFarben[d.kl]||'#555')+'">'+d.kl+'</span>'+
+        '<span>→</span>'+
+        '<span class="db-klasse" style="background:'+(CONFIG.klassenFarben[pk.klasseNeu]||'#555')+'">'+pk.klasseNeu+'</span>'+
+        '<span>'+nf(pk.kennwertNeu)+' kWh/m²a</span>'+
+      '</div>'+
+      '<div class="db-weg-kv">'+
+        '<div><b>Investition</b><span>'+eur(pk.invest)+'</span></div>'+
+        '<div><b>Förderung*</b><span>'+eur(pk.foerd)+'</span></div>'+
+        '<div><b>Eigenanteil</b><span>'+eur(pk.netto)+'</span></div>'+
+        '<div><b>Spart/Jahr</b><span>'+eur(pk.ersparnis)+'</span></div>'+
+      '</div>'+
+      (chips?'<p class="db-chips"><b>Enthält:</b> '+chips+'</p>':'')+
+    '</div>';
+  }).join('');
+
   ziel.innerHTML=
     '<div class="db-kopf">'+
       '<img src="logo.png" alt="EBA Energieberater Albdonau">'+
@@ -2502,13 +2605,18 @@ function baueDruckbericht(){
     '</div>'+
     '<div class="db-block"><h2>Ihre Angaben</h2>'+angaben+'</div>'+
     '<div class="db-block"><h2>Ihr Ergebnis</h2>'+kern+
+      '<div class="db-bild">'+
+        '<div>'+haus+'<p class="db-bildunter">Ihr Haus – Pfeildicke zeigt, wo die Wärme entweicht'+
+          (gewaehlt.length?'; grün markiert ist, was Sie eingeplant haben':'')+'</p></div>'+
+        '<div class="db-skala"><b style="font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:#6F685C">Energieeffizienzklasse</b>'+skala+'</div>'+
+      '</div>'+
       '<p class="db-hinweis">'+($('kalibBox').textContent||'')+'</p></div>'+
+    auswahl+
     '<div class="db-block"><h2>Was welche Maßnahme spart</h2>'+
       '<table><thead><tr><th>Maßnahme</th><th class="db-zahl">Kosten (Spanne)</th><th class="db-zahl">Förderung*</th><th class="db-zahl">Spart pro Jahr</th><th class="db-zahl">Über Lebensdauer</th><th>Einordnung</th></tr></thead>'+
       '<tbody>'+zeilen+'</tbody></table></div>'+
-    '<div class="db-block"><h2>Sinnvolle Pakete</h2>'+
-      '<table><thead><tr><th>Paket</th><th>Klasse</th><th class="db-zahl">Investition</th><th class="db-zahl">Förderung*</th><th class="db-zahl">Eigenanteil</th><th class="db-zahl">Spart pro Jahr</th></tr></thead>'+
-      '<tbody>'+pakete+'</tbody></table></div>'+
+    '<div class="db-block"><h2>Vier Wege im Vergleich</h2>'+
+      '<div class="db-wege">'+wege+'</div></div>'+
     '<div class="db-fuss">'+
       '<p><b>Wie es weitergeht:</b> Im kostenlosen Erstgespräch klären wir, welcher Schritt bei Ihrem Haus der erste sein sollte – 0152 24290826, EBA Energieberater Albdonau, Griesweg 20, 89160 Dornstadt.</p>'+
       '<p style="margin-top:6px">Orientierungsrechnung auf Basis statistischer Kennwerte und Ihrer Angaben – ersetzt keine Energieberatung und keinen Energieausweis. Kosten sind regionale Spannen, keine Angebote. *Förderung: Hülle 15 % (mit iSFP 20 %), Heizungstausch 30–70 % – Sätze vor Auftrag prüfen, Stand Juli 2026.</p>'+
