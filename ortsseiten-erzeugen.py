@@ -402,7 +402,10 @@ ORTS_CSS = """
    klebend, die Grafik laeuft mit dem Text durch. Das Haus behaelt seine
    Klassen von der Startseite (.hero-visual/.hero-illu), damit CSS und
    Popup-Skript unveraendert greifen. */
-.ort-inhalt{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start}
+/* 490px Grafikspalte = exakt die Breite, die das Haus auch im Hero der
+   Startseite hat. Bei 400px schrumpften die Schildchen (Dach, Fassade ...)
+   auf ~9px Schrift - der Betreiber meldete sie als "fehlend". */
+.ort-inhalt{display:grid;grid-template-columns:minmax(0,1fr) 490px;gap:48px;align-items:start}
 /* Die Grafik beginnt auf Hoehe der Ueberschrift; etwas Luft nach oben,
    damit sie optisch an der H2 haengt und nicht am Eyebrow klebt. */
 .ort-inhalt .hero-visual{margin-top:14px}
