@@ -27,6 +27,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Datenschutzerklärung | EBA Energieberater Albdonau</title>
 <meta name="description" content="Datenschutzerklärung der Energieberatung Stanislaw Tsukerman: welche Daten verarbeitet werden, auf welcher Grundlage und welche Rechte Sie haben.">
+<link rel="canonical" href="https://energieberater-albdonau.de/datenschutz.html">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#FDFBF7">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E4A3C'/%3E%3Cg transform='translate(12.4,3.7) scale(0.78)'%3E%3Cpath d='M25 3 2 28 2 63 30 63 30 70 48 70 48 30Z' fill='none' stroke='%23FDFBF7' stroke-width='4.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M24.5 36C27.5 44 26.5 52 19 57 12 61.5 6.5 57.5 7.5 51 8.5 44 16 39 24.5 36ZM23.5 38.5C20 44 16 49 11.5 54.5 15.5 49.5 19 44.5 22.8 38.2Z' fill='%23E8B87A' fill-rule='evenodd'/%3E%3C/g%3E%3C/svg%3E">
@@ -167,7 +168,10 @@ address{font-style:normal;color:var(--ink-2)}
 .btn-primary:hover svg{transform:translateX(4px)}
 .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
 .btn-ghost:hover{border-color:var(--forest);background:var(--white);transform:translateY(-2px)}
-.btn-amber{background:var(--amber);color:#fff;box-shadow:0 6px 18px rgba(192,122,46,.26)}
+/* Hintergrund --amber-deep statt --amber: weisse Schrift auf --amber ergab
+   nur 3,46:1 und verfehlte damit WCAG AA (4,5:1). --amber-deep liefert
+   5,16:1 und ist dieselbe Markenfarbe, nur eine Stufe dunkler. */
+.btn-amber{background:var(--amber-deep);color:#fff;box-shadow:0 6px 18px rgba(156,95,30,.28)}
 .btn-amber:hover{background:var(--amber-deep);transform:translateY(-2px)}
 .btn-sm{padding:11px 20px;font-size:.87rem}
 /* ===========================================================================
@@ -250,7 +254,8 @@ address{font-style:normal;color:var(--ink-2)}
 .site-footer{background:var(--cream-2);border-top:1px solid var(--line);padding:66px 0 30px;margin-top:0}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:34px;padding-bottom:44px}
 .footer-brand p{font-size:.9rem;color:var(--ink-2);margin:18px 0 22px;max-width:34ch}
-.footer-col h4{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
+/* h3 statt h4: der Fussbereich sprang von H2 auf H4 (Ebene uebersprungen). */
+.footer-col h3{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
 .footer-col a{display:block;font-size:.9rem;color:var(--ink-2);padding:6px 0;transition:color .25s}
 .footer-col a:hover{color:var(--amber-deep)}
 .badges{display:flex;flex-wrap:wrap;gap:9px;padding:26px 0;border-top:1px solid var(--line)}
@@ -624,7 +629,7 @@ address{font-style:normal;color:var(--ink-2)}
       </div>
 
       <div class="footer-col">
-        <h4>Leistungen</h4>
+        <h3>Leistungen</h3>
         <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
         <a href="index.html#leistungen">Fördermittel</a>
         <a href="index.html#leistungen">Baubegleitung</a>
@@ -633,7 +638,7 @@ address{font-style:normal;color:var(--ink-2)}
       </div>
 
       <div class="footer-col">
-        <h4>Einsatzgebiet</h4>
+        <h3>Einsatzgebiet</h3>
         <a href="energieberatung-ulm.html">Ulm</a>
         <a href="energieberatung-blaustein.html">Blaustein</a>
         <a href="energieberatung-langenau.html">Langenau</a>
@@ -645,7 +650,7 @@ address{font-style:normal;color:var(--ink-2)}
       </div>
 
       <div class="footer-col">
-        <h4>Ratgeber</h4>
+        <h3>Ratgeber</h3>
         <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a>
         <a href="ratgeber-reihenfolge-sanierung.html">Richtige Reihenfolge</a>
         <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer</a>
@@ -655,7 +660,7 @@ address{font-style:normal;color:var(--ink-2)}
       </div>
 
       <div class="footer-col">
-        <h4>Kontakt</h4>
+        <h3>Kontakt</h3>
         <a href="tel:+4915224290826">0152 24290826</a>
         <!-- [TODO] echte E-Mail-Adresse eintragen -->
         <a href="mailto:kontakt@ihre-domain.de">[kontakt@ihre-domain.de]</a>

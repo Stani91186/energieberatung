@@ -286,7 +286,10 @@ td:first-child{color:var(--ink);font-weight:500}
 .btn-primary:hover svg{transform:translateX(4px)}
 .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
 .btn-ghost:hover{border-color:var(--forest);background:var(--white);transform:translateY(-2px)}
-.btn-amber{background:var(--amber);color:#fff;box-shadow:0 6px 18px rgba(192,122,46,.26)}
+/* Hintergrund --amber-deep statt --amber: weisse Schrift auf --amber ergab
+   nur 3,46:1 und verfehlte damit WCAG AA (4,5:1). --amber-deep liefert
+   5,16:1 und ist dieselbe Markenfarbe, nur eine Stufe dunkler. */
+.btn-amber{background:var(--amber-deep);color:#fff;box-shadow:0 6px 18px rgba(156,95,30,.28)}
 .btn-amber:hover{background:var(--amber-deep);transform:translateY(-2px)}
 .btn-sm{padding:11px 20px;font-size:.87rem}
 /* ===========================================================================
@@ -369,7 +372,8 @@ td:first-child{color:var(--ink);font-weight:500}
 .site-footer{background:var(--cream-2);border-top:1px solid var(--line);padding:66px 0 30px;margin-top:0}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:34px;padding-bottom:44px}
 .footer-brand p{font-size:.9rem;color:var(--ink-2);margin:18px 0 22px;max-width:34ch}
-.footer-col h4{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
+/* h3 statt h4: der Fussbereich sprang von H2 auf H4 (Ebene uebersprungen). */
+.footer-col h3{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
 .footer-col a{display:block;font-size:.9rem;color:var(--ink-2);padding:6px 0;transition:color .25s}
 .footer-col a:hover{color:var(--amber-deep)}
 .badges{display:flex;flex-wrap:wrap;gap:9px;padding:26px 0;border-top:1px solid var(--line)}
@@ -720,7 +724,7 @@ td:first-child{color:var(--ink);font-weight:500}
       </div>
 
       <div class="footer-col">
-        <h4>Leistungen</h4>
+        <h3>Leistungen</h3>
         <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
         <a href="index.html#leistungen">Fördermittel</a>
         <a href="index.html#leistungen">Baubegleitung</a>
@@ -729,7 +733,7 @@ td:first-child{color:var(--ink);font-weight:500}
       </div>
 
       <div class="footer-col">
-        <h4>Einsatzgebiet</h4>
+        <h3>Einsatzgebiet</h3>
         <a href="energieberatung-ulm.html">Ulm</a>
         <a href="energieberatung-blaustein.html">Blaustein</a>
         <a href="energieberatung-langenau.html">Langenau</a>
@@ -741,7 +745,7 @@ td:first-child{color:var(--ink);font-weight:500}
       </div>
 
       <div class="footer-col">
-        <h4>Ratgeber</h4>
+        <h3>Ratgeber</h3>
         <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a>
         <a href="ratgeber-reihenfolge-sanierung.html">Richtige Reihenfolge</a>
         <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer</a>
@@ -751,7 +755,7 @@ td:first-child{color:var(--ink);font-weight:500}
       </div>
 
       <div class="footer-col">
-        <h4>Kontakt</h4>
+        <h3>Kontakt</h3>
         <a href="tel:+4915224290826">0152 24290826</a>
         <!-- [TODO] echte E-Mail-Adresse eintragen -->
         <a href="mailto:kontakt@ihre-domain.de">[kontakt@ihre-domain.de]</a>

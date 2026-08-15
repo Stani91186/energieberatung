@@ -201,7 +201,7 @@ ORTE = [
     "einwohner": "rund 8.700",
     "entfernung": "direkt vor Ort",
     "titel_zusatz": "Energieberatung Dornstadt",
-    "beschreibung": "Energieberatung in Dornstadt: Sanierungsfahrplan, Förderung und Energieausweis – vom Energieberater direkt aus dem Ort.",
+    "beschreibung": "Energieberatung in Dornstadt: Sanierungsfahrplan, Fördermittel und Energieausweis – vom Energieberater direkt aus dem Ort, produktneutral und ohne Provision.",
     "lage": "Dornstadt liegt nördlich von Ulm am Übergang zur Albhochfläche, auf rund "
             "600 Metern Höhe. Damit ist es klimatisch weder Donautal noch Alb, sondern "
             "liegt dazwischen – ein Detail, das bei der Heizlast durchaus ins Gewicht fällt.",

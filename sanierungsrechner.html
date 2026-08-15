@@ -56,7 +56,9 @@
   --kopf-klein:  80px;    /* nach dem Scrollen */
   --maxw:980px;--ease:cubic-bezier(.22,.61,.36,1);
   /* Status (Ampel) – nur hierfür reserviert */
-  --ok:#2F7D46;--ok-soft:#E3F0E7;--warn:#B98514;--warn-soft:#F8EFD8;--bad:#B3402E;--bad-soft:#F6E3DF;
+  /* --ok und --bad je eine Stufe dunkler: die Ampel-Beschriftungen lagen
+     bei 4,32:1 und damit knapp unter dem AA-Minimum von 4,5:1. */
+  --ok:#2A6E3E;--ok-soft:#E3F0E7;--warn:#B98514;--warn-soft:#F8EFD8;--bad:#A03928;--bad-soft:#F6E3DF;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 /* scroll-padding-top: Die Kopfzeile ist fest (fixed). Ohne diesen Abstand
@@ -212,7 +214,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .tile .t-label{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .tile .t-value{font-family:var(--font-serif);font-size:1.9rem;line-height:1.05;color:var(--forest)}
 .tile .t-sub{font-size:.78rem;color:var(--muted);margin-top:6px}
-.klasse-chip{display:inline-grid;place-items:center;min-width:46px;height:46px;border-radius:12px;font-family:var(--font-serif);font-size:1.5rem;color:#fff;padding:0 10px}
+.klasse-chip{display:inline-grid;place-items:center;min-width:46px;height:46px;border-radius:12px;font-family:var(--font-serif);font-size:1.5rem;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.55);padding:0 10px}
 
 /* Energieklassen-Skala im Energieausweis-Stil (Pfeile A+ … H) */
 .band-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:26px 28px;margin:14px 0 26px}
@@ -230,7 +232,10 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .sim-bericht span{font-size:.78rem;color:#6B5638;text-align:center;line-height:1.45}
 .ea{display:grid;gap:5px;margin-top:18px}
 .ea-row{display:flex;align-items:center;gap:10px}
-.ea-arrow{height:29px;display:flex;align-items:center;padding-left:12px;color:rgba(255,255,255,.96);font-weight:700;font-size:.84rem;border-radius:4px 0 0 4px;flex:none;
+/* Die Klassenfarben sind genormt (Energieausweis) und bleiben. Weisse
+   Schrift darauf erreichte auf den hellen Klassen B-D nur 2,35:1; ein
+   dunkler Schatten hebt sie ab, ohne die Farbskala anzutasten. */
+.ea-arrow{height:29px;display:flex;align-items:center;padding-left:12px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.55);font-weight:700;font-size:.84rem;border-radius:4px 0 0 4px;flex:none;
   clip-path:polygon(0 0,calc(100% - 13px) 0,100% 50%,calc(100% - 13px) 100%,0 100%)}
 .ea-range{font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums;margin-left:auto;flex:none}
 .ea-mark{display:inline-flex;align-items:center;background:var(--ink);color:#FBF8F2;font-size:.72rem;font-weight:600;padding:5px 12px;border-radius:100px;white-space:nowrap;opacity:0;transform:translateX(-10px);animation:eaIn .7s var(--ease) forwards}
@@ -321,7 +326,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .info-i{
   display:inline-grid;place-items:center;width:20px;height:20px;margin-left:8px;vertical-align:-4px;
   border:1.5px solid var(--amber);border-radius:50%;background:var(--amber-soft);
-  font-family:var(--font-serif);font-style:normal;font-size:.78rem;font-weight:600;color:var(--amber-deep);
+  font-family:var(--font-serif);font-style:normal;font-size:.78rem;font-weight:600;color:#8A5419;
   cursor:pointer;transition:.2s;box-shadow:0 1px 3px rgba(192,122,46,.18);
 }
 .info-i:hover,.info-i.on{background:var(--amber);color:#fff;transform:scale(1.08)}
@@ -394,7 +399,9 @@ details.annahmen[open] summary::after{content:"–"}
 .res-cta{background:linear-gradient(165deg,var(--forest),#22392E);color:#F4EFE6;border-radius:var(--radius-lg);padding:34px;margin:30px 0 50px;display:grid;grid-template-columns:1.4fr auto;gap:20px;align-items:center}
 .res-cta h2{color:#FBF8F2;margin-bottom:8px}
 .res-cta p{font-size:.9rem;color:rgba(244,239,230,.85)}
-.res-cta .btn{background:var(--amber);color:#fff}
+/* --amber-deep statt --amber: weisse Schrift auf --amber ergab 3,46:1
+   (WCAG AA verlangt 4,5:1). Gleiche Aenderung wie bei .btn-amber. */
+.res-cta .btn{background:var(--amber-deep);color:#fff}
 
 .section-h{margin:34px 0 6px}
 .section-sub{font-size:.88rem;color:var(--muted);max-width:70ch}
@@ -598,7 +605,10 @@ details.annahmen[open] summary::after{content:"–"}
 .btn-primary:hover svg{transform:translateX(4px)}
 .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
 .btn-ghost:hover{border-color:var(--forest);background:var(--white);transform:translateY(-2px)}
-.btn-amber{background:var(--amber);color:#fff;box-shadow:0 6px 18px rgba(192,122,46,.26)}
+/* Hintergrund --amber-deep statt --amber: weisse Schrift auf --amber ergab
+   nur 3,46:1 und verfehlte damit WCAG AA (4,5:1). --amber-deep liefert
+   5,16:1 und ist dieselbe Markenfarbe, nur eine Stufe dunkler. */
+.btn-amber{background:var(--amber-deep);color:#fff;box-shadow:0 6px 18px rgba(156,95,30,.28)}
 .btn-amber:hover{background:var(--amber-deep);transform:translateY(-2px)}
 .btn-sm{padding:11px 20px;font-size:.87rem}
 /* ===========================================================================
@@ -681,7 +691,8 @@ details.annahmen[open] summary::after{content:"–"}
 .site-footer{background:var(--cream-2);border-top:1px solid var(--line);padding:66px 0 30px;margin-top:0}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:34px;padding-bottom:44px}
 .footer-brand p{font-size:.9rem;color:var(--ink-2);margin:18px 0 22px;max-width:34ch}
-.footer-col h4{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
+/* h3 statt h4: der Fussbereich sprang von H2 auf H4 (Ebene uebersprungen). */
+.footer-col h3{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
 .footer-col a{display:block;font-size:.9rem;color:var(--ink-2);padding:6px 0;transition:color .25s}
 .footer-col a:hover{color:var(--amber-deep)}
 .badges{display:flex;flex-wrap:wrap;gap:9px;padding:26px 0;border-top:1px solid var(--line)}
@@ -1050,7 +1061,7 @@ details.annahmen[open] summary::after{content:"–"}
       </div>
 
       <div class="footer-col">
-        <h4>Leistungen</h4>
+        <h3>Leistungen</h3>
         <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
         <a href="index.html#leistungen">Fördermittel</a>
         <a href="index.html#leistungen">Baubegleitung</a>
@@ -1059,7 +1070,7 @@ details.annahmen[open] summary::after{content:"–"}
       </div>
 
       <div class="footer-col">
-        <h4>Einsatzgebiet</h4>
+        <h3>Einsatzgebiet</h3>
         <a href="energieberatung-ulm.html">Ulm</a>
         <a href="energieberatung-blaustein.html">Blaustein</a>
         <a href="energieberatung-langenau.html">Langenau</a>
@@ -1071,7 +1082,7 @@ details.annahmen[open] summary::after{content:"–"}
       </div>
 
       <div class="footer-col">
-        <h4>Ratgeber</h4>
+        <h3>Ratgeber</h3>
         <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a>
         <a href="ratgeber-reihenfolge-sanierung.html">Richtige Reihenfolge</a>
         <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer</a>
@@ -1081,7 +1092,7 @@ details.annahmen[open] summary::after{content:"–"}
       </div>
 
       <div class="footer-col">
-        <h4>Kontakt</h4>
+        <h3>Kontakt</h3>
         <a href="tel:+4915224290826">0152 24290826</a>
         <!-- [TODO] echte E-Mail-Adresse eintragen -->
         <a href="mailto:kontakt@ihre-domain.de">[kontakt@ihre-domain.de]</a>

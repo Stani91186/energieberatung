@@ -1037,6 +1037,55 @@ def uebersicht():
   <div class="wrap rg-liste">
 {karten}  </div>
 
+  <!-- Einordnender Text unter den Karten: Die Uebersicht bestand vorher nur
+       aus Kartenanrissen (208 Woerter) und hatte damit zu wenig eigenen
+       Inhalt, um fuer eigene Suchanfragen zu ranken. -->
+  <div class="wrap rg-inhalt">
+    <div class="rg-text">
+      <h2>Worauf es bei der energetischen Sanierung ankommt</h2>
+      <p>
+        Die meisten Fehler bei der Sanierung entstehen nicht beim Handwerk, sondern
+        davor: bei der Reihenfolge, bei der Förderung und bei der Frage, welche
+        Maßnahme sich am eigenen Haus überhaupt rechnet. Ein ungedämmtes
+        Einfamilienhaus aus den 1970er Jahren verliert Wärme über Dach, Außenwand,
+        Fenster und Kellerdecke – aber nicht gleichmäßig. Wer zuerst dort ansetzt, wo
+        der größte Verlust sitzt, spart mit dem kleinsten Einsatz am meisten.
+      </p>
+      <p>
+        Genauso wichtig ist der Zeitpunkt: <strong>Fördermittel müssen beantragt sein,
+        bevor der Handwerkerauftrag vergeben wird.</strong> Wer erst beauftragt und
+        dann den Antrag stellt, verliert den Zuschuss endgültig – das ist der
+        häufigste und teuerste Fehler, den wir in der Beratung sehen.
+      </p>
+
+      <h2>Für wen diese Beiträge gedacht sind</h2>
+      <p>
+        Wir schreiben für Eigentümerinnen und Eigentümer von Ein- und
+        Zweifamilienhäusern im Alb-Donau-Kreis und rund um Ulm, die vor einer
+        Entscheidung stehen: Heizung erneuern, dämmen, Fenster tauschen – oder erst
+        einmal rechnen. Die Beiträge nehmen niemandem die Entscheidung ab, aber sie
+        machen die Grundlagen klar, auf denen sie getroffen wird.
+      </p>
+      <p>
+        Jeder Beitrag nennt Größenordnungen statt Versprechen. Was Ihr Gebäude
+        tatsächlich verbraucht und einspart, hängt von Baujahr, Bauweise, Lage und
+        Nutzung ab – eine erste Einschätzung liefert der
+        <a href="sanierungsrechner.html">Sanierungsrechner</a>, belastbare Zahlen der
+        <a href="sanierungsfahrplan.html">individuelle Sanierungsfahrplan</a>.
+      </p>
+
+      <h2>Was hier bewusst nicht steht</h2>
+      <p>
+        Keine Produktempfehlungen und keine Herstellernamen. Wir verkaufen weder
+        Heizungen noch Dämmstoffe und bekommen keine Provisionen – deshalb steht in
+        diesen Texten, was sich rechnet, und nicht, was sich verkaufen lässt. Wo
+        Fördersätze oder gesetzliche Vorgaben genannt werden, gilt der Stand zum
+        Zeitpunkt der Veröffentlichung; maßgeblich sind immer die Richtlinien, die bei
+        Ihrer Antragstellung gelten.
+      </p>
+    </div>
+  </div>
+
   <div class="wrap">
 {CTA_BAND}  </div>
 </main>
