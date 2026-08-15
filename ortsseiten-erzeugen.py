@@ -599,6 +599,7 @@ def seite(o):
 </script>
 </head>
 <body>
+<script>document.documentElement.classList.add('js')</script>
 
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 

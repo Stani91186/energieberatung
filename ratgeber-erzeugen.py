@@ -268,6 +268,7 @@ def kopf(titel, beschreibung, datei, aktiv_ratgeber=True, bild=None):
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('js')</script>
 
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 
