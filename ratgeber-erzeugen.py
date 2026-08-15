@@ -80,9 +80,12 @@ def preise():
 # drei getrennten Aufrufstellen wuerde eine davon vergessen - und die
 # Meta-Beschreibung naennte dann einen anderen Preis als der Text darunter.
 MARKEN = {
-    "{{PREIS_ISFP}}":    "isfp_ab",
-    "{{PREIS_FOERDER}}": "foerderung_max",
-    "{{PREIS_EIGEN}}":   "eigen_ab",
+    "{{PREIS_ISFP}}":      "isfp_ab",
+    "{{PREIS_FOERDER}}":   "foerderung_max",
+    "{{PREIS_EIGEN}}":     "eigen_ab",
+    "{{PREIS_AUSWEIS_V}}": "ausweis_verbrauch",
+    "{{PREIS_AUSWEIS_B}}": "ausweis_bedarf",
+    "{{PREIS_ABGLEICH}}":  "abgleich",
 }
 
 
@@ -391,9 +394,15 @@ ARTIKEL = [
               <td>ab {{PREIS_ISFP}} €</td>
             </tr>
             <tr>
-              <td>Energieausweis</td>
+              <td><a href="energieausweis-ulm.html">Energieausweis</a></td>
               <td>Bedarfs- oder Verbrauchsausweis für Verkauf oder Vermietung</td>
-              <td>Festpreis nach kurzem Telefonat</td>
+              <td>Verbrauch ab {{PREIS_AUSWEIS_V}} €, Bedarf ab {{PREIS_AUSWEIS_B}} €</td>
+            </tr>
+            <tr>
+              <td><a href="hydraulischer-abgleich-ulm.html">Hydraulischer Abgleich</a></td>
+              <td>Raumweise Heizlastberechnung nach Verfahren B, Einstellung,
+                  Dokumentation für die Förderung</td>
+              <td>ab {{PREIS_ABGLEICH}} €</td>
             </tr>
             <tr>
               <td>Zweitmeinung</td>
@@ -405,10 +414,11 @@ ARTIKEL = [
       </div>
 
       <p>
-        Der Grund für die zwei Festpreise „nach Telefonat“: Ein Energieausweis für ein
-        Reihenhaus mit vollständigen Unterlagen ist eine andere Arbeit als einer für ein
-        Mehrfamilienhaus mit drei Anbauten aus vier Jahrzehnten. Eine Hausnummer, die
-        für beide gilt, wäre für den einen zu teuer und für den anderen erfunden.
+        Alle genannten Beträge sind Startpreise für ein Ein- oder Zweifamilienhaus,
+        inklusive Umsatzsteuer. Warum bei der Zweitmeinung trotzdem „nach Telefonat“
+        steht: Ein einzelnes Heizungsangebot zu prüfen ist eine andere Arbeit als ein
+        Leistungsverzeichnis über vier Gewerke. Eine Hausnummer, die für beides gilt,
+        wäre für den einen zu teuer und für den anderen erfunden.
       </p>
 
       <h2>Der Sanierungsfahrplan: Preis, Förderung, Eigenanteil</h2>
@@ -770,9 +780,10 @@ ARTIKEL = [
       </ul>
       <p>
         Beim Einbau einer Wärmepumpe liefert der Heizungsbetrieb den hydraulischen
-        Abgleich in aller Regel mit – er ist Voraussetzung für die Förderung. Als eigene
-        Maßnahme lohnt er sich vorher trotzdem, weil er sofort wirkt und die spätere
-        Anlage kleiner ausfallen lässt.
+        Abgleich in aller Regel mit – er ist Voraussetzung für die Förderung. Als
+        <a href="hydraulischer-abgleich-ulm.html">eigene Maßnahme</a> lohnt er sich
+        vorher trotzdem, weil er sofort wirkt und die spätere Anlage kleiner ausfallen
+        lässt.
       </p>
 
       <h2>Was der Betrieb kostet</h2>
@@ -1455,9 +1466,11 @@ ARTIKEL = [
         Käufer ein Argument in der Preisverhandlung.
       </p>
       <p>
-        Für ein Bestandsgebäude im Alb-Donau-Kreis stellen wir beide Varianten aus; den
-        Festpreis nennen wir nach einem kurzen Telefonat, weil der Aufwand stark vom
-        Gebäude abhängt. Was die übrigen Leistungen kosten, steht im Beitrag
+        Für ein Bestandsgebäude im Alb-Donau-Kreis stellen wir beide Varianten aus:
+        den Verbrauchsausweis ab {{PREIS_AUSWEIS_V}} €, den Bedarfsausweis ab
+        {{PREIS_AUSWEIS_B}} € – Endpreise inklusive Umsatzsteuer, Details auf der
+        Seite <a href="energieausweis-ulm.html">Energieausweis</a>. Was die übrigen
+        Leistungen kosten, steht im Beitrag
         <a href="ratgeber-energieberatung-kosten.html">Was kostet eine
         Energieberatung?</a>.
       </p>

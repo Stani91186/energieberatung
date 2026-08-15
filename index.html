@@ -748,6 +748,17 @@ section{position:relative}
 .preis-info{background:var(--forest-soft);border-radius:var(--radius);padding:20px 24px;color:var(--forest);font-size:.93rem}
 .preis-info b{display:block;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.8}
 .preis-fuss{margin-top:20px;font-size:.8rem;color:var(--muted);max-width:74ch}
+/* Weitere Leistungen: kompakte Preisliste unter den beiden grossen Karten */
+.preis-weitere{margin-top:34px;background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:26px 30px}
+.preis-weitere h3{margin:0 0 14px;font-size:1.06rem}
+.preis-weitere ul{list-style:none;margin:0;padding:0}
+.preis-weitere li{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:.95rem}
+.preis-weitere li:last-child{border-bottom:0}
+.preis-weitere a{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.preis-weitere span{color:var(--ink-2)}
+.preis-weitere b{white-space:nowrap;font-weight:700}
+.preis-weitere b::before{content:"ab ";font-weight:400;color:var(--muted);font-size:.84em}
+.preis-weitere li:last-child b::before{content:""}
 @media (max-width:760px){
   .preis-karten{grid-template-columns:1fr;gap:16px}
   .preis-haupt{padding:24px 22px}
@@ -1014,7 +1025,16 @@ section{position:relative}
 </style>
 
 <!-- Strukturierte Daten für Google: lokales Unternehmen.
-     Platzhalter ausfüllen, dann mit dem Rich-Results-Test prüfen. -->
+     Platzhalter ausfüllen, dann mit dem Rich-Results-Test prüfen.
+     Sobald Google-Unternehmensprofil oder Social-Media-Profile existieren,
+     hier ein "sameAs"-Feld ergänzen, z. B.:
+       "sameAs": [
+         "https://www.linkedin.com/company/...",
+         "https://www.instagram.com/..."
+       ],
+     Das verknüpft die Profile mit der Website und stärkt beide.
+     KEIN Review/AggregateRating ergänzen - selbst gesammelte Bewertungen
+     schließt Google von Rich Results aus (Regel 10 in CLAUDE.md). -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1023,7 +1043,24 @@ section{position:relative}
   "name": "EBA Energieberater Albdonau",
   "description": "Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis: individueller Sanierungsfahrplan (iSFP), Fördermittelberatung (BAFA/KfW), Energieausweis und Baubegleitung. Produktneutral und ohne Provision.",
   "url": "https://energieberater-albdonau.de/",
-  "founder": { "@type": "Person", "name": "Stanislaw Tsukerman" },
+  "image": "https://energieberater-albdonau.de/vorschau.jpg",
+  "logo": "https://energieberater-albdonau.de/logo.png",
+  "founder": {
+    "@type": "Person",
+    "name": "Stanislaw Tsukerman",
+    "jobTitle": "Energieberater",
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Eingetragen in der Energie-Effizienz-Expertenliste des Bundes (dena)"
+    }
+  },
+  "knowsAbout": [
+    "Individueller Sanierungsfahrplan (iSFP)",
+    "BAFA- und KfW-Förderung",
+    "Energieausweis nach GEG",
+    "Hydraulischer Abgleich",
+    "Energetische Sanierung von Wohngebäuden"
+  ],
   "telephone": "+4915224290826",
   "email": "kontakt@ihre-domain.de",
   "address": {
@@ -1034,6 +1071,11 @@ section{position:relative}
     "addressRegion": "Baden-Württemberg",
     "addressCountry": "DE"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 48.4703,
+    "longitude": 9.9430
+  },
   "areaServed": [
     { "@type": "AdministrativeArea", "name": "Alb-Donau-Kreis" },
     { "@type": "City", "name": "Ulm" },
@@ -1042,7 +1084,9 @@ section{position:relative}
     { "@type": "City", "name": "Blaustein" },
     { "@type": "City", "name": "Langenau" },
     { "@type": "City", "name": "Ehingen" },
-    { "@type": "City", "name": "Laichingen" }
+    { "@type": "City", "name": "Laichingen" },
+    { "@type": "City", "name": "Blaubeuren" },
+    { "@type": "City", "name": "Erbach" }
   ],
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
@@ -1052,10 +1096,11 @@ section{position:relative}
   },
   "priceRange": "€€",
   "makesOffer": [
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Individueller Sanierungsfahrplan (iSFP)" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Individueller Sanierungsfahrplan (iSFP)", "url": "https://energieberater-albdonau.de/sanierungsfahrplan.html" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Energieausweis nach GEG", "url": "https://energieberater-albdonau.de/energieausweis-ulm.html" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hydraulischer Abgleich (Verfahren B)", "url": "https://energieberater-albdonau.de/hydraulischer-abgleich-ulm.html" } },
     { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fördermittel-Management (BAFA/KfW)" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Baubegleitung & Qualitätssicherung" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Energieausweis nach GEG" } }
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Baubegleitung & Qualitätssicherung" } }
   ]
 }
 </script>
@@ -1875,8 +1920,8 @@ section{position:relative}
         </div>
         <p>Wenn es erst einmal um eine einzelne Frage geht: Verkauf, Vermietung, hohe Nebenkosten oder eine Heizung, die nicht rund läuft.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Bedarfs- und Verbrauchsausweis nach GEG</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Heizlastberechnung und hydraulischer Abgleich</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> <a href="energieausweis-ulm.html">Bedarfs- und Verbrauchsausweis nach GEG</a></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> <a href="hydraulischer-abgleich-ulm.html">Heizlastberechnung und hydraulischer Abgleich</a></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Thermografie in der Heizperiode</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Zweitmeinung zu vorliegenden Angeboten</li>
         </ul>
@@ -2056,7 +2101,10 @@ section{position:relative}
 <section class="section-pad" id="preise" style="padding-top:0"
          data-preis-isfp-ab="1350"
          data-preis-foerderung-max="650"
-         data-preis-eigen-ab="700">
+         data-preis-eigen-ab="700"
+         data-preis-ausweis-verbrauch="120"
+         data-preis-ausweis-bedarf="390"
+         data-preis-abgleich="650">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Preise</span>
@@ -2117,12 +2165,37 @@ section{position:relative}
       </div>
     </div>
 
+    <!-- Weitere Leistungen mit Preis. Vorher stand hier nur "Preis nach einem
+         kurzen Telefonat" - bei Suchanfragen wie "energieausweis ulm kosten"
+         verliert das gegen jeden Wettbewerber, der eine Zahl nennt. -->
+    <div class="preis-weitere">
+      <h3>Weitere Leistungen</h3>
+      <ul>
+        <li>
+          <a href="energieausweis-ulm.html">Energieausweis, Verbrauch</a>
+          <b class="preis-wert" data-preis="ausweis_verbrauch">120 €</b>
+        </li>
+        <li>
+          <a href="energieausweis-ulm.html">Energieausweis, Bedarf</a>
+          <b class="preis-wert" data-preis="ausweis_bedarf">390 €</b>
+        </li>
+        <li>
+          <a href="hydraulischer-abgleich-ulm.html">Hydraulischer Abgleich, Verfahren B</a>
+          <b class="preis-wert" data-preis="abgleich">650 €</b>
+        </li>
+        <li>
+          <span>Baubegleitung, Zweitmeinung zu Angeboten</span>
+          <b>auf Anfrage</b>
+        </li>
+      </ul>
+    </div>
+
     <p class="preis-fuss">
-      Weitere Leistungen – Energieausweis, Baubegleitung, Zweitmeinung zu Handwerkerangeboten –
-      rechnen wir ebenfalls zum Festpreis ab. Da der Aufwand stark vom Gebäude abhängt, nennen wir
-      den Preis nach einem kurzen Telefonat. Alle Preise sind Endpreise inklusive Umsatzsteuer.
-      Fördersätze geben den Stand Juli 2026 wieder; maßgeblich sind die bei Antragstellung
-      geltenden Richtlinien des BAFA.
+      Alle genannten Beträge sind Startpreise für ein Ein- oder Zweifamilienhaus und
+      Endpreise inklusive Umsatzsteuer. Mehr Wohneinheiten, fehlende Unterlagen oder
+      Denkmalschutz erhöhen den Aufwand – Sie bekommen in jedem Fall vorab ein
+      Festpreisangebot. Fördersätze geben den Stand August 2026 wieder; maßgeblich sind
+      die bei Antragstellung geltenden Richtlinien des BAFA.
     </p>
   </div>
 </section>
@@ -2436,9 +2509,12 @@ section{position:relative}
 
       <div class="faq-item">
         <button class="faq-q">Was kostet ein Energieausweis?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Das hängt davon ab, ob ein Verbrauchs- oder ein Bedarfsausweis nötig
-        ist und wie vollständig die Gebäudeunterlagen sind – der Aufwand unterscheidet sich erheblich.
-        Sie erhalten den Preis nach einem kurzen Telefonat als Festpreis. Welche Variante Sie
+        <div class="faq-a"><p>Der Verbrauchsausweis beginnt bei
+        <b class="preis-wert" data-preis="ausweis_verbrauch">120 €</b>, der Bedarfsausweis bei
+        <b class="preis-wert" data-preis="ausweis_bedarf">390 €</b> – Endpreise inklusive
+        Umsatzsteuer für ein Ein- oder Zweifamilienhaus. Mehr Wohneinheiten oder fehlende
+        Unterlagen erhöhen den Aufwand; Sie erhalten vorab ein Festpreisangebot. Alles Weitere auf
+        der Seite <a href="energieausweis-ulm.html">Energieausweis</a>; welche Variante Sie
         brauchen, erklärt der Beitrag
         <a href="ratgeber-energieausweis-bedarf-verbrauch.html">Energieausweis: Bedarf oder Verbrauch?</a></p></div>
       </div>
@@ -2646,9 +2722,9 @@ section{position:relative}
       <div class="footer-col">
         <h3>Leistungen</h3>
         <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
-        <a href="#leistungen">Fördermittel</a>
-        <a href="#leistungen">Baubegleitung</a>
-        <a href="#leistungen">Energieausweis</a>
+        <a href="energieausweis-ulm.html">Energieausweis</a>
+        <a href="hydraulischer-abgleich-ulm.html">Hydraulischer Abgleich</a>
+        <a href="#leistungen">Fördermittel &amp; Baubegleitung</a>
         <a href="sanierungsrechner.html">Sanierungsrechner</a>
       </div>
 

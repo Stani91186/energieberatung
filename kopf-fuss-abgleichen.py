@@ -43,6 +43,7 @@ import io, os, re
 
 VORLAGE = "index.html"
 ZIELE = ["sanierungsrechner.html", "sanierungsfahrplan.html",
+         "energieausweis-ulm.html", "hydraulischer-abgleich-ulm.html",
          "impressum.html", "datenschutz.html"]
 
 # CSS-Regeln, die zum gemeinsamen Rahmen gehoeren. Alles, was mit einem

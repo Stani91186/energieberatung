@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  LEISTUNGSSEITE: Individueller Sanierungsfahrplan (iSFP)
+  LEISTUNGSSEITE: Energieausweis (Bedarf und Verbrauch)
 
-  Zielsuchanfragen: "individueller sanierungsfahrplan ulm", "isfp ulm",
-  "sanierungsfahrplan alb-donau-kreis", "isfp kosten", "isfp foerderung"
+  Zielsuchanfragen: "energieausweis ulm", "energieausweis kosten",
+  "bedarfsausweis ulm", "verbrauchsausweis erstellen lassen"
 
-  Domain und Sitemap-Eintrag sind gesetzt. Preise stehen im Abschnitt
-  "Kosten, Foerderung und Eigenanteil" - gepflegt werden sie NICHT hier,
-  sondern im PREISE-Abschnitt von index.html; kopf-fuss-abgleichen.py
-  setzt sie in die preis-wert-Marken ein. Offen: E-Mail im Fussbereich.
+  Die Huelle stammt aus sanierungsfahrplan.html; Kopf/Fuss pflegt
+  kopf-fuss-abgleichen.py. Preise NICHT hier aendern, sondern im
+  PREISE-Abschnitt von index.html - die preis-wert-Marken werden von
+  kopf-fuss-abgleichen.py gefuellt. Fachliche Abgrenzung: Der Unterschied
+  Bedarf/Verbrauch steht ausfuehrlich im Ratgeber
+  (ratgeber-energieausweis-bedarf-verbrauch.html) - hier nur die Kurzform,
+  sonst konkurrieren beide Seiten um dieselbe Suchanfrage.
   ============================================================================
 -->
 <html lang="de">
@@ -17,9 +20,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sanierungsfahrplan (iSFP) für Ulm &amp; Alb-Donau-Kreis</title>
-<meta name="description" content="Individueller Sanierungsfahrplan für Ulm und den Alb-Donau-Kreis: Schritt für Schritt sanieren, 5 % mehr Förderung je Maßnahme, 50 % Zuschuss zur Beratung.">
-<link rel="canonical" href="https://energieberater-albdonau.de/sanierungsfahrplan.html">
+<title>Energieausweis Ulm – Verbrauch ab 120 €, Bedarf ab 390 €</title>
+<meta name="description" content="Energieausweis für Ulm und den Alb-Donau-Kreis: Verbrauchsausweis ab 120 €, Bedarfsausweis ab 390 €. Nach GEG, zehn Jahre gültig, oft in wenigen Tagen.">
+<link rel="canonical" href="https://energieberater-albdonau.de/energieausweis-ulm.html">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#FDFBF7">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E4A3C'/%3E%3Cg transform='translate(12.4,3.7) scale(0.78)'%3E%3Cpath d='M25 3 2 28 2 63 30 63 30 70 48 70 48 30Z' fill='none' stroke='%23FDFBF7' stroke-width='4.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M24.5 36C27.5 44 26.5 52 19 57 12 61.5 6.5 57.5 7.5 51 8.5 44 16 39 24.5 36ZM23.5 38.5C20 44 16 49 11.5 54.5 15.5 49.5 19 44.5 22.8 38.2Z' fill='%23E8B87A' fill-rule='evenodd'/%3E%3C/g%3E%3C/svg%3E">
@@ -27,9 +30,9 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="EBA Energieberater Albdonau">
-<meta property="og:title" content="Individueller Sanierungsfahrplan (iSFP) für Ulm &amp; Alb-Donau-Kreis">
-<meta property="og:description" content="Schritt für Schritt sanieren statt alles auf einmal – mit 5 Prozentpunkten mehr Förderung auf jede Einzelmaßnahme.">
-<meta property="og:url" content="https://energieberater-albdonau.de/sanierungsfahrplan.html">
+<meta property="og:title" content="Energieausweis Ulm – Verbrauch ab 120 €, Bedarf ab 390 €">
+<meta property="og:description" content="Verbrauchs- und Bedarfsausweis zum Festpreis, ausgestellt nach GEG. Meist innerhalb weniger Tage.">
+<meta property="og:url" content="https://energieberater-albdonau.de/energieausweis-ulm.html">
 <meta property="og:image" content="https://energieberater-albdonau.de/vorschau.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -438,12 +441,13 @@ td:first-child{color:var(--ink);font-weight:500}
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Individueller Sanierungsfahrplan (iSFP)",
-  "serviceType": "Energieberatung für Wohngebäude",
-  "description": "Individueller Sanierungsfahrplan nach BAFA-Standard: Aufnahme vor Ort, Maßnahmenpakete mit Kosten, Einsparung und Amortisation, in wirtschaftlich sinnvoller Reihenfolge.",
-  "url": "https://energieberater-albdonau.de/sanierungsfahrplan.html",
+  "name": "Energieausweis (Bedarfs- und Verbrauchsausweis)",
+  "serviceType": "Energieausweis nach GEG",
+  "description": "Energieausweis für Wohngebäude in Ulm und im Alb-Donau-Kreis: Verbrauchsausweis ab 120 €, Bedarfsausweis ab 390 €. Ausgestellt nach GEG, gültig zehn Jahre.",
+  "url": "https://energieberater-albdonau.de/energieausweis-ulm.html",
   "provider": {
     "@type": "ProfessionalService",
+    "@id": "https://energieberater-albdonau.de/#unternehmen",
     "name": "EBA Energieberater Albdonau",
     "telephone": "+4915224290826",
     "address": {
@@ -459,6 +463,58 @@ td:first-child{color:var(--ink);font-weight:500}
     { "@type": "AdministrativeArea", "name": "Alb-Donau-Kreis" },
     { "@type": "City", "name": "Ulm" },
     { "@type": "City", "name": "Neu-Ulm" }
+  ],
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Verbrauchsausweis",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "minPrice": 120,
+        "priceCurrency": "EUR",
+        "valueAddedTaxIncluded": true
+      }
+    },
+    {
+      "@type": "Offer",
+      "name": "Bedarfsausweis",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "minPrice": 390,
+        "priceCurrency": "EUR",
+        "valueAddedTaxIncluded": true
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Strukturierte Daten: haeufige Fragen dieser Seite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was kostet ein Energieausweis in Ulm?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Bei uns beginnt der Verbrauchsausweis bei 120 €, der Bedarfsausweis bei 390 € – jeweils Endpreis inklusive Umsatzsteuer für ein Ein- oder Zweifamilienhaus. Mehr Wohneinheiten oder fehlende Unterlagen erhöhen den Aufwand; Sie erhalten vorab ein Festpreisangebot." }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie schnell bekomme ich den Energieausweis?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ein Verbrauchsausweis ist bei vollständigen Abrechnungen meist innerhalb weniger Werktage fertig und braucht in der Regel keinen Ortstermin. Beim Bedarfsausweis kommt die Aufnahme des Gebäudes dazu – üblich sind ein bis zwei Wochen." }
+    },
+    {
+      "@type": "Question",
+      "name": "Welche Unterlagen werden benötigt?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Für den Verbrauchsausweis die Heizkostenabrechnungen der letzten drei Abrechnungsjahre und Angaben zu Leerständen. Für den Bedarfsausweis Baujahr, Wohnfläche, Angaben zu Bauteilen und Heizung – fehlende Unterlagen ersetzen wir durch eine Aufnahme vor Ort." }
+    },
+    {
+      "@type": "Question",
+      "name": "Wann brauche ich überhaupt einen Energieausweis?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Bei Verkauf, Vermietung und Verpachtung. Die Kennwerte müssen schon in der Immobilienanzeige stehen, der Ausweis muss also vor dem Inserat vorliegen. Wer selbst im eigenen Haus wohnt und nichts davon plant, braucht keinen." }
+    }
   ]
 }
 </script>
@@ -470,10 +526,11 @@ td:first-child{color:var(--ink);font-weight:500}
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://energieberater-albdonau.de/" },
-    { "@type": "ListItem", "position": 2, "name": "Sanierungsfahrplan (iSFP)", "item": "https://energieberater-albdonau.de/sanierungsfahrplan.html" }
+    { "@type": "ListItem", "position": 2, "name": "Energieausweis", "item": "https://energieberater-albdonau.de/energieausweis-ulm.html" }
   ]
 }
 </script>
+
 </head>
 <body>
 
@@ -535,23 +592,24 @@ td:first-child{color:var(--ink);font-weight:500}
   <nav class="krumen" aria-label="Brotkrumennavigation">
     <ol>
       <li><a href="index.html">Startseite</a></li>
-      <li>Sanierungsfahrplan (iSFP)</li>
+      <li>Energieausweis</li>
     </ol>
   </nav>
 </div>
 
 <section class="wrap seiten-kopf">
-  <span class="eyebrow">Kernleistung</span>
-  <h1>Individueller Sanierungsfahrplan für Ulm und den Alb-Donau-Kreis</h1>
+  <span class="eyebrow">Leistung mit Festpreis</span>
+  <h1>Energieausweis für Ulm und den Alb-Donau-Kreis</h1>
   <p class="lead">
-    Ein Fahrplan, der Ihr Haus in Etappen zum Effizienzhaus bringt – in der Reihenfolge,
-    die wirtschaftlich Sinn ergibt, und in Schritten, die zu Ihrem Budget passen.
-    Wer ihn hat, bekommt auf jede spätere Einzelmaßnahme an der Gebäudehülle
-    5 Prozentpunkte mehr Förderung.
+    Verbrauchsausweis ab <b class="preis-wert" data-preis="ausweis_verbrauch">120 €</b>,
+    Bedarfsausweis ab <b class="preis-wert" data-preis="ausweis_bedarf">390 €</b> –
+    Endpreise inklusive Umsatzsteuer, ausgestellt nach Gebäudeenergiegesetz,
+    zehn Jahre gültig. Meist innerhalb weniger Tage, beim Bedarfsausweis mit
+    Aufnahme Ihres Gebäudes.
   </p>
   <div class="kopf-aktionen">
-    <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
-    <a href="sanierungsrechner.html" class="btn btn-ghost">Vorab selbst rechnen</a>
+    <a href="index.html#kontakt" class="btn btn-primary">Ausweis anfragen</a>
+    <a href="tel:+4915224290826" class="btn btn-ghost">0152 24290826</a>
   </div>
 </section>
 
@@ -559,153 +617,131 @@ td:first-child{color:var(--ink);font-weight:500}
 
   <article class="text">
 
-    <h2>Was ein Sanierungsfahrplan ist</h2>
+    <h2>Welcher Ausweis es sein muss</h2>
     <p>
-      Der individuelle Sanierungsfahrplan – kurz iSFP – ist ein vom Bund standardisierter
-      Bericht, den nur ein in der <strong>Energie-Effizienz-Expertenliste</strong> eingetragener
-      Berater erstellen darf. Er beantwortet die Frage, die fast jeder Eigentümer hat:
-      <em>Was mache ich zuerst, was kann warten, und was bringt mir das?</em>
+      Es gibt zwei Varianten, und sie sagen Verschiedenes aus: Der
+      <strong>Verbrauchsausweis</strong> wertet die Heizkostenabrechnungen der letzten
+      drei Jahre aus – schnell und günstig, aber geprägt davon, wie die bisherigen
+      Bewohner geheizt haben. Der <strong>Bedarfsausweis</strong> berechnet das Gebäude
+      selbst, Bauteil für Bauteil, unabhängig vom Nutzerverhalten.
     </p>
     <p>
-      Der Unterschied zu einer Faustformel aus dem Internet ist, dass Ihr Gebäude tatsächlich
-      angeschaut und durchgerechnet wird. Zwei Häuser aus demselben Baujahr in derselben
-      Straße können völlig unterschiedliche Empfehlungen bekommen – weil beim einen das Dach
-      schon gedämmt ist, beim anderen die Heizung vor dem Ende steht.
+      In vielen Fällen dürfen Sie wählen. <strong>Keine Wahl</strong> haben Sie bei
+      Wohngebäuden mit bis zu vier Wohnungen, deren Bauantrag vor dem
+      1.&nbsp;November 1977 gestellt wurde und die seither nicht auf den Stand der
+      ersten Wärmeschutzverordnung gebracht wurden – dort ist der Bedarfsausweis
+      Pflicht. Das trifft auf einen erheblichen Teil der Bestandshäuser in der Region
+      zu. Welche Variante wofür die richtige ist, steht ausführlich im Beitrag
+      <a href="ratgeber-energieausweis-bedarf-verbrauch.html">Energieausweis: Bedarf
+      oder Verbrauch?</a> – oder Sie fragen uns, das ist in zwei Minuten geklärt.
     </p>
 
-    <div class="merksatz">
-      <b>Der eigentliche Wert</b>
-      Nicht die Liste der Maßnahmen ist das Entscheidende, sondern ihre Reihenfolge.
-      Eine neue Heizung vor der Dämmung wird zu groß dimensioniert und läuft zwanzig Jahre
-      lang im falschen Betriebspunkt. Das kostet mehr als die Beratung je gekostet hat.
-    </div>
-
-    <h2>Was Sie am Ende in der Hand halten</h2>
-    <ul class="liste">
-      <li>Den Ist-Zustand Ihres Gebäudes, Bauteil für Bauteil, mit Wärmeverlusten in Kilowattstunden und Euro</li>
-      <li>Maßnahmenpakete in sinnvoller Reihenfolge – jedes mit Kostenspanne, Einsparung und Amortisationszeit</li>
-      <li>Die erreichbare Effizienzklasse nach jedem Schritt</li>
-      <li>Welche Förderung für welche Maßnahme greift und wann der Antrag gestellt sein muss</li>
-      <li>Einen verständlichen Bericht in Bildern, nicht nur in Tabellen – auch für die Familie nachvollziehbar</li>
-    </ul>
-    <p>
-      Dazu ein persönliches Erläuterungsgespräch. Ein Bericht, den niemand versteht, ist
-      ein teures Stück Papier – deshalb gehen wir ihn gemeinsam durch, Seite für Seite.
-    </p>
-
-    <h2>Wie es abläuft</h2>
-    <ol class="schritte">
-      <li><strong>Erstgespräch, etwa 20 Minuten am Telefon.</strong> Kostenlos. Wir klären, worum es geht, was realistisch ist und ob wir die Richtigen für Ihr Vorhaben sind.</li>
-      <li><strong>Vor-Ort-Termin, zwei bis drei Stunden.</strong> Bauteile, Heizung, Verbrauchsdaten, Ihre Pläne. Fotos und Messwerte inklusive.</li>
-      <li><strong>Berechnung und Bericht, rund drei Wochen.</strong> Wir rechnen Ihr Gebäude durch und erstellen den Fahrplan.</li>
-      <li><strong>Erläuterungsgespräch.</strong> Wir gehen den Bericht gemeinsam durch, Sie stellen Fragen, wir sortieren die nächsten Schritte.</li>
-    </ol>
-
-    <h2 id="kosten">Sanierungsfahrplan: Kosten, Förderung und Eigenanteil</h2>
-    <p>
-      Die Bundesförderung für Energieberatung für Wohngebäude übernimmt <strong>50 % des
-      förderfähigen Honorars</strong>. Bei Ein- und Zweifamilienhäusern bis 650 €, ab drei
-      Wohneinheiten bis 850 €. Wohnungseigentümergemeinschaften erhalten einmalig 250 €
-      zusätzlich für die Erläuterung in der Eigentümerversammlung.
-    </p>
-
+    <h2 id="kosten">Was der Energieausweis kostet</h2>
     <div class="tab-wrap">
       <table>
         <thead>
-          <tr><th>Gebäude</th><th>Zuschuss</th><th>Antragsteller</th></tr>
+          <tr><th>Variante</th><th>Preis</th><th>Ortstermin</th><th>Dauer</th></tr>
         </thead>
         <tbody>
-          <tr><td>Ein- und Zweifamilienhaus</td><td>50 %, max. 650 €</td><td>Eigentümer</td></tr>
-          <tr><td>Ab drei Wohneinheiten</td><td>50 %, max. 850 €</td><td>Eigentümer</td></tr>
-          <tr><td>WEG mit Erläuterung</td><td>zusätzlich 250 €</td><td>Gemeinschaft</td></tr>
-          <tr><td><b>Beispiel: Honorar ab 1.350 €</b></td><td><b>650 € Zuschuss</b></td><td><b>ab 700 € Eigenanteil</b></td></tr>
+          <tr>
+            <td>Verbrauchsausweis</td>
+            <td>ab <b class="preis-wert" data-preis="ausweis_verbrauch">120 €</b></td>
+            <td>meist nicht nötig</td>
+            <td>wenige Werktage</td>
+          </tr>
+          <tr>
+            <td>Bedarfsausweis</td>
+            <td>ab <b class="preis-wert" data-preis="ausweis_bedarf">390 €</b></td>
+            <td>Aufnahme vor Ort</td>
+            <td>ein bis zwei Wochen</td>
+          </tr>
         </tbody>
       </table>
     </div>
+    <p>
+      Beide Beträge sind Endpreise inklusive Umsatzsteuer und gelten für ein Ein- oder
+      Zweifamilienhaus. Mehr Wohneinheiten, verwinkelte Anbauten oder fehlende
+      Unterlagen erhöhen den Aufwand – dann nennen wir Ihnen vorab einen höheren
+      Festpreis, keine Überraschung auf der Rechnung. Zum Vergleich: In Ulm werden für
+      Bedarfsausweise verbreitet 450 bis 500&nbsp;€ aufgerufen.
+    </p>
 
     <div class="merksatz">
-      <b>Preis und Eigenanteil</b>
-      Der individuelle Sanierungsfahrplan für ein Ein- oder Zweifamilienhaus beginnt bei
-      <b class="preis-wert" data-preis="isfp_ab">1.350 €</b> inklusive Umsatzsteuer. Davon
-      übernimmt die BAFA-Förderung 50 %, höchstens
-      <b class="preis-wert" data-preis="foerderung_max">650 €</b> – Ihr Eigenanteil liegt damit
-      ab <b class="preis-wert" data-preis="eigen_ab">700 €</b>, sofern der Zuschuss bewilligt wird.
+      <b>Warum nicht das 50-€-Portal?</b>
+      Online-Ausweise entstehen aus Ihren eigenen, ungeprüften Angaben. Steht dort
+      etwas Falsches, haften Sie dafür – und ist für Ihr Haus ein Bedarfsausweis
+      vorgeschrieben, ist der günstige Verbrauchsausweis schlicht ungültig. Ausstellen
+      darf Energieausweise nur, wer nach §&nbsp;88 GEG dazu berechtigt ist.
     </div>
 
-    <p>
-      Was der Fahrplan bei Ihrem Gebäude genau kostet, hängt von der Größe, der Zahl der
-      Wohneinheiten, dem Zustand der Unterlagen und einem möglichen Denkmalschutz ab. Sie
-      erhalten vorab ein <strong>Festpreisangebot</strong> – keine Abrechnung nach Stunden,
-      keine Überraschung am Ende. Den Antrag stellen Sie als Eigentümer, wir bereiten ihn vor.
-    </p>
-    <p style="font-size:.86rem;color:var(--muted)">
-      Fördersätze und Höchstbeträge geben den Stand Juli 2026 wieder und können sich
-      kurzfristig ändern. Verbindlich sind die jeweils aktuellen Richtlinien des BAFA.
-      Im Erstgespräch prüfen wir den Stand für Ihr Vorhaben.
-    </p>
+    <h2>Wie es abläuft</h2>
+    <ol class="schritte">
+      <li><strong>Kurzes Telefonat.</strong> Wir klären, welche Variante Ihr Gebäude
+      braucht, und nennen den Festpreis.</li>
+      <li><strong>Unterlagen oder Termin.</strong> Verbrauchsausweis: Sie schicken die
+      drei letzten Heizkostenabrechnungen. Bedarfsausweis: wir nehmen das Gebäude vor
+      Ort auf, etwa eine Stunde.</li>
+      <li><strong>Berechnung und Registrierung.</strong> Der Ausweis bekommt seine
+      amtliche Registriernummer beim DIBt.</li>
+      <li><strong>Zustellung.</strong> Sie erhalten den Ausweis als PDF und auf Wunsch
+      gedruckt – gültig zehn Jahre.</li>
+    </ol>
 
-    <h2>Die 5 Prozentpunkte, die sich später auszahlen</h2>
-    <p>
-      Liegt ein Sanierungsfahrplan vor, erhöht sich der Zuschuss für jede spätere
-      Einzelmaßnahme an der Gebäudehülle um <strong>5 Prozentpunkte</strong>. Bei einer
-      Fassadendämmung für 40.000 € sind das 2.000 € – mehr, als der Eigenanteil am
-      Fahrplan üblicherweise beträgt. Wer ohnehin in Etappen saniert, holt die Kosten
-      der Beratung meist schon mit der ersten Maßnahme wieder herein.
-    </p>
-
-    <h2>Sanierungsfahrplan für Ulm und den Alb-Donau-Kreis</h2>
-    <p>
-      Wir erstellen den iSFP im gesamten Alb-Donau-Kreis und rund 50 Kilometer um Ulm. Unser
-      Büro sitzt in Dornstadt, direkt am Übergang zwischen Donautal und Albhochfläche – ein
-      Unterschied, der in der Berechnung durchaus zählt: Auf der Albhochfläche liegt die
-      Normaußentemperatur spürbar tiefer als im Tal, die Heizperiode ist länger. Wer Kennwerte
-      aus Ulm auf ein Haus in Laichingen überträgt, rechnet das Gebäude zu gut.
-    </p>
-    <p>
-      Eigene Seiten mit den örtlichen Besonderheiten gibt es unter anderem für
-      <a href="energieberatung-ulm.html">Energieberatung Ulm</a>,
-      <a href="energieberatung-ehingen.html">Ehingen an der Donau</a>,
-      <a href="energieberatung-laichingen.html">Laichingen auf der Alb</a> und
-      <a href="energieberatung-blaustein.html">Blaustein im Blautal</a>.
-      Vor-Ort-Termine sind kurzfristig möglich, auch mehrfach, wenn es die Bauphase erfordert.
-    </p>
-
-    <h2>Für wen sich das besonders lohnt</h2>
+    <h2>Wann Sie ihn brauchen – und was ohne passiert</h2>
     <ul class="liste">
-      <li>Sie haben ein Haus geerbt oder gekauft und wissen nicht, wo Sie anfangen sollen</li>
-      <li>Die Heizung ist alt, aber noch funktionsfähig – Sie wollen keine Panikentscheidung</li>
-      <li>Sie sanieren über mehrere Jahre und wollen nichts verbauen, was später teuer wird</li>
-      <li>Sie haben ein Handwerkerangebot und möchten wissen, ob die Reihenfolge stimmt</li>
+      <li><strong>Verkauf, Vermietung, Verpachtung:</strong> Der Ausweis muss vorliegen,
+      bevor die Anzeige erscheint – Energiekennwert, Ausweisart, Energieträger,
+      Baujahr und Effizienzklasse sind Pflichtangaben im Inserat.</li>
+      <li><strong>Besichtigung:</strong> Der Ausweis ist unaufgefordert vorzulegen,
+      nach Vertragsschluss wird er übergeben.</li>
+      <li><strong>Verstöße</strong> sind Ordnungswidrigkeiten; das Gesetz sieht
+      Bußgelder bis 10.000&nbsp;€ vor. Häufiger als das Bußgeld ist der Streit im
+      Kaufprozess – ein fehlender Ausweis ist ein Hebel in der Preisverhandlung.</li>
+      <li><strong>Nicht nötig</strong> ist der Ausweis, solange Sie selbst im Haus
+      wohnen und weder verkaufen noch vermieten. Unter Denkmalschutz stehende
+      Gebäude sind ausgenommen.</li>
     </ul>
+
+    <h2>Ausweis da – und jetzt?</h2>
+    <p>
+      Der Energieausweis ist ein Etikett, kein Plan: Seine Modernisierungsempfehlungen
+      sind standardisiert und nicht durchgerechnet. Wenn der Kennwert schlechter
+      ausfällt als erhofft, ist der nächste sinnvolle Schritt kein zweiter Ausweis,
+      sondern eine Rechnung: Was kostet welche Maßnahme, was spart sie, in welcher
+      Reihenfolge lohnt es sich? Eine erste Einschätzung liefert der kostenlose
+      <a href="sanierungsrechner.html">Sanierungsrechner</a>, die belastbare Grundlage
+      der <a href="sanierungsfahrplan.html">individuelle Sanierungsfahrplan</a> – mit
+      50&nbsp;% Zuschuss zur Beratung.
+    </p>
 
     <h2>Häufige Fragen</h2>
 
     <div class="faq-item">
-      <button class="faq-q">Wie lange ist ein Sanierungsfahrplan gültig?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Der Bonus auf Einzelmaßnahmen ist an den Fahrplan gebunden und gilt 15 Jahre ab Ausstellung. Sie müssen also nicht sofort loslegen – der Plan wartet auf Sie, nicht umgekehrt.</p></div>
+      <button class="faq-q">Was kostet ein Energieausweis in Ulm?<span class="faq-icon"></span></button>
+      <div class="faq-a"><p>Bei uns beginnt der Verbrauchsausweis bei <b class="preis-wert" data-preis="ausweis_verbrauch">120 €</b>, der Bedarfsausweis bei <b class="preis-wert" data-preis="ausweis_bedarf">390 €</b> – jeweils Endpreis inklusive Umsatzsteuer für ein Ein- oder Zweifamilienhaus. Mehr Wohneinheiten oder fehlende Unterlagen erhöhen den Aufwand; Sie erhalten vorab ein Festpreisangebot.</p></div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q">Muss ich alle Maßnahmen umsetzen?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Nein. Der Fahrplan ist eine Empfehlung, keine Verpflichtung. Sie entscheiden, was Sie wann angehen – und ob überhaupt. Auch wer am Ende nichts umsetzt, weiß danach immerhin, woran er ist.</p></div>
+      <button class="faq-q">Wie schnell bekomme ich den Ausweis?<span class="faq-icon"></span></button>
+      <div class="faq-a"><p>Der Verbrauchsausweis ist bei vollständigen Abrechnungen meist innerhalb weniger Werktage fertig und braucht in der Regel keinen Ortstermin. Beim Bedarfsausweis kommt die Aufnahme des Gebäudes dazu – üblich sind ein bis zwei Wochen. Wenn ein Notartermin drängt, sagen Sie es uns; oft lässt sich das beschleunigen.</p></div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q">Ist das dasselbe wie ein Energieausweis?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Nein. Der Energieausweis ist ein Dokument für Verkauf und Vermietung und sagt kaum etwas darüber, was Sie tun sollten. Der Sanierungsfahrplan ist die Handlungsempfehlung. Beides lässt sich sinnvoll kombinieren.</p></div>
+      <button class="faq-q">Welche Unterlagen brauchen Sie von mir?<span class="faq-icon"></span></button>
+      <div class="faq-a"><p>Für den Verbrauchsausweis die Heizkostenabrechnungen der letzten drei Abrechnungsjahre und Angaben zu Leerständen. Für den Bedarfsausweis Baujahr, Wohnfläche und – soweit vorhanden – Unterlagen zu Bauteilen und Heizung. Was fehlt, ersetzen wir durch die Aufnahme vor Ort; ein Haus ohne Bauakte ist kein Hindernis.</p></div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q">Bin ich danach an bestimmte Firmen gebunden?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Nein. Wir verkaufen weder Heizungen noch Dämmstoffe und nehmen keine Provisionen von Herstellern oder Handwerksbetrieben an. Wenn wir Betriebe empfehlen, dann weil wir mit ihrer Arbeit gute Erfahrungen gemacht haben.</p></div>
+      <button class="faq-q">Reicht nicht der günstigere Verbrauchsausweis?<span class="faq-icon"></span></button>
+      <div class="faq-a"><p>Wenn Ihr Gebäude die Wahl lässt: ja, rechtlich reicht er. Ob er klug ist, hängt vom Zweck ab – ein gut saniertes Haus verkauft sich mit dem Bedarfsausweis oft besser, weil er den Zustand des Gebäudes zeigt statt der Sparsamkeit der Vorbewohner. Ist für Ihr Haus der Bedarfsausweis vorgeschrieben, ist der Verbrauchsausweis keine Option.</p></div>
     </div>
 
   </article>
 
   <aside class="spalte">
     <div class="karte karte-kontakt">
-      <h3>Kurz sprechen?</h3>
-      <p>20 Minuten, kostenlos, unverbindlich. Danach wissen Sie, ob sich ein Fahrplan für Ihr Haus lohnt.</p>
+      <h3>Festpreis in zwei Minuten</h3>
+      <p>Kurz anrufen, Variante klären, Preis bekommen. Mehr ist es nicht.</p>
       <a href="tel:+4915224290826" class="tel-gross">
         <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
         0152 24290826
@@ -714,18 +750,18 @@ td:first-child{color:var(--ink);font-weight:500}
     </div>
 
     <div class="karte">
-      <h3>Erst selbst rechnen</h3>
-      <p>Der kostenlose Sanierungsrechner zeigt Ihnen in zehn Minuten die Energieklasse Ihres Hauses und was welche Maßnahme bringt.</p>
-      <a href="sanierungsrechner.html" class="btn btn-amber btn-sm">Rechner starten</a>
+      <h3>Bedarf oder Verbrauch?</h3>
+      <p>Der Unterschied in fünf Minuten – und warum der billigere Ausweis oft der falsche ist.</p>
+      <a href="ratgeber-energieausweis-bedarf-verbrauch.html" class="btn btn-amber btn-sm">Zum Ratgeber</a>
     </div>
 
     <div class="karte">
       <h3>Weitere Leistungen</h3>
       <nav class="spalte-links" aria-label="Weitere Leistungen">
-        <a href="energieausweis-ulm.html">Energieausweis nach GEG</a>
+        <a href="sanierungsfahrplan.html">Sanierungsfahrplan (iSFP)</a>
         <a href="hydraulischer-abgleich-ulm.html">Hydraulischer Abgleich</a>
-        <a href="index.html#leistungen">Fördermittel &amp; Baubegleitung</a>
-        <a href="index.html#faq">Häufige Fragen</a>
+        <a href="index.html#leistungen">Baubegleitung &amp; Fördermittel</a>
+        <a href="index.html#preise">Alle Preise</a>
       </nav>
     </div>
   </aside>
@@ -735,10 +771,10 @@ td:first-child{color:var(--ink);font-weight:500}
 <section class="abschluss">
   <div class="wrap abschluss-inner">
     <div>
-      <h2>Reden wir über Ihr Gebäude.</h2>
-      <p>Das Erstgespräch dauert etwa 20 Minuten, kostet nichts und endet entweder mit einem Angebot oder mit einer ehrlichen Empfehlung, was Sie stattdessen tun sollten.</p>
+      <h2>Ausweis anfragen.</h2>
+      <p>Ein kurzes Telefonat klärt Variante und Festpreis. Bei vollständigen Unterlagen halten Sie den Ausweis oft noch in derselben Woche in der Hand.</p>
     </div>
-    <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+    <a href="index.html#kontakt" class="btn btn-primary">Jetzt anfragen</a>
   </div>
 </section>
 

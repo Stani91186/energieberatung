@@ -697,9 +697,9 @@ def seite(o):
       <ul class="liste">
         <li><a href="sanierungsfahrplan.html">Individueller Sanierungsfahrplan (iSFP)</a> mit Kosten, Einsparung und Amortisation je Maßnahme</li>
         <li>Fördermittel-Management: Antrag bei BAFA und KfW, Fristen im Blick, Verwendungsnachweis</li>
-        <li>Energieausweis nach GEG – Bedarfs- und Verbrauchsausweis</li>
+        <li><a href="energieausweis-ulm.html">Energieausweis nach GEG</a> – Bedarfs- und Verbrauchsausweis</li>
         <li>Baubegleitung und Qualitätssicherung während der Umsetzung</li>
-        <li>Heizlastberechnung und hydraulischer Abgleich</li>
+        <li><a href="hydraulischer-abgleich-ulm.html">Heizlastberechnung und hydraulischer Abgleich</a> nach Verfahren B</li>
         <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>
       </ul>
     </div>

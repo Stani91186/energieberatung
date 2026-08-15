@@ -703,6 +703,17 @@ section{position:relative}
 .preis-info{background:var(--forest-soft);border-radius:var(--radius);padding:20px 24px;color:var(--forest);font-size:.93rem}
 .preis-info b{display:block;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.8}
 .preis-fuss{margin-top:20px;font-size:.8rem;color:var(--muted);max-width:74ch}
+/* Weitere Leistungen: kompakte Preisliste unter den beiden grossen Karten */
+.preis-weitere{margin-top:34px;background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:26px 30px}
+.preis-weitere h3{margin:0 0 14px;font-size:1.06rem}
+.preis-weitere ul{list-style:none;margin:0;padding:0}
+.preis-weitere li{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:.95rem}
+.preis-weitere li:last-child{border-bottom:0}
+.preis-weitere a{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.preis-weitere span{color:var(--ink-2)}
+.preis-weitere b{white-space:nowrap;font-weight:700}
+.preis-weitere b::before{content:"ab ";font-weight:400;color:var(--muted);font-size:.84em}
+.preis-weitere li:last-child b::before{content:""}
 @media (max-width:760px){
   .preis-karten{grid-template-columns:1fr;gap:16px}
   .preis-haupt{padding:24px 22px}
@@ -1260,9 +1271,15 @@ main .cta-band{margin-bottom:50px}
               <td>ab 1.350 €</td>
             </tr>
             <tr>
-              <td>Energieausweis</td>
+              <td><a href="energieausweis-ulm.html">Energieausweis</a></td>
               <td>Bedarfs- oder Verbrauchsausweis für Verkauf oder Vermietung</td>
-              <td>Festpreis nach kurzem Telefonat</td>
+              <td>Verbrauch ab 120 €, Bedarf ab 390 €</td>
+            </tr>
+            <tr>
+              <td><a href="hydraulischer-abgleich-ulm.html">Hydraulischer Abgleich</a></td>
+              <td>Raumweise Heizlastberechnung nach Verfahren B, Einstellung,
+                  Dokumentation für die Förderung</td>
+              <td>ab 650 €</td>
             </tr>
             <tr>
               <td>Zweitmeinung</td>
@@ -1274,10 +1291,11 @@ main .cta-band{margin-bottom:50px}
       </div>
 
       <p>
-        Der Grund für die zwei Festpreise „nach Telefonat“: Ein Energieausweis für ein
-        Reihenhaus mit vollständigen Unterlagen ist eine andere Arbeit als einer für ein
-        Mehrfamilienhaus mit drei Anbauten aus vier Jahrzehnten. Eine Hausnummer, die
-        für beide gilt, wäre für den einen zu teuer und für den anderen erfunden.
+        Alle genannten Beträge sind Startpreise für ein Ein- oder Zweifamilienhaus,
+        inklusive Umsatzsteuer. Warum bei der Zweitmeinung trotzdem „nach Telefonat“
+        steht: Ein einzelnes Heizungsangebot zu prüfen ist eine andere Arbeit als ein
+        Leistungsverzeichnis über vier Gewerke. Eine Hausnummer, die für beides gilt,
+        wäre für den einen zu teuer und für den anderen erfunden.
       </p>
 
       <h2>Der Sanierungsfahrplan: Preis, Förderung, Eigenanteil</h2>
@@ -1475,9 +1493,9 @@ main .cta-band{margin-bottom:50px}
       <div class="footer-col">
         <h3>Leistungen</h3>
         <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
-        <a href="index.html#leistungen">Fördermittel</a>
-        <a href="index.html#leistungen">Baubegleitung</a>
-        <a href="index.html#leistungen">Energieausweis</a>
+        <a href="energieausweis-ulm.html">Energieausweis</a>
+        <a href="hydraulischer-abgleich-ulm.html">Hydraulischer Abgleich</a>
+        <a href="index.html#leistungen">Fördermittel &amp; Baubegleitung</a>
         <a href="sanierungsrechner.html">Sanierungsrechner</a>
       </div>
 

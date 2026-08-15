@@ -7,6 +7,14 @@ Kein Build-Schritt, kein Framework, keine Abhängigkeiten.
 
 - `index.html` – Startseite (Landingpage) der Energieberatung
 - `sanierungsrechner.html` – interaktiver Rechner mit Lead-Formular vor dem PDF-Download
+- `sanierungsfahrplan.html`, `energieausweis-ulm.html`,
+  `hydraulischer-abgleich-ulm.html` – Leistungsseiten mit Festpreisen. Die
+  beiden neuen sind aus der Hülle von `sanierungsfahrplan.html` gebaut und
+  werden von `kopf-fuss-abgleichen.py` mitgepflegt (stehen in `ZIELE`).
+  Fachliche Konsistenz der Abgleich-Seite mit dem Rechner: Einsparung
+  „rund 8 %“ = `CONFIG.abgleichEinsparung`, Spanne „800–1.800 €“ =
+  `CONFIG.kosten.abgleich`, „bei Wärmepumpe im Angebot enthalten“ =
+  `CONFIG.imWpAngebotEnthalten` – wer eine Seite ändert, ändert beide.
 - `impressum.html`, `datenschutz.html` – Pflichtseiten, aus beiden Hauptseiten verlinkt
 - `robots.txt`, `sitemap.xml` – SEO (Domain muss zur echten Domain passen)
 - `404.html` – Fehlerseite
