@@ -2001,6 +2001,13 @@ function isoHausSvg(sh, san, opt){
   var wallSt= san.wand?G:INK, wallW = san.wand?2.4:1.6;
   var plF1  = san.keller?'#D9EDE0':'#D9CDB3', plF2 = san.keller?'#C9E2D2':'#CBBFA4';
   var plLn  = san.keller?G:'#2E4A3C', plW = san.keller?3:2;
+  /* Sockelband, Fenstersimse und Tuerrahmen gehoeren zur Wand und folgen
+     deren Zustand. Blieben sie beige, staende im vollsanierten Haus ein
+     beiges Band zwischen gruener Wand und gruenem Sockel. */
+  var band   = san.wand?'#CADFD2':'#D9CDB6';
+  var bandG  = san.wand?'#BCD5C6':'#C6B79A';
+  var sims   = san.wand?'#D5E7DC':'#E0D5BE';
+  var tRahm  = san.wand?'#DCEBE2':'#E9DFC9';
   /* Fokus-Hervorhebung im Fragebogen: aktuelles Bauteil amber markieren */
   if(opt.focus==='wand'){ wallSt=A; wallW=2.6; }
   if(opt.focus==='dach'){ roofS=A; roofW=2.6; }
@@ -2032,24 +2039,24 @@ function isoHausSvg(sh, san, opt){
   s+='<polygon points="362,380 483.2,310 422.6,285" fill="'+wallS+'" stroke="'+wallSt+'" stroke-width="'+wallW+'" stroke-linejoin="round"/>';
   /* Fassade: Fenster & Tür */
   s+='<g transform="matrix(0.866,0.5,0,-1,188.8,390)">'+
-    '<rect x="0" y="0" width="200" height="9" fill="#D9CDB6" opacity=".75"/>'+
-    '<rect x="18.5" y="32.5" width="59" height="3.4" fill="#E0D5BE"/>'+
+    '<rect x="0" y="0" width="200" height="9" fill="'+band+'" opacity=".75"/>'+
+    '<rect x="18.5" y="32.5" width="59" height="3.4" fill="'+sims+'"/>'+
     '<rect x="22" y="36" width="52" height="50" fill="'+winF+'" stroke="'+winS+'" stroke-width="'+winW+'"/>'+
     '<polygon points="24,54 41,38 51,38 24,62" fill="#FFFFFF" opacity=".26"/>'+
     '<path d="M48 36v50M22 61h52" fill="none" stroke="#F3ECDC" stroke-width="2"/>'+
-    '<rect x="89.5" y="36.5" width="51" height="3.4" fill="#E0D5BE"/>'+
+    '<rect x="89.5" y="36.5" width="51" height="3.4" fill="'+sims+'"/>'+
     '<rect x="92" y="40" width="44" height="46" fill="'+winF+'" stroke="'+winS+'" stroke-width="'+winW+'"/>'+
     '<polygon points="94,57 109,42 118,42 94,64" fill="#FFFFFF" opacity=".26"/>'+
     '<path d="M114 40v46M92 63h44" fill="none" stroke="#F3ECDC" stroke-width="2"/>'+
-    '<rect x="146" y="0" width="44" height="80" rx="1" fill="#E9DFC9" stroke="#B7A98D" stroke-width="1"/>'+
+    '<rect x="146" y="0" width="44" height="80" rx="1" fill="'+tRahm+'" stroke="#B7A98D" stroke-width="1"/>'+
     '<rect x="148" y="0" width="40" height="78" rx="1" fill="#DFD2B8" stroke="'+INK+'" stroke-width="1.15"/>'+
     '<rect x="154" y="42" width="28" height="28" rx="1" fill="#D2C4A6" stroke="#B3A487" stroke-width=".9"/>'+
     '<rect x="154" y="10" width="28" height="26" rx="1" fill="#D2C4A6" stroke="#B3A487" stroke-width=".9"/>'+
     '<rect x="178" y="38" width="4" height="9" rx="2" fill="#5E5344"/></g>';
   /* Giebelfenster */
   s+='<g transform="matrix(-0.866,0.5,0,-1,483.2,420)">'+
-    '<rect x="0" y="0" width="140" height="9" fill="#C6B79A" opacity=".7"/>'+
-    '<rect x="47.5" y="42.5" width="45" height="3.2" fill="#C9BA9E"/>'+
+    '<rect x="0" y="0" width="140" height="9" fill="'+bandG+'" opacity=".7"/>'+
+    '<rect x="47.5" y="42.5" width="45" height="3.2" fill="'+bandG+'"/>'+
     '<rect x="50" y="46" width="40" height="42" fill="'+winF+'" stroke="'+winS+'" stroke-width="'+winW+'"/>'+
     '<polygon points="52,62 66,48 75,48 52,69" fill="#FFFFFF" opacity=".2"/>'+
     '<path d="M70 46v42M50 67h40" fill="none" stroke="#DCD0B6" stroke-width="1.8"/></g>';
@@ -2070,8 +2077,12 @@ function isoHausSvg(sh, san, opt){
   s+='<path d="M249.4 185 L422.6 285" fill="none" stroke="'+roofS+'" stroke-width="3.6" stroke-linecap="round"/>';
   /* Dachueberstand: ohne ihn endet das Dach auf der Wandkante - so ist
      kein Haus gebaut. Farbe folgt dem Zustand (roofS). */
-  s+='<polygon points="188.8,280 362,380 356.1,389.2 182.9,289.2" fill="'+(san.dach?'#A8CFBB':'#2E2822')+'"/>';
-  s+='<polygon points="422.6,285 362,380 356.1,389.2 416.7,294.2" fill="'+(san.dach?'#A8CFBB':'#2E2822')+'" opacity=".9"/>';
+  /* Die Untersicht des Ueberstands ist SCHATTEN und bleibt dunkel - auch
+     bei saniertem Dach. Erster Versuch faerbte sie hellgruen mit; das ergab
+     ein breites blasses Band an der Traufe, das wie ein Sims aussah. Den
+     Sanierungszustand signalisiert die Dachflaeche selbst. */
+  s+='<polygon points="188.8,280 362,380 356.1,389.2 182.9,289.2" fill="'+(san.dach?'#3F5A4C':'#2E2822')+'"/>';
+  s+='<polygon points="422.6,285 362,380 356.1,389.2 416.7,294.2" fill="'+(san.dach?'#3F5A4C':'#2E2822')+'" opacity=".9"/>';
   s+='<polygon points="188.8,280 362,380 362,387 188.8,287" fill="#3A3128" opacity=".13"/>';
   /* Sockel / Kellerdecke */
   s+='<polygon points="188.8,390 362,490 362,506 188.8,406" fill="'+plF1+'" stroke="'+INK+'" stroke-width="1.15" stroke-linejoin="round"/>';
