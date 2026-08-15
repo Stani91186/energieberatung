@@ -998,34 +998,49 @@ section{position:relative}
       <path d="M20 6 9 17l-5-5"/>
     </g>
 
-    <linearGradient id="gWallF" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F5EEE0"/>
+    <!-- Putzfassade: Licht von links oben. Drei Stufen statt zwei - eine
+         Wand mit nur zwei Stopps sieht aus wie Papier, nicht wie Putz. -->
+    <linearGradient id="gWallF" x1="0" y1="0" x2="0.18" y2="1">
+      <stop offset="0" stop-color="#FFFDF7"/><stop offset=".55" stop-color="#F8F1E3"/><stop offset="1" stop-color="#ECE1CC"/>
     </linearGradient>
-    <linearGradient id="gWallS" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#EBE2D0"/><stop offset="1" stop-color="#DCD1B9"/>
-    </linearGradient>
-    <!-- Dach in dunklem, warmem Grau (Ziegel), statt vorher Amber -->
-    <linearGradient id="gRoofF" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#6E655C"/><stop offset="1" stop-color="#4A433B"/>
-    </linearGradient>
-    <linearGradient id="gRoofB" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#453F38"/><stop offset="1" stop-color="#332E29"/>
-    </linearGradient>
-    <!-- Solarmodule blaeulich, damit sie sich vom dunklen Dach abheben -->
-    <linearGradient id="gPanel" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#40608A"/><stop offset="1" stop-color="#27405E"/>
+    <linearGradient id="gWallS" x1="0" y1="0" x2="0.22" y2="1">
+      <stop offset="0" stop-color="#E6DBC6"/><stop offset=".55" stop-color="#D9CCB2"/><stop offset="1" stop-color="#C7B797"/>
     </linearGradient>
 
-    <!-- Rasen und Baumkronen -->
-    <linearGradient id="gGrass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#93BC7B"/><stop offset="1" stop-color="#5D8A51"/>
+    <!-- Dachziegel in warmem Anthrazit. Die Ziegelreihen zeichnet das Haus
+         selbst als Linien - ein Muster wuerde beim Kippen mitscheren. -->
+    <linearGradient id="gRoofF" x1="0" y1="0" x2="0.12" y2="1">
+      <stop offset="0" stop-color="#877264"/><stop offset=".5" stop-color="#6A5A4D"/><stop offset="1" stop-color="#53463A"/>
     </linearGradient>
-    <linearGradient id="gLaubHell" x1="0" y1="0" x2="0.3" y2="1">
-      <stop offset="0" stop-color="#9CC685"/><stop offset="1" stop-color="#6B9A5B"/>
+    <linearGradient id="gRoofB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#413931"/><stop offset="1" stop-color="#2B2622"/>
     </linearGradient>
-    <linearGradient id="gLaubDunkel" x1="0" y1="0" x2="0.3" y2="1">
-      <stop offset="0" stop-color="#7CAA68"/><stop offset="1" stop-color="#4E7A46"/>
+
+    <!-- Solarmodule: dunkles Silizium, leicht blaeulich -->
+    <linearGradient id="gPanel" x1="0" y1="0" x2="0.28" y2="1">
+      <stop offset="0" stop-color="#456A99"/><stop offset=".5" stop-color="#2C4970"/><stop offset="1" stop-color="#1B314D"/>
     </linearGradient>
+
+    <!-- NEU: Fensterglas. Unten dunkler (Raumtiefe), oben heller (Himmel). -->
+    <linearGradient id="gGlas" x1="0" y1="1" x2="0.35" y2="0">
+      <stop offset="0" stop-color="#5F7D77"/><stop offset=".5" stop-color="#87A69F"/><stop offset="1" stop-color="#B4CCC5"/>
+    </linearGradient>
+    <!-- NEU: lackiertes Blech fuer das Waermepumpen-Gehaeuse -->
+    <linearGradient id="gBlech" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#FCFAF4"/><stop offset=".5" stop-color="#EFE8DA"/><stop offset="1" stop-color="#DBD1BC"/>
+    </linearGradient>
+
+    <!-- Rasen radial statt linear: eine Wiese ist in der Mitte heller,
+         zum Rand hin schattiger - linear sieht aus wie ein Farbverlauf. -->
+    <radialGradient id="gGrass" cx=".38" cy=".3" r=".92">
+      <stop offset="0" stop-color="#A9CE8D"/><stop offset=".55" stop-color="#85B26D"/><stop offset="1" stop-color="#5A8850"/>
+    </radialGradient>
+    <radialGradient id="gLaubHell" cx=".34" cy=".28" r=".84">
+      <stop offset="0" stop-color="#B7D89E"/><stop offset=".6" stop-color="#8DBB73"/><stop offset="1" stop-color="#639A54"/>
+    </radialGradient>
+    <radialGradient id="gLaubDunkel" cx=".34" cy=".26" r=".88">
+      <stop offset="0" stop-color="#8FBE76"/><stop offset=".55" stop-color="#639A53"/><stop offset="1" stop-color="#3F6E3A"/>
+    </radialGradient>
 
     <!-- Grundstueck: Rasen-Insel mit Steinkante. Bewusst AUSSERHALB von
          #isoHouse, weil die kleinen Karten-Grafiken das Haus in einem engen
@@ -1044,13 +1059,19 @@ section{position:relative}
          also mit gleichmaessigem Rand rundum. Beim Aendern beides im
          Verhaeltnis 1.73 : 1 halten, sonst schwebt das Haus wieder. -->
     <g id="grundstueck">
-      <ellipse cx="340" cy="436" rx="238" ry="130" fill="rgba(60,46,28,.13)" filter="url(#fBlur)"/>
-      <ellipse cx="336" cy="430" rx="236" ry="134" fill="#ADA492"/>
-      <ellipse cx="336" cy="420" rx="236" ry="134" fill="#D5CDBC"/>
+      <ellipse cx="340" cy="438" rx="240" ry="132" fill="rgba(60,46,28,.14)" filter="url(#fBlur)"/>
+      <ellipse cx="336" cy="429" rx="236" ry="134" fill="#A79E8B"/>
+      <ellipse cx="336" cy="421" rx="236" ry="134" fill="#CFC6B3"/>
       <ellipse cx="336" cy="421" rx="222" ry="126" fill="url(#gGrass)"/>
-      <g fill="none" stroke="#4E7A46" stroke-width="2" stroke-linecap="round" opacity=".5">
-        <path d="M200 511c2-8 3-11 1-18M210 515c3-7 5-10 4-17M262 529c2-8 3-11 1-18M272 532c3-7 5-10 4-17
-                 M398 532c2-8 3-11 1-18M408 529c3-7 5-10 4-17M468 511c2-8 3-11 1-18M478 507c3-7 5-10 4-17"/>
+      <!-- Bodenschatten unter dem Haus: erdet den Baukoerper auf der Wiese -->
+      <ellipse cx="336" cy="432" rx="150" ry="76" fill="#3F6E3A" opacity=".16" filter="url(#fBlur)"/>
+      <!-- Grasbueschel: unterschiedliche Hoehen, sonst wirkt es gestempelt -->
+      <g fill="none" stroke="#41703C" stroke-width="1.9" stroke-linecap="round" opacity=".42">
+        <path d="M186 466c2-9 3-12 1-20M196 471c3-8 5-11 4-18M206 476c2-7 2-10 1-16
+                 M252 508c2-9 3-12 1-20M262 512c3-8 5-11 4-18M274 516c2-7 2-10 1-15
+                 M396 516c2-9 3-12 1-20M406 512c3-8 5-11 4-18M418 507c2-7 2-10 1-15
+                 M462 476c2-9 3-12 1-20M472 471c3-8 5-11 4-18M482 466c2-7 2-10 1-15
+                 M330 528c2-8 3-11 1-18M342 530c3-7 5-10 4-16"/>
       </g>
     </g>
 
@@ -1060,22 +1081,35 @@ section{position:relative}
          (528,452) entspricht 90 % des Radius - noch deutlich innerhalb,
          und der Stamm bleibt rechts neben der Waermepumpe (endet bei x=518). -->
     <g id="baumRechts">
-      <path d="M528 452V326" fill="none" stroke="#8C7F6C" stroke-width="7" stroke-linecap="round"/>
-      <path d="M528 364l-24-26M528 348l26-24" fill="none" stroke="#8C7F6C" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="528" cy="452" rx="46" ry="16" fill="#3F6E3A" opacity=".22" filter="url(#fBlur)"/>
+      <path d="M528 452V326" fill="none" stroke="#7D7161" stroke-width="8" stroke-linecap="round"/>
+      <path d="M525 452V330" fill="none" stroke="#968975" stroke-width="3" stroke-linecap="round"/>
+      <path d="M528 364l-24-26M528 348l26-24" fill="none" stroke="#7D7161" stroke-width="4" stroke-linecap="round"/>
       <ellipse cx="528" cy="276" rx="62" ry="54" fill="url(#gLaubDunkel)"/>
       <ellipse cx="486" cy="302" rx="38" ry="31" fill="url(#gLaubHell)"/>
       <ellipse cx="568" cy="298" rx="36" ry="30" fill="url(#gLaubHell)"/>
       <ellipse cx="536" cy="232" rx="40" ry="33" fill="url(#gLaubHell)"/>
+      <!-- Zusatzballen brechen die Silhouette auf; ohne sie bleiben es
+           erkennbar vier gestapelte Ellipsen. -->
+      <ellipse cx="500" cy="258" rx="26" ry="22" fill="url(#gLaubHell)" opacity=".9"/>
+      <ellipse cx="556" cy="264" rx="24" ry="20" fill="url(#gLaubDunkel)" opacity=".55"/>
+      <ellipse cx="514" cy="234" rx="20" ry="16" fill="url(#gLaubHell)" opacity=".75"/>
+      <ellipse cx="512" cy="248" rx="30" ry="24" fill="#FFFFFF" opacity=".10"/>
     </g>
     <!-- Position bewusst gewaehlt: rechts vom "Fassade"-Schild (endet bei x=128)
          und oberhalb des "Fenster"-Schilds (beginnt bei y=470). Beim Verschieben
          diese beiden Grenzen beachten, sonst liegt Laub unter den Beschriftungen. -->
     <g id="baumLinks">
-      <path d="M175 464V382" fill="none" stroke="#9C907D" stroke-width="5" stroke-linecap="round"/>
-      <path d="M175 410l-18-18" fill="none" stroke="#9C907D" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="175" cy="464" rx="34" ry="12" fill="#3F6E3A" opacity=".2" filter="url(#fBlur)"/>
+      <path d="M175 464V382" fill="none" stroke="#8C806E" stroke-width="6" stroke-linecap="round"/>
+      <path d="M173 464V386" fill="none" stroke="#A2957F" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M175 410l-18-18" fill="none" stroke="#8C806E" stroke-width="3" stroke-linecap="round"/>
       <ellipse cx="175" cy="356" rx="44" ry="38" fill="url(#gLaubDunkel)"/>
       <ellipse cx="149" cy="376" rx="27" ry="22" fill="url(#gLaubHell)"/>
       <ellipse cx="201" cy="374" rx="25" ry="21" fill="url(#gLaubHell)"/>
+      <ellipse cx="160" cy="340" rx="21" ry="17" fill="url(#gLaubHell)" opacity=".85"/>
+      <ellipse cx="194" cy="346" rx="18" ry="15" fill="url(#gLaubDunkel)" opacity=".5"/>
+      <ellipse cx="163" cy="348" rx="22" ry="17" fill="#FFFFFF" opacity=".09"/>
     </g>
     <filter id="fBlur" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="6"/>
@@ -1087,47 +1121,112 @@ section{position:relative}
     <!-- Isometrisches Haus: Grundriss 200×140, Wandhöhe 110, First 170 -->
     <g id="isoHouse">
       <polygon points="307,324 501,436 365,514 171,402" fill="rgba(60,46,28,.10)" filter="url(#fBlur)"/>
-      <polygon points="310,210 483.2,310 422.6,285 249.4,185" fill="url(#gRoofB)" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
-      <polygon points="188.8,390 362,490 362,380 188.8,280" fill="url(#gWallF)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
-      <polygon points="483.2,420 362,490 362,380 483.2,310" fill="url(#gWallS)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
-      <polygon points="362,380 483.2,310 422.6,285" fill="url(#gWallS)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
 
-      <!-- Fassade (Fläche y=140): u entlang der Wand, v = Höhe -->
+      <!-- Rueckwaertige Dachflaeche (im Schatten) -->
+      <polygon points="310,210 483.2,310 422.6,285 249.4,185" fill="url(#gRoofB)" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
+      <g stroke="#FFFFFF" stroke-width=".9" opacity=".07" stroke-linecap="round">
+        <path d="M269.4 193.3 L442.6 293.3M289.4 201.5 L462.6 301.5"/>
+      </g>
+
+      <polygon points="188.8,390 362,490 362,380 188.8,280" fill="url(#gWallF)" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
+      <polygon points="483.2,420 362,490 362,380 483.2,310" fill="url(#gWallS)" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
+      <polygon points="362,380 483.2,310 422.6,285" fill="url(#gWallS)" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
+
+      <!-- Fassade (Flaeche y=140): u entlang der Wand, v = Hoehe.
+           Achtung: die Matrix spiegelt y, lokal +y zeigt nach OBEN. -->
       <g transform="matrix(0.866,0.5,0,-1,188.8,390)">
-        <rect x="22" y="36" width="52" height="50" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
-        <path d="M48 36v50M22 61h52" fill="none" stroke="#1D1A15" stroke-width="1"/>
-        <rect x="92" y="40" width="44" height="46" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
-        <path d="M114 40v46M92 63h44" fill="none" stroke="#1D1A15" stroke-width="1"/>
-        <rect x="148" y="0" width="40" height="78" rx="2" fill="#EFE7D7" stroke="#1D1A15" stroke-width="1.5"/>
-        <circle cx="182" cy="40" r="2.6" fill="#1D1A15"/>
+        <!-- Sockelband: jedes gebaute Haus hat einen Spritzschutz unten -->
+        <rect x="0" y="0" width="200" height="9" fill="#D9CDB6" opacity=".75"/>
+        <path d="M0 9h200" stroke="#BCAD90" stroke-width="1" fill="none"/>
+
+        <!-- Fenster links: Sims, Rahmen, Glas, Spiegelung, Sprossen -->
+        <rect x="18.5" y="32.5" width="59" height="3.4" fill="#E0D5BE"/>
+        <rect x="20.5" y="34.5" width="55" height="53" rx="1" fill="#F3ECDC" stroke="#B7A98D" stroke-width="1"/>
+        <rect x="23" y="37" width="50" height="48" fill="url(#gGlas)"/>
+        <polygon points="23,55 41,37 51,37 23,63" fill="#FFFFFF" opacity=".28"/>
+        <path d="M48 37v48M23 61h50" fill="none" stroke="#F3ECDC" stroke-width="2.2"/>
+        <rect x="23" y="37" width="50" height="48" fill="none" stroke="#4E6A64" stroke-width="1"/>
+
+        <!-- Fenster rechts -->
+        <rect x="89.5" y="36.5" width="51" height="3.4" fill="#E0D5BE"/>
+        <rect x="91" y="38.5" width="46" height="49" rx="1" fill="#F3ECDC" stroke="#B7A98D" stroke-width="1"/>
+        <rect x="93" y="41" width="42" height="44" fill="url(#gGlas)"/>
+        <polygon points="93,58 109,41 118,41 93,65" fill="#FFFFFF" opacity=".28"/>
+        <path d="M114 41v44M93 63h42" fill="none" stroke="#F3ECDC" stroke-width="2.2"/>
+        <rect x="93" y="41" width="42" height="44" fill="none" stroke="#4E6A64" stroke-width="1"/>
+
+        <!-- Haustuer: Rahmen, zwei Fuellungen, Griff, Schwelle -->
+        <rect x="146" y="0" width="44" height="80" rx="1" fill="#E9DFC9" stroke="#B7A98D" stroke-width="1"/>
+        <rect x="148" y="0" width="40" height="78" rx="1" fill="#DFD2B8" stroke="#3A3128" stroke-width="1.15"/>
+        <rect x="154" y="42" width="28" height="28" rx="1" fill="#D2C4A6" stroke="#B3A487" stroke-width=".9"/>
+        <rect x="154" y="10" width="28" height="26" rx="1" fill="#D2C4A6" stroke="#B3A487" stroke-width=".9"/>
+        <rect x="178" y="38" width="4" height="9" rx="2" fill="#5E5344"/>
+        <rect x="144" y="0" width="48" height="3" fill="#CFC2A6"/>
       </g>
 
-      <!-- Giebelwand (Fläche x=200) -->
+      <!-- Giebelwand (Flaeche x=200) -->
       <g transform="matrix(-0.866,0.5,0,-1,483.2,420)">
-        <rect x="50" y="46" width="40" height="42" fill="#E4EDE7" stroke="#1D1A15" stroke-width="1.4"/>
-        <path d="M70 46v42M50 67h40" fill="none" stroke="#1D1A15" stroke-width="1"/>
+        <rect x="0" y="0" width="140" height="9" fill="#C6B79A" opacity=".7"/>
+        <rect x="47.5" y="42.5" width="45" height="3.2" fill="#C9BA9E"/>
+        <rect x="49" y="44.5" width="42" height="45" rx="1" fill="#DCD0B6" stroke="#AC9E82" stroke-width="1"/>
+        <rect x="51" y="47" width="38" height="40" fill="url(#gGlas)" opacity=".85"/>
+        <polygon points="51,63 66,47 75,47 51,70" fill="#FFFFFF" opacity=".2"/>
+        <path d="M70 47v40M51 67h38" fill="none" stroke="#DCD0B6" stroke-width="2"/>
+        <rect x="51" y="47" width="38" height="40" fill="none" stroke="#4E6A64" stroke-width="1"/>
       </g>
 
-      <!-- Vordere Dachfläche mit Solarmodulen -->
-      <polygon points="188.8,280 362,380 422.6,285 249.4,185" fill="url(#gRoofF)" stroke="#1D1A15" stroke-width="1.6" stroke-linejoin="round"/>
+      <!-- Vordere Dachflaeche: Ziegelreihen laufen parallel zur Traufe.
+           Sieben Reihen - weniger wirkt leer, mehr wird bei 40 % zu Brei. -->
+      <polygon points="188.8,280 362,380 422.6,285 249.4,185" fill="url(#gRoofF)" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
+      <g stroke="#221C17" stroke-width="1.2" opacity=".34" stroke-linecap="round">
+        <path d="M196.4 268.1 L369.6 368.1M204 256.3 L377.2 356.3M211.5 244.4 L384.7 344.4
+                 M219.1 232.5 L392.3 332.5M226.7 220.6 L399.9 320.6M234.3 208.8 L407.5 308.8
+                 M241.8 196.9 L415 296.9"/>
+      </g>
+      <g stroke="#FFFFFF" stroke-width=".8" opacity=".10" stroke-linecap="round">
+        <path d="M197.6 266.2 L370.8 366.2M212.7 242.5 L385.9 342.5M227.9 218.7 L401.1 318.7"/>
+      </g>
+
+      <!-- Solarmodule mit Zellraster und Glanzband -->
       <g transform="matrix(0.866,0.5,0.606,-0.95,188.8,280)">
-        <rect x="26" y="22" width="64" height="52" rx="2" fill="url(#gPanel)" stroke="#F4EFE6" stroke-width="1.2"/>
-        <path d="M26 48h64M47 22v52M69 22v52" fill="none" stroke="#F4EFE6" stroke-width=".8" opacity=".7"/>
-        <rect x="104" y="22" width="64" height="52" rx="2" fill="url(#gPanel)" stroke="#F4EFE6" stroke-width="1.2"/>
-        <path d="M104 48h64M125 22v52M147 22v52" fill="none" stroke="#F4EFE6" stroke-width=".8" opacity=".7"/>
+        <rect x="26" y="22" width="64" height="52" rx="1.5" fill="url(#gPanel)" stroke="#EDE6D8" stroke-width="1.4"/>
+        <g stroke="#8FA8C4" stroke-width=".55" opacity=".55" fill="none">
+          <path d="M42 22v52M58 22v52M74 22v52M26 39.3h64M26 56.7h64"/>
+        </g>
+        <polygon points="26,64 44,22 56,22 26,74" fill="#FFFFFF" opacity=".10"/>
+        <rect x="104" y="22" width="64" height="52" rx="1.5" fill="url(#gPanel)" stroke="#EDE6D8" stroke-width="1.4"/>
+        <g stroke="#8FA8C4" stroke-width=".55" opacity=".55" fill="none">
+          <path d="M120 22v52M136 22v52M152 22v52M104 39.3h64M104 56.7h64"/>
+        </g>
+        <polygon points="104,64 122,22 134,22 104,74" fill="#FFFFFF" opacity=".10"/>
       </g>
-      <path d="M249.4 185 L422.6 285" fill="none" stroke="#1D1A15" stroke-width="2" stroke-linecap="round"/>
 
-      <!-- Sockel / Kellergeschoss mit gedämmter Kellerdecke -->
-      <polygon points="188.8,390 362,490 362,506 188.8,406" fill="#D9CDB3" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
-      <polygon points="483.2,420 362,490 362,506 483.2,436" fill="#CBBFA4" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- Firstziegel: eigene Kappe statt nur einer Linie -->
+      <path d="M249.4 185 L422.6 285" fill="none" stroke="#2A241E" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M249.4 183.4 L422.6 283.4" fill="none" stroke="#8A7565" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>
+      <!-- Dachueberstand: Untersicht, Stirnbrett und Schatten auf der Wand.
+           Rein zeichnerisch - die Eckpunkte der Klickflaechen bleiben gleich. -->
+      <polygon points="188.8,280 362,380 356.1,389.2 182.9,289.2" fill="#2E2822"/>
+      <polygon points="182.9,289.2 356.1,389.2 354.6,391.5 181.4,291.5" fill="#100E0C"/>
+      <path d="M190.5 284.5 L363.7 384.5" fill="none" stroke="#8A7565" stroke-width="1" opacity=".35"/>
+      <!-- Schattenfuge, die der Ueberstand auf den Putz wirft -->
+      <polygon points="188.8,280 362,380 362,387 188.8,287" fill="#3A3128" opacity=".13"/>
+      <!-- Ortgang ueber der Giebelwand -->
+      <polygon points="422.6,285 362,380 356.1,389.2 416.7,294.2" fill="#2E2822" opacity=".9"/>
+
+      <!-- Sockel / Kellergeschoss mit gedaemmter Kellerdecke -->
+      <polygon points="188.8,390 362,490 362,506 188.8,406" fill="#CFC2A8" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
+      <polygon points="483.2,420 362,490 362,506 483.2,436" fill="#BFB199" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
       <path d="M188.8 396 L362 496" fill="none" stroke="#2E4A3C" stroke-width="2" stroke-dasharray="6 5"/>
       <path d="M362 496 L483.2 426" fill="none" stroke="#2E4A3C" stroke-width="2" stroke-dasharray="6 5"/>
 
-      <!-- Büsche -->
-      <ellipse cx="160" cy="464" rx="28" ry="5" fill="rgba(60,46,28,.09)"/>
-      <circle cx="168" cy="442" r="17" fill="#DCE8DF" stroke="#1D1A15" stroke-width="1.3"/>
-      <circle cx="146" cy="454" r="10.5" fill="#CFDFD4" stroke="#1D1A15" stroke-width="1.3"/>
+      <!-- Buesche: geschichtetes Laub statt weisser Kreise mit schwarzem Rand -->
+      <ellipse cx="160" cy="464" rx="30" ry="9" fill="#3F6E3A" opacity=".2" filter="url(#fBlur)"/>
+      <ellipse cx="168" cy="444" rx="19" ry="17" fill="url(#gLaubDunkel)"/>
+      <ellipse cx="163" cy="438" rx="12" ry="10" fill="url(#gLaubHell)" opacity=".95"/>
+      <ellipse cx="146" cy="455" rx="12" ry="10.5" fill="url(#gLaubDunkel)"/>
+      <ellipse cx="143" cy="451" rx="7.5" ry="6" fill="url(#gLaubHell)" opacity=".9"/>
+      <ellipse cx="177" cy="452" rx="9" ry="7.5" fill="url(#gLaubHell)" opacity=".8"/>
     </g>
   </defs>
 </svg>
@@ -1300,19 +1399,37 @@ section{position:relative}
 
           <!-- Wärmepumpe (isometrischer Block mit rotierendem Lüfter) -->
           <g class="hotspot" data-key="heizung" tabindex="0" role="button" aria-label="Wärmepumpe – Einsparpotenzial anzeigen" transform="translate(0,16)">
-            <polygon points="465.9,437 518.3,467.5 465.9,498 413.5,467.5" fill="rgba(60,46,28,.10)" filter="url(#fBlur)"/>
-            <polygon points="465.9,398 513.5,425.5 465.9,453 418.25,425.5" fill="#FBF7EF" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
-            <polygon points="418.25,425.5 465.9,453 465.9,495 418.25,467.5" fill="#F2EBDC" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
-            <polygon points="465.9,453 513.5,425.5 513.5,467.5 465.9,495" fill="#E2D8C2" stroke="#1D1A15" stroke-width="1.5" stroke-linejoin="round"/>
+            <polygon points="465.9,437 518.3,467.5 465.9,498 413.5,467.5" fill="rgba(60,46,28,.12)" filter="url(#fBlur)"/>
+            <!-- Gehaeuse in lackiertem Blech statt weisser Flaeche -->
+            <polygon points="465.9,398 513.5,425.5 465.9,453 418.25,425.5" fill="url(#gBlech)" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
+            <polygon points="418.25,425.5 465.9,453 465.9,495 418.25,467.5" fill="#F0E9DA" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
+            <polygon points="465.9,453 513.5,425.5 513.5,467.5 465.9,495" fill="#DDD3BD" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
+
+            <!-- Vorderseite: vertiefter Luefterkorb mit Schutzgitter -->
             <g transform="matrix(0.866,0.5,0,-1,418.25,467.5)">
-              <circle cx="24" cy="21" r="13.5" fill="#E4EDE7" stroke="#2E4A3C" stroke-width="1.6"/>
+              <rect x="4" y="4" width="40" height="34" rx="3" fill="#E7DFCE" opacity=".8"/>
+              <circle cx="24" cy="21" r="15" fill="#CFC5B0"/>
+              <circle cx="24" cy="21" r="13.5" fill="#EFF4F1" stroke="#2E4A3C" stroke-width="1.4"/>
+              <g stroke="#2E4A3C" stroke-width=".5" opacity=".3" fill="none">
+                <circle cx="24" cy="21" r="10"/><circle cx="24" cy="21" r="6.5"/>
+              </g>
               <g class="il-spin">
                 <path d="M24 21c0-5.5 2.8-8.5 6.5-8.5M24 21c4.6 2.8 5.6 6.5 3.7 9.3M24 21c-4.6 2.8-9.3.9-10.2-3" fill="none" stroke="#2E4A3C" stroke-width="1.9" stroke-linecap="round"/>
               </g>
-              <circle cx="24" cy="21" r="1.8" fill="#2E4A3C"/>
+              <circle cx="24" cy="21" r="2.4" fill="#2E4A3C"/>
+              <circle cx="24" cy="21" r="1" fill="#7FA38C"/>
+              <!-- Typenschild und Fuss -->
+              <rect x="6" y="7" width="9" height="4" rx="1" fill="#C6BCA6" opacity=".8"/>
+              <rect x="2" y="0" width="44" height="2.6" fill="#B8AE97"/>
             </g>
-            <g transform="matrix(-0.866,0.5,0,-1,513.5,467.5)" opacity=".35">
-              <path d="M12 14h32M12 21h32M12 28h32" fill="none" stroke="#1D1A15" stroke-width="1.1"/>
+
+            <!-- Seite: Lamellen des Waermetauschers, nicht drei Striche -->
+            <g transform="matrix(-0.866,0.5,0,-1,513.5,467.5)">
+              <rect x="6" y="5" width="42" height="32" rx="2" fill="#C9BFA8" opacity=".45"/>
+              <g stroke="#8A7F68" stroke-width="1.1" opacity=".55" fill="none">
+                <path d="M8 9h38M8 13h38M8 17h38M8 21h38M8 25h38M8 29h38M8 33h38"/>
+              </g>
+              <rect x="6" y="5" width="42" height="32" rx="2" fill="none" stroke="#8A7F68" stroke-width="1" opacity=".5"/>
             </g>
           </g>
 
