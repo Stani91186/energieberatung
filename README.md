@@ -21,6 +21,7 @@ Abhängigkeiten – die Dateien werden so hochgeladen, wie sie hier liegen.
 | `.nojekyll` | technische Datei für GitHub Pages, drin lassen |
 | `htaccess.txt` | nur für klassische Hoster, bei GitHub Pages überflüssig |
 | `STIMMEN-SAMMELN.md` | Anleitung, wie echte Kundenstimmen eingeholt werden |
+| `SICHTBARKEIT-AUFBAUEN.md` | Anleitung: Google-Unternehmensprofil, Verzeichnisse, Backlinks, Social Media |
 | `CLAUDE.md` | Projektregeln für die Weiterarbeit mit Claude Code |
 
 ### Die drei Erzeugerskripte
