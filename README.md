@@ -51,6 +51,17 @@ dann stimmen Startseite, Fahrplan, Ortsseiten und Ratgeber wieder überein.
 
 Diese Punkte sind noch offen. Die ersten drei sind rechtlich zwingend.
 
+0. **DNS umstellen – das ist der wichtigste Punkt.** Die Domain zeigt derzeit
+   auf den alten Hoster (85.13.141.37) und läuft dort in eine endlose
+   Weiterleitung zwischen `http://` und `https://`; das SSL-Zertifikat lautet
+   auf `*.kasserver.com`. Wer die Adresse eingibt, sieht eine Fehlermeldung.
+   Zu tun: die vier A-Records auf **185.199.108.153, 185.199.109.153,
+   185.199.110.153, 185.199.111.153** setzen, die **MX-Einträge unangetastet
+   lassen** (sonst ist Ihre E-Mail weg), die alte WordPress-Installation
+   abschalten und in GitHub unter Settings → Pages die Domain eintragen und
+   „Enforce HTTPS" ankreuzen. Die Datei `CNAME` liegt bereits im Projekt.
+   Bis dahin ist die Seite nur unter
+   `https://stani91186.github.io/energieberatung/` erreichbar.
 1. **E-Mail-Adresse** eintragen – im Impressum Pflichtangabe.
    Suchen nach `kontakt@ihre-domain.de` in `index.html`, `impressum.html`,
    `datenschutz.html`.

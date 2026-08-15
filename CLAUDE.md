@@ -11,10 +11,22 @@ Kein Build-Schritt, kein Framework, keine Abhängigkeiten.
 - `robots.txt`, `sitemap.xml` – SEO (Domain muss zur echten Domain passen)
 - `404.html` – Fehlerseite
 - `fonts/` – lokal gehostete Schrift Roboto (Apache 2.0)
-- `logo.png` – Original-Logo „EBA Energieberater Albdonau“ (vom Betreiber
-  geliefert, nur transparente Ränder beschnitten). Wird per `<img>` in Kopf-
-  und Fußzeile aller Seiten eingebunden – NICHT durch SVG-Nachbauten ersetzen,
-  das ist ausdrücklicher Wunsch des Betreibers.
+- `logo.png` – Logo „EBA Energieberater Albdonau“ (vom Betreiber geliefert,
+  transparente Ränder beschnitten, auf 365×240 px verkleinert). Wird per
+  `<img>` in Kopf- und Fußzeile aller Seiten eingebunden – NICHT durch
+  SVG-Nachbauten ersetzen, das ist ausdrücklicher Wunsch des Betreibers.
+  **Die Größe nicht wieder erhöhen:** Die Originaldatei war 1471×968 px und
+  959 KB schwer bei 99 px Anzeigehöhe und machte damit 92 % des Ladegewichts
+  jeder Seite aus. 240 px Höhe reicht für dreifache Punktdichte. Das Original
+  liegt unverändert als `logo-original.png` daneben.
+- `vorschau.jpg` – Vorschaubild 1200×630 für WhatsApp, LinkedIn, Facebook
+  (`og:image`). Aus Logo und Seitenfarben gebaut. Die Ratgeberseiten setzen
+  stattdessen ihr eigenes Artikelfoto ein; die Ortsseiten dürfen ihr Stadtfoto
+  NICHT nehmen – die stehen unter CC-BY/CC-BY-SA und verlangen Namensnennung,
+  die in einer geteilten Vorschau nicht mitreist.
+- `CNAME` – enthält `energieberater-albdonau.de`. GitHub Pages braucht die
+  Datei für eine eigene Domain **zusätzlich** zu den DNS-A-Records
+  (185.199.108–111.153). Nicht löschen.
 - `htaccess.txt` – nur für klassische Apache-Hoster relevant, auf GitHub Pages ohne Funktion
 
 ## Eiserne Regeln
