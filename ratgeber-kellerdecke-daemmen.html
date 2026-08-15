@@ -109,6 +109,7 @@ img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 ul{list-style:none}
+[hidden]{display:none !important}   /* damit id="stimmen" ohne Zitate wirklich verschwindet */
 
 /* Betonung ohne Kursiv: <em> bleibt fuer Screenreader erhalten, wird
    aber durch Gewicht statt Schraeglage ausgezeichnet. */
@@ -618,6 +619,13 @@ section{position:relative}
   font-size:.82rem;color:rgba(244,239,230,.7);
 }
 .foerder-fuss{margin-top:22px;border-top:1px solid rgba(255,255,255,.2);padding-top:24px}
+/* .btn setzt white-space:nowrap. Der lange Knopftext ("Aktuelle Förderungen
+   für mein Vorhaben prüfen") wurde dadurch auf dem Handy 387px breit und vom
+   overflow:hidden des .stats-Blocks bei 362px abgeschnitten - das Wort
+   "prüfen" fehlte. Hier darf er umbrechen und die volle Breite nehmen. */
+@media (max-width:520px){
+  .foerder-fuss .btn{white-space:normal;width:100%;text-align:center;line-height:1.35}
+}
 .foerder-fuss p{font-size:.92rem;color:rgba(244,239,230,.86);margin-bottom:12px}
 .foerder-fuss b{color:#FBF8F2}
 .foerder-fuss .stats-note{margin-top:0}
@@ -658,6 +666,55 @@ section{position:relative}
 
 
 
+/* Zweite H1-Zeile: traegt den Suchbegriff, ohne dem Slogan die Buehne zu
+   nehmen. Eigene Schrift und Gewicht, damit sie klar nachgeordnet wirkt. */
+.h1-zusatz{
+  display:block;font-family:var(--font-sans);font-weight:400;
+  font-size:clamp(.95rem,1.6vw,1.15rem);color:var(--ink-2);
+  letter-spacing:0;margin-top:14px;
+}
+
+/* ===========================================================================
+   10. PREISE
+   Eigene Regeln: .foerder-karte ist fuer den DUNKLEN Foerderblock gebaut
+   (helle Schrift) und waere hier auf Creme unlesbar.
+   ======================================================================== */
+.preis-karten{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;margin-top:30px;align-items:start}
+/* min-width:0: sonst waechst eine Spalte auf die Mindestbreite ihres
+   laengsten Inhalts und schiebt die Seite seitwaerts auf. */
+.preis-karten>*{min-width:0}
+.preis-haupt{
+  background:var(--white);border:1px solid var(--line);border-left:5px solid var(--amber);
+  border-radius:var(--radius);box-shadow:var(--shadow-md);padding:30px 32px;
+}
+.preis-haupt h3{font-size:1.12rem;margin-bottom:6px}
+.preis-zeile{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:18px 0 4px}
+.preis-zeile .preis-wert{font-size:2.1rem;font-weight:700;color:var(--ink);line-height:1}
+.preis-zeile small{font-size:.82rem;color:var(--muted)}
+.preis-rechnung{display:grid;gap:8px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line-soft)}
+.preis-rechnung div{display:flex;justify-content:space-between;gap:14px;font-size:.92rem;color:var(--ink-2)}
+.preis-rechnung div:last-child{font-weight:700;color:var(--ink);border-top:1px solid var(--line-soft);padding-top:8px}
+.preis-rechnung b{font-variant-numeric:tabular-nums}
+.preis-neben{display:grid;gap:14px}
+.preis-info{background:var(--forest-soft);border-radius:var(--radius);padding:20px 24px;color:var(--forest);font-size:.93rem}
+.preis-info b{display:block;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.8}
+.preis-fuss{margin-top:20px;font-size:.8rem;color:var(--muted);max-width:74ch}
+@media (max-width:760px){
+  .preis-karten{grid-template-columns:1fr;gap:16px}
+  .preis-haupt{padding:24px 22px}
+  .preis-zeile .preis-wert{font-size:1.85rem}
+  .preis-rechnung div{gap:10px}
+}
+
+/* Ortschips: eine Definition fuer Start- und Ortsseiten. Die Ortsseiten
+   erben sie ueber stil() aus dieser Datei. */
+.ort-nachbarn{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.ort-nachbarn a{
+  font-size:.86rem;font-weight:500;color:var(--ink-2);background:var(--white);
+  border:1px solid var(--line);border-radius:100px;padding:8px 16px;transition:.25s var(--ease);
+}
+.ort-nachbarn a:hover{border-color:var(--amber);color:var(--amber-deep);transform:translateY(-2px)}
+
 /* ===========================================================================
    11. STIMMEN
    ======================================================================== */
@@ -677,10 +734,9 @@ section{position:relative}
 .qbtn:hover{border-color:var(--forest);transform:translateY(-2px)}
 .qbtn svg{width:16px;height:16px;stroke:var(--ink)}
 .qcount{font-size:.85rem;color:var(--muted);margin-left:6px;font-variant-numeric:tabular-nums}
-.placeholder-hint{
-  margin-top:20px;font-size:.8rem;color:var(--amber-deep);background:var(--amber-soft);
-  display:inline-block;padding:8px 14px;border-radius:100px;
-}
+/* Herkunftsangabe nach Paragraf 5b Abs. 3 UWG: Wer Bewertungen zeigt, muss
+   sagen, ob und wie ihre Echtheit sichergestellt wird. */
+.quote-herkunft{margin-top:20px;font-size:.78rem;color:var(--muted);max-width:70ch;line-height:1.5}
 
 /* ===========================================================================
    12. FAQ
@@ -1256,9 +1312,9 @@ main .cta-band{margin-bottom:50px}
     <div class="rg-karte">
       <h3>Weitere Ratgeber</h3>
       <div class="rg-mehr">
+        <a href="ratgeber-energieberatung-kosten.html">Was kostet eine Energieberatung?</a>
         <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen: Was gilt wirklich?</a>
-        <a href="ratgeber-reihenfolge-sanierung.html">In welcher Reihenfolge sanieren?</a>
-        <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuerermäßigung?</a>
+        <a href="ratgeber-waermepumpe-altbau.html">Wärmepumpe im Altbau: funktioniert das?</a>
         <a href="ratgeber.html">Alle Beiträge ansehen</a>
       </div>
     </div>

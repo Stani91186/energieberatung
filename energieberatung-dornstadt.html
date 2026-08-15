@@ -109,6 +109,7 @@ img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 ul{list-style:none}
+[hidden]{display:none !important}   /* damit id="stimmen" ohne Zitate wirklich verschwindet */
 
 /* Betonung ohne Kursiv: <em> bleibt fuer Screenreader erhalten, wird
    aber durch Gewicht statt Schraeglage ausgezeichnet. */
@@ -618,6 +619,13 @@ section{position:relative}
   font-size:.82rem;color:rgba(244,239,230,.7);
 }
 .foerder-fuss{margin-top:22px;border-top:1px solid rgba(255,255,255,.2);padding-top:24px}
+/* .btn setzt white-space:nowrap. Der lange Knopftext ("Aktuelle Förderungen
+   für mein Vorhaben prüfen") wurde dadurch auf dem Handy 387px breit und vom
+   overflow:hidden des .stats-Blocks bei 362px abgeschnitten - das Wort
+   "prüfen" fehlte. Hier darf er umbrechen und die volle Breite nehmen. */
+@media (max-width:520px){
+  .foerder-fuss .btn{white-space:normal;width:100%;text-align:center;line-height:1.35}
+}
 .foerder-fuss p{font-size:.92rem;color:rgba(244,239,230,.86);margin-bottom:12px}
 .foerder-fuss b{color:#FBF8F2}
 .foerder-fuss .stats-note{margin-top:0}
@@ -658,6 +666,55 @@ section{position:relative}
 
 
 
+/* Zweite H1-Zeile: traegt den Suchbegriff, ohne dem Slogan die Buehne zu
+   nehmen. Eigene Schrift und Gewicht, damit sie klar nachgeordnet wirkt. */
+.h1-zusatz{
+  display:block;font-family:var(--font-sans);font-weight:400;
+  font-size:clamp(.95rem,1.6vw,1.15rem);color:var(--ink-2);
+  letter-spacing:0;margin-top:14px;
+}
+
+/* ===========================================================================
+   10. PREISE
+   Eigene Regeln: .foerder-karte ist fuer den DUNKLEN Foerderblock gebaut
+   (helle Schrift) und waere hier auf Creme unlesbar.
+   ======================================================================== */
+.preis-karten{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;margin-top:30px;align-items:start}
+/* min-width:0: sonst waechst eine Spalte auf die Mindestbreite ihres
+   laengsten Inhalts und schiebt die Seite seitwaerts auf. */
+.preis-karten>*{min-width:0}
+.preis-haupt{
+  background:var(--white);border:1px solid var(--line);border-left:5px solid var(--amber);
+  border-radius:var(--radius);box-shadow:var(--shadow-md);padding:30px 32px;
+}
+.preis-haupt h3{font-size:1.12rem;margin-bottom:6px}
+.preis-zeile{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:18px 0 4px}
+.preis-zeile .preis-wert{font-size:2.1rem;font-weight:700;color:var(--ink);line-height:1}
+.preis-zeile small{font-size:.82rem;color:var(--muted)}
+.preis-rechnung{display:grid;gap:8px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line-soft)}
+.preis-rechnung div{display:flex;justify-content:space-between;gap:14px;font-size:.92rem;color:var(--ink-2)}
+.preis-rechnung div:last-child{font-weight:700;color:var(--ink);border-top:1px solid var(--line-soft);padding-top:8px}
+.preis-rechnung b{font-variant-numeric:tabular-nums}
+.preis-neben{display:grid;gap:14px}
+.preis-info{background:var(--forest-soft);border-radius:var(--radius);padding:20px 24px;color:var(--forest);font-size:.93rem}
+.preis-info b{display:block;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.8}
+.preis-fuss{margin-top:20px;font-size:.8rem;color:var(--muted);max-width:74ch}
+@media (max-width:760px){
+  .preis-karten{grid-template-columns:1fr;gap:16px}
+  .preis-haupt{padding:24px 22px}
+  .preis-zeile .preis-wert{font-size:1.85rem}
+  .preis-rechnung div{gap:10px}
+}
+
+/* Ortschips: eine Definition fuer Start- und Ortsseiten. Die Ortsseiten
+   erben sie ueber stil() aus dieser Datei. */
+.ort-nachbarn{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.ort-nachbarn a{
+  font-size:.86rem;font-weight:500;color:var(--ink-2);background:var(--white);
+  border:1px solid var(--line);border-radius:100px;padding:8px 16px;transition:.25s var(--ease);
+}
+.ort-nachbarn a:hover{border-color:var(--amber);color:var(--amber-deep);transform:translateY(-2px)}
+
 /* ===========================================================================
    11. STIMMEN
    ======================================================================== */
@@ -677,10 +734,9 @@ section{position:relative}
 .qbtn:hover{border-color:var(--forest);transform:translateY(-2px)}
 .qbtn svg{width:16px;height:16px;stroke:var(--ink)}
 .qcount{font-size:.85rem;color:var(--muted);margin-left:6px;font-variant-numeric:tabular-nums}
-.placeholder-hint{
-  margin-top:20px;font-size:.8rem;color:var(--amber-deep);background:var(--amber-soft);
-  display:inline-block;padding:8px 14px;border-radius:100px;
-}
+/* Herkunftsangabe nach Paragraf 5b Abs. 3 UWG: Wer Bewertungen zeigt, muss
+   sagen, ob und wie ihre Echtheit sichergestellt wird. */
+.quote-herkunft{margin-top:20px;font-size:.78rem;color:var(--muted);max-width:70ch;line-height:1.5}
 
 /* ===========================================================================
    12. FAQ
@@ -1309,7 +1365,7 @@ section{position:relative}
         <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Energie-Effizienz-Expertenliste (dena)</span>
         <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> BAFA- &amp; KfW-förderfähig</span>
         <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Keine Provisionen, kein Produktverkauf</span>
-        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Dornstadt: direkt vor Ort von unserem Büro</span>
+        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Dornstadt: unser Standort</span>
       </div>
     </div>
 
@@ -1342,12 +1398,11 @@ section{position:relative}
     <div class="ort-text">
       <div class="section-head">
         <span class="eyebrow">Vor Ort</span>
-        <h2>Energieberatung in Dornstadt – wir sind direkt vor Ort entfernt</h2>
+        <h2>Energieberatung in Dornstadt – Sanierungsfahrplan, Förderung, Energieausweis</h2>
         <p class="lead">Dornstadt liegt nördlich von Ulm am Übergang zur Albhochfläche, auf rund 600 Metern Höhe. Damit ist es klimatisch weder Donautal noch Alb, sondern liegt dazwischen – ein Detail, das bei der Heizlast durchaus ins Gewicht fällt.</p>
       </div>
       <p>
-        Unser Büro sitzt in Dornstadt, Dornstadt (89160, rund 8.700 Einwohner) liegt
-        direkt vor Ort entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch
+        Unser Büro sitzt direkt hier in Dornstadt (89160, rund 8.700 Einwohner) – kürzer wird der Weg nicht. Vor-Ort-Termine sind damit kurzfristig möglich – auch
         mehrfach, wenn es die Bauphase erfordert.
       </p>
 
@@ -1364,6 +1419,15 @@ section{position:relative}
         Untergrund entscheiden mit darüber, welche Maßnahme sich lohnt – und welche man
         besser sein lässt.
       </div>
+
+      <h3>Sanierungsfahrplan (iSFP) in Dornstadt</h3>
+      <p>In Dornstadt geht der Fahrplan am schnellsten: Rückfragen klären wir kurzfristig vor Ort, und der Förderantrag ist vorbereitet, bevor Sie das erste Handwerkerangebot einholen.</p>
+      <p>
+        Der Ablauf ist überall derselbe – Aufnahme vor Ort, Berechnung, schriftlicher
+        Fahrplan, Erläuterungsgespräch. Was sich unterscheidet, ist die Reihenfolge, die
+        am Ende darin steht. Näheres zu Leistung und Honorar auf der Seite
+        <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>.
+      </p>
 
       <h3>Was wir in Dornstadt für Sie tun</h3>
       <ul class="liste">
@@ -1547,7 +1611,7 @@ section{position:relative}
     <div class="stats reveal">
 
       <div class="stats-inner">
-        <h2>Was in der aktuellen Förderlandschaft möglich ist.</h2>
+        <h2>Förderung für Sanierung und Heizung: was aktuell möglich ist.</h2>
         <p class="stats-lead">
           Nicht nur die Heizung: Fast alles rund um die Sanierung ist förderfähig – von der
           Dämmung über die Heizungsoptimierung bis zur Baubegleitung. Entscheidend ist, beim
@@ -1798,11 +1862,11 @@ section{position:relative}
     <div class="reveal">
       <div class="faq-item">
         <button class="faq-q">Kommen Sie für den Vor-Ort-Termin nach Dornstadt?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Ja. Dornstadt liegt direkt vor Ort von unserem Büro in Dornstadt entfernt und gehört zum regulären Einsatzgebiet. Anfahrtskosten fallen innerhalb des Alb-Donau-Kreises und im Umkreis von rund 50 Kilometern um Ulm nicht gesondert an.</p></div>
+        <div class="faq-a"><p>Ja. Dornstadt ist unser eigener Standort und gehört zum regulären Einsatzgebiet. Anfahrtskosten fallen innerhalb des Alb-Donau-Kreises und im Umkreis von rund 50 Kilometern um Ulm nicht gesondert an.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Was kostet eine Energieberatung in Dornstadt?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Das hängt von Gebäudegröße und Umfang ab. Für ein Einfamilienhaus liegt ein individueller Sanierungsfahrplan üblicherweise im niedrigen vierstelligen Bereich – abzüglich der Förderung von 50 % bleibt ein deutlich kleinerer Eigenanteil. Sie erhalten vorab ein Festpreisangebot.</p></div>
+        <div class="faq-a"><p>Für ein Ein- oder Zweifamilienhaus in Dornstadt beginnt der individuelle Sanierungsfahrplan bei 1.350 € inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 %, höchstens 650 € – Ihr Eigenanteil liegt damit ab 700 €, sofern der Zuschuss bewilligt wird. Sie erhalten vorab ein Festpreisangebot. <a href="index.html#preise">Alle Preise im Überblick</a>.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Wie schnell bekomme ich einen Termin?<span class="faq-icon"></span></button>

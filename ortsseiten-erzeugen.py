@@ -32,12 +32,14 @@ TEL_LINK = "+4915224290826"
 ORTE = [
   {
     "datei": "energieberatung-ulm.html",
+    "isfp_hinweis": "In Ulm endet der Fahrplan häufig in einer Fassung, die sich in einer Eigentümerversammlung vortragen lässt: Kosten je Wohneinheit, ein Vorschlag zur Reihenfolge und eine Zeitachse, an der sich ein Beschluss festmachen lässt.",
     "ort": "Ulm",
     "typisch": "Häufigster Fall in Ulm sind Eigentumswohnungen und Reihenhäuser aus den Wiederaufbaujahren. Dort ist die Einzelmaßnahme oft nicht frei wählbar, weil die Eigentümergemeinschaft mitentscheidet. Wir bereiten die Zahlen deshalb so auf, dass sie in einer Eigentümerversammlung bestehen – mit Kosten je Wohneinheit statt nur für das Gesamtgebäude. Für Wohnungseigentümergemeinschaften gibt es beim Sanierungsfahrplan zusätzlich 250 Euro Förderung für die Erläuterung vor der Versammlung.",
     "artikel": "in",              # "in Ulm"
     "plz": "89073",
     "einwohner": "rund 128.000",
-    "entfernung": "etwa 10 Kilometer",
+    "entfernung_kurz": "rund 10 km",
+    "entfernung_satz": "liegt rund 10 Kilometer von unserem Büro entfernt",
     "titel_zusatz": "Energieberatung Ulm",
     "beschreibung": "Energieberatung in Ulm: Sanierungsfahrplan, Förderung und Energieausweis. Vor Ort in Ulm und Umgebung, produktneutral und ohne Provision.",
     "lage": "Ulm ist das Zentrum der Region und liegt an der Donau, klimatisch deutlich "
@@ -57,12 +59,14 @@ ORTE = [
   },
   {
     "datei": "energieberatung-blaustein.html",
+    "isfp_hinweis": "Bei den Blausteiner Doppel- und Reihenhäusern klärt der Fahrplan zuerst, ob das Dachgeschoss künftig beheizt werden soll. Diese eine Entscheidung verschiebt die Rangfolge der Maßnahmen stärker als jede Dämmstärke.",
     "ort": "Blaustein",
     "typisch": "Was wir in Blaustein am häufigsten sehen: ein Haus aus den 1970ern, Fenster in den 1990ern erneuert, Heizung um 2000 getauscht, Wand und Dach unverändert. Die Versuchung ist dann, wieder die Heizung anzufassen. Rechnerisch bringt hier meist die oberste Geschossdecke den schnellsten Ertrag – oft an einem Wochenende in Eigenleistung machbar und mit unter zwei Jahren Amortisation.",
     "artikel": "in",
     "plz": "89134",
     "einwohner": "rund 16.000",
-    "entfernung": "etwa 8 Kilometer",
+    "entfernung_kurz": "rund 8 km",
+    "entfernung_satz": "liegt rund 8 Kilometer von unserem Büro entfernt",
     "titel_zusatz": "Energieberatung Blaustein",
     "beschreibung": "Energieberatung in Blaustein: Sanierungsfahrplan, Fördermittel und Energieausweis. Vor Ort im Blautal, produktneutral und ohne Provision.",
     "lage": "Blaustein liegt im Blautal am Fuß der Schwäbischen Alb, westlich von Ulm. "
@@ -80,12 +84,14 @@ ORTE = [
   },
   {
     "datei": "energieberatung-langenau.html",
+    "isfp_hinweis": "Weil in Langenau viele Häuser bereits teilsaniert sind, besteht der Fahrplan dort seltener aus großen Dämmpaketen. Er reiht stattdessen kleinere Eingriffe an der Anlagentechnik so, dass jeder auf dem vorherigen aufbaut.",
     "ort": "Langenau",
     "typisch": "In Langenau treffen wir überdurchschnittlich oft auf Gebäude, die bereits teilsaniert sind. Das ist eine andere Ausgangslage als beim unsanierten Altbau: Hier geht es weniger um große Dämmpakete als darum, die vorhandene Anlagentechnik richtig einzustellen. Hydraulischer Abgleich und eine abgesenkte Vorlauftemperatur bringen in solchen Häusern häufig mehr als jede weitere Dämmschicht.",
     "artikel": "in",
     "plz": "89129",
     "einwohner": "rund 15.500",
-    "entfernung": "etwa 20 Kilometer",
+    "entfernung_kurz": "rund 20 km",
+    "entfernung_satz": "liegt rund 20 Kilometer von unserem Büro entfernt",
     "titel_zusatz": "Energieberatung Langenau",
     "beschreibung": "Energieberatung in Langenau: Sanierungsfahrplan, Förderung und Energieausweis. Vor Ort im Alb-Donau-Kreis, produktneutral und ohne Provision.",
     "lage": "Langenau liegt nordöstlich von Ulm im flachen Donauried. Die offene Lage "
@@ -102,12 +108,14 @@ ORTE = [
   },
   {
     "datei": "energieberatung-ehingen.html",
+    "isfp_hinweis": "In Ehingen beginnt der Fahrplan meist mit der Frage, welche Flächen künftig überhaupt beheizt werden. Fällt ein Wirtschaftsteil oder ein kaum genutztes Obergeschoss heraus, ändert sich die Rangfolge aller folgenden Maßnahmen.",
     "ort": "Ehingen",
     "typisch": "Ein wiederkehrendes Thema in Ehingen und den Teilorten sind Gebäude, die deutlich größer sind als der tatsächliche Wohnbedarf. Beheizte Flure, kaum genutzte Obergeschosse, angebaute Wirtschaftsteile. Bevor über Dämmung gesprochen wird, lohnt die Frage, welche Bereiche künftig überhaupt beheizt werden sollen – das verändert die Heizlast oft stärker als jede Maßnahme an der Hülle.",
     "artikel": "in",
     "plz": "89584",
     "einwohner": "rund 26.500",
-    "entfernung": "etwa 30 Kilometer",
+    "entfernung_kurz": "rund 30 km",
+    "entfernung_satz": "liegt rund 30 Kilometer von unserem Büro entfernt",
     "titel_zusatz": "Energieberatung Ehingen (Donau)",
     "beschreibung": "Energieberatung in Ehingen an der Donau: Sanierungsfahrplan, Fördermittel und Energieausweis. Produktneutral und ohne Provision.",
     "lage": "Ehingen ist die größte Stadt im Alb-Donau-Kreis und liegt an der Donau "
@@ -125,12 +133,14 @@ ORTE = [
   },
   {
     "datei": "energieberatung-laichingen.html",
+    "isfp_hinweis": "Für Laichinger Gebäude rechnet der Fahrplan die vorhandene Dämmung aus den 1980er und 1990er Jahren durch: Er weist aus, welche Bauteile sich aufdoppeln lassen und bei welchen ein Neuaufbau nötig ist, um den geförderten Zielwert zu erreichen.",
     "ort": "Laichingen",
     "typisch": "Wegen der Höhenlage sehen wir in Laichingen viele Gebäude mit Dämmungen aus den 1980er und 1990er Jahren. Diese Bauteile gelten als saniert, erreichen aber bei Weitem nicht die heutigen Anforderungen. Für die Förderung heißt das: Eine Aufdopplung ist möglich und wird bezuschusst, sofern der Ziel-U-Wert erreicht wird. Das wird häufig übersehen, weil man das Bauteil für erledigt hält.",
     "artikel": "in",
     "plz": "89150",
     "einwohner": "rund 11.500",
-    "entfernung": "etwa 30 Kilometer",
+    "entfernung_kurz": "rund 30 km",
+    "entfernung_satz": "liegt rund 30 Kilometer von unserem Büro entfernt",
     "titel_zusatz": "Energieberatung Laichingen",
     "beschreibung": "Energieberatung in Laichingen auf der Schwäbischen Alb: Sanierungsfahrplan, Förderung und Energieausweis. Produktneutral, ohne Provision.",
     "lage": "Laichingen liegt auf der Albhochfläche in rund 750 Metern Höhe. Das ist der "
@@ -148,12 +158,14 @@ ORTE = [
   },
   {
     "datei": "energieberatung-blaubeuren.html",
+    "isfp_hinweis": "In Blaubeuren hält der Fahrplan zuerst fest, was die Denkmalbehörde zulässt und was ausscheidet. Erst nach dieser Abgrenzung ist die Wirtschaftlichkeitsrechnung belastbar – sonst stehen Maßnahmen darin, die nie genehmigt werden.",
     "ort": "Blaubeuren",
     "typisch": "Bei denkmalgeschützten Gebäuden in Blaubeuren beginnt jede Beratung mit der Denkmalbehörde, nicht mit dem Rechenblatt. Erst wenn feststeht, was zulässig ist, ergibt eine Wirtschaftlichkeitsrechnung Sinn. Häufig bleiben dann Kellerdecke, oberste Geschossdecke, Fenster in Zweitfassung und die Heizungsanlage – zusammen erreicht man damit erstaunlich viel, ohne das Erscheinungsbild anzutasten.",
     "artikel": "in",
     "plz": "89143",
     "einwohner": "rund 12.500",
-    "entfernung": "etwa 15 Kilometer",
+    "entfernung_kurz": "rund 15 km",
+    "entfernung_satz": "liegt rund 15 Kilometer von unserem Büro entfernt",
     "titel_zusatz": "Energieberatung Blaubeuren",
     "beschreibung": "Energieberatung in Blaubeuren: Sanierungsfahrplan und Förderung, auch für denkmalgeschützte Gebäude. Produktneutral und ohne Provision.",
     "lage": "Blaubeuren liegt eingebettet im engen Blautal, umgeben von den Felswänden der "
@@ -171,12 +183,14 @@ ORTE = [
   },
   {
     "datei": "energieberatung-erbach.html",
+    "isfp_hinweis": "In Erbach stehen am Anfang des Fahrplans fast immer Kellerdecke und oberste Geschossdecke. Die Heizung kommt bewusst danach, weil sie sonst auf den ungedämmten Zustand ausgelegt und damit eine Nummer zu groß gekauft wird.",
     "ort": "Erbach",
     "typisch": "Viele Häuser in Erbach stammen aus einer Bauphase, in der die Kellerdecke praktisch nie gedämmt wurde. Das merkt man im Erdgeschoss an kalten Böden. Diese Maßnahme ist die günstigste im ganzen Katalog, in Eigenleistung machbar und förderfähig – und sie ist fast immer der richtige erste Schritt, bevor über die Heizung gesprochen wird.",
     "artikel": "in",
     "plz": "89155",
     "einwohner": "rund 14.000",
-    "entfernung": "etwa 15 Kilometer",
+    "entfernung_kurz": "rund 15 km",
+    "entfernung_satz": "liegt rund 15 Kilometer von unserem Büro entfernt",
     "titel_zusatz": "Energieberatung Erbach (Donau)",
     "beschreibung": "Energieberatung in Erbach an der Donau: Sanierungsfahrplan, Fördermittel und Energieausweis. Produktneutral und ohne Provision.",
     "lage": "Erbach liegt westlich von Ulm im Donautal. Die Lage im Tal bedeutet milde "
@@ -194,12 +208,14 @@ ORTE = [
   },
   {
     "datei": "energieberatung-dornstadt.html",
+    "isfp_hinweis": "In Dornstadt geht der Fahrplan am schnellsten: Rückfragen klären wir kurzfristig vor Ort, und der Förderantrag ist vorbereitet, bevor Sie das erste Handwerkerangebot einholen.",
     "ort": "Dornstadt",
     "typisch": "In Dornstadt und den Teilorten kennen wir die typischen Bauphasen aus eigener Anschauung. Bei Häusern derselben Siedlung lassen sich Erfahrungswerte oft direkt übertragen – wir wissen dann schon vor dem Termin, worauf wir achten müssen. Das verkürzt die Aufnahme und macht die Zahlen belastbarer, weil sie an vergleichbaren Gebäuden geprüft sind.",
     "artikel": "in",
     "plz": "89160",
     "einwohner": "rund 8.700",
-    "entfernung": "direkt vor Ort",
+    "entfernung_kurz": "unser Standort",
+    "entfernung_satz": "ist unser eigener Standort",
     "titel_zusatz": "Energieberatung Dornstadt",
     "beschreibung": "Energieberatung in Dornstadt: Sanierungsfahrplan, Fördermittel und Energieausweis – vom Energieberater direkt aus dem Ort, produktneutral und ohne Provision.",
     "lage": "Dornstadt liegt nördlich von Ulm am Übergang zur Albhochfläche, auf rund "
@@ -386,6 +402,27 @@ def kopfbereich(aktuell=None):
     return k
 
 
+def preise():
+    """Honorare aus dem PREISE-Abschnitt von index.html.
+
+    Die Zahlen werden NUR dort gepflegt - hier wird gelesen, nie geschrieben.
+    Ohne diese Kopplung stuenden dieselben Betraege an vier Stellen und
+    liefen frueher oder spaeter auseinander."""
+    if "preise" not in _CACHE:
+        m = re.search(r'<section[^>]*id="preise"[^>]*>', _startseite())
+        if not m:
+            raise SystemExit("Abschnitt PREISE fehlt in index.html - "
+                             "die Honorare koennen nicht gelesen werden.")
+        roh = dict(re.findall(r'data-preis-([a-z-]+)="(\d+)"', m.group(0)))
+        for k in ("isfp-ab", "foerderung-max", "eigen-ab"):
+            if k not in roh:
+                raise SystemExit(f"data-preis-{k} fehlt im PREISE-Abschnitt "
+                                 f"von index.html.")
+        _CACHE["preise"] = {k.replace("-", "_"): f"{int(v):,}".replace(",", ".")
+                            for k, v in roh.items()}
+    return _CACHE["preise"]
+
+
 def fussbereich(aktuell=None):
     """Fussbereich aus index.html."""
     f = _absolut(_schnitt(r'(<footer class="site-footer">.*?</footer>)', "Fussbereich"))
@@ -446,9 +483,15 @@ ORTS_CSS = """
 
 def seite(o):
     ort = o["ort"]
-    titel = f'{o["titel_zusatz"]} – Sanierungsfahrplan & Förderung'
-    if len(titel) > 60:
-        titel = f'{o["titel_zusatz"]} | EBA Albdonau'
+    # Kaskade statt hartem Rueckfall auf die Marke: Ehingen und Erbach
+    # tragen "(Donau)" im Zusatz und sprengten die 60 Zeichen - sie hiessen
+    # dadurch nur noch "... | EBA Albdonau", ohne jeden Suchbegriff.
+    for kandidat in (f'{o["titel_zusatz"]} – Sanierungsfahrplan & Förderung',
+                     f'{o["titel_zusatz"]} – Sanierungsfahrplan',
+                     f'{o["titel_zusatz"]} | EBA Albdonau'):
+        titel = kandidat
+        if len(titel) <= 60:
+            break
     url = f'{DOMAIN}/{o["datei"]}'
 
     andere = [x for x in ORTE if x["datei"] != o["datei"]]
@@ -467,9 +510,20 @@ def seite(o):
     defs_svg     = defs_teil()
 
     artikel   = o["artikel"];   plz          = o["plz"]
-    einwohner = o["einwohner"]; entfernung   = o["entfernung"]
+    einwohner = o["einwohner"]
+    entfernung_kurz = o["entfernung_kurz"]; entfernung_satz = o["entfernung_satz"]
+    # Fuer Dornstadt selbst waere "Unser Buero sitzt in Dornstadt, Dornstadt
+    # (...) ist unser eigener Standort" eine Doppelung. Zwei Varianten.
+    if o["ort"] == "Dornstadt":
+        buero_satz = (f'Unser Büro sitzt direkt hier in Dornstadt ({o["plz"]}, '
+                      f'{o["einwohner"]} Einwohner) – kürzer wird der Weg nicht.')
+    else:
+        buero_satz = (f'Unser Büro sitzt in Dornstadt. {o["ort"]} ({o["plz"]}, '
+                      f'{o["einwohner"]} Einwohner) {o["entfernung_satz"]}.')
+    P = preise()
     lage      = o["lage"];      bausubstanz  = o["bausubstanz"]
     besonderheit = o["besonderheit"]; typisch = o["typisch"]
+    isfp_hinweis = o["isfp_hinweis"]
     tel_link  = TEL_LINK
     nachbar_links = "\n".join(
         f'        <a href="{x["datei"]}">Energieberatung {x["ort"]}</a>' for x in andere)
@@ -570,7 +624,7 @@ def seite(o):
         <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Energie-Effizienz-Expertenliste (dena)</span>
         <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> BAFA- &amp; KfW-förderfähig</span>
         <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Keine Provisionen, kein Produktverkauf</span>
-        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> {ort}: {entfernung} von unserem Büro</span>
+        <span class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> {ort}: {entfernung_kurz}</span>
       </div>
     </div>
 
@@ -597,12 +651,11 @@ def seite(o):
     <div class="ort-text">
       <div class="section-head">
         <span class="eyebrow">Vor Ort</span>
-        <h2>Energieberatung {artikel} {ort} – wir sind {entfernung} entfernt</h2>
+        <h2>Energieberatung {artikel} {ort} – Sanierungsfahrplan, Förderung, Energieausweis</h2>
         <p class="lead">{lage}</p>
       </div>
       <p>
-        Unser Büro sitzt in Dornstadt, {ort} ({plz}, {einwohner} Einwohner) liegt
-        {entfernung} entfernt. Vor-Ort-Termine sind damit kurzfristig möglich – auch
+        {buero_satz} Vor-Ort-Termine sind damit kurzfristig möglich – auch
         mehrfach, wenn es die Bauphase erfordert.
       </p>
 
@@ -619,6 +672,15 @@ def seite(o):
         Untergrund entscheiden mit darüber, welche Maßnahme sich lohnt – und welche man
         besser sein lässt.
       </div>
+
+      <h3>Sanierungsfahrplan (iSFP) {artikel} {ort}</h3>
+      <p>{isfp_hinweis}</p>
+      <p>
+        Der Ablauf ist überall derselbe – Aufnahme vor Ort, Berechnung, schriftlicher
+        Fahrplan, Erläuterungsgespräch. Was sich unterscheidet, ist die Reihenfolge, die
+        am Ende darin steht. Näheres zu Leistung und Honorar auf der Seite
+        <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>.
+      </p>
 
       <h3>Was wir {artikel} {ort} für Sie tun</h3>
       <ul class="liste">
@@ -667,11 +729,11 @@ def seite(o):
     <div class="reveal">
       <div class="faq-item">
         <button class="faq-q">Kommen Sie für den Vor-Ort-Termin nach {ort}?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Ja. {ort} liegt {entfernung} von unserem Büro in Dornstadt entfernt und gehört zum regulären Einsatzgebiet. Anfahrtskosten fallen innerhalb des Alb-Donau-Kreises und im Umkreis von rund 50 Kilometern um Ulm nicht gesondert an.</p></div>
+        <div class="faq-a"><p>Ja. {ort} {entfernung_satz} und gehört zum regulären Einsatzgebiet. Anfahrtskosten fallen innerhalb des Alb-Donau-Kreises und im Umkreis von rund 50 Kilometern um Ulm nicht gesondert an.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Was kostet eine Energieberatung {artikel} {ort}?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Das hängt von Gebäudegröße und Umfang ab. Für ein Einfamilienhaus liegt ein individueller Sanierungsfahrplan üblicherweise im niedrigen vierstelligen Bereich – abzüglich der Förderung von 50 % bleibt ein deutlich kleinerer Eigenanteil. Sie erhalten vorab ein Festpreisangebot.</p></div>
+        <div class="faq-a"><p>Für ein Ein- oder Zweifamilienhaus {artikel} {ort} beginnt der individuelle Sanierungsfahrplan bei {P['isfp_ab']} € inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 %, höchstens {P['foerderung_max']} € – Ihr Eigenanteil liegt damit ab {P['eigen_ab']} €, sofern der Zuschuss bewilligt wird. Sie erhalten vorab ein Festpreisangebot. <a href="index.html#preise">Alle Preise im Überblick</a>.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Wie schnell bekomme ich einen Termin?<span class="faq-icon"></span></button>

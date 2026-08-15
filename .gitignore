@@ -8,6 +8,10 @@ desktop.ini
 .idea/
 *.swp
 
+# Python-Zwischenstand der Generatoren (entsteht bei py_compile / Import)
+__pycache__/
+*.pyc
+
 # Claude Code: lokale Einstellungen und maschinenspezifische Verknuepfungen.
 # .claude/skills/ enthaelt Symlinks mit ABSOLUTEM Pfad auf diesen Rechner -
 # eingecheckt waeren die auf jedem anderen System kaputt.
@@ -22,3 +26,12 @@ _ortsseite-hero.html
 _ortsseite-foerder.html
 _ortsseite-ablauf.html
 _ortsseite-kontakt.html
+
+# Kundenstimmen-Sammelliste NIEMALS ins Repo: Das Repository ist oeffentlich
+# und GitHub Pages liefert jede Datei aus - eine Liste mit Klarnamen waere
+# unter energieberater-albdonau.de/... fuer jeden abrufbar (DSGVO).
+# Die Anleitung STIMMEN-SAMMELN.md enthaelt bewusst keine Kundendaten und
+# darf drinbleiben.
+KUNDENSTIMMEN*
+kundenstimmen*
+zitate-roh*

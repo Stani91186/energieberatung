@@ -6,8 +6,10 @@
   Zielsuchanfragen: "individueller sanierungsfahrplan ulm", "isfp ulm",
   "sanierungsfahrplan alb-donau-kreis", "isfp kosten", "isfp foerderung"
 
-  Domain und Sitemap-Eintrag sind gesetzt. Offen: eigene Preisspanne im
-  Abschnitt "Was er kostet" und die E-Mail-Adresse im Fussbereich.
+  Domain und Sitemap-Eintrag sind gesetzt. Preise stehen im Abschnitt
+  "Kosten, Foerderung und Eigenanteil" - gepflegt werden sie NICHT hier,
+  sondern im PREISE-Abschnitt von index.html; kopf-fuss-abgleichen.py
+  setzt sie in die preis-wert-Marken ein. Offen: E-Mail im Fussbereich.
   ============================================================================
 -->
 <html lang="de">
@@ -595,7 +597,7 @@ td:first-child{color:var(--ink);font-weight:500}
       <li><strong>Erläuterungsgespräch.</strong> Wir gehen den Bericht gemeinsam durch, Sie stellen Fragen, wir sortieren die nächsten Schritte.</li>
     </ol>
 
-    <h2>Was er kostet – und was die Förderung übernimmt</h2>
+    <h2 id="kosten">Sanierungsfahrplan: Kosten, Förderung und Eigenanteil</h2>
     <p>
       Die Bundesförderung für Energieberatung für Wohngebäude übernimmt <strong>50 % des
       förderfähigen Honorars</strong>. Bei Ein- und Zweifamilienhäusern bis 650 €, ab drei
@@ -612,14 +614,25 @@ td:first-child{color:var(--ink);font-weight:500}
           <tr><td>Ein- und Zweifamilienhaus</td><td>50 %, max. 650 €</td><td>Eigentümer</td></tr>
           <tr><td>Ab drei Wohneinheiten</td><td>50 %, max. 850 €</td><td>Eigentümer</td></tr>
           <tr><td>WEG mit Erläuterung</td><td>zusätzlich 250 €</td><td>Gemeinschaft</td></tr>
+          <tr><td><b>Beispiel: Honorar ab 1.350 €</b></td><td><b>650 € Zuschuss</b></td><td><b>ab 700 € Eigenanteil</b></td></tr>
         </tbody>
       </table>
     </div>
 
+    <div class="merksatz">
+      <b>Preis und Eigenanteil</b>
+      Der individuelle Sanierungsfahrplan für ein Ein- oder Zweifamilienhaus beginnt bei
+      <b class="preis-wert" data-preis="isfp_ab">1.350 €</b> inklusive Umsatzsteuer. Davon
+      übernimmt die BAFA-Förderung 50 %, höchstens
+      <b class="preis-wert" data-preis="foerderung_max">650 €</b> – Ihr Eigenanteil liegt damit
+      ab <b class="preis-wert" data-preis="eigen_ab">700 €</b>, sofern der Zuschuss bewilligt wird.
+    </div>
+
     <p>
-      Den Antrag stellen Sie als Eigentümer, wir bereiten ihn vor. Sie erhalten vorab ein
-      <strong>Festpreisangebot</strong> – keine Abrechnung nach Stunden, keine Überraschung
-      am Ende. <span style="color:var(--amber-deep);font-weight:600">[Eigene Preisspanne hier ergänzen]</span>
+      Was der Fahrplan bei Ihrem Gebäude genau kostet, hängt von der Größe, der Zahl der
+      Wohneinheiten, dem Zustand der Unterlagen und einem möglichen Denkmalschutz ab. Sie
+      erhalten vorab ein <strong>Festpreisangebot</strong> – keine Abrechnung nach Stunden,
+      keine Überraschung am Ende. Den Antrag stellen Sie als Eigentümer, wir bereiten ihn vor.
     </p>
     <p style="font-size:.86rem;color:var(--muted)">
       Fördersätze und Höchstbeträge geben den Stand Juli 2026 wieder und können sich
@@ -634,6 +647,23 @@ td:first-child{color:var(--ink);font-weight:500}
       Fassadendämmung für 40.000 € sind das 2.000 € – mehr, als der Eigenanteil am
       Fahrplan üblicherweise beträgt. Wer ohnehin in Etappen saniert, holt die Kosten
       der Beratung meist schon mit der ersten Maßnahme wieder herein.
+    </p>
+
+    <h2>Sanierungsfahrplan für Ulm und den Alb-Donau-Kreis</h2>
+    <p>
+      Wir erstellen den iSFP im gesamten Alb-Donau-Kreis und rund 50 Kilometer um Ulm. Unser
+      Büro sitzt in Dornstadt, direkt am Übergang zwischen Donautal und Albhochfläche – ein
+      Unterschied, der in der Berechnung durchaus zählt: Auf der Albhochfläche liegt die
+      Normaußentemperatur spürbar tiefer als im Tal, die Heizperiode ist länger. Wer Kennwerte
+      aus Ulm auf ein Haus in Laichingen überträgt, rechnet das Gebäude zu gut.
+    </p>
+    <p>
+      Eigene Seiten mit den örtlichen Besonderheiten gibt es unter anderem für
+      <a href="energieberatung-ulm.html">Energieberatung Ulm</a>,
+      <a href="energieberatung-ehingen.html">Ehingen an der Donau</a>,
+      <a href="energieberatung-laichingen.html">Laichingen auf der Alb</a> und
+      <a href="energieberatung-blaustein.html">Blaustein im Blautal</a>.
+      Vor-Ort-Termine sind kurzfristig möglich, auch mehrfach, wenn es die Bauphase erfordert.
     </p>
 
     <h2>Für wen sich das besonders lohnt</h2>

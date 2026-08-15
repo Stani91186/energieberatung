@@ -5,16 +5,45 @@ Abhängigkeiten – die Dateien werden so hochgeladen, wie sie hier liegen.
 
 | Datei | Zweck |
 |---|---|
-| `index.html` | Startseite |
+| `index.html` | Startseite – **Vorlage** für Kopf, Fuß und die Preise |
 | `sanierungsrechner.html` | Rechner mit Bericht-Download und Lead-Formular |
+| `sanierungsfahrplan.html` | Leistungsseite iSFP mit Honorartabelle |
+| `ratgeber.html`, `ratgeber-*.html` | 9 Ratgeberartikel – **erzeugt**, nicht von Hand ändern |
+| `energieberatung-*.html` | 8 Ortsseiten – **erzeugt**, nicht von Hand ändern |
 | `impressum.html` | Pflichtseite nach §5 DDG |
 | `datenschutz.html` | Pflichtseite nach DSGVO |
 | `404.html` | Fehlerseite |
-| `fonts/` | Schriften Inter und Fraunces, lokal gehostet |
+| `logo.png` | Original-Logo des Betreibers, in Kopf und Fuß aller Seiten |
+| `bilder/` | Fotos der Ratgeber und Ortsseiten, **selbst gehostet** |
+| `bilder/LIZENZ.txt` | Bildnachweis: Quelle, Fotograf, Lizenz je Datei |
+| `fonts/` | Schrift Roboto, lokal gehostet (keine Google Fonts) |
 | `robots.txt`, `sitemap.xml` | für Google |
 | `.nojekyll` | technische Datei für GitHub Pages, drin lassen |
 | `htaccess.txt` | nur für klassische Hoster, bei GitHub Pages überflüssig |
+| `STIMMEN-SAMMELN.md` | Anleitung, wie echte Kundenstimmen eingeholt werden |
 | `CLAUDE.md` | Projektregeln für die Weiterarbeit mit Claude Code |
+
+### Die drei Erzeugerskripte
+
+Ortsseiten und Ratgeber werden aus `index.html` gebaut. Wer Kopf, Fuß oder die
+Preise ändert, ändert sie **in `index.html`** und lässt danach laufen:
+
+```
+python kopf-fuss-abgleichen.py
+python ortsseiten-erzeugen.py
+python ratgeber-erzeugen.py
+```
+
+In dieser Reihenfolge. Direkt in einer `ratgeber-*.html` oder
+`energieberatung-*.html` geänderter Text ist beim nächsten Lauf weg.
+
+### Wo die Preise stehen
+
+An **einer** Stelle: im Abschnitt `PREISE` in `index.html`, als
+`data-preis-isfp-ab`, `data-preis-foerderung-max` und `data-preis-eigen-ab`
+am `<section>`-Tag. Die drei Skripte lesen die Werte von dort und setzen sie
+überall ein. Ändern Sie die Zahl also dort und lassen Sie die Skripte laufen –
+dann stimmen Startseite, Fahrplan, Ortsseiten und Ratgeber wieder überein.
 
 ---
 
@@ -34,10 +63,17 @@ Diese Punkte sind noch offen. Die ersten drei sind rechtlich zwingend.
 5. **Domain** eintragen – suchen nach `ihre-domain.de` in beiden HTML-Seiten
    (canonical, og:url, JSON-LD) sowie in `robots.txt` und `sitemap.xml`.
 6. **Portraitfoto** in `index.html`, Sektion „Über mich".
-7. **Kundenstimmen** – aktuell Platzhalter. Entweder echte Zitate oder die
-   Sektion entfernen. Erfundene Bewertungen sind abmahnfähig.
+7. **Kundenstimmen** – der Abschnitt ist gebaut, aber leer und deshalb
+   unsichtbar (`hidden`). Er erscheint automatisch, sobald das erste echte
+   Zitat eingesetzt ist; die Vorlagen dafür stehen als Kommentar direkt
+   darüber in `index.html`. Wie Sie die Zitate einholen, steht in
+   `STIMMEN-SAMMELN.md`. **Nichts erfinden** – erfundene Bewertungen sind
+   nach dem UWG abmahnfähig.
 8. **Förderbeträge prüfen** – die Prozentsätze und Höchstbeträge gegen die
    aktuelle BAFA-/KfW-Richtlinie abgleichen.
+9. **Honorar prüfen** – aktuell steht überall „ab 1.350 € inkl. USt", davon
+   bis zu 650 € Förderung. Ändern nur im Abschnitt `PREISE` in `index.html`,
+   danach die drei Skripte laufen lassen.
 
 Alle offenen Stellen stehen in `[eckigen Klammern]`.
 

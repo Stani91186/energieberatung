@@ -11,23 +11,36 @@ Server, DSGVO).
 Wichtig: Die Pexels-Lizenz ist NICHT CC0. Sie erlaubt die Nutzung, aber
 Pexels kann die Bedingungen fuer kuenftige Downloads aendern. Fuer die hier
 bereits heruntergeladenen Dateien gilt die Lizenz zum Zeitpunkt des
-Downloads (14.08.2026). Diese Datei ist der Nachweis dafuer.
+Downloads (14.08.2026, vier Nachtraege 15.08.2026). Diese Datei ist der
+Nachweis dafuer.
 
-Datei                       Pexels-ID   Fotograf/in        Quelle
---------------------------  ----------  -----------------  ----------------------------------------------
-ratgeber-heizung.jpg        38067300    alpha innotec      https://www.pexels.com/photo/38067300/
-ratgeber-reihenfolge.jpg    27134625    Sergei Starostin   https://www.pexels.com/photo/27134625/
-ratgeber-foerderung.jpg     30991552    Willfried Wende    https://www.pexels.com/photo/30991552/
-ratgeber-kellerdecke.jpg     6124239    Erik Mclean        https://www.pexels.com/photo/6124239/
-ratgeber-alb.jpg            17760084    Joerg Hartmann     https://www.pexels.com/photo/17760084/
+Datei                                Pexels-ID   Fotograf/in              Quelle
+-----------------------------------  ----------  -----------------------  -------------------------------------
+ratgeber-heizung.jpg                  12644994   BOOM Photography         https://www.pexels.com/photo/12644994/
+ratgeber-reihenfolge.jpg              27134625   Sergei Starostin         https://www.pexels.com/photo/27134625/
+ratgeber-foerderung.jpg               30991552   Willfried Wende          https://www.pexels.com/photo/30991552/
+ratgeber-kellerdecke.jpg               6124239   Erik Mclean              https://www.pexels.com/photo/6124239/
+ratgeber-alb.jpg                      17760084   Joerg Hartmann           https://www.pexels.com/photo/17760084/
+ratgeber-energieberatung-kosten.jpg    6285150   Gustavo Fring            https://www.pexels.com/photo/6285150/
+ratgeber-waermepumpe-altbau.jpg        4819052   Erik Mclean              https://www.pexels.com/photo/4819052/
+ratgeber-energieausweis.jpg            4792507   Anete Lusina             https://www.pexels.com/photo/4792507/
+ratgeber-fassade.jpg                   5511085   Mike van Schoonderwalt   https://www.pexels.com/photo/5511085/
 
 Bearbeitung: auf 1200px Breite verkleinert und nachverdichtet (JPEG),
 inhaltlich unveraendert.
 
-Hinweis zu ratgeber-heizung.jpg: Auf dem Geraet ist das Logo des Herstellers
-alpha innotec zu erkennen (der Fotograf ist der Hersteller selbst). Die
-Beratung bleibt produktneutral - das Bild zeigt ein Beispielgeraet, keine
-Empfehlung. Bei Gelegenheit gegen ein herstellerneutrales Foto tauschen.
+Getauscht am 15.08.2026: ratgeber-heizung.jpg zeigte zuvor Pexels 38067300.
+Darauf war das Logo des Herstellers alpha innotec zu lesen - hochgeladen vom
+Hersteller selbst. Die Seite wirbt an mehreren Stellen mit produktneutraler
+Beratung; ein Geraetefoto aus der Werbeabteilung eines Waermepumpenherstellers
+passt nicht dazu. Ersatz ist ein Thermostatventil ohne erkennbare Marke.
+
+Produktneutralitaet: Auf allen Ratgeberfotos ist bewusst KEIN Herstellername
+lesbar. Bei neuen Bildern vorher pruefen - auch Nebensachen wie Pumpen oder
+Kessel tragen oft ein Typenschild. Verworfen wurden aus diesem Grund Pexels
+7859953 (Grundfos-Pumpe im Bild) und 36574965 (Daemmfolie mit Markenaufdruck).
+Ebenfalls verworfen: Pexels 7642113 - der abgebildete Grundriss traegt einen
+fremden Copyright-Vermerk, den die Pexels-Lizenz nicht abdeckt.
 
 
 BILDNACHWEIS – Ortsseiten-Fotos (Wikimedia Commons)

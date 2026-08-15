@@ -211,6 +211,52 @@ def ersetze_bereich(s, marke, inhalt, von, bis, name, mit_ende=True):
 
 
 # ---------------------------------------------------------------------------
+# PREISE
+# index.html ist die einzige Quelle der Honorare. Hier werden sie in die
+# <b class="preis-wert" data-preis="...">-Marken der Zielseiten eingesetzt.
+# Freie Zahlen im Text werden NICHT angefasst - die liefen sonst still
+# auseinander, ohne dass es jemand merkt.
+# ---------------------------------------------------------------------------
+PREIS_MUSTER = re.compile(
+    r'(<(?:b|span) class="preis-wert" data-preis="([a-z_]+)"[^>]*>)(.*?)(</(?:b|span)>)', re.S)
+
+
+def preise_lesen(vorlage, pfad):
+    m = re.search(r'<section[^>]*id="preise"[^>]*>', vorlage)
+    if not m:
+        raise SystemExit(f"Abschnitt PREISE fehlt in {pfad} - Honorare nicht lesbar.")
+    roh = dict(re.findall(r'data-preis-([a-z-]+)="(\d+)"', m.group(0)))
+    for k in ("isfp-ab", "foerderung-max", "eigen-ab"):
+        if k not in roh:
+            raise SystemExit(f"data-preis-{k} fehlt im PREISE-Abschnitt von {pfad}.")
+    return {k.replace("-", "_"): f"{int(v):,}".replace(",", ".") + " €"
+            for k, v in roh.items()}
+
+
+def preise_einsetzen(s, werte, pfad):
+    """Ersetzt den Inhalt aller preis-wert-Marken. Unbekannte Schluessel
+    brechen ab - lieber ein Abbruch als ein falscher Preis auf der Seite."""
+    n = [0]
+    def ersetze(m):
+        k = m.group(2)
+        if k not in werte:
+            raise SystemExit(f"{pfad}: unbekannter Preisschluessel '{k}'")
+        n[0] += 1
+        return m.group(1) + werte[k] + m.group(4)
+    return PREIS_MUSTER.sub(ersetze, s), n[0]
+
+
+def json_ld_pruefen(vorlage, werte):
+    """Das FAQ-JSON-LD kann keine Marken tragen (Kommentare und Tags brechen
+    JSON). Deshalb hier nur pruefen und laut werden, statt still abweichen."""
+    fehlt = [w for w in werte.values() if w not in vorlage]
+    if fehlt:
+        print("  ACHTUNG: strukturierte Daten in index.html nennen nicht: "
+              + ", ".join(fehlt))
+        print("           FAQ-Antwort und JSON-LD weichen voneinander ab.")
+
+
+# ---------------------------------------------------------------------------
 def main():
     if not os.path.exists(VORLAGE):
         raise SystemExit("index.html nicht gefunden - im Projektordner starten.")
@@ -233,8 +279,16 @@ def main():
     print(f"Vorlage {VORLAGE}: {len(kopf_markup)} Zeichen Kopf, "
           f"{len(fuss_markup)} Zeichen Fuss, {len(css)} Zeichen CSS\n")
 
+    werte = preise_lesen(v, VORLAGE)
+    print("Honorare aus index.html:", ", ".join(f"{k}={w}" for k, w in werte.items()))
+    json_ld_pruefen(v, werte)
+    print()
+
     for p in ZIELE:
         s = io.open(p, encoding="utf-8").read()
+        s, gesetzt = preise_einsetzen(s, werte, p)
+        if gesetzt:
+            print(f"  {p}: {gesetzt} Preisangabe(n) aktualisiert")
         s = ersetze_bereich(s, "KOPF", kopf_markup, '<header class="site-header"',
                             "<main", p, mit_ende=False)   # erster Lauf: bis <main
         s = ersetze_bereich(s, "FUSS", fuss_markup, '<footer class="site-footer">',

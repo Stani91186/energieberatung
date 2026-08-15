@@ -30,13 +30,37 @@ Kein Build-Schritt, kein Framework, keine Abhängigkeiten.
 4. **Deutsch** in UI-Texten, Kommentaren und Commit-Messages.
 5. Design-Farben nur über die CSS-Variablen im `:root`-Block ändern
    (Creme/Amber/Waldgrün-Palette, beide Dateien identisch halten).
-6. Fachliche Kennwerte (U-Werte, Kosten, Fördersätze, Preise) stehen NUR im
+6. Fachliche Kennwerte (U-Werte, Kosten, Fördersätze) stehen NUR im
    `CONFIG`-Objekt am Anfang des Scripts in `sanierungsrechner.html` –
-   nie tief im Code ändern.
+   nie tief im Code ändern. Wird dort eine Kostenspanne geändert, gehört der
+   Ratgebertext mitgeprüft, der sie nennt (Hinweis steht als Kommentar am
+   betreffenden `ARTIKEL`-Eintrag).
 7. Texte in `[eckigen Klammern]` sind bewusste Platzhalter des Betreibers.
+   Das gilt auch für die beiden sichtbaren `[TODO]`-Kästen in
+   `datenschutz.html` (AVV mit Supabase, Analytics) – sie sind Erinnerungen
+   vor dem Livegang und müssen dann verschwinden, nicht vorher.
 8. **Wenn sich die Datenverarbeitung ändert, muss `datenschutz.html` mitwachsen.**
    Neues Formularfeld, neuer Dienst, neues Cookie → Datenschutztext anpassen.
    Eine Erklärung, die nicht zur Seite passt, ist schlimmer als keine.
+9. **Das Honorar steht ausschließlich im Abschnitt `PREISE` von `index.html`**,
+   maschinenlesbar am `<section>`-Tag (`data-preis-isfp-ab`,
+   `data-preis-foerderung-max`, `data-preis-eigen-ab`). Alle drei Skripte lesen
+   es von dort: `kopf-fuss-abgleichen.py` füllt die
+   `<b class="preis-wert" data-preis="…">`-Marken der handgepflegten Seiten,
+   die beiden Generatoren setzen es über `preise()` bzw. die Platzhalter
+   `{{PREIS_ISFP}}`, `{{PREIS_FOERDER}}`, `{{PREIS_EIGEN}}` ein.
+   Preise nie an zweiter Stelle hart hinschreiben. Das FAQ-JSON-LD in
+   `index.html` kann keine Marken tragen – `kopf-fuss-abgleichen.py` warnt
+   deshalb, wenn die Beträge dort nicht mehr vorkommen.
+   Rechtlich: Endpreise inklusive Umsatzsteuer (PAngV), Förderung immer mit
+   „bis zu" und „sofern bewilligt".
+10. **Keine erfundenen Kundenstimmen.** Der Abschnitt `#stimmen` in
+   `index.html` ist gebaut, aber leer und trägt `hidden`; er erscheint erst,
+   wenn echte Zitate eingesetzt werden. Vorlagen stehen als Kommentar darüber,
+   das Vorgehen in `STIMMEN-SAMMELN.md`. Erfundene Bewertungen verstoßen gegen
+   Anhang Nr. 23 zu §3 Abs. 3 UWG. Kein `Review`- oder `AggregateRating`-Schema:
+   selbst gesammelte Bewertungen schließt Google von Rich Results aus.
+   Echte Kundendaten gehören NICHT ins Repository – es ist öffentlich.
 
 ## Formulare und Leads
 
@@ -67,9 +91,33 @@ nicht auseinanderlaufen. Aufbau je Ortsseite: Stadtfoto im Hero (Tabelle
 neben dem Ortstext. Nach Änderungen an `index.html` einmal
 `python ortsseiten-erzeugen.py` ausführen.
 
-Ortsspezifische Texte stehen in der Tabelle `ORTE` im Generator. Achtung:
-Seiten, die sich nur im Ortsnamen unterscheiden, straft Google als
+Ortsspezifische Texte stehen in der Tabelle `ORTE` im Generator: `lage`,
+`bausubstanz`, `besonderheit`, `typisch` und `isfp_hinweis` – jedes Feld ist
+je Ort einzeln geschrieben, kein Baukasten mit ausgetauschtem Ortsnamen.
+Ebenfalls je Ort: `entfernung_kurz` (Chip) und `entfernung_satz` (Fließtext).
+Die beiden sind getrennt, weil ein einziges Feld in vier verschiedene Satzbauten
+eingesetzt wurde und Dornstadt dadurch „wir sind direkt vor Ort entfernt" las.
+
+Achtung: Seiten, die sich nur im Ortsnamen unterscheiden, straft Google als
 Doorway Pages ab – die Wortüberschneidung sollte gemessen unter 65 % bleiben.
+**Gemessen am 15.08.2026: 79,3 % im Mittel, schlechtestes Paar 80,3 %.** Der
+Wert liegt also über der Grenze. Grund ist nicht zu wenig eigener Text, sondern
+zu viel gemeinsamer: 1.194 von rund 1.541 Achtwortfolgen jeder Seite stehen
+wortgleich auf allen acht Seiten (Förderblock, Rechner-Teaser, Ablauf, Kontakt,
+FAQ – auf Wunsch des Betreibers überall gleich). Wer den Wert senken will, hat
+zwei Wege: je Ort deutlich mehr eigenen Text, oder weniger gemeinsame Blöcke.
+Ein weiterer gemeinsamer Abschnitt treibt ihn nach oben – vor dem Einbau messen:
+
+    python -c "
+    import re,io,glob,itertools
+    def t(p):
+        s=io.open(p,encoding='utf-8').read()
+        s=re.sub(r'(?s)<script.*?</script>|<style.*?</style>|<!--.*?-->','',s)
+        return re.findall(r'[A-Za-zÄÖÜäöüß]{2,}',re.sub(r'(?s)<[^>]+>',' ',s).lower())
+    def sh(w,n=8): return set(tuple(w[i:i+n]) for i in range(len(w)-n+1))
+    o=sorted(glob.glob('energieberatung-*.html'))
+    v=[100*len(sh(t(a))&sh(t(b)))/len(sh(t(a))) for a,b in itertools.combinations(o,2)]
+    print('Mittel',round(sum(v)/len(v),1),'% | schlechtestes',round(max(v),1),'%')"
 
 ## Ratgeber
 
@@ -81,6 +129,25 @@ Artikeltexte stehen in der Liste `ARTIKEL` im Generator; jeder Eintrag bringt
 seine eigenen FAQ-Paare mit, aus denen das `FAQPage`-Schema entsteht. Neue
 Artikel dort ergänzen, dann `python ratgeber-erzeugen.py` ausführen und die
 Adresse in `sitemap.xml` eintragen.
+
+Zwei Dinge, die man leicht übersieht:
+
+- **Die Reihenfolge in `ARTIKEL` ist nicht kosmetisch.** `seitenspalte()` zeigt
+  auf jeder Artikelseite die ersten drei Einträge der Liste. Deshalb steht
+  „Was kostet eine Energieberatung?" auf Platz 1 – die kommerziellste Anfrage
+  bekommt so von jedem anderen Artikel einen Link.
+- **Preise nur über Platzhalter.** `{{PREIS_ISFP}}`, `{{PREIS_FOERDER}}`,
+  `{{PREIS_EIGEN}}` werden von `fuell()` auf der fertigen Seite ersetzt – das
+  bedient Fließtext, FAQ, Meta-Beschreibung, Übersichtskarte und JSON-LD in
+  einem Zug. Ein unbekannter Platzhalter bricht den Lauf ab, statt sichtbar
+  auf der Seite zu landen.
+
+Vor dem Schreiben prüft der Generator, ob jede Bilddatei existiert und kein
+Dateiname doppelt vergeben ist. Beides schlug vorher erst im Browser auf.
+
+In den Artikeltexten deutsche Anführungszeichen `„…“` verwenden (U+201E/U+201C,
+so wie `index.html`). Ein gerades `"` als Schlusszeichen beendet in den
+`"…"`-Feldern von `ARTIKEL` den Python-String und bricht den Generator.
 
 Jeder Artikel bringt im Feld `bild` ein Foto aus `bilder/` mit (Wunsch des
 Betreibers: echte Fotos von Pexels). Die Dateien liegen **selbst gehostet**
