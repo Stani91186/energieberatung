@@ -490,6 +490,12 @@ details.annahmen[open] summary::after{content:"–"}
 }
 #druckbericht{display:none}
 
+/* Schalter, die die Waermepumpe schon mitbringt: sichtbar, aber gesperrt.
+   Ausblenden waere fuer den Kunden nicht nachvollziehbar. */
+.sw-mini.sw-enthalten{opacity:.45}
+.sw-mini.sw-enthalten .switch{cursor:not-allowed}
+.sim-wp-hinweis{display:none;margin-top:9px;font-size:.76rem;line-height:1.5;color:#4B453D;background:var(--amber-soft);border-radius:8px;padding:8px 11px}
+
 /* ==== Druckbericht ==== */
 #druckbericht{font-size:12pt;line-height:1.55;color:#1D1A15}
 #druckbericht .db-kopf{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:2.5px solid #2E4A3C;padding-bottom:14px;margin-bottom:20px}
@@ -1226,7 +1232,12 @@ var CONFIG = {
     abgleich:[800,1800], rohr:[500,1500]
   },
   lebensdauer:{ wand:40, dach:35, ogd:40, kellerdecke:40, fenster:30, tuer:30, wp:20, brennwert:20, abgleich:15, rohr:30 },
-  abgleichEinsparung:0.08, rohrEinsparung:0.03
+  abgleichEinsparung:0.08, rohrEinsparung:0.03,
+  /* Beim Einbau einer Waermepumpe liefert der Heizungsbetrieb den
+     hydraulischen Abgleich und die Rohrdaemmung praktisch immer mit -
+     der Abgleich ist bei gefoerderten Waermepumpen sogar vorgeschrieben.
+     Beides darf dann nicht zusaetzlich berechnet werden. */
+  imWpAngebotEnthalten:['abgleich','rohr']
 };
 
 /* ===== Hilfsfunktionen ===== */
@@ -1519,8 +1530,14 @@ function szenarien(e, basis, kal, mnListe){
   s.push(paket('1 · Sofortmaßnahmen','Kleines Geld, schnelle Wirkung: Die Dämm-Maßnahmen darin sind meist an einem Wochenende in Eigenleistung machbar, den hydraulischen Abgleich übernimmt der Heizungsbetrieb.', sofortMods, sofortIds));
 
   var gruenIds = mnListe.filter(function(m){return m.ampel==='ok';}).map(function(m){return m.id;});
+  /* Enthaelt das Paket eine Waermepumpe, bringt deren Angebot Abgleich und
+     Rohrdaemmung mit - beides faellt hier heraus, sonst zaehlen Kosten UND
+     Einsparung doppelt. */
+  var gruenWp = gruenIds.indexOf('wp')>=0;
+  if(gruenWp) gruenIds = gruenIds.filter(function(id){ return CONFIG.imWpAngebotEnthalten.indexOf(id)<0; });
   var gruenMods={u:{},extraFaktor:1};
   mnListe.forEach(function(m){ if(m.ampel!=='ok') return;
+    if(gruenWp && CONFIG.imWpAngebotEnthalten.indexOf(m.id)>=0) return;
     if(m.mods.u) Object.keys(m.mods.u).forEach(function(kk){ gruenMods.u[kk]=m.mods.u[kk]; });
     if(m.mods.extraFaktor) gruenMods.extraFaktor*=m.mods.extraFaktor;
     if(m.mods.heizung) gruenMods.heizung=m.mods.heizung;
@@ -1531,10 +1548,12 @@ function szenarien(e, basis, kal, mnListe){
   var huelleAllIds=Object.keys(huelleAllMods.u).map(function(kk){return kk==='dach'&&basis.aOgd>0?'ogd':kk;}).concat(['abgleich']);
   s.push(paket('3 · Gebäudehülle komplett','Alle Dämm-Maßnahmen plus hydraulischer Abgleich – die Heizung bleibt. Senkt Verbrauch und Heizlast deutlich und hält für später alle Heizungs-Optionen offen.', huelleAllMods, huelleAllIds));
 
+  /* Abgleich hier NICHT extra: Die Waermepumpe bringt ihn im Angebot mit.
+     Frueher stand er zusaetzlich in den Kosten und im Einsparfaktor - das
+     machte das Paket doppelt guenstig. */
   var vollMods={u:huelleMods(true), heizung:'wp'};
-  var vollIds=Object.keys(vollMods.u).map(function(kk){return kk==='dach'&&basis.aOgd>0?'ogd':kk;}).concat(['wp','abgleich']);
-  vollMods.extraFaktor=1-CONFIG.abgleichEinsparung;
-  s.push(paket('4 · Vollsanierung („von H auf A")','Komplettpaket auf Effizienzhaus-Niveau: Hülle plus moderne Heiztechnik – am besten über einige Jahre gestaffelt und mit individuellem Sanierungsfahrplan geplant (bringt +5 Prozentpunkte Förderung).', vollMods, vollIds));
+  var vollIds=Object.keys(vollMods.u).map(function(kk){return kk==='dach'&&basis.aOgd>0?'ogd':kk;}).concat(['wp']);
+  s.push(paket('4 · Vollsanierung („von H auf A")','Komplettpaket auf Effizienzhaus-Niveau: Hülle plus moderne Heiztechnik. Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten. Am besten über einige Jahre gestaffelt und mit individuellem Sanierungsfahrplan geplant (bringt +5 Prozentpunkte Förderung).', vollMods, vollIds));
   return s;
 }
 
@@ -2244,7 +2263,9 @@ function buildSim(e0){
     '<button type="button" data-h="ist" class="on">Ist belassen</button>'+
     ((e0.heizungTyp!=='brennwert'&&e0.heizungTyp!=='wp'&&(e0.traeger==='gas'||e0.traeger==='oel'))?'<button type="button" data-h="brennwert">Brennwert</button>':'')+
     (e0.heizungTyp!=='wp'?'<button type="button" data-h="wp">Wärmepumpe</button>':'')+
-    '</div></div>';
+    '</div>'+
+    '<p class="sim-wp-hinweis" id="simWpHinweis">Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten – sie werden deshalb nicht zusätzlich berechnet.</p>'+
+    '</div>';
   $('simCards').innerHTML =
     card('wand', true) + card('dach', true) +
     (SIM.kellerToggle
@@ -2320,9 +2341,20 @@ function updateSim(){
   if(tg.fenster) modsU.fenster=Z.fenster;
   var mods={u:modsU};
   if(SIM.heiz!=='ist') mods.heizung=SIM.heiz;
+
+  /* Waermepumpe gewaehlt? Dann sind Abgleich und Rohrdaemmung im Angebot
+     des Heizungsbetriebs enthalten (siehe CONFIG.imWpAngebotEnthalten) und
+     zaehlen weder bei den Kosten noch bei der Einsparung ein zweites Mal.
+     tgEff ist der Zustand, mit dem GERECHNET wird - tg bleibt der Zustand
+     der Schalter, damit die Auswahl beim Zurueckschalten erhalten bleibt. */
+  var wpGewaehlt = (SIM.heiz==='wp');
+  var tgEff = {};
+  Object.keys(tg).forEach(function(kk){ tgEff[kk]=tg[kk]; });
+  if(wpGewaehlt){ CONFIG.imWpAngebotEnthalten.forEach(function(kk){ tgEff[kk]=false; }); }
+
   var faktor=1;
-  if(tg.abgleich) faktor*=(1-CONFIG.abgleichEinsparung);
-  if(tg.rohr) faktor*=(1-CONFIG.rohrEinsparung);
+  if(tgEff.abgleich) faktor*=(1-CONFIG.abgleichEinsparung);
+  if(tgEff.rohr) faktor*=(1-CONFIG.rohrEinsparung);
   if(faktor<1) mods.extraFaktor=faktor;
   var nach = berechne(e, mods);
 
@@ -2349,9 +2381,23 @@ function updateSim(){
   if(tg.fenster){ var stk=Math.max(4,Math.round(vor.aFenster/K.fensterM2ProStk)); add(stk*(K.fensterStk[0]+K.fensterStk[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle); }
   if(SIM.heiz==='wp') add((K.wp[0]+K.wp[1])/2, CONFIG.foerderWP, CONFIG.foerderDeckelWP, CONFIG.foerderWPMaxBetrag);
   if(SIM.heiz==='brennwert') add((K.brennwert[0]+K.brennwert[1])/2, 0, 1);
-  if(tg.abgleich) add((K.abgleich[0]+K.abgleich[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
-  if(tg.rohr) add((K.rohr[0]+K.rohr[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
+  if(tgEff.abgleich) add((K.abgleich[0]+K.abgleich[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
+  if(tgEff.rohr) add((K.rohr[0]+K.rohr[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
   var ersparnis = Math.max(0, kostenVor-kostenNach);
+
+  /* Schalter sperren, die die Waermepumpe schon mitbringt - mit sichtbarer
+     Begruendung. Nur ausblenden waere fuer den Kunden nicht nachvollziehbar. */
+  CONFIG.imWpAngebotEnthalten.forEach(function(kk){
+    var box=$('simtg_'+kk); if(!box) return;
+    var zeile=box.closest('.sw-mini');
+    box.disabled = wpGewaehlt;
+    if(zeile){
+      zeile.classList.toggle('sw-enthalten', wpGewaehlt);
+      zeile.title = wpGewaehlt ? 'Im Wärmepumpen-Angebot enthalten – wird nicht zusätzlich berechnet' : '';
+    }
+  });
+  var hinweisWp=$('simWpHinweis');
+  if(hinweisWp) hinweisWp.style.display = wpGewaehlt ? 'block' : 'none';
 
   /* Klassen-Chips – kalibriert, damit sie zu Kacheln und Skala oben passen */
   var kwVor = vor.eEnd*k/e.wohnflaeche;
@@ -2380,14 +2426,15 @@ function updateSim(){
   /* Stand des Simulators festhalten: Der Bericht soll zeigen, was der Kunde
      tatsaechlich angeklickt hat - vorher enthielt er nur die Erstberechnung. */
   SIM_BERICHT = {
-    tg: JSON.parse(JSON.stringify(tg)), heiz: SIM.heiz, shares: shares,
+    tg: JSON.parse(JSON.stringify(tgEff)), heiz: SIM.heiz, shares: shares,
+    wpDecktAb: wpGewaehlt && (tg.abgleich || tg.rohr),
     invest: invest, foerd: foerd, netto: Math.max(0, invest - foerd),
     ersparnis: ersparnis, klVor: klV, klNach: klN,
     kwVor: kwVor, kwNach: kwNach, kostenVor: kostenVor, kostenNach: kostenNach,
     dachIstOgd: SIM.dachIstOgd
   };
 
-  var sig = JSON.stringify([tg, SIM.heiz]);
+  var sig = JSON.stringify([tgEff, SIM.heiz]);
   function swPfeil(a){ return Math.max(3, Math.round(3 + a*22)); }
   if(SIM._sig===sig && document.getElementById('arwS_dach')){
     Object.keys(shares).forEach(function(kk){
@@ -2397,7 +2444,7 @@ function updateSim(){
       if(txt) txt.textContent = Math.round(shares[kk]*100)+' %';
     });
   } else {
-    $('simHaus').innerHTML = isoHausSvg(shares, tg, { marker:'S', ids:true, panels:tg.dach, wp:SIM.heiz==='wp',
+    $('simHaus').innerHTML = isoHausSvg(shares, tgEff, { marker:'S', ids:true, panels:tgEff.dach, wp:SIM.heiz==='wp',
       caption:'Grün = Maßnahme eingeplant · Pfeildicke = Wärmeverlust' });
     SIM._sig = sig;
   }
