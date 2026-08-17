@@ -176,14 +176,60 @@ Bild steht der Nachweis (ID, Fotograf, Quelle, Lizenz) in `bilder/LIZENZ.txt`;
 neue Bilder dort nachtragen. Die Pexels-Lizenz erlaubt kommerzielle Nutzung
 ohne Namensnennung, ist aber **nicht** CC0.
 
+## Aktuelles (News)
+
+`aktuelles.html` wird von `news-erzeugen.py` erzeugt – **nicht von Hand
+bearbeiten**. Meldungen stehen in der Liste `MELDUNGEN`, neueste zuerst; der
+Generator sortiert ohnehin selbst.
+
+Bewusst **eine** Seite mit Sprungzielen je Meldung statt einer Seite pro Woche:
+Kurze Zusammenfassungen auf je eigener Seite ergäben 52 dünne Seiten im Jahr –
+genau das Muster, vor dem drei SEO-Prüfungen gewarnt haben. Wird ein Thema groß
+genug für eine eigene Seite, gehört es in den Ratgeber. Ab 40 Meldungen wandern
+die ältesten automatisch nach `aktuelles-JAHR.html`.
+
+Kopf, Fuß, CSS und die Bausteine `krumen()`, `json_ld()`, `CTA_BAND` kommen
+**per Import aus `ratgeber-erzeugen.py`**, nicht aus einer vierten Kopie. Vier
+eigene Kopfzeilen-Kopien waren schon einmal das Problem dieses Projekts.
+
+**Der Bereich veröffentlicht vollautomatisch** (Wunsch des Betreibers, wöchentlich).
+Deshalb stehen die Regeln nicht nur im Auftragstext, sondern als harte Prüfungen
+in `pruefe()` – was durchfällt, wird gar nicht erst geschrieben:
+
+- Quellen **nur** von `QUELL_HOSTS` (BAFA, KfW, dena, Energie-Effizienz-Expertenliste,
+  BMWK, Bundesregierung, Bundestag, Bundesrat, gesetze-im-internet.de,
+  Bundesanzeiger, recht.bund.de). Fachportale und Hersteller sind ausgeschlossen –
+  über zweite Hand wird eine Förderaussage falsch.
+- Pflichtfelder vollständig, `datum` ISO und nicht in der Zukunft
+- `text` höchstens 400 Zeichen, ohne `€`, „wir", „unser" – eine Meldung
+  **referiert die Quelle** und macht keine eigene Aussage
+- Titel und Quell-URL je einmalig, Sprungziele eindeutig, Bilddatei vorhanden
+
+**Diese Prüfungen nicht aufweichen** – sie sind die einzige Sicherung dagegen,
+dass unbelegte Aussagen zu Förderrecht unter dem Namen des Betreibers live gehen.
+Geprüft mit zwölf Testfällen, alle brechen korrekt ab.
+
+Kategoriebilder in `bilder/news-*.jpg` werden wiederverwendet (`KATEGORIEN`);
+wöchentlich ein neues Foto zu lizenzieren wäre der teuerste Teil.
+
+## Sitemap
+
+`sitemap.xml` wird von `sitemap-erzeugen.py` aus dem Dateibestand geschrieben –
+**nicht mehr von Hand pflegen**. Datei da = Adresse drin. Prioritäten und
+`changefreq` stehen als Musterliste `REGELN` im Skript; `aktuelles.html` bekommt
+`weekly` und als `lastmod` das Datum der jüngsten Meldung. Seiten mit `noindex`
+und `404.html` bleiben draußen, fehlendes `canonical` bricht ab.
+
 ## Kopf und Fuß
 
 `index.html` ist die Vorlage für Kopfzeile, Handy-Menü, Aktionsleiste und
 Fußbereich. Wer daran etwas ändert, ändert es **dort** und lässt danach laufen:
 
-    python kopf-fuss-abgleichen.py     # Rechner, Fahrplan, Impressum, Datenschutz
+    python kopf-fuss-abgleichen.py     # Rechner, Fahrplan, Leistungsseiten, Rechtstexte
     python ortsseiten-erzeugen.py
     python ratgeber-erzeugen.py
+    python news-erzeugen.py
+    python sitemap-erzeugen.py         # immer zuletzt, liest den Dateibestand
 
 Die abgeglichenen Bereiche stehen zwischen `GEMEINSAM:`-Markierungen – von Hand
 Geändertes wird beim nächsten Lauf überschrieben. Nicht mit übertragen wird

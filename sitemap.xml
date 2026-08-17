@@ -1,156 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Bei neuen Seiten hier eintragen und in der Google Search Console erneut einreichen.
-     Reihenfolge der Ratgeber = Reihenfolge in ARTIKEL (ratgeber-erzeugen.py).
-     Vollstaendigkeit laesst sich pruefen: jede *.html im Ordner ausser 404.html
-     muss hier stehen, und jede Adresse hier muss als Datei existieren. -->
+<!-- ERZEUGT von sitemap-erzeugen.py - nicht von Hand bearbeiten.
+     Neue Seite angelegt? Skript laufen lassen, fertig.
+     Zuletzt erzeugt: 2026-08-18 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://energieberater-albdonau.de/</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://energieberater-albdonau.de/sanierungsrechner.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://energieberater-albdonau.de/sanierungsfahrplan.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://energieberater-albdonau.de/energieausweis-ulm.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://energieberater-albdonau.de/hydraulischer-abgleich-ulm.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://energieberater-albdonau.de/ratgeber.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://energieberater-albdonau.de/sanierungsfahrplan.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/sanierungsrechner.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/aktuelles.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/ratgeber-energieausweis-bedarf-verbrauch.html</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://energieberater-albdonau.de/ratgeber-energieberatung-kosten.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://energieberater-albdonau.de/ratgeber-heizung-tauschen-pflicht.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://energieberater-albdonau.de/ratgeber-waermepumpe-altbau.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://energieberater-albdonau.de/ratgeber-reihenfolge-sanierung.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://energieberater-albdonau.de/ratgeber-foerderung-oder-steuer.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://energieberater-albdonau.de/ratgeber-fassade-daemmen.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/ratgeber-foerderung-oder-steuer.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/ratgeber-heizung-tauschen-pflicht.html</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://energieberater-albdonau.de/ratgeber-kellerdecke-daemmen.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://energieberater-albdonau.de/ratgeber-energieausweis-bedarf-verbrauch.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://energieberater-albdonau.de/ratgeber-reihenfolge-sanierung.html</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://energieberater-albdonau.de/ratgeber-sanieren-schwaebische-alb.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://energieberater-albdonau.de/energieberatung-ulm.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://energieberater-albdonau.de/ratgeber-waermepumpe-altbau.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/ratgeber.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/energieberatung-blaubeuren.html</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://energieberater-albdonau.de/energieberatung-blaustein.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://energieberater-albdonau.de/energieberatung-langenau.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://energieberater-albdonau.de/energieberatung-ehingen.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://energieberater-albdonau.de/energieberatung-laichingen.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://energieberater-albdonau.de/energieberatung-blaubeuren.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://energieberater-albdonau.de/energieberatung-erbach.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://energieberater-albdonau.de/energieberatung-dornstadt.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://energieberater-albdonau.de/impressum.html</loc>
-    <lastmod>2026-07-27</lastmod>
+    <loc>https://energieberater-albdonau.de/energieberatung-ehingen.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/energieberatung-erbach.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/energieberatung-laichingen.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/energieberatung-langenau.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/energieberatung-ulm.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://energieberater-albdonau.de/datenschutz.html</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://energieberater-albdonau.de/datenschutz.html</loc>
-    <lastmod>2026-07-27</lastmod>
+    <loc>https://energieberater-albdonau.de/impressum.html</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>

@@ -9,6 +9,7 @@ Abhängigkeiten – die Dateien werden so hochgeladen, wie sie hier liegen.
 | `sanierungsrechner.html` | Rechner mit Bericht-Download und Lead-Formular |
 | `sanierungsfahrplan.html` | Leistungsseite iSFP mit Honorartabelle |
 | `ratgeber.html`, `ratgeber-*.html` | 9 Ratgeberartikel – **erzeugt**, nicht von Hand ändern |
+| `aktuelles.html` | Meldungen zu Förderung und Gesetzen – **erzeugt**, wöchentlich automatisch |
 | `energieberatung-*.html` | 8 Ortsseiten – **erzeugt**, nicht von Hand ändern |
 | `impressum.html` | Pflichtseite nach §5 DDG |
 | `datenschutz.html` | Pflichtseite nach DSGVO |
@@ -33,10 +34,14 @@ Preise ändert, ändert sie **in `index.html`** und lässt danach laufen:
 python kopf-fuss-abgleichen.py
 python ortsseiten-erzeugen.py
 python ratgeber-erzeugen.py
+python news-erzeugen.py
+python sitemap-erzeugen.py
 ```
 
-In dieser Reihenfolge. Direkt in einer `ratgeber-*.html` oder
-`energieberatung-*.html` geänderter Text ist beim nächsten Lauf weg.
+In dieser Reihenfolge. Direkt in einer `ratgeber-*.html`,
+`energieberatung-*.html` oder `aktuelles.html` geänderter Text ist beim
+nächsten Lauf weg. Die Sitemap wird seit August 2026 ebenfalls erzeugt –
+bitte nicht mehr von Hand bearbeiten.
 
 ### Wo die Preise stehen
 

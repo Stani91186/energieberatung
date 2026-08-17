@@ -26,6 +26,7 @@ ratgeber-waermepumpe-altbau.jpg        4819052   Erik Mclean              https:
 ratgeber-energieausweis.jpg            4792507   Anete Lusina             https://www.pexels.com/photo/4792507/
 ratgeber-fassade.jpg                   5511085   Mike van Schoonderwalt   https://www.pexels.com/photo/5511085/
 
+
 Bearbeitung: auf 1200px Breite verkleinert und nachverdichtet (JPEG),
 inhaltlich unveraendert.
 
@@ -42,6 +43,36 @@ Kessel tragen oft ein Typenschild. Verworfen wurden aus diesem Grund Pexels
 Ebenfalls verworfen: Pexels 7642113 - der abgebildete Grundriss traegt einen
 fremden Copyright-Vermerk, den die Pexels-Lizenz nicht abdeckt.
 
+
+BILDNACHWEIS - Kategoriebilder des News-Bereichs (Pexels)
+=========================================================
+
+Diese sechs Bilder werden von aktuelles.html je nach Kategorie einer Meldung
+eingesetzt und dabei wiederverwendet - deshalb sind sie bewusst allgemein
+gehalten. Herunterladen am 18.08.2026, gleiche Pexels-Lizenz wie oben.
+
+Datei                 Pexels-ID   Fotograf/in         Quelle
+--------------------  ----------  ------------------  -------------------------------------
+news-foerderung.jpg    28176949   Jakub Zerdzicki     https://www.pexels.com/photo/28176949/
+news-gesetz.jpg         9858904   Markus Spiske       https://www.pexels.com/photo/9858904/
+news-heizung.jpg        7937300   Pavel Danilyuk      https://www.pexels.com/photo/7937300/
+news-daemmung.jpg      37002230   wal_ 172619         https://www.pexels.com/photo/37002230/
+news-ausweis.jpg        7937319   Pavel Danilyuk      https://www.pexels.com/photo/7937319/
+news-markt.jpg          7947754   RDNE Stock project  https://www.pexels.com/photo/7947754/
+
+Bearbeitung: auf 1200px Breite verkleinert; news-daemmung.jpg zusaetzlich vom
+Hoch- ins Querformat 3:2 beschnitten (Bildmitte mit den Daemmplatten behalten).
+
+Verworfen und warum - drei von sechs Kandidaten fielen bei der Sichtpruefung durch:
+- Pexels 38749876 (Dachdaemmung): "ONDUTISS by Onduline" grossflaechig lesbar,
+  dazu Werkzeugmarken auf den Akkuschraubern.
+- Pexels 6124242 (Fensterfuge): "MONO" auf der Kartusche, "UVEX" auf der
+  Schutzbrille.
+- Pexels 34938442 (Techniker an Wandgeraeten): Erst im vergroesserten Ausschnitt
+  sichtbar - "ROYAL THERMO AQUATEC INOX" steht auf dem Speicher, und der
+  Pexels-Account gehoert dem Kesselhersteller selbst. Derselbe Fall wie frueher
+  bei alpha innotec. Merke: Bei Geraetefotos immer den Ausschnitt vergroessern,
+  bei 640px war der Schriftzug nicht zu erkennen.
 
 BILDNACHWEIS – Ortsseiten-Fotos (Wikimedia Commons)
 ===================================================

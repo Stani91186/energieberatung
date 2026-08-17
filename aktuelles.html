@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  RATGEBER – ERZEUGT, NICHT VON HAND BEARBEITEN!
-  Änderungen in ratgeber-erzeugen.py vornehmen und das Skript erneut laufen
-  lassen, sonst sind sie beim nächsten Durchlauf wieder weg.
+  AKTUELLES – ERZEUGT, NICHT VON HAND BEARBEITEN!
+  Meldungen stehen in news-erzeugen.py, Liste MELDUNGEN. Danach das Skript
+  erneut laufen lassen, sonst sind Aenderungen beim naechsten Durchlauf weg.
   ============================================================================
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Was kostet eine Energieberatung? Preise und Förderung</title>
-<meta name="description" content="Was eine Energieberatung für ein Einfamilienhaus kostet, wie viel die BAFA davon übernimmt und woran Sie ein unseriöses Angebot erkennen.">
-<link rel="canonical" href="https://energieberater-albdonau.de/ratgeber-energieberatung-kosten.html">
+<title>Aktuelles: Förderung, Gesetze und Sanierung | EBA Albdonau</title>
+<meta name="description" content="Änderungen bei Förderung und Gesetzen rund um die energetische Sanierung – kurz zusammengefasst, jede Meldung mit amtlicher Quelle.">
+<link rel="canonical" href="https://energieberater-albdonau.de/aktuelles.html">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#FDFBF7">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E4A3C'/%3E%3Cg transform='translate(12.4,3.7) scale(0.78)'%3E%3Cpath d='M25 3 2 28 2 63 30 63 30 70 48 70 48 30Z' fill='none' stroke='%23FDFBF7' stroke-width='4.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M24.5 36C27.5 44 26.5 52 19 57 12 61.5 6.5 57.5 7.5 51 8.5 44 16 39 24.5 36ZM23.5 38.5C20 44 16 49 11.5 54.5 15.5 49.5 19 44.5 22.8 38.2Z' fill='%23E8B87A' fill-rule='evenodd'/%3E%3C/g%3E%3C/svg%3E">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="EBA Energieberater Albdonau">
-<meta property="og:title" content="Was kostet eine Energieberatung? Preise und Förderung">
-<meta property="og:description" content="Was eine Energieberatung für ein Einfamilienhaus kostet, wie viel die BAFA davon übernimmt und woran Sie ein unseriöses Angebot erkennen.">
-<meta property="og:url" content="https://energieberater-albdonau.de/ratgeber-energieberatung-kosten.html">
-<meta property="og:image" content="https://energieberater-albdonau.de/bilder/ratgeber-energieberatung-kosten.jpg">
+<meta property="og:title" content="Aktuelles: Förderung, Gesetze und Sanierung | EBA Albdonau">
+<meta property="og:description" content="Änderungen bei Förderung und Gesetzen rund um die energetische Sanierung – kurz zusammengefasst, jede Meldung mit amtlicher Quelle.">
+<meta property="og:url" content="https://energieberater-albdonau.de/aktuelles.html">
+<meta property="og:image" content="https://energieberater-albdonau.de/vorschau.jpg">
 <meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="800">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="EBA Energieberater Albdonau, Ulm und Alb-Donau-Kreis">
 <meta name="twitter:card" content="summary_large_image">
 <style>
@@ -1075,13 +1075,48 @@ main .cta-band{margin-bottom:50px}
 @media (max-width:1000px){ .rg-inhalt{grid-template-columns:1fr;gap:40px} .rg-spalte{position:static} }
 @media (max-width:760px){ .rg-liste{grid-template-columns:1fr} }
 
+/* ===== Aktuelles ===== */
+.news-liste{display:grid;gap:20px;padding-bottom:24px}
+.news-eintrag{
+  display:grid;grid-template-columns:210px 1fr;gap:26px;align-items:start;
+  background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);padding:22px 26px;scroll-margin-top:120px;
+}
+.news-eintrag>*{min-width:0}
+.news-bild{width:100%;height:150px;object-fit:cover;border-radius:var(--radius-sm);display:block}
+.news-kopf{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:9px}
+.news-datum{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.news-kat{
+  font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;
+  padding:3px 10px;border-radius:100px;background:var(--forest-soft);color:var(--forest);
+}
+.news-kat-foerderung{background:var(--amber-soft);color:#6B5638}
+.news-kat-markt{background:#EDEFF2;color:#4A5560}
+.news-eintrag h2{font-size:1.16rem;line-height:1.35;margin:0 0 9px}
+.news-eintrag p{font-size:.95rem;color:var(--ink-2);margin:0 0 12px}
+.news-quelle{font-size:.84rem;color:var(--muted);margin:0}
+.news-quelle a{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.news-leer{
+  background:var(--forest-soft);border-radius:var(--radius);padding:26px 28px;
+  color:var(--forest);font-size:.96rem;
+}
+.news-fuss{
+  margin:8px 0 44px;padding-top:18px;border-top:1px solid var(--line-soft);
+  font-size:.85rem;color:var(--muted);max-width:70ch;
+}
+.news-archiv{margin:0 0 44px;font-size:.92rem}
+.news-archiv a{color:var(--amber-deep);font-weight:600}
+@media (max-width:760px){
+  .news-eintrag{grid-template-columns:1fr;gap:16px;padding:18px 20px}
+  .news-bild{height:170px}
+}
+
 </style>
 </head>
 <body>
 <script>document.documentElement.classList.add('js')</script>
 
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
-
 <header class="site-header" id="header">
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
@@ -1091,8 +1126,8 @@ main .cta-band{margin-bottom:50px}
     <nav class="nav" aria-label="Hauptnavigation">
       <a href="index.html#leistungen">Leistungen</a>
       <a href="sanierungsrechner.html">Rechner</a>
-      <a href="ratgeber.html" aria-current="page">Ratgeber</a>
-      <a href="aktuelles.html">Aktuelles</a>
+      <a href="ratgeber.html">Ratgeber</a>
+      <a href="aktuelles.html" aria-current="page">Aktuelles</a>
       <a href="index.html#ablauf">Ablauf</a>
       <a href="index.html#kontakt">Kontakt</a>
     </nav>
@@ -1116,8 +1151,8 @@ main .cta-band{margin-bottom:50px}
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
   <a href="index.html#leistungen">Leistungen</a>
   <a href="sanierungsrechner.html">Sanierungsrechner</a>
-  <a href="ratgeber.html" aria-current="page">Ratgeber</a>
-  <a href="aktuelles.html">Aktuelles</a>
+  <a href="ratgeber.html">Ratgeber</a>
+  <a href="aktuelles.html" aria-current="page">Aktuelles</a>
   <a href="index.html#ablauf">Ablauf</a>
   <a href="index.html#faq">Fragen</a>
   <a href="index.html#kontakt">Kontakt</a>
@@ -1131,32 +1166,17 @@ main .cta-band{margin-bottom:50px}
     Anrufen
   </a>
   <a href="index.html#kontakt" class="btn btn-primary">Anfrage senden</a>
-</div>
-<script type="application/ld+json">
+</div><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Article",
-      "headline": "Was kostet eine Energieberatung?",
-      "description": "Was eine Energieberatung für ein Einfamilienhaus kostet, wie viel die BAFA davon übernimmt und woran Sie ein unseriöses Angebot erkennen.",
+      "@type": "CollectionPage",
+      "name": "Aktuelles zu Förderung, Gesetzen und Sanierung",
+      "description": "Änderungen bei Förderung und Gesetzen rund um die energetische Sanierung – kurz zusammengefasst, jede Meldung mit amtlicher Quelle.",
       "inLanguage": "de-DE",
-      "datePublished": "2026-08-14",
-      "dateModified": "2026-08-14",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://energieberater-albdonau.de/ratgeber-energieberatung-kosten.html"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Stanislaw Tsukerman",
-        "jobTitle": "Energieberater"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "EBA Energieberater Albdonau",
-        "url": "https://energieberater-albdonau.de"
-      }
+      "url": "https://energieberater-albdonau.de/aktuelles.html",
+      "dateModified": "2026-08-01"
     },
     {
       "@type": "BreadcrumbList",
@@ -1170,42 +1190,36 @@ main .cta-band{margin-bottom:50px}
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Ratgeber",
-          "item": "https://energieberater-albdonau.de/ratgeber.html"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Was kostet eine Energieberatung?"
+          "name": "Aktuelles"
         }
       ]
     },
     {
-      "@type": "FAQPage",
-      "mainEntity": [
+      "@type": "ItemList",
+      "itemListElement": [
         {
-          "@type": "Question",
-          "name": "Was kostet eine Energieberatung für ein Einfamilienhaus?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Ein individueller Sanierungsfahrplan für ein Ein- oder Zweifamilienhaus beginnt bei 1.350 € inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 Prozent, höchstens 650 €, sodass ein Eigenanteil ab 700 € bleibt, sofern der Zuschuss bewilligt wird. Den genauen Festpreis nennen wir nach einem kurzen Telefonat."
-          }
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Übergangsregelung für die Energieeffizienz-Expertenliste endet zum Jahresende",
+          "url": "https://energieberater-albdonau.de/aktuelles.html#m-2026-08-01-uebergangsregelung-fuer-die-energieeffizienz"
         },
         {
-          "@type": "Question",
-          "name": "Wird die Energieberatung gefördert?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Ja. Das BAFA fördert den individuellen Sanierungsfahrplan für Ein- und Zweifamilienhäuser mit 50 Prozent der förderfähigen Kosten, höchstens 650 €. Voraussetzung ist, dass der Berater in der Energie-Effizienz-Expertenliste des Bundes eingetragen ist und der Antrag vor Vertragsschluss gestellt wird."
-          }
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Gebäudemodernisierungsgesetz löst das Gebäudeenergiegesetz ab",
+          "url": "https://energieberater-albdonau.de/aktuelles.html#m-2026-07-29-gebaeudemodernisierungsgesetz-loest-das-gebaeudeenergiegesetz"
         },
         {
-          "@type": "Question",
-          "name": "Lohnt sich eine Energieberatung bei einem kleinen Haus?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Häufig gerade dann. Je kleiner das Budget, desto teurer ist eine falsch gewählte erste Maßnahme. Ob sich der Aufwand bei Ihrem Gebäude rechnet, lässt sich im kostenlosen Erstgespräch in etwa 20 Minuten klären – wenn nicht, sagen wir das."
-          }
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Neue Förderkonditionen der Bundesförderung für effiziente Gebäude",
+          "url": "https://energieberater-albdonau.de/aktuelles.html#m-2026-07-21-neue-foerderkonditionen-der-bundesfoerderung"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "KfW passt den Wohngebäude-Kredit 261 an",
+          "url": "https://energieberater-albdonau.de/aktuelles.html#m-2026-07-21-kfw-passt-den-wohngebaeude"
         }
       ]
     }
@@ -1217,264 +1231,100 @@ main .cta-band{margin-bottom:50px}
 <nav class="krumen wrap" aria-label="Sie sind hier">
   <ol>
     <li><a href="index.html">Startseite</a></li>
-    <li><a href="ratgeber.html">Ratgeber</a></li>
-    <li>Was kostet eine Energieberatung?</li>
+    <li>Aktuelles</li>
   </ol>
 </nav>
 
-  <article>
-    <header class="wrap rg-kopf">
-      <span class="eyebrow">Kosten & Honorar</span>
-      <h1>Was kostet eine Energieberatung?</h1>
-      <p class="lead">Die häufigste Frage im ersten Telefonat – und die, auf die viele Anbieter keine klare Antwort geben. Hier stehen die Zahlen, bevor Sie anrufen.</p>
-      <div class="rg-meta">
-        <span>Lesezeit ca. 6 Minuten</span>
-        <span>Stand: August 2026</span>
-        <span>Von Stanislaw Tsukerman, Energieberater</span>
-      </div>
-    </header>
-
-    <div class="wrap">
-      <img class="rg-bild" src="bilder/ratgeber-energieberatung-kosten.jpg" width="1200" height="800"
-           alt="Grundriss, Kostenkurve und Bauhelm auf einem Schreibtisch"
-           loading="lazy" decoding="async">
+  <header class="wrap rg-kopf">
+    <span class="eyebrow">Aktuelles</span>
+    <h1>Was sich bei Förderung und Gesetzen ändert</h1>
+    <p class="lead">
+      Fördersätze, Fristen und Gesetze ändern sich schneller, als die meisten
+      Ratgeber im Netz nachziehen. Hier steht wöchentlich in wenigen Sätzen, was
+      sich geändert hat – jede Meldung mit der amtlichen Quelle zum Nachlesen.
+    </p>
+    <div class="rg-meta">
+      <span>Zuletzt aktualisiert: 1. August 2026</span>
+      <span>4 Meldungen</span>
     </div>
+  </header>
 
-    <div class="wrap rg-inhalt">
-      <div class="rg-text">
-<p>
-        Wer nach den Kosten einer Energieberatung sucht, findet meist Spannen von
-        „500 bis 2.500 €“ und danach ein Kontaktformular. Das hilft niemandem bei der
-        Entscheidung. Für ein normales Ein- oder Zweifamilienhaus lässt sich der Preis
-        vor dem ersten Termin benennen – und genau so handhaben wir es.
-      </p>
+  <div class="wrap news-liste">
+      <article class="news-eintrag reveal" id="m-2026-08-01-uebergangsregelung-fuer-die-energieeffizienz">
+        <img class="news-bild" src="bilder/news-markt.jpg" width="1200" height="800"
+             alt="Gedrucktes Balkendiagramm mit Auswertung" loading="lazy" decoding="async">
+        <div>
+          <div class="news-kopf">
+            <time class="news-datum" datetime="2026-08-01">1. August 2026</time>
+            <span class="news-kat news-kat-markt">Markt</span>
+          </div>
+          <h2>Übergangsregelung für die Energieeffizienz-Expertenliste endet zum Jahresende</h2>
+          <p>Im BAFA-Antragsverfahren gilt für eingetragene Energieberaterinnen und Energieberater eine Übergangsregelung bis zum 31. Dezember 2026. Wer ab dem 1. Januar 2027 weiter im Antragsverfahren tätig sein will, muss den Eintrag in der Expertenliste erneuern. Für Eigentümer heißt das: vor der Beauftragung prüfen, ob der Eintrag gültig ist.</p>
+          <p class="news-quelle">Quelle:
+            <a href="https://www.bafa.de/SharedDocs/Kurzmeldungen/DE/Energie/Energieberatung_fuer_Wohngebaeude/20240626_eee-uebergangsregelung_eingetragene_energieberater.html" target="_blank" rel="noopener">BAFA</a>
+            · abgerufen am 18. August 2026</p>
+        </div>
+      </article>
+      <article class="news-eintrag reveal" id="m-2026-07-29-gebaeudemodernisierungsgesetz-loest-das-gebaeudeenergiegesetz">
+        <img class="news-bild" src="bilder/news-gesetz.jpg" width="1200" height="800"
+             alt="Aufgeschlagener Gesetzestext mit Paragrafen und Stempel" loading="lazy" decoding="async">
+        <div>
+          <div class="news-kopf">
+            <time class="news-datum" datetime="2026-07-29">29. Juli 2026</time>
+            <span class="news-kat">Gesetz</span>
+          </div>
+          <h2>Gebäudemodernisierungsgesetz löst das Gebäudeenergiegesetz ab</h2>
+          <p>Der Bundestag hat am 10. Juli 2026 mit 323 zu 271 Stimmen das Gebäudemodernisierungsgesetz beschlossen. Öl- und Gasheizungen dürfen danach weiter betrieben und auch neu eingebaut werden; die bisherige Vorgabe, dass neue Heizungen zu 65 Prozent mit erneuerbaren Energien laufen müssen, entfällt. Stattdessen greift ab 2029 eine stufenweise steigende Pflicht zur Beimischung klimaneutraler Brennstoffe.</p>
+          <p class="news-quelle">Quelle:
+            <a href="https://www.bundestag.de/dokumente/textarchiv/2026/kw28-de-heizungsgesetz-1194534" target="_blank" rel="noopener">Deutscher Bundestag</a>
+            · abgerufen am 18. August 2026</p>
+        </div>
+      </article>
+      <article class="news-eintrag reveal" id="m-2026-07-21-neue-foerderkonditionen-der-bundesfoerderung">
+        <img class="news-bild" src="bilder/news-foerderung.jpg" width="1200" height="800"
+             alt="Euroscheine, Taschenrechner und Auswertungen auf einem Tisch" loading="lazy" decoding="async">
+        <div>
+          <div class="news-kopf">
+            <time class="news-datum" datetime="2026-07-21">21. Juli 2026</time>
+            <span class="news-kat news-kat-foerderung">Förderung</span>
+          </div>
+          <h2>Neue Förderkonditionen der Bundesförderung für effiziente Gebäude</h2>
+          <p>Seit dem 21. Juli 2026 gelten geänderte Konditionen der BEG. Das BAFA nennt unter anderem eine erweiterte Antragsberechtigung, angepasste Höchstgrenzen bei Wohn- und Nichtwohngebäuden, geänderte Sätze der Boni und neue Bedingungen für den iSFP-Bonus. Für Anträge nach den neuen Konditionen müssen neue TPB-IDs erzeugt werden.</p>
+          <p class="news-quelle">Quelle:
+            <a href="https://www.bafa.de/DE/Energie/Effiziente_Gebaeude/Foerderprogramm_im_Ueberblick/foerderprogramm_im_ueberblick_node.html" target="_blank" rel="noopener">BAFA</a>
+            · abgerufen am 18. August 2026</p>
+        </div>
+      </article>
+      <article class="news-eintrag reveal" id="m-2026-07-21-kfw-passt-den-wohngebaeude">
+        <img class="news-bild" src="bilder/news-foerderung.jpg" width="1200" height="800"
+             alt="Euroscheine, Taschenrechner und Auswertungen auf einem Tisch" loading="lazy" decoding="async">
+        <div>
+          <div class="news-kopf">
+            <time class="news-datum" datetime="2026-07-21">21. Juli 2026</time>
+            <span class="news-kat news-kat-foerderung">Förderung</span>
+          </div>
+          <h2>KfW passt den Wohngebäude-Kredit 261 an</h2>
+          <p>Zeitgleich mit der BEG-Reform hat die KfW die Bedingungen des Programms 261 geändert. Nach Angaben der Bank entfällt der Effizienz-Bonus, der Förderhöchstbetrag je Wohneinheit steigt und der Tilgungszuschuss wird abgesenkt. Anträge zu den bisherigen Bedingungen waren nur bis zum 20. Juli 2026 möglich.</p>
+          <p class="news-quelle">Quelle:
+            <a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/F%C3%B6rderprodukte/Bundesf%C3%B6rderung-f%C3%BCr-effiziente-Geb%C3%A4ude-Wohngeb%C3%A4ude-Kredit-(261-262)/" target="_blank" rel="noopener">KfW</a>
+            · abgerufen am 18. August 2026</p>
+        </div>
+      </article>
+  </div>
 
-      <div class="rg-kasten">
-        <b>Das Wichtigste in einem Satz</b>
-        Ein individueller Sanierungsfahrplan kostet bei uns ab 1.350 €
-        inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 Prozent, höchstens
-        650 € – Ihr Eigenanteil liegt damit ab 700 €, sofern
-        der Zuschuss bewilligt wird.
-      </div>
+  <div class="wrap">
+    <p class="news-fuss">
+      Diese Übersicht wird automatisch aus den Veröffentlichungen von BAFA, KfW,
+      dena, der Energieeffizienz-Expertenliste, Bundestag und Bundesregierung
+      zusammengestellt. Die Meldungen geben wieder, was in der jeweils verlinkten
+      Quelle steht, und ersetzen weder deren Lektüre noch eine Beratung.
+      <strong>Maßgeblich ist immer die Quelle</strong> in der Fassung, die zum
+      Zeitpunkt Ihrer Antragstellung gilt. Was eine Änderung für Ihr Gebäude
+      bedeutet, klären wir im Erstgespräch.
+    </p>
+  </div>
 
-      <h2>Welche Leistung Sie für welchen Betrag bekommen</h2>
-      <p>
-        „Energieberatung“ ist kein geschützter Begriff für eine einzelne Leistung.
-        Dahinter stecken sehr verschiedene Arbeiten, die entsprechend verschieden viel
-        kosten. Diese vier fragen Eigentümer am häufigsten nach:
-      </p>
-
-      <div class="rg-tabelle">
-        <table>
-          <thead>
-            <tr><th>Leistung</th><th>Was dabei entsteht</th><th>Preis</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Erstgespräch</td>
-              <td>Rund 20 Minuten am Telefon: Ist eine Beratung bei Ihrem Haus
-                  überhaupt sinnvoll, und welche?</td>
-              <td>kostenlos</td>
-            </tr>
-            <tr>
-              <td>Sanierungsfahrplan (iSFP)</td>
-              <td>Aufnahme vor Ort, Berechnung, schriftlicher Fahrplan mit
-                  Maßnahmenreihenfolge, Erläuterungsgespräch</td>
-              <td>ab 1.350 €</td>
-            </tr>
-            <tr>
-              <td><a href="energieausweis-ulm.html">Energieausweis</a></td>
-              <td>Bedarfs- oder Verbrauchsausweis für Verkauf oder Vermietung</td>
-              <td>Verbrauch ab 120 €, Bedarf ab 390 €</td>
-            </tr>
-            <tr>
-              <td><a href="hydraulischer-abgleich-ulm.html">Hydraulischer Abgleich</a></td>
-              <td>Raumweise Heizlastberechnung nach Verfahren B, Einstellung,
-                  Dokumentation für die Förderung</td>
-              <td>ab 650 €</td>
-            </tr>
-            <tr>
-              <td>Zweitmeinung</td>
-              <td>Prüfung eines vorliegenden Handwerker- oder Heizungsangebots</td>
-              <td>Festpreis nach kurzem Telefonat</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p>
-        Alle genannten Beträge sind Startpreise für ein Ein- oder Zweifamilienhaus,
-        inklusive Umsatzsteuer. Warum bei der Zweitmeinung trotzdem „nach Telefonat“
-        steht: Ein einzelnes Heizungsangebot zu prüfen ist eine andere Arbeit als ein
-        Leistungsverzeichnis über vier Gewerke. Eine Hausnummer, die für beides gilt,
-        wäre für den einen zu teuer und für den anderen erfunden.
-      </p>
-
-      <h2>Der Sanierungsfahrplan: Preis, Förderung, Eigenanteil</h2>
-      <p>
-        Der individuelle Sanierungsfahrplan ist die Leistung, nach der die meisten
-        suchen, wenn sie „Energieberatung“ sagen. Er ist bundesweit gefördert, und die
-        Förderung ist der Grund, warum der Eigenanteil deutlich niedriger ausfällt als
-        das Honorar:
-      </p>
-      <ul>
-        <li><strong>Honorar ab 1.350 €</strong> inklusive Umsatzsteuer – ein
-        Festpreis, den Sie vor der Beauftragung schriftlich bekommen.</li>
-        <li><strong>Abzüglich bis zu 650 € Zuschuss</strong> vom BAFA:
-        50 Prozent der förderfähigen Kosten, gedeckelt auf diesen Betrag.</li>
-        <li><strong>Bleibt ein Eigenanteil ab 700 €</strong>, sofern der
-        Antrag bewilligt wird.</li>
-      </ul>
-      <p>
-        Den Antrag bereiten wir vor; gestellt wird er von Ihnen als Eigentümer. Das ist
-        keine Schikane, sondern Vorgabe des Förderprogramms – Antragsteller und
-        Zuschussempfänger müssen dieselbe Person sein.
-      </p>
-
-      <h3>Wie sich das zum Markt verhält</h3>
-      <p>
-        Damit Sie die Zahl einordnen können: Marktübersichten nennen für den
-        Sanierungsfahrplan eines Einfamilienhauses derzeit Honorare zwischen etwa
-        1.300 und 2.100 €, in Einzelfällen bis 2.500 €. Der Eigenanteil nach Abzug
-        der Förderung liegt üblicherweise bei 940 bis 1.350 €.
-      </p>
-      <div class="rg-tabelle">
-        <table>
-          <thead>
-            <tr><th></th><th>Marktüblich</th><th>Bei uns</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Honorar Sanierungsfahrplan</td>
-                <td>ca. 1.300 – 2.100 €</td><td>ab 1.350 €</td></tr>
-            <tr><td>Eigenanteil nach Förderung</td>
-                <td>ca. 940 – 1.350 €</td><td>ab 700 €</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        Wir liegen damit am unteren Rand der marktüblichen Spanne. Das hat einen
-        einfachen Grund und keinen Haken: Ein Einzelbüro ohne Vertrieb, ohne
-        Franchise-Gebühr und ohne Provisionen hat eine andere Kostenstruktur als eine
-        bundesweite Plattform. Wo Ihr Gebäude mehr Aufwand macht – viele Wohneinheiten,
-        fehlende Unterlagen, Denkmalschutz –, sagen wir das vorher und nennen einen
-        entsprechend höheren Festpreis.
-      </p>
-
-      <div class="rg-warnung">
-        <b>Reihenfolge beachten:</b> Der Förderantrag muss gestellt sein, bevor der
-        Beratungsvertrag geschlossen wird. Das ist derselbe Fehler, der später bei
-        Handwerkeraufträgen die meisten Zuschüsse kostet – nur eine Stufe früher.
-      </div>
-
-      <h2>Warum es keinen Pauschalpreis für jedes Haus gibt</h2>
-      <p>
-        Vier Dinge treiben den Aufwand, und damit den Preis, nach oben:
-      </p>
-      <ol>
-        <li><strong>Größe und Zahl der Wohneinheiten.</strong> Jede Einheit bedeutet
-        eigene Nutzungsprofile und eigene Heizflächen.</li>
-        <li><strong>Zustand der Unterlagen.</strong> Liegt eine Baubeschreibung vor,
-        geht die Aufnahme zügig. Fehlt sie, wird vor Ort gemessen und aus der Bauweise
-        rückgeschlossen.</li>
-        <li><strong>Anbauten und Umbauten.</strong> Ein Haus, an dem in vier Jahrzehnten
-        dreimal etwas verändert wurde, ist rechnerisch vier Gebäude.</li>
-        <li><strong>Denkmalschutz.</strong> Er schließt Maßnahmen aus und verlangt
-        Alternativen, die einzeln geprüft werden müssen.</li>
-      </ol>
-      <p>
-        Deshalb steht auf unseren Seiten „ab“ und keine Spanne bis 2.500 €. Nach einem
-        kurzen Telefonat wissen wir, in welchem Fall Ihr Haus liegt, und nennen einen
-        festen Betrag. Erst danach entscheiden Sie.
-      </p>
-
-      <h2>Was die Beratung auf der anderen Seite einbringt</h2>
-      <p>
-        Eine Beratung, die nur beschreibt, was Sie ohnehin ahnen, ist ihr Geld nicht
-        wert. Rechnen lässt sie sich an drei Stellen:
-      </p>
-      <ul>
-        <li><strong>Der iSFP-Bonus.</strong> Wer den Fahrplan hat, bekommt für jede
-        spätere Maßnahme an der Gebäudehülle 5 Prozentpunkte mehr Förderung, und die
-        förderfähigen Kosten verdoppeln sich. Bei einer Fassadendämmung über 40.000 €
-        sind das rund 2.000 € zusätzlich – mehr, als der Fahrplan gekostet hat.</li>
-        <li><strong>Die Reihenfolge.</strong> Wer die Heizung vor der Dämmung erneuert,
-        kauft in aller Regel eine zu große Anlage. Die Differenz liegt oft im
-        vierstelligen Bereich, und sie fällt bei jedem Betriebsjahr erneut an.</li>
-        <li><strong>Die nicht gemachte Maßnahme.</strong> Der häufigste Nutzen unserer
-        Berechnungen ist die Erkenntnis, dass sich eine geplante Investition am
-        konkreten Haus <em>nicht</em> rechnet.</li>
-      </ul>
-      <p>
-        Wie groß der Effekt bei Ihrem Gebäude ausfällt, hängt von Baujahr, Bauweise und
-        Nutzung ab. Eine erste Einschätzung liefert der
-        <a href="sanierungsrechner.html">Sanierungsrechner</a> in wenigen Minuten,
-        kostenlos und ohne Anmeldung.
-      </p>
-
-      <h2>Vorsicht bei „kostenloser Energieberatung“</h2>
-      <p>
-        Beratung ist Arbeitszeit. Wenn sie nichts kostet, wird sie an anderer Stelle
-        bezahlt – meistens durch das Produkt, das am Ende empfohlen wird. Drei Fragen
-        klären das schnell:
-      </p>
-      <ul>
-        <li>Verkauft der Anbieter auch Heizungen, Dämmstoffe oder Photovoltaik?</li>
-        <li>Steht er in der
-        <a href="https://www.energie-effizienz-experten.de" target="_blank" rel="noopener">
-        Energie-Effizienz-Expertenliste des Bundes</a>? Ohne diesen Eintrag ist der
-        Fahrplan nicht förderfähig.</li>
-        <li>Bekommen Sie ein schriftliches Festpreisangebot, bevor jemand ins Haus
-        kommt?</li>
-      </ul>
-      <p>
-        Kostenlos ist bei uns das Erstgespräch – weil es kurz ist und weil es beiden
-        Seiten die Fehlbeauftragung erspart. Alles, was danach kommt, hat einen Preis,
-        den Sie vorher kennen. Die Konditionen im Überblick stehen unter
-        <a href="index.html#preise">Preise</a>, die Leistungsbeschreibung auf der Seite
-        <a href="sanierungsfahrplan.html#kosten">Sanierungsfahrplan</a>.
-      </p>
-
-      <h2>Häufige Fragen</h2>
-      <h3>Was kostet eine Energieberatung für ein Einfamilienhaus?</h3>
-      <p>Ein individueller Sanierungsfahrplan für ein Ein- oder Zweifamilienhaus beginnt bei 1.350 € inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 Prozent, höchstens 650 €, sodass ein Eigenanteil ab 700 € bleibt, sofern der Zuschuss bewilligt wird. Den genauen Festpreis nennen wir nach einem kurzen Telefonat.</p>
-      <h3>Wird die Energieberatung gefördert?</h3>
-      <p>Ja. Das BAFA fördert den individuellen Sanierungsfahrplan für Ein- und Zweifamilienhäuser mit 50 Prozent der förderfähigen Kosten, höchstens 650 €. Voraussetzung ist, dass der Berater in der Energie-Effizienz-Expertenliste des Bundes eingetragen ist und der Antrag vor Vertragsschluss gestellt wird.</p>
-      <h3>Lohnt sich eine Energieberatung bei einem kleinen Haus?</h3>
-      <p>Häufig gerade dann. Je kleiner das Budget, desto teurer ist eine falsch gewählte erste Maßnahme. Ob sich der Aufwand bei Ihrem Gebäude rechnet, lässt sich im kostenlosen Erstgespräch in etwa 20 Minuten klären – wenn nicht, sagen wir das.</p>
-
-        <p class="rg-hinweis">
-          Dieser Beitrag gibt einen allgemeinen Überblick und ersetzt keine
-          Energieberatung. Fördersätze und gesetzliche Vorgaben ändern sich; maßgeblich
-          sind immer die zum Zeitpunkt der Antragstellung geltenden Richtlinien.
-        </p>
-      </div>
-  <aside class="rg-spalte">
-    <div class="rg-karte">
-      <h3>Erst rechnen, dann sanieren</h3>
-      <p>Der Sanierungsrechner zeigt in wenigen Minuten, welche Maßnahme sich bei
-         Ihrem Haus zuerst lohnt – kostenlos und ohne Anmeldung.</p>
-      <a href="sanierungsrechner.html" class="btn btn-amber btn-sm">Zum Sanierungsrechner</a>
-    </div>
-    <div class="rg-karte rg-karte-kontakt">
-      <h3>Frage zum Thema?</h3>
-      <a class="rg-tel" href="tel:+4915224290826"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>0152 24290826</a>
-      <p>Erstgespräch kostenlos, ohne Verpflichtung. Wir melden uns in der Regel am
-         selben Werktag zurück.</p>
-      <a href="index.html#kontakt" class="btn btn-primary btn-sm">Rückruf anfordern</a>
-    </div>
-    <div class="rg-karte">
-      <h3>Weitere Ratgeber</h3>
-      <div class="rg-mehr">
-        <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen: Was gilt wirklich?</a>
-        <a href="ratgeber-waermepumpe-altbau.html">Wärmepumpe im Altbau: funktioniert das?</a>
-        <a href="ratgeber-reihenfolge-sanierung.html">In welcher Reihenfolge sanieren?</a>
-        <a href="ratgeber.html">Alle Beiträge ansehen</a>
-      </div>
-    </div>
-  </aside>
-    </div>
-
-    <div class="wrap">
+  <div class="wrap">
     <div class="cta-band reveal">
       <div class="cta-band-text">
         <b>Wie sieht das bei Ihrem Haus aus?</b>
@@ -1486,8 +1336,7 @@ main .cta-band{margin-bottom:50px}
         <a href="tel:+4915224290826" class="btn btn-ghost">Direkt anrufen</a>
       </div>
     </div>
-    </div>
-  </article>
+  </div>
 </main>
 
 <footer class="site-footer">

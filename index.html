@@ -293,6 +293,12 @@ html.js .reveal.in{opacity:1;transform:none}
 }
 .nav a:hover{color:var(--ink)}
 .nav a:hover::after{width:100%}
+/* Aktive Seite hervorheben. Die Generatoren setzen aria-current="page" auf den
+   passenden Menuepunkt - die Regel dazu fehlte hier, weshalb die Markierung auf
+   Ratgeber- und Ortsseiten unsichtbar blieb. */
+.nav a[aria-current="page"]{color:var(--ink);font-weight:600}
+.nav a[aria-current="page"]::after{width:100%}
+.mobile-nav a[aria-current="page"]{color:var(--amber-deep);font-weight:600}
 
 .header-cta{display:flex;align-items:center;gap:14px}
 /* Direktwahl im Header – für die Zielgruppe der schnellste Weg zum Kontakt */
@@ -1165,6 +1171,7 @@ html.js .reveal.in{opacity:1;transform:none}
       <a href="#leistungen">Leistungen</a>
       <a href="sanierungsrechner.html">Rechner</a>
       <a href="ratgeber.html">Ratgeber</a>
+      <a href="aktuelles.html">Aktuelles</a>
       <a href="#ablauf">Ablauf</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
@@ -1189,6 +1196,7 @@ html.js .reveal.in{opacity:1;transform:none}
   <a href="#leistungen">Leistungen</a>
   <a href="sanierungsrechner.html">Sanierungsrechner</a>
   <a href="ratgeber.html">Ratgeber</a>
+  <a href="aktuelles.html">Aktuelles</a>
   <a href="#ablauf">Ablauf</a>
   <a href="#faq">Fragen</a>
   <a href="#kontakt">Kontakt</a>
@@ -2745,7 +2753,8 @@ html.js .reveal.in{opacity:1;transform:none}
       </div>
 
       <div class="footer-col">
-        <h3>Ratgeber</h3>
+        <h3>Ratgeber &amp; Aktuelles</h3>
+        <a href="aktuelles.html">Aktuelles zu Förderung und Gesetz</a>
         <a href="ratgeber-energieberatung-kosten.html">Kosten einer Energieberatung</a>
         <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a>
         <a href="ratgeber-waermepumpe-altbau.html">Wärmepumpe im Altbau</a>
