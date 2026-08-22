@@ -42,6 +42,7 @@ REGELN = [
     (r"^aktuelles\.html$",                "0.8", "weekly"),
     (r"^aktuelles-\d{4}\.html$",          "0.4", "yearly"),
     (r"^sanierungsrechner\.html$",        "0.9", "monthly"),
+    (r"^u-wert-rechner\.html$",           "0.9", "monthly"),
     (r"^sanierungsfahrplan\.html$",       "0.9", "monthly"),
     (r"^energieausweis-.*\.html$",        "0.9", "monthly"),
     (r"^hydraulischer-abgleich-.*\.html$", "0.9", "monthly"),

@@ -1154,6 +1154,9 @@ ARTIKEL = [
         werden.</li>
       </ul>
       <p>
+        Welche Dämmstärke Ihre Wand für einen bestimmten U-Wert braucht, rechnet der
+        <a href="u-wert-rechner.html">U-Wert-Rechner</a> Schicht für Schicht aus –
+        auch für den Fall, dass nur Innendämmung möglich ist.
         Was das an Ihrem Haus bedeutet, hängt an der tatsächlichen Wandfläche und dem
         heutigen Zustand. Der <a href="sanierungsrechner.html">Sanierungsrechner</a>
         rechnet die Einsparung gegen diese Spanne und zeigt, wie viel die Maßnahme bei

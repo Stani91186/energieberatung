@@ -1,12 +1,17 @@
 # Projekt: Energieberatung-Website mit Sanierungsrechner
 
-Statische Zwei-Seiten-Website, direkt über GitHub Pages ausgeliefert.
-Kein Build-Schritt, kein Framework, keine Abhängigkeiten.
+Statische Website mit 27 Seiten, direkt über GitHub Pages ausgeliefert.
+Kein Build-Schritt, kein Framework, keine Abhängigkeiten. Von Hand gepflegt
+werden nur acht Seiten – Ortsseiten, Ratgeber, Aktuelles und die Sitemap
+entstehen aus Generatoren (siehe unten).
 
 ## Dateien
 
 - `index.html` – Startseite (Landingpage) der Energieberatung
 - `sanierungsrechner.html` – interaktiver Rechner mit Lead-Formular vor dem PDF-Download
+- `u-wert-rechner.html` – zweiter Rechner: U-Werte aus dem Schichtaufbau,
+  Dämmstärke für einen Zielwert, Hüllbilanz H′T mit Effizienzhaus-Einstufung.
+  Eigener Selbsttest in der Konsole, siehe unten.
 - `sanierungsfahrplan.html`, `energieausweis-ulm.html`,
   `hydraulischer-abgleich-ulm.html` – Leistungsseiten mit Festpreisen. Die
   beiden neuen sind aus der Hülle von `sanierungsfahrplan.html` gebaut und
@@ -52,9 +57,12 @@ Kein Build-Schritt, kein Framework, keine Abhängigkeiten.
    (Creme/Amber/Waldgrün-Palette, beide Dateien identisch halten).
 6. Fachliche Kennwerte (U-Werte, Kosten, Fördersätze) stehen NUR im
    `CONFIG`-Objekt am Anfang des Scripts in `sanierungsrechner.html` –
-   nie tief im Code ändern. Wird dort eine Kostenspanne geändert, gehört der
-   Ratgebertext mitgeprüft, der sie nennt (Hinweis steht als Kommentar am
-   betreffenden `ARTIKEL`-Eintrag).
+   nie tief im Code ändern. **Der U-Wert-Rechner kopiert sie nicht**, sondern
+   bekommt sie von `kopf-fuss-abgleichen.py` in seinen Block
+   `GEMEINSAM:KENNWERTE` gelegt (Liste `KENNWERTE_KEYS` im Skript).
+   Dort nichts von Hand ändern – beim nächsten Lauf ist es weg.
+   Wird eine Kostenspanne geändert, gehört der Ratgebertext mitgeprüft, der
+   sie nennt (Hinweis steht als Kommentar am betreffenden `ARTIKEL`-Eintrag).
 7. Texte in `[eckigen Klammern]` sind bewusste Platzhalter des Betreibers.
    Das gilt auch für die beiden sichtbaren `[TODO]`-Kästen in
    `datenschutz.html` (AVV mit Supabase, Analytics) – sie sind Erinnerungen
@@ -235,10 +243,47 @@ Die abgeglichenen Bereiche stehen zwischen `GEMEINSAM:`-Markierungen – von Han
 Geändertes wird beim nächsten Lauf überschrieben. Nicht mit übertragen wird
 `--maxw`: Der Rechner ist absichtlich schmaler als die Startseite.
 
+## U-Wert-Rechner
+
+`u-wert-rechner.html` ist der zweite Rechner und beantwortet eine andere Frage
+als der erste: nicht „lohnt sich das?", sondern „welcher Aufbau ergibt welchen
+U-Wert, und was fehlt zum Effizienzhaus?".
+
+**Die Ehrlichkeitsgrenze ist Absicht und darf nicht aufgeweicht werden.** Eine
+Effizienzhausstufe hat zwei Kriterien: Primärenergiebedarf QP und spezifischer
+Transmissionswärmeverlust H′T. Der Rechner kann H′T exakt und QP gar nicht – QP
+verlangt DIN V 18599 mit Anlagentechnik. Die Seite sagt deshalb nie „Sie
+erreichen Effizienzhaus 55", sondern „Ihre Hülle erfüllt das H′T-Kriterium für
+Effizienzhaus 55". Wer das zu einer Zusage umformuliert, macht aus einem
+Werkzeug eine Falschaussage auf der Seite eines Fachberaters.
+
+Normative Grundlage, alles im Objekt `UK` am Anfang des Scripts:
+
+| Größe | Wert | Quelle |
+|---|---|---|
+| Effizienzhaus 40 / 55 / 70 / 85 | H′T ≤ 55 / 70 / 85 / 100 % | KfW |
+| Referenzgebäude | Wand 0,28 · Dach 0,20 · Boden 0,35 · Fenster 1,3 · ΔU_WB 0,05 | Anlage 1 GEG/GModG |
+| Höchstwerte bei Erneuerung | Wand 0,24 · Dach 0,24 · Fenster 1,3 · Erdreich 0,30 | Anlage 7 GEG/GModG |
+| Innendämmung | R ≤ 0,5 nachweisfrei · bis 1,0 mit s_d ≥ 0,5 m · darüber Nachweis | DIN 4108-3 |
+| Luftdichtheit | n50 ≤ 3,0 ohne, ≤ 1,5 mit Lüftungsanlage | GEG/GModG |
+| Übergangswiderstände | Wand 0,13/0,04 · Dach 0,10/0,04 · Keller 0,17/0,17 · Boden 0,17/0 | DIN EN ISO 6946 |
+
+`BAUSTOFFE` enthält rund 55 Materialien mit λ-Anhaltswerten. Der sichtbare
+Hinweis, dass für Förderanträge der deklarierte λ_D des Produkts zählt, gehört
+zur Seite und bleibt stehen.
+
+`AUFBAUTEN` sind **Beispiele**, keine Statistik. Der Selbsttest prüft sie nur
+gegen ein Plausibilitätsband (Faktor 0,5 bis 2,0) um die Baualterstabelle des
+Sanierungsrechners – er soll vertippte λ-Werte fangen, nicht Übereinstimmung
+mit einem Bestandsmittelwert erzwingen.
+
 ## Qualitätsprüfung nach JEDER Änderung am Rechner
 
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser + Plausibilität).
+Für `u-wert-rechner.html` gilt dasselbe: dort muss
+`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (Handrechnung, Umkehrprobe,
+DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische Aufbauten).
 Schlägt ein Fall fehl, wurde das Rechenmodell beschädigt – Änderung zurücknehmen
 oder CONFIG korrigieren. Zusätzlich: Seite bei 390 px Breite ohne horizontales
 Scrollen, Wizard einmal komplett durchklicken.

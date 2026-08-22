@@ -7,6 +7,7 @@ Abhängigkeiten – die Dateien werden so hochgeladen, wie sie hier liegen.
 |---|---|
 | `index.html` | Startseite – **Vorlage** für Kopf, Fuß und die Preise |
 | `sanierungsrechner.html` | Rechner mit Bericht-Download und Lead-Formular |
+| `u-wert-rechner.html` | U-Werte aus dem Schichtaufbau, Dämmstärke, Effizienzhaus-Einstufung |
 | `sanierungsfahrplan.html` | Leistungsseite iSFP mit Honorartabelle |
 | `ratgeber.html`, `ratgeber-*.html` | 9 Ratgeberartikel – **erzeugt**, nicht von Hand ändern |
 | `aktuelles.html` | Meldungen zu Förderung und Gesetzen – **erzeugt**, wöchentlich automatisch |

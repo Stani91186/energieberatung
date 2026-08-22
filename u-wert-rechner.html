@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  U-WERT- UND EFFIZIENZHAUS-RECHNER
+
+  Zwei Dinge, die man beim Ändern wissen muss:
+
+  1. FACHLICHE KENNWERTE
+     Die U-Wert-Tabellen nach Baualter stehen NICHT hier, sondern im CONFIG
+     von sanierungsrechner.html. kopf-fuss-abgleichen.py holt sie in den
+     Block GEMEINSAM:KENNWERTE. Dort nichts von Hand ändern.
+     Nur hier zuhause: BAUSTOFFE, AUFBAUTEN, RSI_RSE, EH_STUFEN,
+     U_REFERENZ, U_MAX_ANLAGE7, INNEN_SCHWELLEN.
+
+  2. DIE EHRLICHKEITSGRENZE
+     Eine Effizienzhausstufe hat zwei Kriterien: Primärenergiebedarf QP und
+     spezifischer Transmissionswärmeverlust H'T. Dieser Rechner kann H'T
+     exakt und QP gar nicht - QP verlangt DIN V 18599 mit Anlagentechnik.
+     Deshalb sagt die Seite NIE "Sie erreichen Effizienzhaus 55", sondern
+     "Ihre Hülle erfüllt das H'T-Kriterium für Effizienzhaus 55".
+     Diese Formulierung nicht aufweichen.
+
+  Selbsttest: Browser-Konsole öffnen, es muss
+  "✅ SELBSTTEST U-WERT-RECHNER BESTANDEN" erscheinen.
+  ============================================================================
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>U-Wert-Rechner: Dämmstärke und Effizienzhaus berechnen</title>
+<meta name="description" content="U-Wert aus dem Schichtaufbau berechnen, Dämmstärke für Ihren Zielwert ermitteln und sehen, welches Effizienzhaus die Gebäudehülle erreicht. Innen- und Außendämmung.">
+<link rel="canonical" href="https://energieberater-albdonau.de/u-wert-rechner.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#FDFBF7">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E4A3C'/%3E%3Cg transform='translate(12.4,3.7) scale(0.78)'%3E%3Cpath d='M25 3 2 28 2 63 30 63 30 70 48 70 48 30Z' fill='none' stroke='%23FDFBF7' stroke-width='4.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M24.5 36C27.5 44 26.5 52 19 57 12 61.5 6.5 57.5 7.5 51 8.5 44 16 39 24.5 36ZM23.5 38.5C20 44 16 49 11.5 54.5 15.5 49.5 19 44.5 22.8 38.2Z' fill='%23E8B87A' fill-rule='evenodd'/%3E%3C/g%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="EBA Energieberater Albdonau">
+<meta property="og:title" content="U-Wert-Rechner: Dämmstärke und Effizienzhaus berechnen">
+<meta property="og:description" content="Schichtaufbau eingeben, U-Wert und nötige Dämmstärke sehen - inklusive Innendämmung und Effizienzhaus-Einstufung der Hülle.">
+<meta property="og:url" content="https://energieberater-albdonau.de/u-wert-rechner.html">
+<meta property="og:image" content="https://energieberater-albdonau.de/vorschau.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="EBA Energieberater Albdonau, Ulm und Alb-Donau-Kreis">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+/* ==== Schriften: lokal gehostet, KEINE Google-Fonts (DSGVO) ==== */
+@font-face{
+  font-family:'Roboto';
+  src:url('fonts/roboto-latin-var.woff2') format('woff2');
+  font-weight:400 700;
+  font-style:normal;
+  font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* ==== Design-Tokens (identisch zu index.html und sanierungsrechner.html) ==== */
+:root{
+  --cream:#FDFBF7;--cream-2:#F6F1E8;--cream-3:#EFE8DB;--white:#FFFFFF;
+  --ink:#1D1A15;--ink-2:#4B453D;--muted:#6F685C;
+  --font-sans:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  --line:#E7DFD1;--line-soft:#F0E9DC;
+  --amber:#C07A2E;--amber-deep:#9C5F1E;--amber-soft:#F7E9D5;
+  --forest:#2E4A3C;--forest-soft:#E4EDE7;
+  --radius:18px;--radius-sm:12px;--radius-lg:26px;
+  --shadow-sm:0 1px 2px rgba(45,35,20,.04),0 2px 8px rgba(45,35,20,.04);
+  --shadow-md:0 2px 4px rgba(45,35,20,.04),0 12px 32px rgba(45,35,20,.07);
+  --kopf:116px;--kopf-klein:80px;
+  --maxw:1040px;--ease:cubic-bezier(.22,.61,.36,1);
+  --ok:#2A6E3E;--ok-soft:#E3F0E7;--warn:#B98514;--warn-soft:#F8EFD8;--bad:#A03928;--bad-soft:#F6E3DF;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--kopf-klein) + 12px)}
+body{font-family:var(--font-sans);background:var(--cream);color:var(--ink);line-height:1.6;font-size:16.5px;-webkit-font-smoothing:antialiased;padding-top:var(--kopf)}
+em{font-style:normal;font-weight:600;color:var(--ink)}
+h1,h2,h3{font-weight:700;line-height:1.15;letter-spacing:-.015em}
+h1{font-size:clamp(1.9rem,4.5vw,2.7rem)}
+h2{font-size:clamp(1.3rem,2.6vw,1.75rem)}
+h3{font-size:1.05rem;line-height:1.3}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+table{border-collapse:collapse}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.72rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:14px}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--amber)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 24px;border-radius:100px;font-size:.93rem;font-weight:600;transition:transform .3s var(--ease),background .25s,border-color .25s;white-space:nowrap}
+.btn-primary{background:var(--forest);color:#FBF8F2;box-shadow:0 6px 18px rgba(46,74,60,.2)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-ghost{background:var(--white);border:1.5px solid var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--forest);transform:translateY(-2px)}
+.btn-amber{background:var(--amber);color:#fff}
+.btn-amber:hover{background:var(--amber-deep);transform:translateY(-2px)}
+.btn-sm{padding:9px 17px;font-size:.86rem}
+.btn[disabled]{opacity:.45;pointer-events:none}
+
+/* ==== Kopfbereich der Seite ==== */
+.intro{padding:26px 0 30px}
+.intro .lead{font-size:1.06rem;color:var(--ink-2);max-width:66ch;margin-top:12px}
+.disclaimer{margin-top:18px;background:var(--amber-soft);border-left:4px solid var(--amber);border-radius:var(--radius-sm);padding:15px 20px;font-size:.9rem;color:#6B5638;max-width:72ch}
+.disclaimer b{color:#5A4526}
+
+/* ==== Karten und Abschnitte ==== */
+.panel{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:26px 28px;margin-bottom:22px}
+.panel>h2{margin-bottom:6px}
+.panel-sub{color:var(--muted);font-size:.93rem;margin-bottom:20px}
+.schritt-nr{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:50%;background:var(--forest-soft);color:var(--forest);font-weight:700;font-size:.85rem;margin-right:10px;vertical-align:2px}
+
+/* ==== Auswahlleisten ==== */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{padding:9px 16px;border-radius:100px;border:1.5px solid var(--line);background:var(--white);font-size:.88rem;font-weight:500;transition:.2s}
+.chip:hover{border-color:var(--forest)}
+.chip.aktiv{background:var(--forest);color:#fff;border-color:var(--forest)}
+.feld-reihe{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:18px}
+.feld{display:flex;flex-direction:column;gap:5px;min-width:0;max-width:100%}
+.feld select,.feld input{max-width:100%}
+.feld label{font-size:.8rem;font-weight:600;color:var(--muted)}
+select,input[type=number],input[type=text]{
+  font:inherit;font-size:.92rem;padding:9px 12px;border:1.5px solid var(--line);
+  border-radius:var(--radius-sm);background:var(--white);color:var(--ink);max-width:100%;
+}
+select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;border-color:var(--amber)}
+
+/* ==== Schichteditor ==== */
+.schichten{margin-bottom:14px}
+.schicht-kopf,.schicht{display:grid;grid-template-columns:1fr 92px 82px 82px 38px;gap:10px;align-items:center}
+.schicht-kopf{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:0 2px 8px}
+.schicht{padding:7px 2px;border-top:1px solid var(--line-soft)}
+/* Ohne min-width:0 schrumpft ein <select> nicht unter die Breite seiner
+   laengsten Option - das Raster sprengte damit bei 390px die Seite. */
+.schicht>*,.schicht-kopf>*,.schicht-summe>*{min-width:0}
+.schicht select,.schicht input{width:100%}
+.schicht select{text-overflow:ellipsis}
+.schicht.daemm{background:var(--forest-soft);border-radius:var(--radius-sm);padding:9px 8px;border-top:none;margin:4px 0}
+.schicht .zahl{font-variant-numeric:tabular-nums;font-size:.88rem;color:var(--ink-2);text-align:right}
+.schicht-weg{width:30px;height:30px;border-radius:8px;color:var(--muted);font-size:1.15rem;line-height:1;transition:.2s}
+.schicht-weg:hover{background:var(--bad-soft);color:var(--bad)}
+.schicht-summe{display:grid;grid-template-columns:1fr 92px 82px 82px 38px;gap:10px;border-top:2px solid var(--line);padding-top:9px;font-weight:600;font-size:.88rem}
+.uebergang{font-size:.8rem;color:var(--muted);padding:5px 2px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between}
+
+/* ==== Ergebnis eines Bauteils ==== */
+.u-gross{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin:6px 0 4px}
+.u-zahl{font-size:2.5rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.u-einheit{color:var(--muted);font-size:.95rem}
+.u-pfeil{color:var(--muted);font-size:1.5rem}
+.u-neu{color:var(--ok)}
+.vergleich{margin:16px 0}
+.v-reihe{display:grid;grid-template-columns:minmax(0,1fr) 62px 1fr;gap:10px;align-items:center;padding:6px 0;font-size:.88rem}
+.v-reihe .v-lab{color:var(--ink-2)}
+.v-reihe .v-wert{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.v-bar{height:9px;border-radius:100px;background:var(--cream-3);overflow:hidden}
+.v-bar span{display:block;height:100%;border-radius:100px}
+.badge{display:inline-block;padding:3px 11px;border-radius:100px;font-size:.75rem;font-weight:700;letter-spacing:.03em}
+.badge-ok{background:var(--ok-soft);color:var(--ok)}
+.badge-warn{background:var(--warn-soft);color:var(--warn)}
+.badge-bad{background:var(--bad-soft);color:var(--bad)}
+
+/* ==== Ampel Innendämmung ==== */
+.ampel-box{border-radius:var(--radius-sm);padding:15px 18px;margin:14px 0;font-size:.9rem;border-left:4px solid}
+.ampel-gruen{background:var(--ok-soft);border-color:var(--ok);color:#1F5730}
+.ampel-gelb{background:var(--warn-soft);border-color:var(--warn);color:#6B5010}
+.ampel-rot{background:var(--bad-soft);border-color:var(--bad);color:#7A2B1E}
+.ampel-box b{display:block;margin-bottom:4px}
+
+/* ==== Zielwert-Navigator ==== */
+.ziel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:8px}
+.ziel-karte{border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;background:var(--cream)}
+.ziel-karte .zk-lab{font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.ziel-karte .zk-u{font-size:.9rem;color:var(--ink-2);margin:3px 0 8px}
+.ziel-karte .zk-d{font-size:1.45rem;font-weight:700;font-variant-numeric:tabular-nums}
+.ziel-karte .zk-hint{font-size:.78rem;color:var(--muted);margin-top:4px}
+.ziel-karte.erreicht{background:var(--ok-soft);border-color:var(--ok)}
+
+/* ==== Hausbilanz ==== */
+.bilanz-huelle{overflow-x:auto;margin-bottom:16px}
+.bilanz-tab{width:100%;font-size:.88rem;min-width:430px}
+.bilanz-tab th{text-align:left;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 8px 8px 0;font-weight:700}
+.bilanz-tab td{padding:8px 8px 8px 0;border-top:1px solid var(--line-soft);vertical-align:middle}
+.bilanz-tab td.num{text-align:right;font-variant-numeric:tabular-nums}
+.bilanz-tab input{width:76px;text-align:right}
+.leer-hinweis{background:var(--cream-2);border-radius:var(--radius-sm);padding:20px 22px;color:var(--ink-2);font-size:.93rem}
+
+/* ==== Effizienzhaus-Leiste ==== */
+.eh-leiste{margin:18px 0 8px}
+.eh-reihe{display:grid;grid-template-columns:86px 1fr 76px;gap:10px;align-items:center;padding:5px 0;font-size:.87rem}
+.eh-name{font-weight:700}
+.eh-track{height:22px;border-radius:6px;background:var(--cream-3);position:relative;overflow:hidden}
+.eh-track span{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.eh-grenz{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.eh-reihe.geschafft .eh-name{color:var(--ok)}
+.eh-ist{margin-top:12px;font-size:.9rem;color:var(--ink-2)}
+
+/* ==== Hinweisbausteine ==== */
+.merk{background:var(--forest-soft);border-radius:var(--radius-sm);padding:17px 20px;margin:16px 0;color:var(--forest);font-size:.93rem}
+.merk b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:6px;opacity:.75}
+.qp-liste{display:grid;gap:11px;margin-top:14px}
+.qp-zeile{display:grid;grid-template-columns:150px 1fr;gap:14px;font-size:.9rem;padding:11px 0;border-top:1px solid var(--line-soft)}
+.qp-zeile b{color:var(--ink)}
+.qp-zeile span{color:var(--ink-2)}
+.fussnote{font-size:.82rem;color:var(--muted);margin-top:20px;padding-top:16px;border-top:1px solid var(--line-soft)}
+
+@media (max-width:820px){
+  .schicht-kopf,.schicht,.schicht-summe{grid-template-columns:1fr 74px 62px 34px}
+  .schicht-kopf .sp-r,.schicht .sp-r,.schicht-summe .sp-r{display:none}
+  .qp-zeile{grid-template-columns:1fr;gap:3px}
+}
+@media (max-width:560px){
+  .schicht-kopf,.schicht,.schicht-summe{grid-template-columns:1fr 66px 34px}
+  .schicht-kopf .sp-l,.schicht .sp-l,.schicht-summe .sp-l{display:none}
+  .panel{padding:20px 18px}
+  .v-reihe{grid-template-columns:1fr 58px}
+  .v-reihe .v-bar{display:none}
+}
+
+/* GEMEINSAM:CSS */
+/* Kopf, Menue, Knoepfe und Fuss stammen aus index.html.
+   Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
+   laufen lassen - hier werden sie ueberschrieben. */
+:root{--kopf:116px;--kopf-klein:80px}
+.site-header a:not(.btn),.site-footer a:not(.btn),.mobile-nav a:not(.btn),.mobile-bar a:not(.btn){text-decoration:none;color:inherit}
+.site-header .btn,.site-footer .btn,.mobile-nav .btn,.mobile-bar .btn{text-decoration:none}
+/* Knopffarben ausdruecklich: die color-inherit-Grundregel oben war frueher
+   spezifischer als .btn-primary und faerbte den Text dunkel. */
+.site-header .btn-primary,.site-footer .btn-primary,.mobile-nav .btn-primary,.mobile-bar .btn-primary{color:#fff}
+.site-header .btn-amber,.site-footer .btn-amber,.mobile-nav .btn-amber,.mobile-bar .btn-amber{color:#fff}
+.site-header img,.site-header svg,.site-footer img,.site-footer svg,
+.mobile-bar svg{display:block;max-width:100%}
+.site-header ul,.site-footer ul{list-style:none;margin:0;padding:0}
+.burger{font:inherit;cursor:pointer}
+/* Der Rahmen bringt seine Breite selbst mit: Impressum/Datenschutz begrenzen
+   .wrap auf 820px (richtig fuer den Fliesstext), der Rechner auf 980px. Ohne
+   diese Regel erbt der Kopf die schmale Breite - auf dem Impressum wurde das
+   Logo dadurch bis auf 0px zusammengedrueckt. 1180px = --maxw der Startseite. */
+.site-header .wrap,.site-footer .wrap{max-width:1180px}
+/* Sprungmarke: erstes fokussierbares Element der Seite */
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--forest);color:#FBF8F2;
+  padding:13px 22px;border-radius:0 0 var(--radius-sm) 0;
+  font-size:.92rem;font-weight:600;
+}
+.skip-link:focus{left:0}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 28px;border-radius:100px;
+  font-size:.95rem;font-weight:600;letter-spacing:-.005em;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .25s,color .25s,border-color .25s;
+  white-space:nowrap;
+}
+.btn svg{width:17px;height:17px;transition:transform .35s var(--ease)}
+.btn-primary{background:var(--forest);color:#fff;box-shadow:0 6px 18px rgba(46,74,60,.22)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(46,74,60,.28)}
+.btn-primary:hover svg{transform:translateX(4px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--forest);background:var(--white);transform:translateY(-2px)}
+/* Hintergrund --amber-deep statt --amber: weisse Schrift auf --amber ergab
+   nur 3,46:1 und verfehlte damit WCAG AA (4,5:1). --amber-deep liefert
+   5,16:1 und ist dieselbe Markenfarbe, nur eine Stufe dunkler. */
+.btn-amber{background:var(--amber-deep);color:#fff;box-shadow:0 6px 18px rgba(156,95,30,.28)}
+.btn-amber:hover{background:var(--amber-deep);transform:translateY(-2px)}
+.btn-sm{padding:11px 20px;font-size:.87rem}
+/* ===========================================================================
+   4. HEADER
+   ======================================================================== */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .4s var(--ease),box-shadow .4s var(--ease),border-color .4s;
+  border-bottom:1px solid transparent;
+}
+.site-header.stuck{
+  background:rgba(253,251,247,.86);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom-color:var(--line-soft);
+  box-shadow:0 1px 20px rgba(45,35,20,.05);
+}
+.site-header.stuck .header-inner{height:var(--kopf-klein)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:var(--kopf);transition:height .35s var(--ease)}
+.logo{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:-.02em}
+/* Logo: Original-Grafik als PNG (logo.png), unveraendert uebernommen.
+   Lokale Datei wie die Schriften in fonts/ - kein fremder Server. */
+.logo img{height:99px;width:auto;display:block;transition:height .35s var(--ease)}
+.site-header.stuck .logo img{height:56px}
+@media (max-width:640px){
+:root{--kopf:92px;--kopf-klein:64px}
+.logo img{height:76px}
+.site-header.stuck .logo img{height:44px}
+}
+/* gap 26 statt 32: schafft 30px, die der Header bei voller Breite braucht,
+   damit Logo + Menü + Telefon + Knopf sicher in eine Zeile passen */
+.nav{display:flex;align-items:center;gap:26px}
+/* nowrap: sonst bricht "Über mich" bei knappem Platz in zwei Zeilen um */
+.nav a{font-size:.93rem;font-weight:500;color:var(--ink-2);position:relative;padding:4px 0;transition:color .25s;white-space:nowrap}
+.nav a::after{
+  content:"";position:absolute;left:0;bottom:0;height:1.5px;width:0;background:var(--amber);
+  border-radius:2px;transition:width .35s var(--ease);
+}
+.nav a:hover{color:var(--ink)}
+.nav a:hover::after{width:100%}
+/* Aktive Seite hervorheben. Die Generatoren setzen aria-current="page" auf den
+   passenden Menuepunkt - die Regel dazu fehlte hier, weshalb die Markierung auf
+   Ratgeber- und Ortsseiten unsichtbar blieb. */
+.nav a[aria-current="page"]{color:var(--ink);font-weight:600}
+.nav a[aria-current="page"]::after{width:100%}
+.mobile-nav a[aria-current="page"]{color:var(--amber-deep);font-weight:600}
+.header-cta{display:flex;align-items:center;gap:14px}
+/* Direktwahl im Header – für die Zielgruppe der schnellste Weg zum Kontakt */
+.header-phone{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.93rem;font-weight:600;color:var(--ink);
+  padding:9px 15px;border-radius:100px;border:1.5px solid var(--line);
+  transition:border-color .25s,background .25s;white-space:nowrap;
+}
+.header-phone:hover{border-color:var(--amber);background:var(--white)}
+.header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
+/* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
+.cta-kurz{display:none}
+.burger{display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);place-items:center;background:var(--white)}
+.burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
+.burger span+span{margin-top:4.5px}
+.burger.open span:nth-child(1){transform:translateY(6.1px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-6.1px) rotate(-45deg)}
+.mobile-nav{
+  position:fixed;inset:var(--kopf) 0 auto 0;z-index:99;
+  background:var(--cream);border-bottom:1px solid var(--line);
+  padding:18px 24px 30px;
+  transform:translateY(calc(-100% - 140px));visibility:hidden;
+  transition:transform .45s var(--ease),visibility 0s .45s;
+  box-shadow:0 20px 40px rgba(45,35,20,.09);
+}
+.site-header.stuck ~ .mobile-nav{top:var(--kopf-klein)}
+/* Kopfzeile geschrumpft -> Menue rutscht mit hoch */
+.mobile-nav.open{transform:translateY(0);visibility:visible;transition:transform .45s var(--ease)}
+.mobile-nav a{display:block;padding:14px 0;font-size:1.05rem;font-weight:500;border-bottom:1px solid var(--line-soft)}
+.mobile-nav .btn{width:100%;margin-top:20px}
+/* ===========================================================================
+   5b. LOGO-BAND (Qualifikationen & Programme)
+   Typografische Platzhalter-Kacheln. Offizielle Logos erst einsetzen, wenn
+   die Nutzung erlaubt ist – Anleitung im HTML-Kommentar bei der Sektion.
+   ======================================================================== */
+.logo-band{background:var(--white);border-bottom:1px solid var(--line-soft);padding:34px 0 26px}
+/* ===========================================================================
+   14. FOOTER
+   ======================================================================== */
+.site-footer{background:var(--cream-2);border-top:1px solid var(--line);padding:66px 0 30px;margin-top:0}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:34px;padding-bottom:44px}
+.footer-brand p{font-size:.9rem;color:var(--ink-2);margin:18px 0 22px;max-width:34ch}
+/* h3 statt h4: der Fussbereich sprang von H2 auf H4 (Ebene uebersprungen). */
+.footer-col h3{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
+.footer-col a{display:block;font-size:.9rem;color:var(--ink-2);padding:6px 0;transition:color .25s}
+.footer-col a:hover{color:var(--amber-deep)}
+.badges{display:flex;flex-wrap:wrap;gap:9px;padding:26px 0;border-top:1px solid var(--line)}
+.badge{
+  font-size:.75rem;font-weight:600;color:var(--ink-2);background:var(--white);
+  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
+}
+.footer-bottom{
+  display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;align-items:center;
+  padding-top:24px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted);
+}
+.footer-bottom nav{display:flex;gap:22px;flex-wrap:wrap}
+/* ===========================================================================
+   14b. MOBILE AKTIONSLEISTE
+   Unter 760px blendet die Seite den Header-CTA aus – ohne diese Leiste gäbe es
+   auf dem Handy gar keinen sichtbaren Kontaktweg mehr.
+   ======================================================================== */
+.mobile-bar{
+  display:none;
+  position:fixed;left:0;right:0;bottom:0;z-index:98;
+  gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(253,251,247,.94);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+  box-shadow:0 -2px 20px rgba(45,35,20,.08);
+}
+.mobile-bar .btn{flex:1;padding:13px 16px;font-size:.9rem}
+.mobile-bar .btn svg{width:16px;height:16px}
+@media (max-width:1000px){
+.footer-grid{grid-template-columns:1fr 1fr;gap:34px}
+}
+@media (max-width:1200px){
+.header-phone{display:none}
+}
+@media (max-width:1080px){
+.nav{gap:19px}
+.nav a{font-size:.86rem}
+.header-cta .btn{padding:11px 17px;font-size:.83rem}
+.cta-lang{display:none}
+.cta-kurz{display:inline}
+}
+@media (max-width:880px){
+/* Platz für die fixe Aktionsleiste */
+  .nav,.header-cta .btn{display:none}
+.burger{display:grid}
+.mobile-bar{display:flex}
+}
+@media (max-width:760px){
+.footer-grid{grid-template-columns:1fr}
+}
+/* /GEMEINSAM:CSS */
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<!-- GEMEINSAM:KOPF -->
+<header class="site-header" id="header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+    </a>
+
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="index.html#leistungen">Leistungen</a>
+      <a href="sanierungsrechner.html">Rechner</a>
+      <a href="ratgeber.html">Ratgeber</a>
+      <a href="aktuelles.html">Aktuelles</a>
+      <a href="index.html#ablauf">Ablauf</a>
+      <a href="index.html#kontakt">Kontakt</a>
+    </nav>
+
+    <div class="header-cta">
+      <a href="tel:+4915224290826" class="header-phone">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        0152 24290826
+      </a>
+      <a href="index.html#kontakt" class="btn btn-primary btn-sm">
+        <span class="cta-lang">Kostenloses Erstgespräch</span><span class="cta-kurz">Erstgespräch</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
+  <a href="index.html#leistungen">Leistungen</a>
+  <a href="sanierungsrechner.html">Sanierungsrechner</a>
+  <a href="ratgeber.html">Ratgeber</a>
+  <a href="aktuelles.html">Aktuelles</a>
+  <a href="index.html#ablauf">Ablauf</a>
+  <a href="index.html#faq">Fragen</a>
+  <a href="index.html#kontakt">Kontakt</a>
+  <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+</nav>
+
+<!-- Fixe Aktionsleiste, nur auf Mobilgeräten sichtbar (siehe CSS-Block 14b) -->
+<div class="mobile-bar">
+  <a href="tel:+4915224290826" class="btn btn-amber">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+    Anrufen
+  </a>
+  <a href="index.html#kontakt" class="btn btn-primary">Anfrage senden</a>
+</div>
+<!-- /GEMEINSAM:KOPF -->
+
+<main id="inhalt">
+
+<div class="wrap">
+  <nav class="krumen" aria-label="Brotkrumennavigation" style="padding:18px 0 0;font-size:.85rem;color:var(--muted)">
+    <a href="index.html" style="color:var(--muted)">Startseite</a> ›
+    <span>U-Wert-Rechner</span>
+  </nav>
+</div>
+
+<section class="wrap intro">
+  <span class="eyebrow">Kostenloses Werkzeug</span>
+  <h1>U-Wert-Rechner für Bestandsgebäude</h1>
+  <p class="lead">
+    Schichtaufbau eingeben, U-Wert sehen – und sofort, wie viel Dämmung für Ihren
+    Zielwert fehlt. Innen- und Außendämmung getrennt, mit den Grenzen, die bei
+    Innendämmung tatsächlich gelten. Am Ende zeigt der Rechner, welches
+    Effizienzhaus Ihre Gebäudehülle erreicht.
+  </p>
+  <div class="disclaimer">
+    <b>Was dieser Rechner ist – und was nicht.</b>
+    Er rechnet die Gebäudehülle: U-Werte nach DIN EN ISO 6946 und den
+    Transmissionswärmeverlust H′<sub>T</sub>. Eine Effizienzhausstufe verlangt
+    zusätzlich den Primärenergiebedarf nach DIN V 18599 mit Heizung, Lüftung und
+    erneuerbaren Anteilen – das leistet keine Rechnung im Browser und wird hier
+    deshalb auch nicht behauptet. Für Förderanträge zählt allein der Nachweis
+    einer bzw. eines Energieeffizienz-Experten.
+  </div>
+</section>
+
+<!-- ===================== SCHRITT 1: BAUTEIL ===================== -->
+<div class="wrap">
+<section class="panel" id="p-bauteil">
+  <h2><span class="schritt-nr">1</span>Bauteil und Aufbau</h2>
+  <p class="panel-sub">Bauteil wählen, Baujahr wählen – der typische Aufbau ist dann schon eingesetzt und lässt sich Schicht für Schicht ändern.</p>
+
+  <div class="chips" id="bauteilChips"></div>
+
+  <div class="feld-reihe">
+    <div class="feld">
+      <label for="baujahr">Baujahr des Gebäudes</label>
+      <select id="baujahr"></select>
+    </div>
+    <button class="btn btn-ghost btn-sm" id="aufbauLaden">Typischen Aufbau einsetzen</button>
+  </div>
+
+  <div class="schichten" id="schichtBox"></div>
+  <button class="btn btn-ghost btn-sm" id="schichtPlus">+ Schicht hinzufügen</button>
+
+  <div class="u-gross">
+    <span class="u-zahl" id="uIst">–</span>
+    <span class="u-einheit">W/(m²·K) im Ist-Zustand</span>
+  </div>
+
+  <div class="vergleich" id="vergleichBox"></div>
+</section>
+
+<!-- ===================== SCHRITT 2: DÄMMUNG ===================== -->
+<section class="panel" id="p-daemmung">
+  <h2><span class="schritt-nr">2</span>Dämmung planen</h2>
+  <p class="panel-sub">Außen- oder Innendämmung, Dämmstoff und Dicke. Der Rechner zeigt sofort den neuen U-Wert – und bei Innendämmung, ob der Aufbau nachweisfrei ist.</p>
+
+  <div class="chips" id="lageChips">
+    <button class="chip aktiv" data-lage="aussen">Außendämmung</button>
+    <button class="chip" data-lage="innen">Innendämmung</button>
+    <button class="chip" data-lage="keine">Ohne Dämmung rechnen</button>
+  </div>
+
+  <div id="daemmFelder">
+    <div class="feld-reihe">
+      <div class="feld" style="flex:1 1 260px">
+        <label for="daemmstoff">Dämmstoff</label>
+        <select id="daemmstoff"></select>
+      </div>
+      <div class="feld">
+        <label for="daemmDicke">Dicke in cm</label>
+        <input type="number" id="daemmDicke" min="0" max="60" step="0.5" value="14">
+      </div>
+    </div>
+
+    <div class="u-gross">
+      <span class="u-zahl" id="uVorher">–</span>
+      <span class="u-pfeil">→</span>
+      <span class="u-zahl u-neu" id="uNachher">–</span>
+      <span class="u-einheit">W/(m²·K) nach der Dämmung</span>
+    </div>
+
+    <div id="ampelBox"></div>
+  </div>
+
+  <h3 style="margin-top:22px">Welche Dicke brauche ich für welchen Zielwert?</h3>
+  <div class="ziel-grid" id="zielGrid"></div>
+
+  <div class="feld-reihe" style="margin-top:20px">
+    <button class="btn btn-primary btn-sm" id="uebernehmen">Bauteil in die Hausbilanz übernehmen</button>
+  </div>
+</section>
+
+<!-- ===================== SCHRITT 3: HAUSBILANZ ===================== -->
+<section class="panel" id="p-bilanz">
+  <h2><span class="schritt-nr">3</span>Hülle bilanzieren</h2>
+  <p class="panel-sub">Flächen der übernommenen Bauteile eintragen. Daraus entsteht der spezifische Transmissionswärmeverlust H′<sub>T</sub> im Vergleich zum Referenzgebäude.</p>
+
+  <div id="bilanzBox"></div>
+  <div id="ehBox"></div>
+</section>
+
+<!-- ===================== SCHRITT 4: WAS NOCH FEHLT ===================== -->
+<section class="panel" id="p-qp">
+  <h2><span class="schritt-nr">4</span>Was zur Effizienzhausstufe noch fehlt</h2>
+  <p class="panel-sub">Die Hülle ist die eine Hälfte. Diese Punkte wirken auf die andere – den Primärenergiebedarf.</p>
+
+  <div class="qp-liste">
+    <div class="qp-zeile">
+      <b>Luftdichtheit</b>
+      <span>Das Gesetz verlangt n<sub>50</sub> ≤ 3,0 h⁻¹ ohne und ≤ 1,5 h⁻¹ mit ventilatorgestützter
+      Lüftungsanlage. Gemessen wird mit dem Blower-Door-Verfahren nach DIN EN ISO 9972.
+      Für die höheren Effizienzhausstufen ist der Nachweis Voraussetzung.</span>
+    </div>
+    <div class="qp-zeile">
+      <b>Lüftung mit Wärmerückgewinnung</b>
+      <span>Senkt den Lüftungswärmeverlust deutlich und damit den Primärenergiebedarf.
+      Auf H′<sub>T</sub> wirkt sie nicht – der zählt nur die Bauteile.</span>
+    </div>
+    <div class="qp-zeile">
+      <b>Wärmeerzeuger</b>
+      <span>Der größte Hebel beim Primärenergiebedarf. Eine Wärmepumpe wird mit einem
+      niedrigen Primärenergiefaktor bewertet, fossile Erzeuger mit einem hohen.
+      Ob sie zu Ihrem Haus passt, hängt an der Vorlauftemperatur –
+      <a href="ratgeber-waermepumpe-altbau.html" style="color:var(--amber-deep);font-weight:600">dazu der Ratgeber</a>.</span>
+    </div>
+    <div class="qp-zeile">
+      <b>Erneuerbare Anteile</b>
+      <span>Photovoltaik, Solarthermie und Umweltwärme senken den Primärenergiebedarf
+      zusätzlich. Sie sind oft der Schritt, der eine Stufe möglich macht,
+      wenn die Hülle schon stimmt.</span>
+    </div>
+    <div class="qp-zeile">
+      <b>Hydraulischer Abgleich</b>
+      <span>Bei geförderten Wärmepumpen vorgeschrieben und Grundlage der Auslegung –
+      <a href="hydraulischer-abgleich-ulm.html" style="color:var(--amber-deep);font-weight:600">Leistung und Preis</a>.</span>
+    </div>
+  </div>
+
+  <div class="merk" style="margin-top:22px">
+    <b>Der ehrliche Satz zum Schluss</b>
+    Dieser Rechner sagt Ihnen, ob Ihre Gebäudehülle das H′<sub>T</sub>-Kriterium einer
+    Effizienzhausstufe erfüllt. Ob die Stufe insgesamt erreicht wird, entscheidet
+    zusätzlich der Primärenergiebedarf – berechnet nach DIN V 18599 und bestätigt
+    von einer bzw. einem in der Energie-Effizienz-Expertenliste eingetragenen
+    Sachkundigen. Genau das ist unsere Arbeit.
+  </div>
+
+  <div class="feld-reihe" style="margin-top:8px">
+    <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+    <a href="sanierungsrechner.html" class="btn btn-ghost">Wirtschaftlichkeit durchrechnen</a>
+  </div>
+
+  <p class="fussnote">
+    Die λ-Werte der Baustoffbibliothek sind Bemessungs-Anhaltswerte für die
+    überschlägige Rechnung. Für einen Förderantrag zählt der deklarierte
+    Bemessungswert λ<sub>D</sub> des konkreten Produkts nach dessen
+    Leistungserklärung. Übergangswiderstände nach DIN EN ISO 6946,
+    Bauteil-Höchstwerte nach Anlage 7 und Referenzgebäude nach Anlage 1 des
+    Gebäudeenergie- bzw. Gebäudemodernisierungsgesetzes, Effizienzhausstufen
+    nach den Vorgaben der KfW. Stand August 2026 – maßgeblich sind die bei
+    Antragstellung geltenden Fassungen.
+  </p>
+</section>
+</div>
+
+</main>
+
+<!-- GEMEINSAM:FUSS -->
+<footer class="site-footer">
+  <div class="wrap">
+
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+    </a>
+        <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision, mit Blick auf das, was sich rechnet.</p>
+        <a href="index.html#kontakt" class="btn btn-amber btn-sm">Gratis Erstgespräch</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Leistungen</h3>
+        <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>
+        <a href="energieausweis-ulm.html">Energieausweis</a>
+        <a href="hydraulischer-abgleich-ulm.html">Hydraulischer Abgleich</a>
+        <a href="index.html#leistungen">Fördermittel &amp; Baubegleitung</a>
+        <a href="sanierungsrechner.html">Sanierungsrechner</a>
+        <a href="u-wert-rechner.html">U-Wert-Rechner</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Einsatzgebiet</h3>
+        <a href="energieberatung-ulm.html">Ulm</a>
+        <a href="energieberatung-blaustein.html">Blaustein</a>
+        <a href="energieberatung-langenau.html">Langenau</a>
+        <a href="energieberatung-ehingen.html">Ehingen</a>
+        <a href="energieberatung-laichingen.html">Laichingen</a>
+        <a href="energieberatung-blaubeuren.html">Blaubeuren</a>
+        <a href="energieberatung-erbach.html">Erbach</a>
+        <a href="energieberatung-dornstadt.html">Dornstadt</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Ratgeber &amp; Aktuelles</h3>
+        <a href="aktuelles.html">Aktuelles zu Förderung und Gesetz</a>
+        <a href="ratgeber-energieberatung-kosten.html">Kosten einer Energieberatung</a>
+        <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a>
+        <a href="ratgeber-waermepumpe-altbau.html">Wärmepumpe im Altbau</a>
+        <a href="ratgeber-fassade-daemmen.html">Fassade dämmen</a>
+        <a href="ratgeber-energieausweis-bedarf-verbrauch.html">Energieausweis</a>
+        <a href="ratgeber.html">Alle Beiträge</a>
+        <a href="index.html#faq">Häufige Fragen</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Kontakt</h3>
+        <a href="tel:+4915224290826">0152 24290826</a>
+        <!-- [TODO] echte E-Mail-Adresse eintragen -->
+        <a href="mailto:kontakt@ihre-domain.de">[kontakt@ihre-domain.de]</a>
+        <address style="font-style:normal;font-size:.9rem;color:var(--ink-2);padding:6px 0">
+          Griesweg 20<br>89160 Dornstadt
+        </address>
+      </div>
+    </div>
+
+    <div class="badges">
+      <span class="badge">Energie-Effizienz-Expertenliste (dena)</span>
+      <span class="badge">BAFA-förderfähige Beratung</span>
+      <span class="badge">Förderprogramme BEG / KfW</span>
+      <span class="badge">Produktneutral, ohne Provision</span>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 EBA Energieberater Albdonau · Inhaber Stanislaw Tsukerman</span>
+      <nav aria-label="Rechtliches">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
+    </div>
+
+  </div>
+</footer>
+<!-- /GEMEINSAM:FUSS -->
+
+<script>
+'use strict';
+
+/* GEMEINSAM:KENNWERTE */
+/* Aus dem CONFIG von sanierungsrechner.html uebernommen.
+   NICHT hier aendern - dort aendern und kopf-fuss-abgleichen.py
+   laufen lassen, sonst rechnen die beiden Rechner verschieden. */
+var KENNWERTE = {
+  fx:{ wand:1.0, fenster:1.0, tuer:1.0, dach:1.0, ogd:0.8, kellerdecke:0.55, bodenplatte:0.40 },
+  uWand:[[1918,1.70],[1948,1.60],[1968,1.40],[1978,1.20],[1983,0.80],[1994,0.50],[2001,0.45],[2009,0.35],[2015,0.24],[9999,0.20]],
+  uDach:[[1968,1.80],[1978,1.20],[1994,0.50],[2001,0.40],[2015,0.30],[9999,0.20]],
+  uOgdAlt:1.10,
+  uKeller:[[1978,1.50],[1994,0.80],[2009,0.60],[9999,0.35]],
+  uFenster:{ einfach:5.0, kasten:2.5, zweifach_alt:3.0, iso_95:1.5, ws_2001:1.3, ws_2010:1.1, dreifach:0.8 },
+  gFenster:{ einfach:0.75, kasten:0.75, zweifach_alt:0.62, iso_95:0.62, ws_2001:0.62, ws_2010:0.62, dreifach:0.50 },
+  uTuer:{ alt:3.0, neu:1.3 },
+  lambdaDaemm:0.035,
+  wbZuschlag:{ unsaniert:0.10, saniert:0.05, jeGaube:0.02, max:0.15 },
+  klassen:[ ['A+',30],['A',50],['B',75],['C',100],['D',130],['E',160],['F',200],['G',250],['H',1e9] ],
+  klassenFarben:{ 'A+':'#1E7A44','A':'#4C8C33','B':'#87A22B','C':'#B8A81F','D':'#C98A1E','E':'#C96F22','F':'#BC5524','G':'#AC3E26','H':'#983024' },
+  zielU:{ wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25, fenster:0.95, tuer:1.3 }
+};
+/* /GEMEINSAM:KENNWERTE */
+
+/* ===========================================================================
+   EIGENE KENNWERTE DES U-WERT-RECHNERS
+   Alles hier ist normativ belegt - Herkunft steht jeweils dabei.
+   ======================================================================== */
+var UK = {
+
+  /* Waermeuebergangswiderstaende nach DIN EN ISO 6946, in m²K/W.
+     Richtung des Waermestroms entscheidet: aufwaerts 0,10 - horizontal 0,13 -
+     abwaerts 0,17. Gegen unbeheizte Raeume gilt innen auf beiden Seiten. */
+  rsiRse:{
+    wand:        { rsi:0.13, rse:0.04, lab:'Außenwand, Wärmestrom horizontal' },
+    wandUnbeh:   { rsi:0.13, rse:0.13, lab:'Wand gegen unbeheizt' },
+    dach:        { rsi:0.10, rse:0.04, lab:'Dach, Wärmestrom aufwärts' },
+    ogd:         { rsi:0.10, rse:0.10, lab:'Geschossdecke gegen unbeheizten Dachraum' },
+    kellerdecke: { rsi:0.17, rse:0.17, lab:'Kellerdecke, Wärmestrom abwärts' },
+    boden:       { rsi:0.17, rse:0.00, lab:'Bodenplatte gegen Erdreich' }
+  },
+
+  /* Referenzgebaeude, Anlage 1 GEG/GModG. Grundlage von H'T,ref. */
+  uRef:{ wand:0.28, dach:0.20, ogd:0.20, kellerdecke:0.35, boden:0.35,
+         fenster:1.30, dachfenster:1.40, tuer:1.80 },
+  dUwbRef:0.05,
+
+  /* Hoechstwerte bei Erneuerung eines Bauteils, Anlage 7 GEG/GModG.
+     Verbindlich, sobald mehr als 10 % der Bauteilflaeche erneuert werden. */
+  uMax:{ wand:0.24, dach:0.24, ogd:0.24, kellerdecke:0.30, boden:0.30,
+         fenster:1.30, dachfenster:1.40, tuer:1.80 },
+
+  /* Effizienzhausstufen der KfW. qp und ht jeweils in Prozent des
+     Referenzgebaeudes. NUR ht ist hier rechenbar - siehe Kopfkommentar. */
+  ehStufen:[ {name:'40', qp:40, ht:55}, {name:'55', qp:55, ht:70},
+             {name:'70', qp:70, ht:85}, {name:'85', qp:85, ht:100} ],
+
+  /* Innendaemmung, nachweisfreie Konstruktionen nach DIN 4108-3.
+     Bezug ist der Waermedurchlasswiderstand R der Daemmschicht. */
+  innen:{ gruen:0.5, gelb:1.0 },
+
+  /* Luftdichtheit, GEG/GModG */
+  n50:{ ohneAnlage:3.0, mitAnlage:1.5 }
+};
+
+/* ===========================================================================
+   BAUSTOFFE
+   lambda = Bemessungs-Anhaltswert in W/(m·K), angelehnt an die ueblichen
+   Tabellenwerte nach DIN 4108-4 / DIN EN ISO 10456. Fuer einen Foerderantrag
+   zaehlt der deklarierte Wert des konkreten Produkts - deshalb steht der
+   Hinweis dazu sichtbar auf der Seite.
+   kap:true kennzeichnet kapillaraktive Daemmstoffe: die sind bei
+   Innendaemmung der entscheidende Unterschied, weil sie Tauwasser
+   zurueckfuehren koennen.
+   ======================================================================== */
+var BAUSTOFFE = [
+  /* --- Tragende Schichten und Mauerwerk --- */
+  {id:'vollziegel',   g:'trag', n:'Vollziegel (Mauerziegel)',        l:0.81},
+  {id:'vollziegel_h', g:'trag', n:'Vollziegel, historisch handgeformt', l:0.68},
+  {id:'hlz',          g:'trag', n:'Hochlochziegel',                  l:0.45},
+  {id:'hlz_leicht',   g:'trag', n:'Hochlochziegel, wärmedämmend',    l:0.21},
+  {id:'poroton',      g:'trag', n:'Poroton / Wärmedämmziegel',       l:0.14},
+  {id:'ks',           g:'trag', n:'Kalksandstein',                   l:0.99},
+  {id:'ks_leicht',    g:'trag', n:'Kalksandstein, Lochstein',        l:0.70},
+  {id:'porenbeton_a', g:'trag', n:'Porenbeton, ältere Bauart',       l:0.21},
+  {id:'porenbeton',   g:'trag', n:'Porenbeton, heutige Bauart',      l:0.13},
+  {id:'beton',        g:'trag', n:'Beton / Stahlbeton',              l:2.30},
+  {id:'leichtbeton',  g:'trag', n:'Leichtbeton',                     l:0.70},
+  {id:'bims',         g:'trag', n:'Bimshohlblockstein',              l:0.44},
+  {id:'schwemmstein', g:'trag', n:'Schwemmstein',                    l:0.32},
+  {id:'naturstein',   g:'trag', n:'Naturstein / Bruchstein',         l:2.30},
+  {id:'holz',         g:'trag', n:'Holz (Sparren, Fachwerk, Nadelholz)', l:0.13},
+  {id:'lehm_stroh',   g:'trag', n:'Lehm-Stroh-Gefach',               l:0.47},
+
+  /* --- Putze, Platten, Belaege --- */
+  {id:'kalkputz',     g:'putz', n:'Kalkputz',                        l:0.70},
+  {id:'kalkzement',   g:'putz', n:'Kalkzementputz',                  l:1.00},
+  {id:'zementputz',   g:'putz', n:'Zementputz',                      l:1.40},
+  {id:'gipsputz',     g:'putz', n:'Gipsputz',                        l:0.51},
+  {id:'lehmputz',     g:'putz', n:'Lehmputz',                        l:0.70},
+  {id:'daemmputz',    g:'putz', n:'Dämmputz',                        l:0.09},
+  {id:'gipskarton',   g:'putz', n:'Gipskartonplatte',                l:0.25},
+  {id:'gipsfaser',    g:'putz', n:'Gipsfaserplatte',                 l:0.32},
+  {id:'estrich_z',    g:'putz', n:'Zementestrich',                   l:1.40},
+  {id:'estrich_a',    g:'putz', n:'Anhydritestrich',                 l:1.20},
+  {id:'fliesen',      g:'putz', n:'Fliesen / Keramik',               l:1.30},
+  {id:'dielen',       g:'putz', n:'Holzdielen',                      l:0.13},
+  {id:'osb',          g:'putz', n:'OSB- oder Spanplatte',            l:0.13},
+  {id:'schuettung',   g:'putz', n:'Schüttung (Sand, Schlacke, Lehm)', l:0.47},
+  {id:'teppich',      g:'putz', n:'Teppichboden',                    l:0.06},
+  {id:'bitumen',      g:'putz', n:'Bitumenbahn / Abdichtung',        l:0.17},
+  {id:'hwl',          g:'putz', n:'Holzwolle-Leichtbauplatte',       l:0.09},
+
+  /* --- Daemmstoffe, vorrangig aussen --- */
+  {id:'eps_040',  g:'daemm', n:'EPS (Styropor), WLG 040',            l:0.040},
+  {id:'eps_035',  g:'daemm', n:'EPS (Styropor), WLG 035',            l:0.035},
+  {id:'eps_032',  g:'daemm', n:'EPS (Styropor), WLG 032',            l:0.032},
+  {id:'eps_grau', g:'daemm', n:'EPS grau (mit Grafit), WLG 031',     l:0.031},
+  {id:'xps',      g:'daemm', n:'XPS (Perimeter, Sockel)',            l:0.035},
+  {id:'mw_040',   g:'daemm', n:'Mineralwolle, WLG 040',              l:0.040},
+  {id:'mw_035',   g:'daemm', n:'Mineralwolle, WLG 035',              l:0.035},
+  {id:'mw_032',   g:'daemm', n:'Mineralwolle, WLG 032',              l:0.032},
+  {id:'steinwolle', g:'daemm', n:'Steinwolle',                       l:0.038},
+  {id:'pur',      g:'daemm', n:'PUR/PIR-Hartschaum',                 l:0.024},
+  {id:'hf_040',   g:'daemm', n:'Holzfaserdämmplatte, WLG 040',       l:0.040, kap:true},
+  {id:'hf_045',   g:'daemm', n:'Holzfaserdämmplatte, WLG 045',       l:0.045, kap:true},
+  {id:'zellulose', g:'daemm', n:'Zellulose (Einblasdämmung)',        l:0.040},
+  {id:'hanf',     g:'daemm', n:'Hanf oder Flachs',                   l:0.040},
+  {id:'kork',     g:'daemm', n:'Korkdämmplatte',                     l:0.045},
+  {id:'schaumglas', g:'daemm', n:'Schaumglas',                       l:0.045},
+  {id:'perlite',  g:'daemm', n:'Perlite-Schüttung',                  l:0.050},
+  {id:'vip',      g:'daemm', n:'Vakuumdämmplatte (VIP)',             l:0.007},
+
+  /* --- Daemmstoffe fuer Innendaemmung --- */
+  {id:'mineralschaum', g:'innen', n:'Mineralschaumplatte',           l:0.045, kap:true},
+  {id:'kalziumsilikat', g:'innen', n:'Kalziumsilikatplatte',         l:0.065, kap:true},
+  {id:'hf_innen',  g:'innen', n:'Holzfaserplatte für Innendämmung',  l:0.040, kap:true},
+  {id:'klimaplatte', g:'innen', n:'Klimaplatte (Porenbeton)',        l:0.060, kap:true},
+  {id:'aerogel',   g:'innen', n:'Aerogel-Dämmvlies',                 l:0.018}
+];
+
+var GRUPPEN = { trag:'Mauerwerk und Tragschicht', putz:'Putze, Platten, Beläge',
+                daemm:'Dämmstoffe', innen:'Dämmstoffe für Innendämmung' };
+
+/* ===========================================================================
+   TYPISCHE AUFBAUTEN
+   Beispielhafte Schichtfolgen je Bauteil und Baualter. Sie sind BEISPIELE,
+   keine Statistik: Die U-Wert-Tabellen im CONFIG des Sanierungsrechners sind
+   Mittelwerte ueber einen ganzen Gebaeudebestand, ein konkreter Aufbau weicht
+   davon zwangslaeufig ab. Der Selbsttest prueft deshalb nur, ob der berechnete
+   Wert in einem plausiblen Band um den Tabellenwert liegt - er soll grobe
+   Fehler fangen (vertipptes Lambda), nicht Uebereinstimmung erzwingen.
+   ======================================================================== */
+var AUFBAUTEN = {
+  wand:[
+    {bis:1918, s:[['gipsputz',1.5],['vollziegel',30],['kalkputz',2]]},
+    {bis:1948, s:[['gipsputz',1.5],['vollziegel',36.5],['kalkzement',2]]},
+    {bis:1968, s:[['gipsputz',1.5],['hlz',24],['kalkzement',2]]},
+    {bis:1978, s:[['gipsputz',1.5],['hlz',30],['kalkzement',2]]},
+    {bis:1983, s:[['gipsputz',1.5],['hlz',30],['eps_040',2],['kalkzement',1]]},
+    {bis:1994, s:[['gipsputz',1.5],['hlz',30],['eps_040',5],['kalkzement',1]]},
+    {bis:2001, s:[['gipsputz',1.5],['hlz',30],['eps_040',6],['kalkzement',1]]},
+    {bis:2009, s:[['gipsputz',1.5],['hlz',30],['eps_035',8],['kalkzement',1]]},
+    {bis:2015, s:[['gipsputz',1.5],['hlz',24],['eps_035',14],['kalkzement',1]]},
+    {bis:9999, s:[['gipsputz',1.5],['hlz',24],['eps_035',16],['kalkzement',1]]}
+  ],
+  dach:[
+    {bis:1968, s:[['gipskarton',1.25],['holz',2.4]]},
+    {bis:1978, s:[['gipskarton',1.25],['mw_040',4],['holz',2.4]]},
+    {bis:1994, s:[['gipskarton',1.25],['mw_040',8],['holz',2.4]]},
+    {bis:2001, s:[['gipskarton',1.25],['mw_040',12],['holz',2.4]]},
+    {bis:2015, s:[['gipskarton',1.25],['mw_035',16],['holz',2.4]]},
+    {bis:9999, s:[['gipskarton',1.25],['mw_035',22],['holz',2.4]]}
+  ],
+  ogd:[
+    {bis:1978, s:[['gipsputz',1.5],['holz',2.4],['schuettung',6],['dielen',2.4]]},
+    {bis:1994, s:[['gipsputz',1.5],['holz',2.4],['mw_040',6],['dielen',2.4]]},
+    {bis:2015, s:[['gipsputz',1.5],['holz',2.4],['mw_040',14],['dielen',2.4]]},
+    {bis:9999, s:[['gipsputz',1.5],['holz',2.4],['mw_035',24],['dielen',2.4]]}
+  ],
+  kellerdecke:[
+    {bis:1978, s:[['beton',16],['estrich_z',4],['fliesen',1]]},
+    {bis:1994, s:[['beton',16],['eps_040',2],['estrich_z',4],['fliesen',1]]},
+    {bis:2009, s:[['beton',16],['eps_040',4],['estrich_z',4],['fliesen',1]]},
+    {bis:9999, s:[['beton',16],['eps_035',8],['estrich_z',4],['fliesen',1]]}
+  ],
+  boden:[
+    {bis:1978, s:[['beton',15],['estrich_z',4],['fliesen',1]]},
+    {bis:1994, s:[['beton',15],['xps',3],['estrich_z',4],['fliesen',1]]},
+    {bis:2009, s:[['beton',15],['xps',6],['estrich_z',4],['fliesen',1]]},
+    {bis:9999, s:[['beton',15],['xps',12],['estrich_z',4],['fliesen',1]]}
+  ]
+};
+
+/* Bauteile: Schluessel, Anzeigename, Lage fuer Rsi/Rse, Fx-Schluessel,
+   Referenz- und Hoechstwert-Schluessel, Vergleichstabelle im KENNWERTE-Block */
+var BAUTEILE = [
+  {id:'wand',        n:'Außenwand',            lage:'wand',        fx:'wand',        tab:'uWand'},
+  {id:'dach',        n:'Dach / Dachschräge',   lage:'dach',        fx:'dach',        tab:'uDach'},
+  {id:'ogd',         n:'Oberste Geschossdecke', lage:'ogd',        fx:'ogd',         tab:null},
+  {id:'kellerdecke', n:'Kellerdecke',          lage:'kellerdecke', fx:'kellerdecke', tab:'uKeller'},
+  {id:'boden',       n:'Bodenplatte',          lage:'boden',       fx:'bodenplatte', tab:null}
+];
+
+/* ===========================================================================
+   RECHENKERN
+   ======================================================================== */
+function nf(x,d){ return (x==null||isNaN(x))?'–':Number(x).toLocaleString('de-DE',
+  {maximumFractionDigits:d==null?2:d, minimumFractionDigits:d==null?2:d}); }
+
+function stoff(id){ for(var i=0;i<BAUSTOFFE.length;i++){ if(BAUSTOFFE[i].id===id) return BAUSTOFFE[i]; } return null; }
+
+/* Waermedurchlasswiderstand der Schichten allein, ohne Uebergaenge.
+   schichten = [{id, d}] mit d in cm. */
+function rSchichten(schichten){
+  var r=0;
+  for(var i=0;i<schichten.length;i++){
+    var b=stoff(schichten[i].id);
+    var d=Number(schichten[i].d);
+    if(!b || !isFinite(d) || d<=0 || !(b.l>0)) continue;
+    r += (d/100)/b.l;
+  }
+  return r;
+}
+
+/* U-Wert nach DIN EN ISO 6946: U = 1 / (Rsi + Summe(d/lambda) + Rse) */
+function uWert(schichten, lage){
+  var ue = UK.rsiRse[lage] || UK.rsiRse.wand;
+  var rt = ue.rsi + rSchichten(schichten) + ue.rse;
+  if(!(rt>0)) return null;
+  return 1/rt;
+}
+
+/* Umkehrung: welche Daemmdicke fehlt fuer einen Ziel-U-Wert?
+   Rueckgabe in cm, auf halbe Zentimeter aufgerundet; 0 wenn schon erreicht. */
+function dickeFuerZiel(schichten, lage, uZiel, lambda){
+  if(!(uZiel>0) || !(lambda>0)) return null;
+  var ue = UK.rsiRse[lage] || UK.rsiRse.wand;
+  var rVorhanden = ue.rsi + rSchichten(schichten) + ue.rse;
+  var rNoetig = 1/uZiel - rVorhanden;
+  if(rNoetig <= 0) return 0;
+  var cm = rNoetig * lambda * 100;
+  return Math.ceil(cm*2)/2;
+}
+
+/* Ampel fuer Innendaemmung nach DIN 4108-3, Bezug ist R der Daemmschicht */
+function innenAmpel(rDaemm){
+  if(rDaemm <= UK.innen.gruen) return {stufe:'gruen',
+    titel:'Nachweisfrei nach DIN 4108-3',
+    text:'Bei einem Wärmedurchlasswiderstand der Dämmschicht bis 0,5 m²K/W gilt der Aufbau ohne Schlagregenbeanspruchung als nachweisfrei. Das ist allerdings so wenig Dämmung, dass der energetische Gewinn gering bleibt.'};
+  if(rDaemm <= UK.innen.gelb) return {stufe:'gelb',
+    titel:'Zulässig mit Bedingungen',
+    text:'Zwischen 0,5 und 1,0 m²K/W verlangt DIN 4108-3 einen sᵈ-Wert von mindestens 0,5 m für Dämmschicht samt raumseitiger Bekleidung. Zusätzlich muss verhindert werden, dass Raumluft hinter die Dämmung strömt – jede Fuge, jede Steckdose zählt.'};
+  return {stufe:'rot',
+    titel:'Rechnerischer Nachweis erforderlich',
+    text:'Über 1,0 m²K/W ist der Aufbau nicht mehr nachweisfrei. Das vereinfachte Glaser-Verfahren liefert hier meist keine belastbare Aussage; nötig ist eine hygrothermische Simulation nach DIN EN 15026. Ohne diesen Nachweis ist Innendämmung in dieser Stärke ein echtes Schadensrisiko.'};
+}
+
+/* Huellbilanz. bauteile = [{id, u, flaeche, fx, refKey}]
+   H_T  = Summe(Fx * U * A) + dUwb * A_Huelle
+   H'T  = H_T / A_Huelle */
+function htBilanz(bauteile, dUwb){
+  var ht=0, htRef=0, a=0;
+  for(var i=0;i<bauteile.length;i++){
+    var b=bauteile[i];
+    var fl=Number(b.flaeche);
+    if(!isFinite(fl) || fl<=0) continue;
+    var fx = KENNWERTE.fx[b.fx];
+    if(fx==null) fx=1.0;
+    ht    += fx * b.u * fl;
+    htRef += fx * UK.uRef[b.refKey] * fl;
+    a     += fl;
+  }
+  if(a<=0) return null;
+  ht    += dUwb * a;
+  htRef += UK.dUwbRef * a;
+  return { flaeche:a, ht:ht, htRef:htRef,
+           hStrich:ht/a, hStrichRef:htRef/a, verhaeltnis:(ht/a)/(htRef/a) };
+}
+
+/* Welche Effizienzhausstufe erfuellt die Huelle beim H'T-Kriterium? */
+function ehStufe(verhaeltnis){
+  var p = verhaeltnis*100;
+  for(var i=0;i<UK.ehStufen.length;i++){
+    if(p <= UK.ehStufen[i].ht) return UK.ehStufen[i];
+  }
+  return null;
+}
+
+/* ===========================================================================
+   ZUSTAND UND OBERFLAECHE
+   Zustand liegt ausschliesslich in dieser Variable - kein localStorage
+   (Projektregel 3).
+   ======================================================================== */
+var Z = {
+  bauteil:'wand', baujahr:1970, schichten:[],
+  lage:'aussen', daemmstoff:'eps_035', daemmDicke:14,
+  bilanz:[]
+};
+
+function $(id){ return document.getElementById(id); }
+function el(tag, klasse, text){
+  var e=document.createElement(tag);
+  if(klasse) e.className=klasse;
+  if(text!=null) e.textContent=text;
+  return e;
+}
+function btDef(id){ for(var i=0;i<BAUTEILE.length;i++){ if(BAUTEILE[i].id===id) return BAUTEILE[i]; } return BAUTEILE[0]; }
+
+/* Referenz- und Hoechstwertschluessel je Bauteil */
+function refKey(id){ return (id==='ogd') ? 'ogd' : id; }
+
+/* Typischer Aufbau fuer Bauteil und Baujahr */
+function aufbauFuer(bauteilId, jahr){
+  var liste = AUFBAUTEN[bauteilId] || [];
+  for(var i=0;i<liste.length;i++){
+    if(jahr <= liste[i].bis){
+      return liste[i].s.map(function(x){ return {id:x[0], d:x[1]}; });
+    }
+  }
+  return [];
+}
+
+/* Schichten inklusive geplanter Daemmung */
+function schichtenMitDaemmung(){
+  if(Z.lage==='keine' || !(Z.daemmDicke>0)) return Z.schichten.slice();
+  var d = {id:Z.daemmstoff, d:Z.daemmDicke, neu:true};
+  return Z.lage==='innen' ? [d].concat(Z.schichten) : Z.schichten.concat([d]);
+}
+
+/* ---------- Baustoff-Auswahlliste ---------- */
+function stoffSelect(gewaehlt, nurDaemm){
+  var s = el('select');
+  var gruppen = nurDaemm ? ['innen','daemm'] : ['trag','putz','daemm','innen'];
+  if(nurDaemm && Z.lage!=='innen') gruppen = ['daemm','innen'];
+  gruppen.forEach(function(g){
+    var treffer = BAUSTOFFE.filter(function(b){ return b.g===g; });
+    if(!treffer.length) return;
+    var og = document.createElement('optgroup');
+    og.label = GRUPPEN[g];
+    treffer.forEach(function(b){
+      var o = el('option', null, b.n + ' · λ ' + nf(b.l,3) + (b.kap?' · kapillaraktiv':''));
+      o.value = b.id;
+      if(b.id===gewaehlt) o.selected = true;
+      og.appendChild(o);
+    });
+    s.appendChild(og);
+  });
+  return s;
+}
+
+/* ---------- Schritt 1: Bauteil, Baujahr, Schichten ---------- */
+function renderBauteilChips(){
+  var box = $('bauteilChips');
+  box.innerHTML='';
+  BAUTEILE.forEach(function(bt){
+    var c = el('button','chip'+(bt.id===Z.bauteil?' aktiv':''), bt.n);
+    c.addEventListener('click', function(){
+      Z.bauteil = bt.id;
+      Z.schichten = aufbauFuer(bt.id, Z.baujahr);
+      alles();
+    });
+    box.appendChild(c);
+  });
+}
+
+function renderBaujahr(){
+  var s = $('baujahr');
+  if(s.options.length) return;
+  [[1918,'bis 1918'],[1948,'1919 bis 1948'],[1968,'1949 bis 1968'],
+   [1978,'1969 bis 1978'],[1983,'1979 bis 1983'],[1994,'1984 bis 1994'],
+   [2001,'1995 bis 2001'],[2009,'2002 bis 2009'],[2015,'2010 bis 2015'],
+   [2024,'ab 2016']].forEach(function(j){
+    var o = el('option', null, j[1]); o.value = j[0];
+    if(j[0]===1978) o.selected = true;
+    s.appendChild(o);
+  });
+  s.addEventListener('change', function(){
+    Z.baujahr = Number(s.value);
+    Z.schichten = aufbauFuer(Z.bauteil, Z.baujahr);
+    alles();
+  });
+  Z.baujahr = Number(s.value);
+}
+
+function renderSchichten(){
+  var box = $('schichtBox');
+  box.innerHTML='';
+  var ue = UK.rsiRse[btDef(Z.bauteil).lage];
+
+  var kopf = el('div','schicht-kopf');
+  ['Schicht','Dicke in cm','λ W/(m·K)','R m²K/W',''].forEach(function(t,i){
+    var d = el('div', i===2?'sp-l':(i===3?'sp-r':null), t);
+    kopf.appendChild(d);
+  });
+  box.appendChild(kopf);
+
+  var innen = el('div','uebergang');
+  innen.appendChild(el('span',null,'Wärmeübergang innen (Rsi) – '+ue.lab));
+  innen.appendChild(el('span',null,nf(ue.rsi,2)));
+  box.appendChild(innen);
+
+  Z.schichten.forEach(function(sch, i){
+    var b = stoff(sch.id);
+    var r = el('div','schicht');
+
+    var sel = stoffSelect(sch.id, false);
+    sel.addEventListener('change', function(){ Z.schichten[i].id = sel.value; alles(); });
+    r.appendChild(sel);
+
+    var inp = el('input'); inp.type='number'; inp.min='0'; inp.max='200'; inp.step='0.5';
+    inp.value = sch.d; inp.setAttribute('aria-label','Dicke der Schicht in Zentimeter');
+    inp.addEventListener('input', function(){ Z.schichten[i].d = Number(inp.value); alles(); });
+    r.appendChild(inp);
+
+    r.appendChild(el('div','zahl sp-l', b ? nf(b.l,3) : '–'));
+    r.appendChild(el('div','zahl sp-r', b && sch.d>0 ? nf((sch.d/100)/b.l,3) : '–'));
+
+    var weg = el('button','schicht-weg','×');
+    weg.title='Schicht entfernen';
+    weg.setAttribute('aria-label','Schicht entfernen');
+    weg.addEventListener('click', function(){ Z.schichten.splice(i,1); alles(); });
+    r.appendChild(weg);
+
+    box.appendChild(r);
+  });
+
+  var aussen = el('div','uebergang');
+  aussen.appendChild(el('span',null,'Wärmeübergang außen (Rse)'));
+  aussen.appendChild(el('span',null,nf(ue.rse,2)));
+  box.appendChild(aussen);
+
+  var rGes = ue.rsi + rSchichten(Z.schichten) + ue.rse;
+  var summe = el('div','schicht-summe');
+  summe.appendChild(el('div',null,'Wärmedurchgangswiderstand R_T'));
+  summe.appendChild(el('div',null,''));
+  summe.appendChild(el('div','zahl sp-l',''));
+  summe.appendChild(el('div','zahl sp-r', nf(rGes,3)));
+  summe.appendChild(el('div',null,''));
+  box.appendChild(summe);
+}
+
+/* ---------- Vergleich gegen Gesetz und Referenz ---------- */
+function balken(label, wert, maxWert, farbe, zusatz){
+  var r = el('div','v-reihe');
+  r.appendChild(el('div','v-lab', label));
+  r.appendChild(el('div','v-wert', nf(wert,2)));
+  var t = el('div','v-bar');
+  var s = el('span');
+  s.style.width = Math.max(2, Math.min(100, wert/maxWert*100)) + '%';
+  s.style.background = farbe;
+  t.appendChild(s);
+  if(zusatz) t.appendChild(zusatz);
+  r.appendChild(t);
+  return r;
+}
+
+function renderVergleich(){
+  var box = $('vergleichBox');
+  box.innerHTML='';
+  var bt = btDef(Z.bauteil), k = refKey(Z.bauteil);
+  var u = uWert(Z.schichten, bt.lage);
+  $('uIst').textContent = u==null ? '–' : nf(u,2);
+  if(u==null) return;
+
+  var uMax = UK.uMax[k], uRef = UK.uRef[k], uZiel = KENNWERTE.zielU[Z.bauteil];
+  var max = Math.max(u, uMax, uRef, uZiel||0) * 1.1;
+
+  box.appendChild(balken('Ihr Ist-Zustand', u, max, 'var(--bad)'));
+  box.appendChild(balken('Höchstwert bei Erneuerung (Anlage 7)', uMax, max, 'var(--warn)'));
+  box.appendChild(balken('Referenzgebäude (Anlage 1)', uRef, max, 'var(--amber)'));
+  if(uZiel) box.appendChild(balken('Zielwert der Förderung', uZiel, max, 'var(--ok)'));
+
+  var hinweis = el('p', null, '');
+  hinweis.style.cssText = 'font-size:.86rem;color:var(--muted);margin-top:10px';
+  if(u <= uMax){
+    hinweis.innerHTML = '<span class="badge badge-ok">erfüllt</span> Der Bestand liegt bereits unter dem Höchstwert, den das Gesetz bei einer Erneuerung verlangt.';
+  } else {
+    hinweis.innerHTML = '<span class="badge badge-bad">nicht erfüllt</span> Wird mehr als ein Zehntel der Bauteilfläche erneuert, verlangt Anlage 7 höchstens '+nf(uMax,2)+' W/(m²·K).';
+  }
+  box.appendChild(hinweis);
+}
+
+/* ---------- Schritt 2: Dämmung ---------- */
+function renderLageChips(){
+  var box = $('lageChips');
+  Array.prototype.forEach.call(box.querySelectorAll('.chip'), function(c){
+    c.classList.toggle('aktiv', c.getAttribute('data-lage')===Z.lage);
+    if(c._geb) return;
+    c._geb = true;
+    c.addEventListener('click', function(){
+      Z.lage = c.getAttribute('data-lage');
+      if(Z.lage==='innen' && stoff(Z.daemmstoff) && !stoff(Z.daemmstoff).kap){
+        Z.daemmstoff = 'mineralschaum';
+        Z.daemmDicke = Math.min(Z.daemmDicke, 6);
+      }
+      if(Z.lage==='aussen' && stoff(Z.daemmstoff) && stoff(Z.daemmstoff).g==='innen'){
+        Z.daemmstoff = 'eps_035';
+      }
+      alles();
+    });
+  });
+}
+
+function renderDaemmung(){
+  var bt = btDef(Z.bauteil);
+  var felder = $('daemmFelder');
+  felder.style.display = (Z.lage==='keine') ? 'none' : '';
+
+  var alt = $('daemmstoff');
+  var neu = stoffSelect(Z.daemmstoff, true);
+  neu.id = 'daemmstoff';
+  neu.addEventListener('change', function(){ Z.daemmstoff = neu.value; alles(); });
+  alt.parentNode.replaceChild(neu, alt);
+
+  var dicke = $('daemmDicke');
+  if(document.activeElement !== dicke) dicke.value = Z.daemmDicke;
+  if(!dicke._geb){
+    dicke._geb = true;
+    dicke.addEventListener('input', function(){ Z.daemmDicke = Number(dicke.value); alles(); });
+  }
+
+  var uAlt = uWert(Z.schichten, bt.lage);
+  var uNeu = uWert(schichtenMitDaemmung(), bt.lage);
+  $('uVorher').textContent  = uAlt==null?'–':nf(uAlt,2);
+  $('uNachher').textContent = uNeu==null?'–':nf(uNeu,2);
+
+  var ab = $('ampelBox');
+  ab.innerHTML='';
+  if(Z.lage==='innen' && Z.daemmDicke>0){
+    var b = stoff(Z.daemmstoff);
+    var rD = b ? (Z.daemmDicke/100)/b.l : 0;
+    var a = innenAmpel(rD);
+    var box = el('div','ampel-box ampel-'+a.stufe);
+    box.appendChild(el('b',null,a.titel+' · R der Dämmschicht '+nf(rD,2)+' m²K/W'));
+    box.appendChild(el('span',null,a.text));
+    if(b && !b.kap){
+      var w = el('p',null,'Hinweis: '+b.n+' ist nicht kapillaraktiv. Bei Innendämmung sind kapillaraktive Platten die sicherere Wahl, weil sie Tauwasser zurückführen können.');
+      w.style.cssText='margin-top:8px;font-weight:600';
+      box.appendChild(w);
+    }
+    ab.appendChild(box);
+
+    var g = el('div','merk');
+    g.appendChild(el('b',null,'Und wenn die Dicke nicht reicht?'));
+    g.appendChild(el('span',null,'Anlage 7 kennt diesen Fall: Ist die Dämmschichtdicke technisch begrenzt – etwa weil die Fassade unter Denkmalschutz steht oder Innendämmung die einzige Möglichkeit ist – gilt statt des Höchstwerts die höchstmögliche Dicke mit λ = 0,035 W/(m·K). Das ist keine Ausrede, sondern eine ausdrückliche Regel; sie muss aber begründet und dokumentiert sein.'));
+    ab.appendChild(g);
+  }
+}
+
+/* ---------- Zielwert-Navigator ---------- */
+function zielKarte(lab, uZiel, quelle){
+  var bt = btDef(Z.bauteil);
+  var b = stoff(Z.daemmstoff) || stoff('eps_035');
+  var d = dickeFuerZiel(Z.schichten, bt.lage, uZiel, b.l);
+  var k = el('div','ziel-karte' + (d===0 ? ' erreicht' : ''));
+  k.appendChild(el('div','zk-lab', lab));
+  k.appendChild(el('div','zk-u','U ≤ '+nf(uZiel,2)+' W/(m²·K)'));
+  if(d===0){
+    k.appendChild(el('div','zk-d','erreicht'));
+    k.appendChild(el('div','zk-hint','Der Bestand erfüllt diesen Wert bereits.'));
+  } else {
+    k.appendChild(el('div','zk-d', nf(d,1)+' cm'));
+    k.appendChild(el('div','zk-hint', b.n.split(',')[0]+', λ '+nf(b.l,3)));
+  }
+  k.appendChild(el('div','zk-hint', quelle));
+  return k;
+}
+
+function renderZiele(){
+  var g = $('zielGrid');
+  g.innerHTML='';
+  var k = refKey(Z.bauteil);
+  g.appendChild(zielKarte('Gesetzlicher Höchstwert', UK.uMax[k], 'Anlage 7 GEG/GModG'));
+  g.appendChild(zielKarte('Referenzgebäude', UK.uRef[k], 'Anlage 1 GEG/GModG'));
+  var z = KENNWERTE.zielU[Z.bauteil];
+  if(z) g.appendChild(zielKarte('Zielwert der Förderung', z, 'BEG-Anforderung Einzelmaßnahme'));
+}
+
+/* ---------- Schritt 3: Hausbilanz ---------- */
+function bauteilUebernehmen(){
+  var bt = btDef(Z.bauteil);
+  var uAlt = uWert(Z.schichten, bt.lage);
+  var uNeu = uWert(schichtenMitDaemmung(), bt.lage);
+  if(uAlt==null) return;
+  var vorhanden = null;
+  Z.bilanz.forEach(function(b){ if(b.id===Z.bauteil) vorhanden = b; });
+  var eintrag = {
+    id:Z.bauteil, n:bt.n, u:uAlt, uNeu:uNeu,
+    fx:bt.fx, refKey:refKey(Z.bauteil),
+    flaeche: vorhanden ? vorhanden.flaeche : flaecheVorschlag(Z.bauteil),
+    innen: Z.lage==='innen'
+  };
+  if(vorhanden){ Z.bilanz[Z.bilanz.indexOf(vorhanden)] = eintrag; }
+  else { Z.bilanz.push(eintrag); }
+  alles();
+  $('p-bilanz').scrollIntoView({block:'start'});
+}
+
+function flaecheVorschlag(id){
+  return {wand:160, dach:120, ogd:90, kellerdecke:90, boden:90, fenster:26, tuer:4}[id] || 50;
+}
+
+function fensterHinzufuegen(art, wert, name){
+  var eintrag = {id:art, n:name, u:wert, uNeu:wert,
+                 fx:art==='tuer'?'tuer':'fenster', refKey:art==='tuer'?'tuer':'fenster',
+                 flaeche:flaecheVorschlag(art), innen:false, fest:true};
+  var vorhanden=null;
+  Z.bilanz.forEach(function(b){ if(b.id===art) vorhanden=b; });
+  if(vorhanden){ eintrag.flaeche = vorhanden.flaeche; Z.bilanz[Z.bilanz.indexOf(vorhanden)] = eintrag; }
+  else Z.bilanz.push(eintrag);
+  alles();
+}
+
+function renderBilanz(){
+  var box = $('bilanzBox');
+  box.innerHTML='';
+
+  /* Fenster und Tueren haben keinen Schichtaufbau - sie kommen ueber die
+     U-Wert-Tabelle des Sanierungsrechners dazu. */
+  var zeile = el('div','feld-reihe');
+  var f1 = el('div','feld');
+  f1.appendChild(el('label',null,'Fenster ergänzen'));
+  var fs = el('select');
+  Object.keys(KENNWERTE.uFenster).forEach(function(k){
+    var namen = {einfach:'Einfachverglasung', kasten:'Kastenfenster',
+      zweifach_alt:'Zweifachverglasung, älter', iso_95:'Isolierglas ab 1995',
+      ws_2001:'Wärmeschutzglas ab 2001', ws_2010:'Wärmeschutzglas ab 2010',
+      dreifach:'Dreifachverglasung'};
+    var o = el('option',null,(namen[k]||k)+' · U '+nf(KENNWERTE.uFenster[k],2));
+    o.value = k; if(k==='ws_2001') o.selected=true;
+    fs.appendChild(o);
+  });
+  f1.appendChild(fs);
+  zeile.appendChild(f1);
+  var fb = el('button','btn btn-ghost btn-sm','Fenster übernehmen');
+  fb.addEventListener('click', function(){
+    var opt = fs.options[fs.selectedIndex];
+    fensterHinzufuegen('fenster', KENNWERTE.uFenster[fs.value], 'Fenster ('+opt.textContent.split(' · ')[0]+')');
+  });
+  zeile.appendChild(fb);
+  var tb = el('button','btn btn-ghost btn-sm','Haustür ergänzen');
+  tb.addEventListener('click', function(){
+    fensterHinzufuegen('tuer', KENNWERTE.uTuer.alt, 'Haustür (alt)');
+  });
+  zeile.appendChild(tb);
+  box.appendChild(zeile);
+
+  if(!Z.bilanz.length){
+    var h = el('div','leer-hinweis');
+    h.innerHTML = 'Noch kein Bauteil übernommen. Rechnen Sie oben ein Bauteil durch und klicken Sie auf <em>Bauteil in die Hausbilanz übernehmen</em>. Für eine belastbare Einstufung gehören Außenwand, Dach oder oberste Geschossdecke, Kellerdecke oder Bodenplatte und die Fenster hinein.';
+    box.appendChild(h);
+    $('ehBox').innerHTML='';
+    return;
+  }
+
+  var t = el('table','bilanz-tab');
+  var thead = el('thead'), tr = el('tr');
+  ['Bauteil','Fläche m²','U heute','U geplant','F_x',''].forEach(function(x){
+    tr.appendChild(el('th',null,x));
+  });
+  thead.appendChild(tr); t.appendChild(thead);
+  var tb2 = el('tbody');
+  Z.bilanz.forEach(function(b, i){
+    var r = el('tr');
+    var c1 = el('td',null,b.n);
+    if(b.innen){ var mk = el('span','badge badge-warn','innen'); mk.style.marginLeft='7px'; c1.appendChild(mk); }
+    r.appendChild(c1);
+    var c2 = el('td','num');
+    var inp = el('input'); inp.type='number'; inp.min='1'; inp.max='2000'; inp.step='1';
+    inp.value=b.flaeche; inp.setAttribute('aria-label','Fläche '+b.n+' in Quadratmeter');
+    inp.addEventListener('input', function(){ Z.bilanz[i].flaeche = Number(inp.value); renderEh(); });
+    c2.appendChild(inp); r.appendChild(c2);
+    r.appendChild(el('td','num', nf(b.u,2)));
+    r.appendChild(el('td','num', nf(b.uNeu,2)));
+    r.appendChild(el('td','num', nf(KENNWERTE.fx[b.fx]!=null?KENNWERTE.fx[b.fx]:1, 2)));
+    var c6 = el('td','num');
+    var weg = el('button','schicht-weg','×');
+    weg.setAttribute('aria-label', b.n+' aus der Bilanz entfernen');
+    weg.addEventListener('click', function(){ Z.bilanz.splice(i,1); alles(); });
+    c6.appendChild(weg); r.appendChild(c6);
+    tb2.appendChild(r);
+  });
+  t.appendChild(tb2);
+  var huelle = el('div','bilanz-huelle');
+  huelle.appendChild(t);
+  box.appendChild(huelle);
+  renderEh();
+}
+
+function renderEh(){
+  var box = $('ehBox');
+  box.innerHTML='';
+  if(!Z.bilanz.length) return;
+
+  var hatInnen = Z.bilanz.some(function(b){ return b.innen; });
+  var istListe = Z.bilanz.map(function(b){ return {u:b.u, flaeche:b.flaeche, fx:b.fx, refKey:b.refKey}; });
+  var neuListe = Z.bilanz.map(function(b){ return {u:b.uNeu, flaeche:b.flaeche, fx:b.fx, refKey:b.refKey}; });
+  var bIst = htBilanz(istListe, KENNWERTE.wbZuschlag.unsaniert);
+  var bNeu = htBilanz(neuListe, hatInnen ? KENNWERTE.wbZuschlag.unsaniert : KENNWERTE.wbZuschlag.saniert);
+  if(!bIst || !bNeu) return;
+
+  var kopf = el('div');
+  kopf.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0 6px';
+  [['Hüllfläche', nf(bIst.flaeche,0)+' m²'],
+   ['H′T heute', nf(bIst.hStrich,3)+' W/(m²·K)'],
+   ['H′T geplant', nf(bNeu.hStrich,3)+' W/(m²·K)'],
+   ['Referenzgebäude', nf(bNeu.hStrichRef,3)+' W/(m²·K)']].forEach(function(x){
+    var k = el('div','ziel-karte');
+    k.appendChild(el('div','zk-lab',x[0]));
+    k.appendChild(el('div','zk-d',x[1]));
+    kopf.appendChild(k);
+  });
+  box.appendChild(kopf);
+
+  var leiste = el('div','eh-leiste');
+  var pIst = bIst.verhaeltnis*100, pNeu = bNeu.verhaeltnis*100;
+  var skala = Math.max(120, pIst*1.1);
+  UK.ehStufen.forEach(function(st){
+    var geschafft = pNeu <= st.ht;
+    var r = el('div','eh-reihe'+(geschafft?' geschafft':''));
+    r.appendChild(el('div','eh-name','Effizienzhaus '+st.name));
+    var t = el('div','eh-track');
+    var s = el('span');
+    s.style.width = Math.min(100, st.ht/skala*100)+'%';
+    s.style.background = geschafft ? 'var(--ok-soft)' : 'var(--cream-3)';
+    t.appendChild(s);
+    var m = el('div','eh-grenz');
+    m.style.left = Math.min(100, pNeu/skala*100)+'%';
+    t.appendChild(m);
+    r.appendChild(t);
+    r.appendChild(el('div','v-wert', st.ht+' %'));
+    leiste.appendChild(r);
+  });
+  box.appendChild(leiste);
+
+  var ist = el('p','eh-ist');
+  var stufe = ehStufe(bNeu.verhaeltnis);
+  ist.innerHTML = 'Ihre geplante Hülle liegt bei <em>'+nf(pNeu,1)+' %</em> des Referenzgebäudes '+
+    '(heute '+nf(pIst,1)+' %). Die senkrechte Linie zeigt diesen Wert.';
+  box.appendChild(ist);
+
+  var fazit = el('div','merk');
+  if(stufe){
+    fazit.appendChild(el('b',null,'Ergebnis der Hüllbilanz'));
+    fazit.appendChild(el('span',null,
+      'Ihre Gebäudehülle erfüllt das H′T-Kriterium für Effizienzhaus '+stufe.name+
+      '. Das ist die eine Hälfte der Anforderung. Für die Stufe selbst kommt der '+
+      'Primärenergiebedarf hinzu – er darf höchstens '+stufe.qp+' % des Referenzgebäudes '+
+      'betragen und hängt an Heizung, Lüftung und erneuerbaren Anteilen. Diese Rechnung '+
+      'nach DIN V 18599 gehört in die Hand einer bzw. eines Energieeffizienz-Experten.'));
+  } else {
+    fazit.appendChild(el('b',null,'Ergebnis der Hüllbilanz'));
+    fazit.appendChild(el('span',null,
+      'Mit '+nf(pNeu,1)+' % liegt die Hülle noch über dem Referenzgebäude und erreicht damit '+
+      'keine Effizienzhausstufe. Am wirksamsten ist meist das Bauteil mit der größten '+
+      'Fläche mal U-Wert – rechnen Sie oben verschiedene Dämmstärken durch und übernehmen '+
+      'Sie sie erneut.'));
+  }
+  box.appendChild(fazit);
+
+  if(hatInnen){
+    var w = el('p',null,'Weil mindestens ein Bauteil innen gedämmt wird, rechnet die Bilanz mit dem höheren Wärmebrückenzuschlag von '+nf(KENNWERTE.wbZuschlag.unsaniert,2)+' W/(m²·K): Einbindende Decken und Innenwände bleiben bei Innendämmung kalt.');
+    w.style.cssText='font-size:.85rem;color:var(--muted);margin-top:10px';
+    box.appendChild(w);
+  }
+}
+
+/* ---------- alles neu zeichnen ---------- */
+function alles(){
+  renderBauteilChips();
+  renderSchichten();
+  renderVergleich();
+  renderLageChips();
+  renderDaemmung();
+  renderZiele();
+  renderBilanz();
+}
+
+(function start(){
+  renderBaujahr();
+  Z.schichten = aufbauFuer(Z.bauteil, Z.baujahr);
+  $('schichtPlus').addEventListener('click', function(){
+    Z.schichten.push({id:'mw_035', d:5}); alles();
+  });
+  $('aufbauLaden').addEventListener('click', function(){
+    Z.schichten = aufbauFuer(Z.bauteil, Z.baujahr); alles();
+  });
+  $('uebernehmen').addEventListener('click', bauteilUebernehmen);
+  alles();
+})();
+
+/* ===========================================================================
+   SELBSTTEST
+   Laeuft bei jedem Seitenaufruf und meldet in die Browser-Konsole.
+   Schlaegt ein Fall fehl, wurde der Rechenkern beschaedigt.
+   ======================================================================== */
+(function selbsttest(){
+  var ok=true;
+  function pruef(name, wert, von, bis, einheit){
+    var gut = (wert!=null) && wert>=von && wert<=bis;
+    if(!gut) ok=false;
+    console.log((gut?'✅ PASS':'❌ FAIL')+' – '+name+' | '+
+      (wert==null?'null':nf(wert,3))+(einheit||'')+' erwartet '+von+'–'+bis);
+  }
+
+  /* 1. Handrechnung. Wand 1969-1978:
+        Rsi 0,13 + Gipsputz 1,5/0,51 = 0,0294 + HLZ 30/0,45 = 0,6667
+        + Kalkzement 2/1,00 = 0,02 + Rse 0,04  =>  R = 0,8861, U = 1,128 */
+  var wand1970 = [{id:'gipsputz',d:1.5},{id:'hlz',d:30},{id:'kalkzement',d:2}];
+  pruef('U-Wert Handrechnung Wand 1970', uWert(wand1970,'wand'), 1.12, 1.14, ' W/m²K');
+
+  /* 2. Dieselbe Wand mit 16 cm EPS 035: R += 4,571 => R = 5,457, U = 0,183 */
+  var wandGedaemmt = wand1970.concat([{id:'eps_035',d:16}]);
+  pruef('U-Wert dieselbe Wand + 16 cm EPS 035', uWert(wandGedaemmt,'wand'), 0.180, 0.187, ' W/m²K');
+
+  /* 3. Umkehrprobe: Dicke fuer U = 0,20 muss rund 14,5 cm sein,
+        und rueckwaerts eingesetzt darf der U-Wert 0,20 nicht ueberschreiten. */
+  var d = dickeFuerZiel(wand1970,'wand',0.20,0.035);
+  pruef('Dämmdicke für U = 0,20', d, 14.0, 15.0, ' cm');
+  var probe = uWert(wand1970.concat([{id:'eps_035',d:d}]),'wand');
+  pruef('Rückprobe: U mit dieser Dicke', probe, 0.15, 0.2001, ' W/m²K');
+
+  /* 4. Zielwert schon erreicht => 0 statt negativer Dicke */
+  pruef('Dicke wenn Ziel schon erreicht', dickeFuerZiel(wandGedaemmt,'wand',0.90,0.035), 0, 0, ' cm');
+
+  /* 5. Grenzfaelle: leerer Aufbau darf nicht abstuerzen */
+  var leer = uWert([], 'wand');
+  pruef('Leerer Aufbau liefert endlichen Wert', leer, 5.0, 6.0, ' W/m²K');
+  var unsinn = uWert([{id:'gibtsnicht',d:10},{id:'hlz',d:-5}], 'wand');
+  pruef('Unbekannter Stoff und negative Dicke ignoriert', unsinn, 5.0, 6.0, ' W/m²K');
+
+  /* 6. Innendaemmungs-Ampel an den DIN-Schwellen (lambda 0,035) */
+  function ampelBei(cm){ return innenAmpel((cm/100)/0.035).stufe; }
+  console.log((ampelBei(1.5)==='gruen'?'✅ PASS':'❌ FAIL')+' – Innenampel 1,5 cm = grün ('+ampelBei(1.5)+')');
+  console.log((ampelBei(3.0)==='gelb' ?'✅ PASS':'❌ FAIL')+' – Innenampel 3,0 cm = gelb ('+ampelBei(3.0)+')');
+  console.log((ampelBei(5.0)==='rot'  ?'✅ PASS':'❌ FAIL')+' – Innenampel 5,0 cm = rot ('+ampelBei(5.0)+')');
+  if(ampelBei(1.5)!=='gruen'||ampelBei(3.0)!=='gelb'||ampelBei(5.0)!=='rot') ok=false;
+
+  /* 7. H'T-Probe: Ein Haus, dessen Bauteile exakt die Referenzwerte tragen,
+        muss ein Verhaeltnis von 100 % ergeben - die Kontrolle darauf, dass
+        H'T und H'T,ref dieselbe Geometrie benutzen. */
+  var refHaus = [
+    {u:UK.uRef.wand, flaeche:180, fx:'wand',        refKey:'wand'},
+    {u:UK.uRef.dach, flaeche:110, fx:'dach',        refKey:'dach'},
+    {u:UK.uRef.kellerdecke, flaeche:90, fx:'kellerdecke', refKey:'kellerdecke'},
+    {u:UK.uRef.fenster, flaeche:28,  fx:'fenster',  refKey:'fenster'}
+  ];
+  var bil = htBilanz(refHaus, UK.dUwbRef);
+  pruef('H′T-Verhältnis beim Referenzhaus', bil?bil.verhaeltnis*100:null, 99.9, 100.1, ' %');
+
+  /* 8. Einstufung an den Stufengrenzen */
+  console.log((ehStufe(0.54).name==='40'?'✅ PASS':'❌ FAIL')+' – 54 % ergibt Stufe 40');
+  console.log((ehStufe(0.69).name==='55'?'✅ PASS':'❌ FAIL')+' – 69 % ergibt Stufe 55');
+  console.log((ehStufe(1.20)===null   ?'✅ PASS':'❌ FAIL')+' – 120 % ergibt keine Stufe');
+  if(ehStufe(0.54).name!=='40'||ehStufe(0.69).name!=='55'||ehStufe(1.20)!==null) ok=false;
+
+  /* 9. AUFBAUTEN gegen die Baualterstabelle des Sanierungsrechners.
+        Plausibilitaetsband Faktor 0,5 bis 2,0 - siehe Kommentar bei AUFBAUTEN. */
+  function tabU(tab, jahr){ for(var i=0;i<tab.length;i++){ if(jahr<=tab[i][0]) return tab[i][1]; } return tab[tab.length-1][1]; }
+  var schief=0, geprueft=0;
+  BAUTEILE.forEach(function(bt){
+    if(!bt.tab || !AUFBAUTEN[bt.id]) return;
+    AUFBAUTEN[bt.id].forEach(function(a){
+      var jahr = a.bis===9999 ? 2020 : a.bis;
+      var uBerechnet = uWert(a.s.map(function(x){return {id:x[0],d:x[1]};}), bt.lage);
+      var uTabelle = tabU(KENNWERTE[bt.tab], jahr);
+      var q = uBerechnet/uTabelle;
+      geprueft++;
+      if(q<0.5 || q>2.0){ schief++;
+        console.log('❌ FAIL – Aufbau '+bt.id+' bis '+a.bis+': U '+nf(uBerechnet)+
+                    ' gegen Tabelle '+nf(uTabelle)+' (Faktor '+nf(q)+')'); }
+    });
+  });
+  console.log((schief===0?'✅ PASS':'❌ FAIL')+' – '+geprueft+
+              ' typische Aufbauten im Plausibilitätsband, '+schief+' daneben');
+  if(schief>0) ok=false;
+
+  console.log(ok ? '✅ SELBSTTEST U-WERT-RECHNER BESTANDEN'
+                 : '❌ SELBSTTEST U-WERT-RECHNER: Abweichungen – Rechenkern prüfen');
+})();
+</script>
+
+<!-- GEMEINSAM:JS -->
+<script>
+'use strict';
+/* Gemeinsamer Rahmen: Burger-Menue und schrumpfende Kopfzeile.
+   Aus index.html uebernommen - nicht hier aendern, sondern dort. */
+(function(){
+  var kopf = document.querySelector('.site-header');
+  if(kopf){
+    var beimScrollen = function(){ kopf.classList.toggle('stuck', window.scrollY > 24); };
+    beimScrollen();
+    window.addEventListener('scroll', beimScrollen, {passive:true});
+  }
+  var burger = document.getElementById('burger');
+  var menue  = document.getElementById('mobileNav');
+  if(burger && menue){
+    var setzen = function(offen){
+      menue.classList.toggle('open', offen);
+      burger.classList.toggle('open', offen);
+      burger.setAttribute('aria-expanded', offen ? 'true' : 'false');
+      burger.setAttribute('aria-label', offen ? 'Menü schließen' : 'Menü öffnen');
+    };
+    burger.addEventListener('click', function(){ setzen(!menue.classList.contains('open')); });
+    menue.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ setzen(false); });
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && menue.classList.contains('open')){ setzen(false); burger.focus(); }
+    });
+  }
+})();
+</script>
+<!-- /GEMEINSAM:JS -->
+</body>
+</html>

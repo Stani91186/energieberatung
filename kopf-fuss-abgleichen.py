@@ -43,6 +43,7 @@ import io, os, re
 
 VORLAGE = "index.html"
 ZIELE = ["sanierungsrechner.html", "sanierungsfahrplan.html",
+         "u-wert-rechner.html",
          "energieausweis-ulm.html", "hydraulischer-abgleich-ulm.html",
          "impressum.html", "datenschutz.html"]
 
@@ -258,6 +259,73 @@ def json_ld_pruefen(vorlage, werte):
 
 
 # ---------------------------------------------------------------------------
+# KENNWERTE
+# CLAUDE.md Regel 6: Fachliche Kennwerte stehen NUR im CONFIG von
+# sanierungsrechner.html. Der U-Wert-Rechner braucht dieselben Tabellen - er
+# bekommt sie hier zur Laufzeit, statt eine zweite Kopie zu pflegen.
+# Genau dieselbe Idee wie bei Kopf, Fuss und Preisen.
+# ---------------------------------------------------------------------------
+KENNWERTE_QUELLE = "sanierungsrechner.html"
+KENNWERTE_KEYS = ("fx", "uWand", "uDach", "uOgdAlt", "uKeller", "uFenster",
+                  "gFenster", "uTuer", "lambdaDaemm", "wbZuschlag",
+                  "klassen", "klassenFarben", "zielU")
+
+
+def js_wert(text, schluessel):
+    """Liest CONFIG.<schluessel> samt Wert aus dem Quelltext.
+
+    Regex allein reicht nicht: uFenster ist ein Objekt, klassen ein Array von
+    Arrays. Deshalb wird ab dem Doppelpunkt die Klammertiefe mitgezaehlt und
+    beim ersten Komma auf Tiefe 0 abgebrochen."""
+    m = re.search(r"^[ \t]*" + re.escape(schluessel) + r"[ \t]*:", text, re.M)
+    if not m:
+        raise SystemExit(f"CONFIG.{schluessel} nicht in {KENNWERTE_QUELLE} gefunden.")
+    i = m.end()
+    tiefe, j, n = 0, i, len(text)
+    while j < n:
+        c = text[j]
+        if c in "{[(":
+            tiefe += 1
+        elif c in "}])":
+            if tiefe == 0:
+                break
+            tiefe -= 1
+        elif c == "'" or c == '"':
+            j += 1
+            while j < n and text[j] != c:
+                j += 2 if text[j] == "\\" else 1
+        elif c == "," and tiefe == 0:
+            break
+        j += 1
+    return schluessel + ":" + text[i:j].strip()
+
+
+def kennwerte_lesen():
+    if not os.path.exists(KENNWERTE_QUELLE):
+        raise SystemExit(f"{KENNWERTE_QUELLE} nicht gefunden - dort stehen die Kennwerte.")
+    q = io.open(KENNWERTE_QUELLE, encoding="utf-8").read()
+    m = re.search(r"var CONFIG = \{(.*?)\n\};", q, re.S)
+    if not m:
+        raise SystemExit(f"CONFIG-Objekt nicht in {KENNWERTE_QUELLE} gefunden.")
+    conf = m.group(1)
+    zeilen = [js_wert(conf, k) for k in KENNWERTE_KEYS]
+    return ("/* Aus dem CONFIG von " + KENNWERTE_QUELLE + " uebernommen.\n"
+            "   NICHT hier aendern - dort aendern und kopf-fuss-abgleichen.py\n"
+            "   laufen lassen, sonst rechnen die beiden Rechner verschieden. */\n"
+            "var KENNWERTE = {\n  " + ",\n  ".join(zeilen) + "\n};")
+
+
+def kennwerte_einsetzen(s, block, pfad):
+    """Ersetzt den Bereich zwischen den JS-Markierungen. Fehlen sie, passiert
+    nichts - die meisten Zielseiten brauchen keine Kennwerte."""
+    a, e = "/* GEMEINSAM:KENNWERTE */", "/* /GEMEINSAM:KENNWERTE */"
+    if a not in s or e not in s:
+        return s, False
+    i, j = s.find(a), s.find(e) + len(e)
+    return s[:i] + a + "\n" + block + "\n" + e + s[j:], True
+
+
+# ---------------------------------------------------------------------------
 def main():
     if not os.path.exists(VORLAGE):
         raise SystemExit("index.html nicht gefunden - im Projektordner starten.")
@@ -285,9 +353,17 @@ def main():
     json_ld_pruefen(v, werte)
     print()
 
+    kennwerte = kennwerte_lesen()
+    print(f"Kennwerte aus {KENNWERTE_QUELLE}: {len(KENNWERTE_KEYS)} Tabellen, "
+          f"{len(kennwerte)} Zeichen")
+    print()
+
     for p in ZIELE:
         s = io.open(p, encoding="utf-8").read()
         s, gesetzt = preise_einsetzen(s, werte, p)
+        s, kw_gesetzt = kennwerte_einsetzen(s, kennwerte, p)
+        if kw_gesetzt:
+            print(f"  {p}: Kennwerte uebernommen")
         if gesetzt:
             print(f"  {p}: {gesetzt} Preisangabe(n) aktualisiert")
         s = ersetze_bereich(s, "KOPF", kopf_markup, '<header class="site-header"',
