@@ -216,6 +216,85 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
   .v-reihe .v-bar{display:none}
 }
 
+/* ==== Fortschritt und Fragebogen ==== */
+.fortschritt{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.fs-bar{flex:1;height:6px;border-radius:100px;background:var(--cream-3);overflow:hidden}
+.fs-bar span{display:block;height:100%;background:var(--amber);border-radius:100px;transition:width .45s var(--ease)}
+.fs-label{font-size:.78rem;color:var(--muted);font-weight:600;white-space:nowrap}
+.frage{margin-bottom:24px}
+.f-label{display:block;font-weight:600;font-size:1rem;margin-bottom:3px}
+.f-hilfe{display:block;font-size:.87rem;color:var(--muted);margin-bottom:11px;max-width:64ch;line-height:1.5}
+.f-eingabe{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.f-einheit{font-size:.88rem;color:var(--muted)}
+.opt-karten{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.opt-karte{
+  text-align:left;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  padding:13px 15px;background:var(--white);transition:.2s;display:block;
+}
+.opt-karte:hover{border-color:var(--forest);transform:translateY(-1px)}
+.opt-karte.aktiv{border-color:var(--forest);background:var(--forest-soft);box-shadow:0 0 0 1px var(--forest) inset}
+.opt-karte b{display:block;font-size:.94rem;margin-bottom:2px}
+.opt-karte span{display:block;font-size:.81rem;color:var(--muted);line-height:1.45}
+.opt-karte.aktiv span{color:var(--forest)}
+.wizard-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;padding-top:20px;border-top:1px solid var(--line-soft)}
+.step-error{color:var(--bad);font-size:.88rem;font-weight:600;margin-top:14px;min-height:1.2em}
+
+/* ==== Erklaer-Popups ==== */
+.info-i{
+  display:inline-grid;place-items:center;width:20px;height:20px;margin-left:8px;vertical-align:-4px;
+  border:1.5px solid var(--amber);border-radius:50%;background:var(--amber-soft);
+  font-style:normal;font-size:.78rem;font-weight:700;color:#8A5419;
+  cursor:pointer;transition:.2s;box-shadow:0 1px 3px rgba(192,122,46,.18);
+}
+.info-i:hover,.info-i.on{background:var(--amber);color:#fff;transform:scale(1.08)}
+.info-pop{
+  position:absolute;z-index:180;width:min(330px,86vw);
+  background:var(--white);border:1px solid var(--line);border-radius:14px;
+  box-shadow:var(--shadow-md);padding:15px 17px;
+  opacity:0;transform:translateY(6px);pointer-events:none;
+  transition:opacity .25s var(--ease),transform .25s var(--ease);
+}
+.info-pop.show{opacity:1;transform:none;pointer-events:auto}
+.info-pop b{display:block;font-size:.85rem;margin-bottom:6px}
+.info-pop p{font-size:.82rem;color:var(--ink-2);line-height:1.6;white-space:pre-line}
+
+/* ==== Ergebnis: Ist-Zustand ==== */
+.ist-tab{width:100%;font-size:.9rem}
+.ist-tab th{text-align:left;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 10px 9px 0;font-weight:700}
+.ist-tab td{padding:10px 10px 10px 0;border-top:1px solid var(--line-soft)}
+.ist-tab td.num{text-align:right;font-variant-numeric:tabular-nums}
+.ist-huelle{overflow-x:auto;margin-bottom:6px}
+.ist-tab{min-width:460px}
+
+/* ==== Vorschlaege je Stufe ==== */
+.stufen-reiter{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 20px}
+.stufen-reiter .chip{position:relative}
+.chip.machbar::after{content:"";position:absolute;top:6px;right:9px;width:6px;height:6px;border-radius:50%;background:var(--ok)}
+.chip.aktiv.machbar::after{background:#9BE0B4}
+.vorschlag{border:1.5px solid var(--line);border-radius:var(--radius);padding:20px 22px;background:var(--cream)}
+.vorschlag>h3{margin-bottom:4px}
+.v-sub{font-size:.9rem;color:var(--ink-2);margin-bottom:16px}
+.massnahme{display:grid;grid-template-columns:150px 1fr auto;gap:14px;align-items:baseline;padding:13px 0;border-top:1px solid var(--line-soft)}
+.massnahme:first-of-type{border-top:none}
+.m-bauteil{font-weight:600;font-size:.93rem}
+.m-text{font-size:.9rem;color:var(--ink-2)}
+.m-wert{font-size:.88rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted)}
+.m-fertig{color:var(--ok)}
+.v-summe{margin-top:16px;padding-top:14px;border-top:2px solid var(--line);font-size:.92rem}
+.v-warnung{background:var(--bad-soft);border-left:4px solid var(--bad);border-radius:var(--radius-sm);padding:15px 18px;margin-top:14px;font-size:.9rem;color:#7A2B1E}
+
+/* ==== Detailmodus ==== */
+.detail-schalter{display:flex;align-items:center;gap:10px;margin:8px 0 2px;font-size:.9rem;font-weight:600;color:var(--amber-deep);cursor:pointer}
+.detail-pfeil{transition:transform .3s var(--ease)}
+.detail-schalter.offen .detail-pfeil{transform:rotate(90deg)}
+
+@media (max-width:640px){
+  .massnahme{grid-template-columns:1fr;gap:3px}
+  .m-wert{text-align:left}
+  .wizard-nav{flex-direction:column-reverse}
+  .wizard-nav .btn{width:100%}
+}
+
 /* GEMEINSAM:CSS */
 /* Kopf, Menue, Knoepfe und Fuss stammen aus index.html.
    Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
@@ -475,10 +554,11 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
   <span class="eyebrow">Kostenloses Werkzeug</span>
   <h1>U-Wert-Rechner für Bestandsgebäude</h1>
   <p class="lead">
-    Schichtaufbau eingeben, U-Wert sehen – und sofort, wie viel Dämmung für Ihren
-    Zielwert fehlt. Innen- und Außendämmung getrennt, mit den Grenzen, die bei
-    Innendämmung tatsächlich gelten. Am Ende zeigt der Rechner, welches
-    Effizienzhaus Ihre Gebäudehülle erreicht.
+    Zuerst nehmen wir Ihr Haus auf, so wie es heute ist – Frage für Frage, und zu
+    jeder Frage steht dabei, woran Sie die Antwort an Ihrem Haus erkennen.
+    Danach rechnet Ihnen der Rechner aus, <em>was gemacht werden muss</em>, um
+    Effizienzhaus 85, 70, 55 oder 40 zu erreichen: welches Bauteil, welche
+    Dämmstärke, welcher U-Wert.
   </p>
   <div class="disclaimer">
     <b>Was dieser Rechner ist – und was nicht.</b>
@@ -491,133 +571,159 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
   </div>
 </section>
 
-<!-- ===================== SCHRITT 1: BAUTEIL ===================== -->
 <div class="wrap">
-<section class="panel" id="p-bauteil">
-  <h2><span class="schritt-nr">1</span>Bauteil und Aufbau</h2>
-  <p class="panel-sub">Bauteil wählen, Baujahr wählen – der typische Aufbau ist dann schon eingesetzt und lässt sich Schicht für Schicht ändern.</p>
 
-  <div class="chips" id="bauteilChips"></div>
-
-  <div class="feld-reihe">
-    <div class="feld">
-      <label for="baujahr">Baujahr des Gebäudes</label>
-      <select id="baujahr"></select>
-    </div>
-    <button class="btn btn-ghost btn-sm" id="aufbauLaden">Typischen Aufbau einsetzen</button>
+<!-- ===================== FRAGEBOGEN ===================== -->
+<section class="panel" id="fragebogen">
+  <div class="fortschritt">
+    <div class="fs-bar"><span id="fsFill" style="width:0%"></span></div>
+    <span class="fs-label" id="fsLabel">Schritt 1 von 6</span>
   </div>
-
-  <div class="schichten" id="schichtBox"></div>
-  <button class="btn btn-ghost btn-sm" id="schichtPlus">+ Schicht hinzufügen</button>
-
-  <div class="u-gross">
-    <span class="u-zahl" id="uIst">–</span>
-    <span class="u-einheit">W/(m²·K) im Ist-Zustand</span>
+  <h2 id="schrittTitel">–</h2>
+  <p class="panel-sub" id="schrittHilfe"></p>
+  <div id="felder"></div>
+  <div class="step-error" id="schrittFehler" role="alert"></div>
+  <div class="wizard-nav">
+    <button class="btn btn-ghost btn-sm" id="btnZurueck">Zurück</button>
+    <button class="btn btn-primary" id="btnWeiter">Weiter</button>
   </div>
-
-  <div class="vergleich" id="vergleichBox"></div>
 </section>
 
-<!-- ===================== SCHRITT 2: DÄMMUNG ===================== -->
-<section class="panel" id="p-daemmung">
-  <h2><span class="schritt-nr">2</span>Dämmung planen</h2>
-  <p class="panel-sub">Außen- oder Innendämmung, Dämmstoff und Dicke. Der Rechner zeigt sofort den neuen U-Wert – und bei Innendämmung, ob der Aufbau nachweisfrei ist.</p>
+<!-- ===================== ERGEBNIS ===================== -->
+<div id="ergebnis" style="display:none">
 
-  <div class="chips" id="lageChips">
-    <button class="chip aktiv" data-lage="aussen">Außendämmung</button>
-    <button class="chip" data-lage="innen">Innendämmung</button>
-    <button class="chip" data-lage="keine">Ohne Dämmung rechnen</button>
-  </div>
+  <section class="panel">
+    <h2>So steht Ihr Haus heute</h2>
+    <p class="panel-sub" id="istSub"></p>
+    <div class="ist-huelle"><table class="ist-tab" id="istTab"></table></div>
+    <p class="fussnote" style="border:none;padding-top:8px;margin-top:4px">
+      F<sub>x</sub> ist der Temperatur-Korrekturfaktor: Bauteile gegen unbeheizte
+      Räume oder Erdreich verlieren weniger Wärme als solche gegen Außenluft und
+      zählen deshalb anteilig.
+    </p>
+    <div id="istKennzahlen"></div>
+    <div id="istEinordnung"></div>
+  </section>
 
-  <div id="daemmFelder">
-    <div class="feld-reihe">
-      <div class="feld" style="flex:1 1 260px">
-        <label for="daemmstoff">Dämmstoff</label>
-        <select id="daemmstoff"></select>
+  <section class="panel">
+    <h2>Was zu tun ist, um eine Stufe zu erreichen</h2>
+    <p class="panel-sub">Wählen Sie eine Stufe. Der Rechner sucht dazu die Zielwerte je
+      Bauteil, die das H′<sub>T</sub>-Kriterium erfüllen, und rechnet die nötige
+      Dämmstärke aus Ihrem Aufbau aus.</p>
+    <div class="stufen-reiter" id="stufenReiter"></div>
+    <div id="vorschlagBox"></div>
+  </section>
+
+  <section class="panel" id="p-qp">
+    <h2>Was zur Effizienzhausstufe zusätzlich zählt</h2>
+    <p class="panel-sub">Die Hülle ist die eine Hälfte. Diese Punkte wirken auf die andere –
+      den Primärenergiebedarf. Sie ändern den H′<sub>T</sub>-Wert oben nicht.</p>
+
+    <div class="qp-liste">
+      <div class="qp-zeile">
+        <b>Luftdichtheit</b>
+        <span>Das Gesetz verlangt n<sub>50</sub> ≤ 3,0 h⁻¹ ohne und ≤ 1,5 h⁻¹ mit
+        ventilatorgestützter Lüftungsanlage. Gemessen wird mit dem Blower-Door-Verfahren
+        nach DIN EN ISO 9972: Ein Ventilator in der Haustür erzeugt 50 Pascal Über- und
+        Unterdruck, gemessen wird die Luftmenge, die dabei durch Undichtigkeiten strömt.
+        Für die höheren Effizienzhausstufen ist der Nachweis Voraussetzung.</span>
       </div>
-      <div class="feld">
-        <label for="daemmDicke">Dicke in cm</label>
-        <input type="number" id="daemmDicke" min="0" max="60" step="0.5" value="14">
+      <div class="qp-zeile">
+        <b>Lüftung mit Wärmerückgewinnung</b>
+        <span>Holt Wärme aus der Abluft zurück und senkt damit den Primärenergiebedarf
+        deutlich. Je dichter das Haus nach der Sanierung ist, desto wichtiger wird sie –
+        auch für den Feuchteschutz.</span>
+      </div>
+      <div class="qp-zeile">
+        <b>Wärmeerzeuger</b>
+        <span>Der größte Hebel beim Primärenergiebedarf. Eine Wärmepumpe wird mit einem
+        niedrigen Primärenergiefaktor bewertet, fossile Erzeuger mit einem hohen.
+        Ob sie zu Ihrem Haus passt, hängt an der Vorlauftemperatur –
+        <a href="ratgeber-waermepumpe-altbau.html" style="color:var(--amber-deep);font-weight:600">dazu der Ratgeber</a>.</span>
+      </div>
+      <div class="qp-zeile">
+        <b>Erneuerbare Anteile</b>
+        <span>Photovoltaik, Solarthermie und Umweltwärme senken den Primärenergiebedarf
+        zusätzlich. Sie sind oft der Schritt, der eine Stufe möglich macht, wenn die
+        Hülle schon stimmt.</span>
+      </div>
+      <div class="qp-zeile">
+        <b>Hydraulischer Abgleich</b>
+        <span>Bei geförderten Wärmepumpen vorgeschrieben und Grundlage der Auslegung –
+        <a href="hydraulischer-abgleich-ulm.html" style="color:var(--amber-deep);font-weight:600">Leistung und Preis</a>.</span>
       </div>
     </div>
 
-    <div class="u-gross">
-      <span class="u-zahl" id="uVorher">–</span>
-      <span class="u-pfeil">→</span>
-      <span class="u-zahl u-neu" id="uNachher">–</span>
-      <span class="u-einheit">W/(m²·K) nach der Dämmung</span>
+    <div class="merk" style="margin-top:22px">
+      <b>Der ehrliche Satz zum Schluss</b>
+      Dieser Rechner sagt Ihnen, ob Ihre Gebäudehülle das H′<sub>T</sub>-Kriterium einer
+      Effizienzhausstufe erfüllt und was dafür zu tun ist. Ob die Stufe insgesamt erreicht
+      wird, entscheidet zusätzlich der Primärenergiebedarf – berechnet nach DIN V 18599
+      und bestätigt von einer bzw. einem in der Energie-Effizienz-Expertenliste
+      eingetragenen Sachkundigen. Genau das ist unsere Arbeit.
     </div>
 
-    <div id="ampelBox"></div>
-  </div>
-
-  <h3 style="margin-top:22px">Welche Dicke brauche ich für welchen Zielwert?</h3>
-  <div class="ziel-grid" id="zielGrid"></div>
-
-  <div class="feld-reihe" style="margin-top:20px">
-    <button class="btn btn-primary btn-sm" id="uebernehmen">Bauteil in die Hausbilanz übernehmen</button>
-  </div>
-</section>
-
-<!-- ===================== SCHRITT 3: HAUSBILANZ ===================== -->
-<section class="panel" id="p-bilanz">
-  <h2><span class="schritt-nr">3</span>Hülle bilanzieren</h2>
-  <p class="panel-sub">Flächen der übernommenen Bauteile eintragen. Daraus entsteht der spezifische Transmissionswärmeverlust H′<sub>T</sub> im Vergleich zum Referenzgebäude.</p>
-
-  <div id="bilanzBox"></div>
-  <div id="ehBox"></div>
-</section>
-
-<!-- ===================== SCHRITT 4: WAS NOCH FEHLT ===================== -->
-<section class="panel" id="p-qp">
-  <h2><span class="schritt-nr">4</span>Was zur Effizienzhausstufe noch fehlt</h2>
-  <p class="panel-sub">Die Hülle ist die eine Hälfte. Diese Punkte wirken auf die andere – den Primärenergiebedarf.</p>
-
-  <div class="qp-liste">
-    <div class="qp-zeile">
-      <b>Luftdichtheit</b>
-      <span>Das Gesetz verlangt n<sub>50</sub> ≤ 3,0 h⁻¹ ohne und ≤ 1,5 h⁻¹ mit ventilatorgestützter
-      Lüftungsanlage. Gemessen wird mit dem Blower-Door-Verfahren nach DIN EN ISO 9972.
-      Für die höheren Effizienzhausstufen ist der Nachweis Voraussetzung.</span>
+    <div class="feld-reihe" style="margin-top:8px">
+      <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+      <a href="sanierungsrechner.html" class="btn btn-ghost">Wirtschaftlichkeit durchrechnen</a>
+      <button class="btn btn-ghost btn-sm" id="btnNeu">Von vorn beginnen</button>
     </div>
-    <div class="qp-zeile">
-      <b>Lüftung mit Wärmerückgewinnung</b>
-      <span>Senkt den Lüftungswärmeverlust deutlich und damit den Primärenergiebedarf.
-      Auf H′<sub>T</sub> wirkt sie nicht – der zählt nur die Bauteile.</span>
-    </div>
-    <div class="qp-zeile">
-      <b>Wärmeerzeuger</b>
-      <span>Der größte Hebel beim Primärenergiebedarf. Eine Wärmepumpe wird mit einem
-      niedrigen Primärenergiefaktor bewertet, fossile Erzeuger mit einem hohen.
-      Ob sie zu Ihrem Haus passt, hängt an der Vorlauftemperatur –
-      <a href="ratgeber-waermepumpe-altbau.html" style="color:var(--amber-deep);font-weight:600">dazu der Ratgeber</a>.</span>
-    </div>
-    <div class="qp-zeile">
-      <b>Erneuerbare Anteile</b>
-      <span>Photovoltaik, Solarthermie und Umweltwärme senken den Primärenergiebedarf
-      zusätzlich. Sie sind oft der Schritt, der eine Stufe möglich macht,
-      wenn die Hülle schon stimmt.</span>
-    </div>
-    <div class="qp-zeile">
-      <b>Hydraulischer Abgleich</b>
-      <span>Bei geförderten Wärmepumpen vorgeschrieben und Grundlage der Auslegung –
-      <a href="hydraulischer-abgleich-ulm.html" style="color:var(--amber-deep);font-weight:600">Leistung und Preis</a>.</span>
-    </div>
-  </div>
+  </section>
 
-  <div class="merk" style="margin-top:22px">
-    <b>Der ehrliche Satz zum Schluss</b>
-    Dieser Rechner sagt Ihnen, ob Ihre Gebäudehülle das H′<sub>T</sub>-Kriterium einer
-    Effizienzhausstufe erfüllt. Ob die Stufe insgesamt erreicht wird, entscheidet
-    zusätzlich der Primärenergiebedarf – berechnet nach DIN V 18599 und bestätigt
-    von einer bzw. einem in der Energie-Effizienz-Expertenliste eingetragenen
-    Sachkundigen. Genau das ist unsere Arbeit.
-  </div>
+  <!-- ===================== DETAILMODUS ===================== -->
+  <section class="panel" id="p-detail">
+    <button class="detail-schalter" id="detailSchalter" aria-expanded="false" aria-controls="detailInhalt">
+      <span class="detail-pfeil">›</span>
+      <span>Schichtaufbau selbst zusammenstellen (für Fachleute)</span>
+    </button>
+    <div id="detailInhalt" hidden>
+      <p class="panel-sub" style="margin-top:14px">
+        Hier rechnen Sie ein einzelnes Bauteil Schicht für Schicht durch – mit den
+        Baustoffen aus der Bibliothek und deren Wärmeleitfähigkeit λ. Der Aufbau ist
+        aus Ihren Antworten vorbelegt und lässt sich frei ändern. Diese Rechnung
+        beeinflusst das Ergebnis oben nicht.
+      </p>
 
-  <div class="feld-reihe" style="margin-top:8px">
-    <a href="index.html#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
-    <a href="sanierungsrechner.html" class="btn btn-ghost">Wirtschaftlichkeit durchrechnen</a>
-  </div>
+      <div class="chips" id="bauteilChips"></div>
+      <div class="schichten" id="schichtBox"></div>
+      <button class="btn btn-ghost btn-sm" id="schichtPlus">+ Schicht hinzufügen</button>
+
+      <div class="u-gross">
+        <span class="u-zahl" id="uIst">–</span>
+        <span class="u-einheit">W/(m²·K) im Ist-Zustand</span>
+      </div>
+      <div class="vergleich" id="vergleichBox"></div>
+
+      <h3 style="margin-top:22px">Dämmung ergänzen</h3>
+      <div class="chips" id="lageChips">
+        <button class="chip aktiv" data-lage="aussen">Außendämmung</button>
+        <button class="chip" data-lage="innen">Innendämmung</button>
+        <button class="chip" data-lage="keine">ohne</button>
+      </div>
+      <div id="daemmFelder">
+        <div class="feld-reihe">
+          <div class="feld" style="flex:1 1 260px">
+            <label for="daemmstoff">Dämmstoff</label>
+            <select id="daemmstoff"></select>
+          </div>
+          <div class="feld">
+            <label for="daemmDicke">Dicke in cm</label>
+            <input type="number" id="daemmDicke" min="0" max="60" step="0.5" value="14">
+          </div>
+        </div>
+        <div class="u-gross">
+          <span class="u-zahl" id="uVorher">–</span>
+          <span class="u-pfeil">→</span>
+          <span class="u-zahl u-neu" id="uNachher">–</span>
+          <span class="u-einheit">W/(m²·K)</span>
+        </div>
+        <div id="ampelBox"></div>
+      </div>
+
+      <h3 style="margin-top:22px">Dicke für einen Zielwert</h3>
+      <div class="ziel-grid" id="zielGrid"></div>
+    </div>
+  </section>
 
   <p class="fussnote">
     Die λ-Werte der Baustoffbibliothek sind Bemessungs-Anhaltswerte für die
@@ -629,10 +735,15 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
     nach den Vorgaben der KfW. Stand August 2026 – maßgeblich sind die bei
     Antragstellung geltenden Fassungen.
   </p>
-</section>
+
+</div>
 </div>
 
 </main>
+
+<div class="info-pop" id="infoPop" role="dialog" aria-hidden="true">
+  <b id="ipTitle"></b><p id="ipText"></p>
+</div>
 
 <!-- GEMEINSAM:FUSS -->
 <footer class="site-footer">
@@ -1001,16 +1112,389 @@ function ehStufe(verhaeltnis){
 }
 
 /* ===========================================================================
-   ZUSTAND UND OBERFLAECHE
-   Zustand liegt ausschliesslich in dieser Variable - kein localStorage
-   (Projektregel 3).
+   FRAGEBOGEN
+   Jede Frage bringt ihre Erklaerung mit. Der Betreiber hat ausdruecklich
+   verlangt, dass man weiss, was man eingeben soll - "ist nicht
+   selbstverstaendlich". Deshalb hat jedes Feld eine kurze Hilfszeile direkt
+   darunter (immer sichtbar) und ein (i) mit der ausfuehrlichen Erklaerung,
+   woran man die Antwort am eigenen Haus erkennt.
    ======================================================================== */
-var Z = {
-  bauteil:'wand', baujahr:1970, schichten:[],
-  lage:'aussen', daemmstoff:'eps_035', daemmDicke:14,
-  bilanz:[]
-};
+var A = {};   /* Antworten. Zustand nur hier - kein localStorage (Regel 3) */
+var schrittIdx = 0;
 
+var BAUJAHRE = [[1918,'bis 1918'],[1948,'1919 bis 1948'],[1968,'1949 bis 1968'],
+  [1978,'1969 bis 1978'],[1983,'1979 bis 1983'],[1994,'1984 bis 1994'],
+  [2001,'1995 bis 2001'],[2009,'2002 bis 2009'],[2015,'2010 bis 2015'],[2024,'ab 2016']];
+
+var FRAGEN = [
+{
+ t:'Ihr Gebäude',
+ h:'Aus diesen Angaben schätzt der Rechner die Flächen von Wand, Dach und Keller. Baupläne brauchen Sie nicht – Schrittmaße reichen völlig.',
+ f:[
+  {id:'haustyp', l:'Haustyp', typ:'karten', def:'frei',
+   hilfe:'Wände, die an ein beheiztes Nachbarhaus grenzen, verlieren keine Wärme nach draußen.',
+   info:'Eine Wand zum beheizten Nachbarhaus zählt nicht als Außenwand. Bei einer Doppelhaushälfte fällt deshalb eine ganze Giebelseite aus der Rechnung, beim Reihenmittelhaus zwei. Das ist einer der größten Unterschiede überhaupt – ein Reihenmittelhaus hat oft ein Drittel weniger Außenwand als ein freistehendes Haus derselben Größe.',
+   opts:[['frei','Freistehend','Alle vier Seiten sind Außenwand.'],
+         ['dhh','Doppelhaushälfte','Eine Seite grenzt an den Nachbarn.'],
+         ['reihenend','Reihenhaus, Endhaus','Eine Seite grenzt an den Nachbarn.'],
+         ['reihenmitte','Reihenhaus, Mitte','Zwei Seiten grenzen an Nachbarn.']]},
+  {id:'baujahr', l:'Baujahr', typ:'select', def:1978, opts:BAUJAHRE,
+   hilfe:'Wenn Sie etwas nicht wissen, setzt der Rechner den für dieses Baujahr typischen Aufbau ein.',
+   info:'Gemeint ist das Jahr, in dem das Haus ursprünglich gebaut wurde – nicht das Jahr eines späteren Umbaus. Nach Dämmarbeiten fragen wir gleich getrennt. Steht das Baujahr nirgends, hilft ein Blick in den Kaufvertrag, die Bauakte beim Bauamt oder in die Grundsteuerunterlagen.'},
+  {id:'laenge', l:'Länge des Hauses', typ:'zahl', def:10, min:4, max:40, step:0.5, einheit:'m',
+   hilfe:'Außenmaß der längeren Hausseite, außen an der Fassade entlang.',
+   info:'Messen Sie außen an der Fassade, nicht innen. Ein Zollstock ist genauer, aber Schrittmaß genügt: Ein normaler Schritt eines Erwachsenen sind etwa 75 Zentimeter. Zählen Sie die Schritte entlang der langen Hausseite und rechnen Sie mal 0,75.'},
+  {id:'breite', l:'Breite des Hauses', typ:'zahl', def:9, min:4, max:30, step:0.5, einheit:'m',
+   hilfe:'Außenmaß der kürzeren Hausseite.',
+   info:'Wieder außen gemessen. Bei einem Reihenhaus ist die Breite meist die Seite zur Straße, also die schmale.'},
+  {id:'geschosse', l:'Beheizte Vollgeschosse', typ:'zahl', def:2, min:1, max:4, step:1,
+   hilfe:'Nur Geschosse, die Sie im Winter heizen. Das Dachgeschoss zählen Sie hier NICHT mit.',
+   info:'Erdgeschoss und Obergeschoss eines normalen Einfamilienhauses sind zwei Vollgeschosse. Ein ausgebautes Dachgeschoss zählt hier nicht mit – danach wird im nächsten Schritt getrennt gefragt. Ein beheizter Keller zählt hier ebenfalls nicht mit; auch dazu kommt später eine eigene Frage.'},
+  {id:'raumhoehe', l:'Raumhöhe', typ:'zahl', def:2.5, min:2.1, max:3.6, step:0.1, einheit:'m',
+   hilfe:'Von Fußboden bis Decke, in einem normalen Wohnraum gemessen.',
+   info:'Altbauten vor 1950 haben oft 2,8 bis 3,2 Meter, Häuser ab 1960 meist 2,4 bis 2,5 Meter. Der Rechner schlägt für die Geschossdecke pauschal 30 Zentimeter auf, um auf die Höhe der Außenwand zu kommen.'}
+ ]
+},
+{
+ t:'Ihre Außenwand',
+ h:'Die Außenwand ist meist die größte Fläche des Hauses. Wenn Sie etwas nicht wissen, wählen Sie „weiß ich nicht" – der Rechner nimmt dann den für Ihr Baujahr üblichen Aufbau.',
+ f:[
+  {id:'wandArt', l:'Woraus besteht die Wand?', typ:'karten', def:'unbekannt',
+   hilfe:'Klopfprobe an der Innenwand: hell und hohl deutet auf Lochziegel oder Porenbeton, dumpf auf Vollziegel oder Beton.',
+   info:'Sicher wissen Sie es aus der Baubeschreibung. Sonst helfen Anhaltspunkte: Vollziegel sind rot und massiv, typisch bis etwa 1950. Hochlochziegel haben Löcher und wurden ab den 1950er Jahren üblich. Kalksandstein ist hell bis weiß. Porenbeton ist sehr leicht und hell, man kann ihn mit dem Fingernagel ritzen. Bruchstein findet sich in älteren Häusern auf der Alb. Im Zweifel wählen Sie „weiß ich nicht" – beim Ortstermin sehen wir es ohnehin.',
+   opts:[['unbekannt','Weiß ich nicht','Der Rechner nimmt den für Ihr Baujahr üblichen Aufbau.'],
+         ['vollziegel','Vollziegel','Massiver roter Ziegel, typisch bis etwa 1950.'],
+         ['hlz','Hochlochziegel','Ziegel mit Löchern, ab den 1950er Jahren üblich.'],
+         ['ks','Kalksandstein','Heller, sehr schwerer Stein.'],
+         ['porenbeton_a','Porenbeton','Sehr leicht und hell, mit dem Nagel ritzbar.'],
+         ['beton','Beton','Massiver Ortbeton oder Fertigteil.'],
+         ['naturstein','Naturstein oder Bruchstein','Unregelmäßige Steine, oft sehr dicke Wand.'],
+         ['holz','Fachwerk oder Holzständer','Sichtbare Balken oder Holzkonstruktion.']]},
+  {id:'wandDicke', l:'Wie dick ist die Wand?', typ:'karten', def:'0',
+   hilfe:'Am einfachsten an einer Fensterlaibung zu messen: dort sehen Sie die Wand im Schnitt.',
+   info:'Öffnen Sie ein Fenster und messen Sie von der Fassadenaußenkante bis zur Innenwand – das ist die Wanddicke. Übliche Werte: 24 cm (ein Stein, ab 1960 häufig), 30 cm, 36,5 cm (anderthalb Steine, ältere Bauten), 50 cm und mehr bei Bruchsteinmauerwerk. Rechnen Sie eine vorhandene Außendämmung nicht mit – nach der wird gleich gefragt.',
+   opts:[['0','Weiß ich nicht','Der Rechner nimmt den üblichen Wert.'],
+         ['24','etwa 24 cm',''],['30','etwa 30 cm',''],
+         ['36.5','etwa 36,5 cm',''],['50','50 cm oder mehr','Typisch bei Bruchstein.']]},
+  {id:'wandGedaemmt', l:'Ist die Wand schon gedämmt?', typ:'karten', def:'nein',
+   hilfe:'Erkennbar an tief liegenden Fenstern und einem Absatz am Sockel.',
+   info:'Ein nachträglich gedämmtes Haus erkennen Sie meist von außen: Die Fenster liegen tief in der Fassade, weil die Dämmung davor sitzt. Oft gibt es auch einen Absatz am Sockel oder unter dem Dachüberstand, wo die Dämmung endet. Ein zweiter Hinweis ist die Klopfprobe an der Fassade – gedämmte Wände klingen hohl. Häuser ab etwa 1995 haben fast immer eine Dämmung, die zum Baujahr gehört; die ist hier schon eingerechnet und muss nicht angegeben werden.',
+   opts:[['nein','Nein, ungedämmt','Original­zustand oder nur verputzt.'],
+         ['ja','Ja, nachträglich gedämmt','Zum Beispiel ein Wärmedämmverbundsystem.']]},
+  {id:'wandDaemmDicke', l:'Wie dick ist diese Dämmung?', typ:'zahl', def:8, min:1, max:40, step:1, einheit:'cm',
+   zeigeWenn:function(a){ return a.wandGedaemmt==='ja'; },
+   hilfe:'Messen Sie die Tiefe der Fensterlaibung – so dick ist ungefähr die Dämmung.',
+   info:'Wenn Sie es nicht genau wissen: Dämmungen aus den 1980er Jahren sind meist 4 bis 6 cm dick, aus den 1990ern 6 bis 8 cm, ab 2010 dann 12 bis 16 cm. Die Rechnung reagiert empfindlich darauf – im Zweifel lieber etwas zu wenig als zu viel angeben.'},
+  {id:'nurInnen', l:'Muss die Fassade erhalten bleiben?', typ:'karten', def:'nein',
+   hilfe:'Dann ist nur Innendämmung möglich – und dafür gelten eigene Regeln.',
+   info:'Von außen dämmen geht nicht, wenn die Fassade so bleiben muss, wie sie ist: bei Denkmalschutz, bei Sichtfachwerk, bei Zierklinker oder gegliederten Putzfassaden, und wenn das Haus direkt an der Grundstücksgrenze steht. Innendämmung ist dann möglich, aber bauphysikalisch heikel – der Rechner zeigt Ihnen dazu eine Ampel nach DIN 4108-3.',
+   opts:[['nein','Nein','Außendämmung ist möglich.'],
+         ['ja','Ja, nur von innen möglich','Denkmalschutz, Sichtfachwerk, Klinker oder Grenzbebauung.']]}
+ ]
+},
+{
+ t:'Dach und oberste Geschossdecke',
+ h:'Wärme steigt nach oben. Ob Ihr Dachgeschoss beheizt wird, entscheidet, welches Bauteil überhaupt zur Gebäudehülle gehört.',
+ f:[
+  {id:'dgBeheizt', l:'Ist das Dachgeschoss ausgebaut und beheizt?', typ:'karten', def:'nein',
+   hilfe:'Beheizt heißt: Heizkörper vorhanden und im Winter warm.',
+   info:'Ein Dachboden, auf dem Kisten stehen und der im Winter kalt ist, gilt als unbeheizt. Dann gehört die oberste Geschossdecke zur Gebäudehülle und das Dach nicht – Sie dämmen also die Decke, nicht die Schrägen. Das ist die mit Abstand günstigste Dämmmaßnahme überhaupt. Ist das Dachgeschoss dagegen ausgebaut und beheizt, zählen die Dachschrägen.',
+   opts:[['nein','Nein, unbeheizter Dachboden','Dann zählt die oberste Geschossdecke.'],
+         ['ja','Ja, ausgebaut und beheizt','Dann zählen die Dachschrägen.']]},
+  {id:'dachform', l:'Dachform', typ:'karten', def:'sattel',
+   zeigeWenn:function(a){ return a.dgBeheizt==='ja'; },
+   hilfe:'Bestimmt, wie viel Dachfläche über der Grundfläche liegt.',
+   info:'Ein Satteldach hat zwei geneigte Flächen und zwei senkrechte Giebel. Ein Walmdach ist an allen vier Seiten geneigt und hat dadurch die größte Fläche. Ein Pultdach hat nur eine geneigte Fläche. Ein Flachdach ist nahezu waagerecht.',
+   opts:[['sattel','Satteldach','Zwei geneigte Flächen, zwei Giebel.'],
+         ['walm','Walmdach','An allen vier Seiten geneigt.'],
+         ['pult','Pultdach','Nur eine geneigte Fläche.'],
+         ['flach','Flachdach','Nahezu waagerecht.']]},
+  {id:'dachGedaemmt', l:'Ist Dach bzw. Decke schon gedämmt?', typ:'karten', def:'nein',
+   hilfe:'Beim Dachboden sehen Sie es direkt: liegen Matten oder Platten auf der Decke?',
+   info:'Bei unbeheiztem Dachboden gehen Sie hinauf und schauen auf den Boden: Liegen dort Dämmmatten, Platten oder eine dicke Schüttung, ist gedämmt. Nackte Dielen oder blanker Beton bedeuten ungedämmt. Bei ausgebautem Dachgeschoss sehen Sie die Dämmung nicht – dort hilft nur die Bauakte, oder Sie schauen an einer Revisionsklappe oder hinter einer Abseitentür nach.',
+   opts:[['nein','Nein, ungedämmt',''],['ja','Ja, gedämmt','']]},
+  {id:'dachDaemmDicke', l:'Wie dick ist diese Dämmung?', typ:'zahl', def:12, min:1, max:50, step:1, einheit:'cm',
+   zeigeWenn:function(a){ return a.dachGedaemmt==='ja'; },
+   hilfe:'Bei loser Dämmung auf dem Dachboden können Sie einen Zollstock hineinstecken.',
+   info:'Anhaltswerte, falls Sie nicht messen können: 1980er Jahre etwa 6 bis 8 cm, 1990er 10 bis 14 cm, ab 2002 rund 16 bis 20 cm, ab 2016 oft 22 cm und mehr.'},
+  {id:'gauben', l:'Anzahl Gauben', typ:'zahl', def:0, min:0, max:8, step:1,
+   zeigeWenn:function(a){ return a.dgBeheizt==='ja'; },
+   hilfe:'Jede Gaube vergrößert die Dachfläche und bringt zusätzliche Wärmebrücken.',
+   info:'Gauben sind die aus dem Dach herausstehenden Aufbauten mit eigenem Fenster. Der Rechner setzt je Gaube rund 4 Quadratmeter zusätzliche Fläche an. Dachflächenfenster, die in der Dachschräge liegen, sind keine Gauben.'}
+ ]
+},
+{
+ t:'Ihre Fenster',
+ h:'Fenster sind flächenmäßig klein, verlieren aber viel – bei alten Verglasungen mehr als jede andere Fläche pro Quadratmeter.',
+ f:[
+  {id:'verglasung', l:'Welche Verglasung haben Sie?', typ:'karten', def:'ws_2001',
+   hilfe:'Der Feuerzeugtest verrät es in zehn Sekunden – Erklärung im (i).',
+   info:'Halten Sie abends im dunklen Raum ein Feuerzeug oder eine Kerze vor die Scheibe und zählen Sie die Spiegelbilder der Flamme:\n\nzwei Flammen = Einfachverglasung\nvier Flammen = Zweifachverglasung\nsechs Flammen = Dreifachverglasung\n\nSchauen Sie dann genau hin: Erscheint eine der Flammen anders gefärbt, meist leicht rötlich oder violett, hat das Glas eine Wärmeschutzbeschichtung. Ohne diese Färbung ist es älteres Isolierglas ohne Beschichtung, also deutlich schlechter. Ein Aufkleber oder eine Prägung im Abstandhalter zwischen den Scheiben nennt oft das Herstellungsjahr.',
+   opts:[['einfach','Einfachverglasung','Eine Scheibe, zwei Spiegelbilder.'],
+         ['kasten','Kastenfenster','Zwei Flügel hintereinander, typisch Altbau.'],
+         ['zweifach_alt','Zweifach, ohne Beschichtung','Vier Spiegelbilder, alle gleich gefärbt. Bis etwa 1995.'],
+         ['iso_95','Zweifach-Wärmeschutz, ab 1995','Vier Spiegelbilder, eines anders gefärbt.'],
+         ['ws_2001','Zweifach-Wärmeschutz, ab 2001','Wie oben, neuere Bauart.'],
+         ['ws_2010','Zweifach-Wärmeschutz, ab 2010','Sehr gute Zweifachverglasung.'],
+         ['dreifach','Dreifachverglasung','Sechs Spiegelbilder.']]},
+  {id:'fensterAnteil', l:'Fensterfläche', typ:'karten', def:'0',
+   hilfe:'Wenn Sie es nicht wissen, schätzt der Rechner aus dem Baujahr.',
+   info:'Gemeint ist die Fensterfläche im Verhältnis zur Wohnfläche. Als Anhalt: Altbauten vor 1950 haben eher kleine Fenster, etwa 12 Prozent der Wohnfläche. Häuser der 1960er bis 1980er Jahre liegen bei rund 15 Prozent. Neubauten ab 1995 haben oft große Fensterflächen, 18 Prozent und mehr. Wenn Ihr Haus eine auffällig große Fensterfront hat, wählen Sie „viel".',
+   opts:[['0','Weiß ich nicht','Schätzung aus dem Baujahr.'],
+         ['12','Eher wenig','Kleine Fenster, etwa 12 % der Wohnfläche.'],
+         ['15','Normal','Etwa 15 % der Wohnfläche.'],
+         ['20','Viel','Große Fensterflächen, etwa 20 %.']]}
+ ]
+},
+{
+ t:'Keller und Boden',
+ h:'Nach unten geht weniger Wärme verloren als nach oben oder zur Seite – der Rechner berücksichtigt das mit einem Korrekturfaktor. Ganz umsonst ist es trotzdem nicht.',
+ f:[
+  {id:'keller', l:'Hat das Haus einen Keller?', typ:'karten', def:'ja',
+   hilfe:'Ohne Keller liegt der Wohnraum auf einer Bodenplatte gegen das Erdreich.',
+   info:'Bei einem Teilkeller nimmt der Rechner an, dass etwa die Hälfte der Grundfläche unterkellert ist.',
+   opts:[['ja','Ja, voll unterkellert',''],
+         ['teil','Teilweise unterkellert','Etwa die Hälfte.'],
+         ['nein','Nein, kein Keller','Bodenplatte auf dem Erdreich.']]},
+  {id:'kellerBeheizt', l:'Wird der Keller beheizt?', typ:'karten', def:'nein',
+   zeigeWenn:function(a){ return a.keller!=='nein'; },
+   hilfe:'Beheizt heißt: Heizkörper vorhanden und im Winter warm.',
+   info:'Ein Heizungskeller, in dem nur der Kessel steht und Abwärme abgibt, gilt nicht als beheizt. Beheizt ist er, wenn Sie dort Wohn-, Hobby- oder Arbeitsräume mit eigenen Heizkörpern haben. Das macht einen großen Unterschied: Ein beheizter Keller gehört zur Gebäudehülle, dann zählt die Bodenplatte statt der Kellerdecke.',
+   opts:[['nein','Nein, unbeheizt','Dann zählt die Kellerdecke.'],
+         ['ja','Ja, beheizte Räume','Dann zählt die Bodenplatte.']]},
+  {id:'kellerGedaemmt', l:'Ist die Kellerdecke gedämmt?', typ:'karten', def:'nein',
+   zeigeWenn:function(a){ return a.keller!=='nein' && a.kellerBeheizt!=='ja'; },
+   hilfe:'Gehen Sie in den Keller und schauen Sie nach oben an die Decke.',
+   info:'Sind an der Kellerdecke Platten oder Matten angebracht – meist weiß, grau oder holzfarben –, ist sie gedämmt. Sehen Sie nackten Beton, Putz oder die blanke Unterseite einer Holzbalkendecke, ist sie ungedämmt. Diese Maßnahme ist die günstigste im ganzen Katalog und oft in Eigenleistung machbar.',
+   opts:[['nein','Nein, ungedämmt',''],['ja','Ja, gedämmt','']]},
+  {id:'kellerDaemmDicke', l:'Wie dick ist diese Dämmung?', typ:'zahl', def:6, min:1, max:30, step:1, einheit:'cm',
+   zeigeWenn:function(a){ return a.keller!=='nein' && a.kellerBeheizt!=='ja' && a.kellerGedaemmt==='ja'; },
+   hilfe:'An der Kellerdecke meist direkt messbar.',
+   info:'Ältere Dämmungen der Kellerdecke sind oft nur 2 bis 4 cm dick, neuere 8 bis 12 cm.'}
+ ]
+},
+{
+ t:'Ihr Ziel',
+ h:'Der Rechner zeigt Ihnen alle Stufen. Sagen Sie uns, welche Sie im Blick haben – die wird dann zuerst aufgeklappt.',
+ f:[
+  {id:'ziel', l:'Welche Effizienzhausstufe haben Sie im Blick?', typ:'karten', def:'70',
+   hilfe:'Je niedriger die Zahl, desto besser das Haus – und desto höher die Förderung.',
+   info:'Die Zahl sagt, wie viel Primärenergie das Haus im Vergleich zu einem Referenzgebäude braucht. Effizienzhaus 70 heißt: 70 Prozent davon. Zusätzlich ist der Transmissionswärmeverlust begrenzt – und genau den rechnet dieses Werkzeug aus. Für die Sanierung fördert die KfW die Stufen 85, 70, 55 und 40 sowie Effizienzhaus Denkmal.',
+   opts:[['85','Effizienzhaus 85','Der Einstieg. Hülle darf so gut sein wie beim Referenzgebäude.'],
+         ['70','Effizienzhaus 70','Häufigstes Ziel bei Bestandssanierungen.'],
+         ['55','Effizienzhaus 55','Anspruchsvoll, aber im Bestand oft erreichbar.'],
+         ['40','Effizienzhaus 40','Höchste Stufe. Verlangt in aller Regel alles.']]},
+  {id:'daemmstoffWunsch', l:'Womit soll gerechnet werden?', typ:'karten', def:'eps_035',
+   hilfe:'Bestimmt, wie dick die vorgeschlagene Dämmung ausfällt – bessere Dämmstoffe brauchen weniger Dicke.',
+   info:'Die Wärmeleitfähigkeit λ sagt, wie gut ein Stoff dämmt: je kleiner, desto besser. Mit λ 0,035 brauchen Sie für denselben U-Wert rund 15 Prozent weniger Dicke als mit λ 0,040. Bei Innendämmung sind kapillaraktive Stoffe wie Mineralschaum oder Kalziumsilikat die sicherere Wahl, weil sie Feuchte zurückführen können – dafür dämmen sie schlechter und brauchen mehr Dicke.',
+   opts:[['eps_035','Standard, λ 0,035','EPS oder Mineralwolle, die übliche Wahl außen.'],
+         ['eps_032','Besser, λ 0,032','Etwas teurer, dafür dünner.'],
+         ['hf_040','Holzfaser, λ 0,040','Ökologisch, kapillaraktiv, etwas dicker.'],
+         ['mineralschaum','Mineralschaum, λ 0,045','Für Innendämmung, kapillaraktiv.']]}
+ ]
+}
+];
+
+/* ===========================================================================
+   GEOMETRIE UND IST-AUFBAU AUS DEN ANTWORTEN
+   Die Flaechenermittlung folgt derselben Logik wie im Sanierungsrechner,
+   damit beide Werkzeuge dieselben Flaechen liefern.
+   ======================================================================== */
+function geometrie(a){
+  var GF = a.laenge * a.breite;
+  var U  = 2*(a.laenge + a.breite);
+  var hG = a.raumhoehe + 0.30;
+  var wandBrutto = U * hG * a.geschosse;
+  var giebel = a.breite * hG * a.geschosse;
+  if(a.haustyp==='dhh' || a.haustyp==='reihenend') wandBrutto -= giebel;
+  if(a.haustyp==='reihenmitte') wandBrutto -= 2*giebel;
+
+  var wohnflaeche = GF * a.geschosse * 0.85;
+  var anteil = Number(a.fensterAnteil);
+  if(!(anteil>0)) anteil = a.baujahr<1950 ? 12 : (a.baujahr>=1995 ? 18 : 15);
+  var aFenster = Math.max(4, anteil/100 * wohnflaeche);
+  var aTuer = 2.0;
+  var aWand = Math.max(10, wandBrutto - aFenster - aTuer);
+
+  var dg = a.dgBeheizt==='ja';
+  var aDach = dg ? GF * ({sattel:1.25,walm:1.35,pult:1.15,flach:1.05}[a.dachform]||1.25)
+                    + (a.gauben||0)*4.0 : 0;
+  var aOgd = dg ? 0 : GF;
+  var aKellerdecke=0, aBoden=0;
+  if(a.keller==='nein'){ aBoden = GF; }
+  else if(a.keller==='teil'){ aKellerdecke = GF*0.5; aBoden = GF*0.5; }
+  else { aKellerdecke = GF; }
+  if(a.keller!=='nein' && a.kellerBeheizt==='ja'){ aBoden += aKellerdecke; aKellerdecke = 0; }
+
+  return {GF:GF, wohnflaeche:wohnflaeche, aWand:aWand, aFenster:aFenster, aTuer:aTuer,
+          aDach:aDach, aOgd:aOgd, aKellerdecke:aKellerdecke, aBoden:aBoden};
+}
+
+/* Schichtaufbau je Bauteil aus den Antworten. Was der Nutzer nicht weiss,
+   kommt aus AUFBAUTEN - der Tabelle typischer Aufbauten je Baualter. */
+function istAufbau(a, bauteil){
+  var basis = aufbauFuer(bauteil, a.baujahr);
+  if(bauteil==='wand'){
+    var art = a.wandArt, dicke = Number(a.wandDicke);
+    if(art!=='unbekannt' || dicke>0){
+      var kern = (art==='unbekannt')
+        ? (basis.length>1 ? basis[1].id : 'hlz')
+        : art;
+      var d = dicke>0 ? dicke : (basis.length>1 ? basis[1].d : 30);
+      basis = [{id:'gipsputz',d:1.5},{id:kern,d:d},{id:'kalkzement',d:2}];
+    }
+    if(a.wandGedaemmt==='ja' && a.wandDaemmDicke>0){
+      basis = basis.concat([{id:'eps_040', d:Number(a.wandDaemmDicke)}]);
+    }
+  }
+  if(bauteil==='dach' || bauteil==='ogd'){
+    basis = aufbauFuer(bauteil, 1900);   /* ungedaemmte Grundkonstruktion */
+    if(a.dachGedaemmt==='ja' && a.dachDaemmDicke>0){
+      basis = basis.concat([{id:'mw_040', d:Number(a.dachDaemmDicke)}]);
+    }
+  }
+  if(bauteil==='kellerdecke'){
+    basis = aufbauFuer('kellerdecke', 1900);
+    if(a.kellerGedaemmt==='ja' && a.kellerDaemmDicke>0){
+      basis = basis.concat([{id:'eps_040', d:Number(a.kellerDaemmDicke)}]);
+    }
+  }
+  if(bauteil==='boden'){ basis = aufbauFuer('boden', a.baujahr); }
+  return basis;
+}
+
+/* Vollstaendiger Ist-Zustand: Bauteile mit U, Flaeche, Aufbau + Huellbilanz */
+function istZustand(a){
+  var g = geometrie(a);
+  var teile = [];
+  function dazu(id, name, lage, fx, rk, flaeche, u, schichten){
+    if(flaeche > 0.5) teile.push({id:id, n:name, lage:lage, fx:fx, refKey:rk,
+                                  flaeche:flaeche, u:u, schichten:schichten||null});
+  }
+  var sw = istAufbau(a,'wand');
+  dazu('wand','Außenwand','wand','wand','wand', g.aWand, uWert(sw,'wand'), sw);
+
+  if(g.aDach>0){ var sd = istAufbau(a,'dach');
+    dazu('dach','Dach','dach','dach','dach', g.aDach, uWert(sd,'dach'), sd); }
+  if(g.aOgd>0){ var so = istAufbau(a,'ogd');
+    dazu('ogd','Oberste Geschossdecke','ogd','ogd','ogd', g.aOgd, uWert(so,'ogd'), so); }
+  if(g.aKellerdecke>0){ var sk = istAufbau(a,'kellerdecke');
+    dazu('kellerdecke','Kellerdecke','kellerdecke','kellerdecke','kellerdecke',
+         g.aKellerdecke, uWert(sk,'kellerdecke'), sk); }
+  if(g.aBoden>0){ var sb = istAufbau(a,'boden');
+    dazu('boden','Bodenplatte','boden','bodenplatte','boden', g.aBoden, uWert(sb,'boden'), sb); }
+
+  dazu('fenster','Fenster',null,'fenster','fenster', g.aFenster,
+       KENNWERTE.uFenster[a.verglasung], null);
+  dazu('tuer','Haustür',null,'tuer','tuer', g.aTuer,
+       a.baujahr>=2002 ? KENNWERTE.uTuer.neu : KENNWERTE.uTuer.alt, null);
+
+  var wbIst = (a.wandGedaemmt==='ja' || a.dachGedaemmt==='ja')
+    ? KENNWERTE.wbZuschlag.saniert + 0.02 : KENNWERTE.wbZuschlag.unsaniert;
+  return {geo:g, teile:teile, wb:wbIst, bilanz:htBilanz(teile, wbIst)};
+}
+
+/* ===========================================================================
+   LOESER: welche Zielwerte je Bauteil erfuellen eine Stufe?
+
+   Statt undurchsichtig zu optimieren wird eine gemeinsame Guete k gesucht:
+   Ziel-U je Bauteil = k * Basiswert (die BEG-Zielwerte). k wird per
+   Intervallhalbierung so bestimmt, dass H'T gerade das Kriterium erfuellt.
+   Das ist nachvollziehbar - ein Berater rechnet genauso, nur von Hand.
+   ======================================================================== */
+var BASISZIEL = { wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25,
+                  boden:0.25, fenster:0.95, tuer:1.30 };
+var U_MINIMUM = { wand:0.10, dach:0.09, ogd:0.09, kellerdecke:0.15,
+                  boden:0.15, fenster:0.70, tuer:0.80 };
+
+function zieleFuer(teile, k){
+  return teile.map(function(t){
+    var basis = BASISZIEL[t.id] != null ? BASISZIEL[t.id] : 0.25;
+    var ziel = Math.max(U_MINIMUM[t.id]!=null?U_MINIMUM[t.id]:0.10, basis*k);
+    return { u: Math.min(t.u, ziel), flaeche:t.flaeche, fx:t.fx, refKey:t.refKey };
+  });
+}
+
+function paketFuer(teile, zielProzent, wbNachher){
+  var quote = zielProzent/100;
+  function quoteBei(k){
+    var b = htBilanz(zieleFuer(teile, k), wbNachher);
+    return b ? b.verhaeltnis : 99;
+  }
+  if(quoteBei(1.6) <= quote){          /* schon mit lockeren Zielen erreicht */
+    var kLocker = 1.6;
+    /* so weit lockern wie moeglich, ohne das Kriterium zu verlieren */
+    for(var i=0;i<30;i++){
+      var probe = kLocker*1.08;
+      if(quoteBei(probe) <= quote) kLocker = probe; else break;
+    }
+    return { erreichbar:true, k:kLocker, quote:quoteBei(kLocker) };
+  }
+  if(quoteBei(0.25) > quote){          /* auch mit Bestwerten nicht erreichbar */
+    return { erreichbar:false, k:0.25, quote:quoteBei(0.25) };
+  }
+  var lo=0.25, hi=1.6;
+  for(var j=0;j<40;j++){
+    var m=(lo+hi)/2;
+    if(quoteBei(m) <= quote) lo=m; else hi=m;
+  }
+  return { erreichbar:true, k:lo, quote:quoteBei(lo) };
+}
+
+/* Aus den Zielwerten konkrete Massnahmen machen */
+function massnahmenFuer(a, ist, stufe){
+  var wbNachher = a.nurInnen==='ja'
+    ? KENNWERTE.wbZuschlag.unsaniert : KENNWERTE.wbZuschlag.saniert;
+  var p = paketFuer(ist.teile, stufe.ht, wbNachher);
+  var daemm = stoff(a.daemmstoffWunsch) || stoff('eps_035');
+  var innen = a.nurInnen==='ja';
+  var liste = ist.teile.map(function(t){
+    var basis = BASISZIEL[t.id]!=null ? BASISZIEL[t.id] : 0.25;
+    var zielU = Math.max(U_MINIMUM[t.id]!=null?U_MINIMUM[t.id]:0.10, basis*p.k);
+    if(t.u <= zielU + 0.001){
+      return { id:t.id, n:t.n, fertig:true, uAlt:t.u, uNeu:t.u,
+               text:'Bleibt, wie es ist – dieser Wert reicht für die Stufe.' };
+    }
+    if(t.id==='fenster'){
+      /* Von der schwaechsten zur staerksten Verglasung suchen und die erste
+         nehmen, die reicht. Andersherum wuerde der Rechner Dreifachglas
+         empfehlen, wo eine gute Zweifachverglasung genuegt. */
+      var wahl = null;
+      ['iso_95','ws_2001','ws_2010','dreifach'].forEach(function(kk){
+        if(!wahl && KENNWERTE.uFenster[kk] <= zielU) wahl = kk;
+      });
+      var namen = {dreifach:'Dreifachverglasung', ws_2010:'Wärmeschutzglas ab 2010',
+                   ws_2001:'Wärmeschutzglas ab 2001', iso_95:'Isolierglas ab 1995'};
+      return { id:t.id, n:t.n, uAlt:t.u, uNeu: wahl?KENNWERTE.uFenster[wahl]:zielU,
+               zielU:zielU,
+               text: wahl ? ('Fenster tauschen gegen ' + namen[wahl] + '.')
+                          : 'Fenster tauschen – nötig ist besser als Dreifachverglasung.' };
+    }
+    if(t.id==='tuer'){
+      return { id:t.id, n:t.n, uAlt:t.u, uNeu:KENNWERTE.uTuer.neu, zielU:zielU,
+               text:'Haustür gegen ein gedämmtes Modell tauschen.' };
+    }
+    var d = t.schichten ? dickeFuerZiel(t.schichten, t.lage, zielU, daemm.l) : null;
+    var lage = (t.id==='wand' && innen) ? 'innen' : 'außen';
+    var wo = { wand: innen ? 'Innendämmung' : 'Außendämmung',
+               dach:'Dämmung zwischen und unter den Sparren',
+               ogd:'Dämmung auf der obersten Geschossdecke',
+               kellerdecke:'Dämmung unter der Kellerdecke',
+               boden:'Dämmung auf der Bodenplatte' }[t.id] || 'Dämmung';
+    var m = { id:t.id, n:t.n, uAlt:t.u, uNeu:zielU, zielU:zielU, dicke:d,
+              text: wo + ': ' + (d!=null ? nf(d,1)+' cm mit '+daemm.n.split(',')[0]
+                                        : 'Dämmstärke nach Aufbau') + '.' };
+    if(t.id==='wand' && innen && d!=null){
+      m.ampel = innenAmpel((d/100)/daemm.l);
+    }
+    return m;
+  });
+  return { paket:p, liste:liste, daemm:daemm, innen:innen, wb:wbNachher };
+}
+
+/* ===========================================================================
+   DARSTELLUNG
+   ======================================================================== */
 function $(id){ return document.getElementById(id); }
 function el(tag, klasse, text){
   var e=document.createElement(tag);
@@ -1018,39 +1502,300 @@ function el(tag, klasse, text){
   if(text!=null) e.textContent=text;
   return e;
 }
+
+/* ---------- Erklaer-Popups ---------- */
+var ipAnker=null, ipFest=false, ipTimer=null;
+function infoHide(){
+  var pop=$('infoPop'); pop.classList.remove('show'); pop.setAttribute('aria-hidden','true');
+  if(ipAnker) ipAnker.classList.remove('on');
+  ipFest=false; ipAnker=null;
+}
+function infoShow(titel, text, anker, fest){
+  var pop=$('infoPop');
+  $('ipTitle').textContent=titel;
+  $('ipText').textContent=text;
+  pop.classList.add('show'); pop.setAttribute('aria-hidden','false');
+  if(ipAnker && ipAnker!==anker) ipAnker.classList.remove('on');
+  ipAnker=anker; anker.classList.add('on'); ipFest=!!fest;
+  var r=anker.getBoundingClientRect(), w=pop.offsetWidth, h=pop.offsetHeight;
+  var x=Math.max(8, Math.min(r.left+window.scrollX+r.width/2-w/2,
+        document.documentElement.clientWidth-w-8+window.scrollX));
+  var y=r.top+window.scrollY-h-10;
+  if(y < window.scrollY+80) y = r.bottom+window.scrollY+10;
+  pop.style.left=x+'px'; pop.style.top=y+'px';
+}
+function infoKnopf(titel, text){
+  var b = el('button','info-i','i');
+  b.type='button';
+  b.setAttribute('aria-label','Erklärung zu: '+titel);
+  b.addEventListener('mouseenter', function(){ clearTimeout(ipTimer); if(!ipFest) infoShow(titel,text,b,false); });
+  b.addEventListener('mouseleave', function(){ if(!ipFest) ipTimer=setTimeout(infoHide,200); });
+  b.addEventListener('click', function(ev){
+    ev.preventDefault(); ev.stopPropagation();
+    if(ipFest && ipAnker===b) infoHide(); else infoShow(titel,text,b,true);
+  });
+  return b;
+}
+document.addEventListener('click', function(ev){
+  var pop=$('infoPop');
+  if(pop && pop.classList.contains('show') && !pop.contains(ev.target) && ev.target!==ipAnker) infoHide();
+});
+document.addEventListener('keydown', function(ev){ if(ev.key==='Escape') infoHide(); });
+
+/* ---------- Fragebogen ---------- */
+function felderVon(schritt){
+  return schritt.f.filter(function(f){ return !f.zeigeWenn || f.zeigeWenn(A); });
+}
+
+function initAntworten(){
+  FRAGEN.forEach(function(s){ s.f.forEach(function(f){
+    if(A[f.id]===undefined) A[f.id]=f.def;
+  }); });
+}
+
+function renderSchritt(){
+  var s = FRAGEN[schrittIdx];
+  $('schrittTitel').textContent = s.t;
+  $('schrittHilfe').textContent = s.h;
+  $('fsFill').style.width = ((schrittIdx)/FRAGEN.length*100)+'%';
+  $('fsLabel').textContent = 'Schritt '+(schrittIdx+1)+' von '+FRAGEN.length;
+  $('schrittFehler').textContent = '';
+  $('btnZurueck').style.visibility = schrittIdx===0 ? 'hidden' : 'visible';
+  $('btnWeiter').textContent = schrittIdx===FRAGEN.length-1 ? 'Ergebnis anzeigen' : 'Weiter';
+
+  var box = $('felder'); box.innerHTML='';
+  felderVon(s).forEach(function(f){
+    var w = el('div','frage');
+    var lab = el('label','f-label'); lab.textContent = f.l;
+    if(f.info) lab.appendChild(infoKnopf(f.l, f.info));
+    w.appendChild(lab);
+    if(f.hilfe) w.appendChild(el('span','f-hilfe', f.hilfe));
+
+    if(f.typ==='karten'){
+      var g = el('div','opt-karten');
+      f.opts.forEach(function(o){
+        var k = el('button','opt-karte'+(String(A[f.id])===String(o[0])?' aktiv':''));
+        k.type='button';
+        k.appendChild(el('b',null,o[1]));
+        if(o[2]) k.appendChild(el('span',null,o[2]));
+        k.addEventListener('click', function(){ A[f.id]=o[0]; renderSchritt(); });
+        g.appendChild(k);
+      });
+      w.appendChild(g);
+    } else if(f.typ==='select'){
+      var e = el('div','f-eingabe');
+      var sel = el('select');
+      sel.id = 'f-'+f.id;
+      f.opts.forEach(function(o){
+        var op = el('option',null,o[1]); op.value=o[0];
+        if(String(A[f.id])===String(o[0])) op.selected=true;
+        sel.appendChild(op);
+      });
+      sel.addEventListener('change', function(){ A[f.id]=Number(sel.value)||sel.value; renderSchritt(); });
+      e.appendChild(sel); w.appendChild(e);
+    } else {
+      var e2 = el('div','f-eingabe');
+      var inp = el('input'); inp.type='number'; inp.id='f-'+f.id;
+      if(f.min!=null) inp.min=f.min;
+      if(f.max!=null) inp.max=f.max;
+      if(f.step!=null) inp.step=f.step;
+      inp.value = A[f.id];
+      inp.setAttribute('aria-label', f.l);
+      inp.addEventListener('input', function(){ A[f.id]=Number(inp.value); });
+      e2.appendChild(inp);
+      if(f.einheit) e2.appendChild(el('span','f-einheit', f.einheit));
+      w.appendChild(e2);
+    }
+    box.appendChild(w);
+  });
+}
+
+function pruefeSchritt(){
+  var fehler = [];
+  felderVon(FRAGEN[schrittIdx]).forEach(function(f){
+    if(f.typ!=='zahl') return;
+    var v = Number(A[f.id]);
+    if(!isFinite(v) || A[f.id]==='' || A[f.id]==null){ fehler.push(f.l+' fehlt.'); return; }
+    if(f.min!=null && v<f.min) fehler.push(f.l+': mindestens '+nf(f.min,1)+'.');
+    if(f.max!=null && v>f.max) fehler.push(f.l+': höchstens '+nf(f.max,1)+'.');
+  });
+  $('schrittFehler').textContent = fehler.join(' ');
+  return fehler.length===0;
+}
+
+/* ---------- Ergebnis: Ist-Zustand ---------- */
+var IST = null, STUFE_AKTIV = null;
+
+function zeigeErgebnis(){
+  IST = istZustand(A);
+  $('fragebogen').style.display='none';
+  $('ergebnis').style.display='';
+
+  var g = IST.geo, b = IST.bilanz;
+  $('istSub').textContent =
+    'Aus Ihren Angaben ergibt sich eine Hüllfläche von rund '+nf(b.flaeche,0)+
+    ' m² bei etwa '+nf(g.wohnflaeche,0)+' m² Wohnfläche. Alle U-Werte sind aus dem '+
+    'jeweiligen Aufbau gerechnet, nicht geschätzt.';
+
+  var t = $('istTab'); t.innerHTML='';
+  var thead = el('thead'), tr = el('tr');
+  ['Bauteil','Fläche','U-Wert heute','F_x','Anteil am Verlust'].forEach(function(x){
+    tr.appendChild(el('th',null,x)); });
+  thead.appendChild(tr); t.appendChild(thead);
+  var tb = el('tbody');
+  var summe = 0;
+  IST.teile.forEach(function(x){
+    summe += (KENNWERTE.fx[x.fx]!=null?KENNWERTE.fx[x.fx]:1) * x.u * x.flaeche; });
+  IST.teile.slice().sort(function(p,q){
+    var fp=(KENNWERTE.fx[p.fx]!=null?KENNWERTE.fx[p.fx]:1)*p.u*p.flaeche;
+    var fq=(KENNWERTE.fx[q.fx]!=null?KENNWERTE.fx[q.fx]:1)*q.u*q.flaeche;
+    return fq-fp;
+  }).forEach(function(x){
+    var fx = KENNWERTE.fx[x.fx]!=null?KENNWERTE.fx[x.fx]:1;
+    var anteil = summe>0 ? fx*x.u*x.flaeche/summe*100 : 0;
+    var r = el('tr');
+    r.appendChild(el('td',null,x.n));
+    r.appendChild(el('td','num', nf(x.flaeche,0)+' m²'));
+    r.appendChild(el('td','num', nf(x.u,2)));
+    r.appendChild(el('td','num', nf(fx,2)));
+    r.appendChild(el('td','num', nf(anteil,0)+' %'));
+    tb.appendChild(r);
+  });
+  t.appendChild(tb);
+
+  var kz = $('istKennzahlen'); kz.innerHTML='';
+  var grid = el('div');
+  grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:18px 0 4px';
+  [['H′T heute', nf(b.hStrich,3)+' W/(m²·K)'],
+   ['Referenzgebäude', nf(b.hStrichRef,3)+' W/(m²·K)'],
+   ['Verhältnis', nf(b.verhaeltnis*100,0)+' %'],
+   ['Wärmebrücken', nf(IST.wb,2)+' W/(m²·K)']].forEach(function(x){
+    var k = el('div','ziel-karte');
+    k.appendChild(el('div','zk-lab',x[0]));
+    k.appendChild(el('div','zk-d',x[1]));
+    grid.appendChild(k);
+  });
+  kz.appendChild(grid);
+
+  var eo = $('istEinordnung'); eo.innerHTML='';
+  var stufe = ehStufe(b.verhaeltnis);
+  var m = el('div','merk');
+  m.appendChild(el('b',null,'Wo Ihr Haus heute steht'));
+  m.appendChild(el('span',null, stufe
+    ? ('Die Hülle erfüllt schon heute das H′T-Kriterium für Effizienzhaus '+stufe.name+'.')
+    : ('Mit '+nf(b.verhaeltnis*100,0)+' % liegt die Hülle über dem Referenzgebäude. '+
+       'Das ist bei einem unsanierten Bestandsgebäude der Normalfall und kein schlechtes '+
+       'Zeichen – es sagt nur, dass noch keine Effizienzhausstufe erreicht ist.')));
+  eo.appendChild(m);
+
+  renderStufen();
+  detailStart();
+  $('ergebnis').scrollIntoView({block:'start'});
+}
+
+/* ---------- Ergebnis: Vorschlaege je Stufe ---------- */
+function renderStufen(){
+  var box = $('stufenReiter'); box.innerHTML='';
+  if(!STUFE_AKTIV) STUFE_AKTIV = A.ziel || '70';
+  UK.ehStufen.slice().reverse().forEach(function(st){
+    var wbN = A.nurInnen==='ja' ? KENNWERTE.wbZuschlag.unsaniert : KENNWERTE.wbZuschlag.saniert;
+    var p = paketFuer(IST.teile, st.ht, wbN);
+    var c = el('button','chip'+(STUFE_AKTIV===st.name?' aktiv':'')+(p.erreichbar?' machbar':''),
+               'Effizienzhaus '+st.name);
+    c.addEventListener('click', function(){ STUFE_AKTIV=st.name; renderStufen(); });
+    box.appendChild(c);
+  });
+  renderVorschlag();
+}
+
+function renderVorschlag(){
+  var box = $('vorschlagBox'); box.innerHTML='';
+  var st = null;
+  UK.ehStufen.forEach(function(x){ if(x.name===STUFE_AKTIV) st=x; });
+  if(!st) return;
+
+  var erg = massnahmenFuer(A, IST, st);
+  var v = el('div','vorschlag');
+  v.appendChild(el('h3',null,'Effizienzhaus '+st.name));
+  v.appendChild(el('p','v-sub',
+    'Kriterium: H′T höchstens '+st.ht+' % des Referenzgebäudes. '+
+    'Der Primärenergiebedarf darf zusätzlich höchstens '+st.qp+' % betragen.'));
+
+  if(!erg.paket.erreichbar){
+    var w = el('div','v-warnung');
+    w.innerHTML = '<b>Mit der Gebäudehülle allein nicht erreichbar.</b> Selbst mit sehr guten '+
+      'Dämmwerten an allen Bauteilen bleibt die Hülle bei rund '+nf(erg.paket.quote*100,0)+
+      ' % statt der geforderten '+st.ht+' %. Das liegt meist an der Geometrie: viel Außenfläche '+
+      'im Verhältnis zum Volumen, oder ein sehr hoher Fensteranteil. Hier hilft nur eine '+
+      'genaue Berechnung im Einzelfall – manchmal über Wärmebrückennachweis, manchmal ist '+
+      'eine niedrigere Stufe der ehrlichere Weg.';
+    v.appendChild(w);
+  }
+
+  var reihenfolge = {ogd:1, kellerdecke:2, dach:3, wand:4, fenster:5, boden:6, tuer:7};
+  erg.liste.slice().sort(function(p,q){
+    return (reihenfolge[p.id]||9)-(reihenfolge[q.id]||9); }).forEach(function(m){
+    var z = el('div','massnahme');
+    z.appendChild(el('div','m-bauteil', m.n));
+    var mid = el('div','m-text'+(m.fertig?' m-fertig':''));
+    mid.textContent = m.text;
+    if(m.ampel){
+      var amp = el('div','ampel-box ampel-'+m.ampel.stufe);
+      amp.style.margin='9px 0 0';
+      amp.appendChild(el('b',null,m.ampel.titel));
+      amp.appendChild(el('span',null,m.ampel.text));
+      mid.appendChild(amp);
+    }
+    z.appendChild(mid);
+    z.appendChild(el('div','m-wert', m.fertig ? nf(m.uAlt,2)
+      : nf(m.uAlt,2)+' → '+nf(m.uNeu,2)));
+    v.appendChild(z);
+  });
+
+  var zieleListe = erg.liste.map(function(m){
+    var t=null; IST.teile.forEach(function(x){ if(x.id===m.id) t=x; });
+    return { u:m.fertig?m.uAlt:m.uNeu, flaeche:t.flaeche, fx:t.fx, refKey:t.refKey };
+  });
+  var bNeu = htBilanz(zieleListe, erg.wb);
+  var s = el('div','v-summe');
+  s.innerHTML = 'Danach: H′T <em>'+nf(bNeu.hStrich,3)+'</em> W/(m²·K), das sind <em>'+
+    nf(bNeu.verhaeltnis*100,0)+' %</em> des Referenzgebäudes – heute sind es '+
+    nf(IST.bilanz.verhaeltnis*100,0)+' %.';
+  v.appendChild(s);
+
+  if(erg.innen){
+    var h = el('p',null,'Weil die Fassade erhalten bleiben muss, ist für die Wand nur '+
+      'Innendämmung gerechnet. Der Wärmebrückenzuschlag bleibt deshalb auf '+
+      nf(erg.wb,2)+' W/(m²·K) – einbindende Decken und Innenwände bleiben kalt.');
+    h.style.cssText='font-size:.85rem;color:var(--muted);margin-top:12px';
+    v.appendChild(h);
+  }
+
+  box.appendChild(v);
+}
+
+/* ---------- Detailmodus: Schichteditor ---------- */
+var Z = { bauteil:'wand', schichten:[], lage:'aussen', daemmstoff:'eps_035', daemmDicke:14 };
+
 function btDef(id){ for(var i=0;i<BAUTEILE.length;i++){ if(BAUTEILE[i].id===id) return BAUTEILE[i]; } return BAUTEILE[0]; }
+function refKey(id){ return id; }
 
-/* Referenz- und Hoechstwertschluessel je Bauteil */
-function refKey(id){ return (id==='ogd') ? 'ogd' : id; }
-
-/* Typischer Aufbau fuer Bauteil und Baujahr */
 function aufbauFuer(bauteilId, jahr){
   var liste = AUFBAUTEN[bauteilId] || [];
   for(var i=0;i<liste.length;i++){
-    if(jahr <= liste[i].bis){
-      return liste[i].s.map(function(x){ return {id:x[0], d:x[1]}; });
-    }
+    if(jahr <= liste[i].bis) return liste[i].s.map(function(x){ return {id:x[0], d:x[1]}; });
   }
   return [];
 }
 
-/* Schichten inklusive geplanter Daemmung */
-function schichtenMitDaemmung(){
-  if(Z.lage==='keine' || !(Z.daemmDicke>0)) return Z.schichten.slice();
-  var d = {id:Z.daemmstoff, d:Z.daemmDicke, neu:true};
-  return Z.lage==='innen' ? [d].concat(Z.schichten) : Z.schichten.concat([d]);
-}
-
-/* ---------- Baustoff-Auswahlliste ---------- */
 function stoffSelect(gewaehlt, nurDaemm){
   var s = el('select');
-  var gruppen = nurDaemm ? ['innen','daemm'] : ['trag','putz','daemm','innen'];
-  if(nurDaemm && Z.lage!=='innen') gruppen = ['daemm','innen'];
+  var gruppen = nurDaemm ? (Z.lage==='innen' ? ['innen','daemm'] : ['daemm','innen'])
+                         : ['trag','putz','daemm','innen'];
   gruppen.forEach(function(g){
     var treffer = BAUSTOFFE.filter(function(b){ return b.g===g; });
     if(!treffer.length) return;
-    var og = document.createElement('optgroup');
-    og.label = GRUPPEN[g];
+    var og = document.createElement('optgroup'); og.label = GRUPPEN[g];
     treffer.forEach(function(b){
       var o = el('option', null, b.n + ' · λ ' + nf(b.l,3) + (b.kap?' · kapillaraktiv':''));
       o.value = b.id;
@@ -1062,50 +1807,39 @@ function stoffSelect(gewaehlt, nurDaemm){
   return s;
 }
 
-/* ---------- Schritt 1: Bauteil, Baujahr, Schichten ---------- */
+function schichtenMitDaemmung(){
+  if(Z.lage==='keine' || !(Z.daemmDicke>0)) return Z.schichten.slice();
+  var d = {id:Z.daemmstoff, d:Z.daemmDicke};
+  return Z.lage==='innen' ? [d].concat(Z.schichten) : Z.schichten.concat([d]);
+}
+
+function detailStart(){
+  var vorhanden = IST.teile.filter(function(t){ return t.schichten; });
+  if(!vorhanden.length) return;
+  Z.bauteil = vorhanden[0].id;
+  Z.schichten = vorhanden[0].schichten.slice();
+  Z.lage = A.nurInnen==='ja' ? 'innen' : 'aussen';
+  Z.daemmstoff = A.daemmstoffWunsch || 'eps_035';
+  detailAlles();
+}
+
 function renderBauteilChips(){
-  var box = $('bauteilChips');
-  box.innerHTML='';
-  BAUTEILE.forEach(function(bt){
-    var c = el('button','chip'+(bt.id===Z.bauteil?' aktiv':''), bt.n);
+  var box = $('bauteilChips'); box.innerHTML='';
+  IST.teile.filter(function(t){ return t.schichten; }).forEach(function(t){
+    var c = el('button','chip'+(t.id===Z.bauteil?' aktiv':''), t.n);
     c.addEventListener('click', function(){
-      Z.bauteil = bt.id;
-      Z.schichten = aufbauFuer(bt.id, Z.baujahr);
-      alles();
+      Z.bauteil = t.id; Z.schichten = t.schichten.slice(); detailAlles();
     });
     box.appendChild(c);
   });
 }
 
-function renderBaujahr(){
-  var s = $('baujahr');
-  if(s.options.length) return;
-  [[1918,'bis 1918'],[1948,'1919 bis 1948'],[1968,'1949 bis 1968'],
-   [1978,'1969 bis 1978'],[1983,'1979 bis 1983'],[1994,'1984 bis 1994'],
-   [2001,'1995 bis 2001'],[2009,'2002 bis 2009'],[2015,'2010 bis 2015'],
-   [2024,'ab 2016']].forEach(function(j){
-    var o = el('option', null, j[1]); o.value = j[0];
-    if(j[0]===1978) o.selected = true;
-    s.appendChild(o);
-  });
-  s.addEventListener('change', function(){
-    Z.baujahr = Number(s.value);
-    Z.schichten = aufbauFuer(Z.bauteil, Z.baujahr);
-    alles();
-  });
-  Z.baujahr = Number(s.value);
-}
-
 function renderSchichten(){
-  var box = $('schichtBox');
-  box.innerHTML='';
+  var box = $('schichtBox'); box.innerHTML='';
   var ue = UK.rsiRse[btDef(Z.bauteil).lage];
-
   var kopf = el('div','schicht-kopf');
   ['Schicht','Dicke in cm','λ W/(m·K)','R m²K/W',''].forEach(function(t,i){
-    var d = el('div', i===2?'sp-l':(i===3?'sp-r':null), t);
-    kopf.appendChild(d);
-  });
+    kopf.appendChild(el('div', i===2?'sp-l':(i===3?'sp-r':null), t)); });
   box.appendChild(kopf);
 
   var innen = el('div','uebergang');
@@ -1114,27 +1848,20 @@ function renderSchichten(){
   box.appendChild(innen);
 
   Z.schichten.forEach(function(sch, i){
-    var b = stoff(sch.id);
-    var r = el('div','schicht');
-
+    var b = stoff(sch.id), r = el('div','schicht');
     var sel = stoffSelect(sch.id, false);
-    sel.addEventListener('change', function(){ Z.schichten[i].id = sel.value; alles(); });
+    sel.addEventListener('change', function(){ Z.schichten[i].id = sel.value; detailAlles(); });
     r.appendChild(sel);
-
     var inp = el('input'); inp.type='number'; inp.min='0'; inp.max='200'; inp.step='0.5';
-    inp.value = sch.d; inp.setAttribute('aria-label','Dicke der Schicht in Zentimeter');
-    inp.addEventListener('input', function(){ Z.schichten[i].d = Number(inp.value); alles(); });
+    inp.value = sch.d; inp.setAttribute('aria-label','Dicke in Zentimeter');
+    inp.addEventListener('input', function(){ Z.schichten[i].d = Number(inp.value); detailAlles(); });
     r.appendChild(inp);
-
     r.appendChild(el('div','zahl sp-l', b ? nf(b.l,3) : '–'));
     r.appendChild(el('div','zahl sp-r', b && sch.d>0 ? nf((sch.d/100)/b.l,3) : '–'));
-
     var weg = el('button','schicht-weg','×');
-    weg.title='Schicht entfernen';
     weg.setAttribute('aria-label','Schicht entfernen');
-    weg.addEventListener('click', function(){ Z.schichten.splice(i,1); alles(); });
+    weg.addEventListener('click', function(){ Z.schichten.splice(i,1); detailAlles(); });
     r.appendChild(weg);
-
     box.appendChild(r);
   });
 
@@ -1144,124 +1871,86 @@ function renderSchichten(){
   box.appendChild(aussen);
 
   var rGes = ue.rsi + rSchichten(Z.schichten) + ue.rse;
-  var summe = el('div','schicht-summe');
-  summe.appendChild(el('div',null,'Wärmedurchgangswiderstand R_T'));
-  summe.appendChild(el('div',null,''));
-  summe.appendChild(el('div','zahl sp-l',''));
-  summe.appendChild(el('div','zahl sp-r', nf(rGes,3)));
-  summe.appendChild(el('div',null,''));
-  box.appendChild(summe);
+  var su = el('div','schicht-summe');
+  su.appendChild(el('div',null,'Wärmedurchgangswiderstand R_T'));
+  su.appendChild(el('div',null,''));
+  su.appendChild(el('div','zahl sp-l',''));
+  su.appendChild(el('div','zahl sp-r', nf(rGes,3)));
+  su.appendChild(el('div',null,''));
+  box.appendChild(su);
 }
 
-/* ---------- Vergleich gegen Gesetz und Referenz ---------- */
-function balken(label, wert, maxWert, farbe, zusatz){
+function balken(label, wert, maxWert, farbe){
   var r = el('div','v-reihe');
   r.appendChild(el('div','v-lab', label));
   r.appendChild(el('div','v-wert', nf(wert,2)));
-  var t = el('div','v-bar');
-  var s = el('span');
+  var t = el('div','v-bar'), s = el('span');
   s.style.width = Math.max(2, Math.min(100, wert/maxWert*100)) + '%';
-  s.style.background = farbe;
-  t.appendChild(s);
-  if(zusatz) t.appendChild(zusatz);
-  r.appendChild(t);
+  s.style.background = farbe; t.appendChild(s); r.appendChild(t);
   return r;
 }
 
 function renderVergleich(){
-  var box = $('vergleichBox');
-  box.innerHTML='';
+  var box = $('vergleichBox'); box.innerHTML='';
   var bt = btDef(Z.bauteil), k = refKey(Z.bauteil);
   var u = uWert(Z.schichten, bt.lage);
   $('uIst').textContent = u==null ? '–' : nf(u,2);
   if(u==null) return;
-
-  var uMax = UK.uMax[k], uRef = UK.uRef[k], uZiel = KENNWERTE.zielU[Z.bauteil];
+  var uMax = UK.uMax[k], uRef = UK.uRef[k], uZiel = BASISZIEL[Z.bauteil];
   var max = Math.max(u, uMax, uRef, uZiel||0) * 1.1;
-
   box.appendChild(balken('Ihr Ist-Zustand', u, max, 'var(--bad)'));
   box.appendChild(balken('Höchstwert bei Erneuerung (Anlage 7)', uMax, max, 'var(--warn)'));
   box.appendChild(balken('Referenzgebäude (Anlage 1)', uRef, max, 'var(--amber)'));
   if(uZiel) box.appendChild(balken('Zielwert der Förderung', uZiel, max, 'var(--ok)'));
-
-  var hinweis = el('p', null, '');
-  hinweis.style.cssText = 'font-size:.86rem;color:var(--muted);margin-top:10px';
-  if(u <= uMax){
-    hinweis.innerHTML = '<span class="badge badge-ok">erfüllt</span> Der Bestand liegt bereits unter dem Höchstwert, den das Gesetz bei einer Erneuerung verlangt.';
-  } else {
-    hinweis.innerHTML = '<span class="badge badge-bad">nicht erfüllt</span> Wird mehr als ein Zehntel der Bauteilfläche erneuert, verlangt Anlage 7 höchstens '+nf(uMax,2)+' W/(m²·K).';
-  }
-  box.appendChild(hinweis);
 }
 
-/* ---------- Schritt 2: Dämmung ---------- */
 function renderLageChips(){
-  var box = $('lageChips');
-  Array.prototype.forEach.call(box.querySelectorAll('.chip'), function(c){
+  Array.prototype.forEach.call($('lageChips').querySelectorAll('.chip'), function(c){
     c.classList.toggle('aktiv', c.getAttribute('data-lage')===Z.lage);
-    if(c._geb) return;
-    c._geb = true;
+    if(c._geb) return; c._geb=true;
     c.addEventListener('click', function(){
       Z.lage = c.getAttribute('data-lage');
       if(Z.lage==='innen' && stoff(Z.daemmstoff) && !stoff(Z.daemmstoff).kap){
-        Z.daemmstoff = 'mineralschaum';
-        Z.daemmDicke = Math.min(Z.daemmDicke, 6);
-      }
+        Z.daemmstoff='mineralschaum'; Z.daemmDicke=Math.min(Z.daemmDicke,6); }
       if(Z.lage==='aussen' && stoff(Z.daemmstoff) && stoff(Z.daemmstoff).g==='innen'){
-        Z.daemmstoff = 'eps_035';
-      }
-      alles();
+        Z.daemmstoff='eps_035'; }
+      detailAlles();
     });
   });
 }
 
 function renderDaemmung(){
   var bt = btDef(Z.bauteil);
-  var felder = $('daemmFelder');
-  felder.style.display = (Z.lage==='keine') ? 'none' : '';
-
-  var alt = $('daemmstoff');
-  var neu = stoffSelect(Z.daemmstoff, true);
-  neu.id = 'daemmstoff';
-  neu.addEventListener('change', function(){ Z.daemmstoff = neu.value; alles(); });
+  $('daemmFelder').style.display = (Z.lage==='keine') ? 'none' : '';
+  var alt = $('daemmstoff'), neu = stoffSelect(Z.daemmstoff, true);
+  neu.id='daemmstoff';
+  neu.addEventListener('change', function(){ Z.daemmstoff=neu.value; detailAlles(); });
   alt.parentNode.replaceChild(neu, alt);
 
   var dicke = $('daemmDicke');
-  if(document.activeElement !== dicke) dicke.value = Z.daemmDicke;
-  if(!dicke._geb){
-    dicke._geb = true;
-    dicke.addEventListener('input', function(){ Z.daemmDicke = Number(dicke.value); alles(); });
-  }
+  if(document.activeElement!==dicke) dicke.value = Z.daemmDicke;
+  if(!dicke._geb){ dicke._geb=true;
+    dicke.addEventListener('input', function(){ Z.daemmDicke=Number(dicke.value); detailAlles(); }); }
 
-  var uAlt = uWert(Z.schichten, bt.lage);
-  var uNeu = uWert(schichtenMitDaemmung(), bt.lage);
-  $('uVorher').textContent  = uAlt==null?'–':nf(uAlt,2);
-  $('uNachher').textContent = uNeu==null?'–':nf(uNeu,2);
+  $('uVorher').textContent  = nf(uWert(Z.schichten, bt.lage),2);
+  $('uNachher').textContent = nf(uWert(schichtenMitDaemmung(), bt.lage),2);
 
-  var ab = $('ampelBox');
-  ab.innerHTML='';
+  var ab = $('ampelBox'); ab.innerHTML='';
   if(Z.lage==='innen' && Z.daemmDicke>0){
     var b = stoff(Z.daemmstoff);
     var rD = b ? (Z.daemmDicke/100)/b.l : 0;
     var a = innenAmpel(rD);
-    var box = el('div','ampel-box ampel-'+a.stufe);
-    box.appendChild(el('b',null,a.titel+' · R der Dämmschicht '+nf(rD,2)+' m²K/W'));
-    box.appendChild(el('span',null,a.text));
+    var bx = el('div','ampel-box ampel-'+a.stufe);
+    bx.appendChild(el('b',null,a.titel+' · R der Dämmschicht '+nf(rD,2)+' m²K/W'));
+    bx.appendChild(el('span',null,a.text));
     if(b && !b.kap){
-      var w = el('p',null,'Hinweis: '+b.n+' ist nicht kapillaraktiv. Bei Innendämmung sind kapillaraktive Platten die sicherere Wahl, weil sie Tauwasser zurückführen können.');
-      w.style.cssText='margin-top:8px;font-weight:600';
-      box.appendChild(w);
+      var w = el('p',null,'Hinweis: '+b.n+' ist nicht kapillaraktiv. Bei Innendämmung sind kapillaraktive Platten die sicherere Wahl.');
+      w.style.cssText='margin-top:8px;font-weight:600'; bx.appendChild(w);
     }
-    ab.appendChild(box);
-
-    var g = el('div','merk');
-    g.appendChild(el('b',null,'Und wenn die Dicke nicht reicht?'));
-    g.appendChild(el('span',null,'Anlage 7 kennt diesen Fall: Ist die Dämmschichtdicke technisch begrenzt – etwa weil die Fassade unter Denkmalschutz steht oder Innendämmung die einzige Möglichkeit ist – gilt statt des Höchstwerts die höchstmögliche Dicke mit λ = 0,035 W/(m·K). Das ist keine Ausrede, sondern eine ausdrückliche Regel; sie muss aber begründet und dokumentiert sein.'));
-    ab.appendChild(g);
+    ab.appendChild(bx);
   }
 }
 
-/* ---------- Zielwert-Navigator ---------- */
 function zielKarte(lab, uZiel, quelle){
   var bt = btDef(Z.bauteil);
   var b = stoff(Z.daemmstoff) || stoff('eps_035');
@@ -1269,238 +1958,53 @@ function zielKarte(lab, uZiel, quelle){
   var k = el('div','ziel-karte' + (d===0 ? ' erreicht' : ''));
   k.appendChild(el('div','zk-lab', lab));
   k.appendChild(el('div','zk-u','U ≤ '+nf(uZiel,2)+' W/(m²·K)'));
-  if(d===0){
-    k.appendChild(el('div','zk-d','erreicht'));
-    k.appendChild(el('div','zk-hint','Der Bestand erfüllt diesen Wert bereits.'));
-  } else {
-    k.appendChild(el('div','zk-d', nf(d,1)+' cm'));
-    k.appendChild(el('div','zk-hint', b.n.split(',')[0]+', λ '+nf(b.l,3)));
-  }
+  k.appendChild(el('div','zk-d', d===0 ? 'erreicht' : nf(d,1)+' cm'));
+  k.appendChild(el('div','zk-hint', d===0 ? 'Der Bestand erfüllt diesen Wert bereits.'
+                                          : b.n.split(',')[0]+', λ '+nf(b.l,3)));
   k.appendChild(el('div','zk-hint', quelle));
   return k;
 }
 
 function renderZiele(){
-  var g = $('zielGrid');
-  g.innerHTML='';
+  var g = $('zielGrid'); g.innerHTML='';
   var k = refKey(Z.bauteil);
   g.appendChild(zielKarte('Gesetzlicher Höchstwert', UK.uMax[k], 'Anlage 7 GEG/GModG'));
   g.appendChild(zielKarte('Referenzgebäude', UK.uRef[k], 'Anlage 1 GEG/GModG'));
-  var z = KENNWERTE.zielU[Z.bauteil];
-  if(z) g.appendChild(zielKarte('Zielwert der Förderung', z, 'BEG-Anforderung Einzelmaßnahme'));
+  if(BASISZIEL[Z.bauteil]) g.appendChild(zielKarte('Zielwert der Förderung', BASISZIEL[Z.bauteil], 'BEG-Einzelmaßnahme'));
 }
 
-/* ---------- Schritt 3: Hausbilanz ---------- */
-function bauteilUebernehmen(){
-  var bt = btDef(Z.bauteil);
-  var uAlt = uWert(Z.schichten, bt.lage);
-  var uNeu = uWert(schichtenMitDaemmung(), bt.lage);
-  if(uAlt==null) return;
-  var vorhanden = null;
-  Z.bilanz.forEach(function(b){ if(b.id===Z.bauteil) vorhanden = b; });
-  var eintrag = {
-    id:Z.bauteil, n:bt.n, u:uAlt, uNeu:uNeu,
-    fx:bt.fx, refKey:refKey(Z.bauteil),
-    flaeche: vorhanden ? vorhanden.flaeche : flaecheVorschlag(Z.bauteil),
-    innen: Z.lage==='innen'
-  };
-  if(vorhanden){ Z.bilanz[Z.bilanz.indexOf(vorhanden)] = eintrag; }
-  else { Z.bilanz.push(eintrag); }
-  alles();
-  $('p-bilanz').scrollIntoView({block:'start'});
+function detailAlles(){
+  renderBauteilChips(); renderSchichten(); renderVergleich();
+  renderLageChips(); renderDaemmung(); renderZiele();
 }
 
-function flaecheVorschlag(id){
-  return {wand:160, dach:120, ogd:90, kellerdecke:90, boden:90, fenster:26, tuer:4}[id] || 50;
-}
-
-function fensterHinzufuegen(art, wert, name){
-  var eintrag = {id:art, n:name, u:wert, uNeu:wert,
-                 fx:art==='tuer'?'tuer':'fenster', refKey:art==='tuer'?'tuer':'fenster',
-                 flaeche:flaecheVorschlag(art), innen:false, fest:true};
-  var vorhanden=null;
-  Z.bilanz.forEach(function(b){ if(b.id===art) vorhanden=b; });
-  if(vorhanden){ eintrag.flaeche = vorhanden.flaeche; Z.bilanz[Z.bilanz.indexOf(vorhanden)] = eintrag; }
-  else Z.bilanz.push(eintrag);
-  alles();
-}
-
-function renderBilanz(){
-  var box = $('bilanzBox');
-  box.innerHTML='';
-
-  /* Fenster und Tueren haben keinen Schichtaufbau - sie kommen ueber die
-     U-Wert-Tabelle des Sanierungsrechners dazu. */
-  var zeile = el('div','feld-reihe');
-  var f1 = el('div','feld');
-  f1.appendChild(el('label',null,'Fenster ergänzen'));
-  var fs = el('select');
-  Object.keys(KENNWERTE.uFenster).forEach(function(k){
-    var namen = {einfach:'Einfachverglasung', kasten:'Kastenfenster',
-      zweifach_alt:'Zweifachverglasung, älter', iso_95:'Isolierglas ab 1995',
-      ws_2001:'Wärmeschutzglas ab 2001', ws_2010:'Wärmeschutzglas ab 2010',
-      dreifach:'Dreifachverglasung'};
-    var o = el('option',null,(namen[k]||k)+' · U '+nf(KENNWERTE.uFenster[k],2));
-    o.value = k; if(k==='ws_2001') o.selected=true;
-    fs.appendChild(o);
-  });
-  f1.appendChild(fs);
-  zeile.appendChild(f1);
-  var fb = el('button','btn btn-ghost btn-sm','Fenster übernehmen');
-  fb.addEventListener('click', function(){
-    var opt = fs.options[fs.selectedIndex];
-    fensterHinzufuegen('fenster', KENNWERTE.uFenster[fs.value], 'Fenster ('+opt.textContent.split(' · ')[0]+')');
-  });
-  zeile.appendChild(fb);
-  var tb = el('button','btn btn-ghost btn-sm','Haustür ergänzen');
-  tb.addEventListener('click', function(){
-    fensterHinzufuegen('tuer', KENNWERTE.uTuer.alt, 'Haustür (alt)');
-  });
-  zeile.appendChild(tb);
-  box.appendChild(zeile);
-
-  if(!Z.bilanz.length){
-    var h = el('div','leer-hinweis');
-    h.innerHTML = 'Noch kein Bauteil übernommen. Rechnen Sie oben ein Bauteil durch und klicken Sie auf <em>Bauteil in die Hausbilanz übernehmen</em>. Für eine belastbare Einstufung gehören Außenwand, Dach oder oberste Geschossdecke, Kellerdecke oder Bodenplatte und die Fenster hinein.';
-    box.appendChild(h);
-    $('ehBox').innerHTML='';
-    return;
-  }
-
-  var t = el('table','bilanz-tab');
-  var thead = el('thead'), tr = el('tr');
-  ['Bauteil','Fläche m²','U heute','U geplant','F_x',''].forEach(function(x){
-    tr.appendChild(el('th',null,x));
-  });
-  thead.appendChild(tr); t.appendChild(thead);
-  var tb2 = el('tbody');
-  Z.bilanz.forEach(function(b, i){
-    var r = el('tr');
-    var c1 = el('td',null,b.n);
-    if(b.innen){ var mk = el('span','badge badge-warn','innen'); mk.style.marginLeft='7px'; c1.appendChild(mk); }
-    r.appendChild(c1);
-    var c2 = el('td','num');
-    var inp = el('input'); inp.type='number'; inp.min='1'; inp.max='2000'; inp.step='1';
-    inp.value=b.flaeche; inp.setAttribute('aria-label','Fläche '+b.n+' in Quadratmeter');
-    inp.addEventListener('input', function(){ Z.bilanz[i].flaeche = Number(inp.value); renderEh(); });
-    c2.appendChild(inp); r.appendChild(c2);
-    r.appendChild(el('td','num', nf(b.u,2)));
-    r.appendChild(el('td','num', nf(b.uNeu,2)));
-    r.appendChild(el('td','num', nf(KENNWERTE.fx[b.fx]!=null?KENNWERTE.fx[b.fx]:1, 2)));
-    var c6 = el('td','num');
-    var weg = el('button','schicht-weg','×');
-    weg.setAttribute('aria-label', b.n+' aus der Bilanz entfernen');
-    weg.addEventListener('click', function(){ Z.bilanz.splice(i,1); alles(); });
-    c6.appendChild(weg); r.appendChild(c6);
-    tb2.appendChild(r);
-  });
-  t.appendChild(tb2);
-  var huelle = el('div','bilanz-huelle');
-  huelle.appendChild(t);
-  box.appendChild(huelle);
-  renderEh();
-}
-
-function renderEh(){
-  var box = $('ehBox');
-  box.innerHTML='';
-  if(!Z.bilanz.length) return;
-
-  var hatInnen = Z.bilanz.some(function(b){ return b.innen; });
-  var istListe = Z.bilanz.map(function(b){ return {u:b.u, flaeche:b.flaeche, fx:b.fx, refKey:b.refKey}; });
-  var neuListe = Z.bilanz.map(function(b){ return {u:b.uNeu, flaeche:b.flaeche, fx:b.fx, refKey:b.refKey}; });
-  var bIst = htBilanz(istListe, KENNWERTE.wbZuschlag.unsaniert);
-  var bNeu = htBilanz(neuListe, hatInnen ? KENNWERTE.wbZuschlag.unsaniert : KENNWERTE.wbZuschlag.saniert);
-  if(!bIst || !bNeu) return;
-
-  var kopf = el('div');
-  kopf.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0 6px';
-  [['Hüllfläche', nf(bIst.flaeche,0)+' m²'],
-   ['H′T heute', nf(bIst.hStrich,3)+' W/(m²·K)'],
-   ['H′T geplant', nf(bNeu.hStrich,3)+' W/(m²·K)'],
-   ['Referenzgebäude', nf(bNeu.hStrichRef,3)+' W/(m²·K)']].forEach(function(x){
-    var k = el('div','ziel-karte');
-    k.appendChild(el('div','zk-lab',x[0]));
-    k.appendChild(el('div','zk-d',x[1]));
-    kopf.appendChild(k);
-  });
-  box.appendChild(kopf);
-
-  var leiste = el('div','eh-leiste');
-  var pIst = bIst.verhaeltnis*100, pNeu = bNeu.verhaeltnis*100;
-  var skala = Math.max(120, pIst*1.1);
-  UK.ehStufen.forEach(function(st){
-    var geschafft = pNeu <= st.ht;
-    var r = el('div','eh-reihe'+(geschafft?' geschafft':''));
-    r.appendChild(el('div','eh-name','Effizienzhaus '+st.name));
-    var t = el('div','eh-track');
-    var s = el('span');
-    s.style.width = Math.min(100, st.ht/skala*100)+'%';
-    s.style.background = geschafft ? 'var(--ok-soft)' : 'var(--cream-3)';
-    t.appendChild(s);
-    var m = el('div','eh-grenz');
-    m.style.left = Math.min(100, pNeu/skala*100)+'%';
-    t.appendChild(m);
-    r.appendChild(t);
-    r.appendChild(el('div','v-wert', st.ht+' %'));
-    leiste.appendChild(r);
-  });
-  box.appendChild(leiste);
-
-  var ist = el('p','eh-ist');
-  var stufe = ehStufe(bNeu.verhaeltnis);
-  ist.innerHTML = 'Ihre geplante Hülle liegt bei <em>'+nf(pNeu,1)+' %</em> des Referenzgebäudes '+
-    '(heute '+nf(pIst,1)+' %). Die senkrechte Linie zeigt diesen Wert.';
-  box.appendChild(ist);
-
-  var fazit = el('div','merk');
-  if(stufe){
-    fazit.appendChild(el('b',null,'Ergebnis der Hüllbilanz'));
-    fazit.appendChild(el('span',null,
-      'Ihre Gebäudehülle erfüllt das H′T-Kriterium für Effizienzhaus '+stufe.name+
-      '. Das ist die eine Hälfte der Anforderung. Für die Stufe selbst kommt der '+
-      'Primärenergiebedarf hinzu – er darf höchstens '+stufe.qp+' % des Referenzgebäudes '+
-      'betragen und hängt an Heizung, Lüftung und erneuerbaren Anteilen. Diese Rechnung '+
-      'nach DIN V 18599 gehört in die Hand einer bzw. eines Energieeffizienz-Experten.'));
-  } else {
-    fazit.appendChild(el('b',null,'Ergebnis der Hüllbilanz'));
-    fazit.appendChild(el('span',null,
-      'Mit '+nf(pNeu,1)+' % liegt die Hülle noch über dem Referenzgebäude und erreicht damit '+
-      'keine Effizienzhausstufe. Am wirksamsten ist meist das Bauteil mit der größten '+
-      'Fläche mal U-Wert – rechnen Sie oben verschiedene Dämmstärken durch und übernehmen '+
-      'Sie sie erneut.'));
-  }
-  box.appendChild(fazit);
-
-  if(hatInnen){
-    var w = el('p',null,'Weil mindestens ein Bauteil innen gedämmt wird, rechnet die Bilanz mit dem höheren Wärmebrückenzuschlag von '+nf(KENNWERTE.wbZuschlag.unsaniert,2)+' W/(m²·K): Einbindende Decken und Innenwände bleiben bei Innendämmung kalt.');
-    w.style.cssText='font-size:.85rem;color:var(--muted);margin-top:10px';
-    box.appendChild(w);
-  }
-}
-
-/* ---------- alles neu zeichnen ---------- */
-function alles(){
-  renderBauteilChips();
-  renderSchichten();
-  renderVergleich();
-  renderLageChips();
-  renderDaemmung();
-  renderZiele();
-  renderBilanz();
-}
-
+/* ---------- Start ---------- */
 (function start(){
-  renderBaujahr();
-  Z.schichten = aufbauFuer(Z.bauteil, Z.baujahr);
+  initAntworten();
+  renderSchritt();
+  $('btnWeiter').addEventListener('click', function(){
+    if(!pruefeSchritt()) return;
+    if(schrittIdx < FRAGEN.length-1){
+      schrittIdx++; renderSchritt();
+      $('fragebogen').scrollIntoView({block:'start'});
+    } else { zeigeErgebnis(); }
+  });
+  $('btnZurueck').addEventListener('click', function(){
+    if(schrittIdx>0){ schrittIdx--; renderSchritt(); $('fragebogen').scrollIntoView({block:'start'}); }
+  });
+  $('btnNeu').addEventListener('click', function(){
+    schrittIdx=0; $('ergebnis').style.display='none'; $('fragebogen').style.display='';
+    renderSchritt(); $('fragebogen').scrollIntoView({block:'start'});
+  });
   $('schichtPlus').addEventListener('click', function(){
-    Z.schichten.push({id:'mw_035', d:5}); alles();
+    Z.schichten.push({id:'mw_035', d:5}); detailAlles(); });
+  var ds = $('detailSchalter');
+  ds.addEventListener('click', function(){
+    var offen = $('detailInhalt').hidden;
+    $('detailInhalt').hidden = !offen;
+    ds.classList.toggle('offen', offen);
+    ds.setAttribute('aria-expanded', offen?'true':'false');
   });
-  $('aufbauLaden').addEventListener('click', function(){
-    Z.schichten = aufbauFuer(Z.bauteil, Z.baujahr); alles();
-  });
-  $('uebernehmen').addEventListener('click', bauteilUebernehmen);
-  alles();
 })();
 
 /* ===========================================================================
@@ -1588,6 +2092,54 @@ function alles(){
   console.log((schief===0?'✅ PASS':'❌ FAIL')+' – '+geprueft+
               ' typische Aufbauten im Plausibilitätsband, '+schief+' daneben');
   if(schief>0) ok=false;
+
+  /* 10. Loeser: strengere Stufe muss strengere Zielwerte verlangen.
+         Geprueft an einem unsanierten Beispielhaus. */
+  var beispiel = [
+    {id:'wand', u:1.13, flaeche:188, fx:'wand', refKey:'wand'},
+    {id:'ogd',  u:1.38, flaeche:90,  fx:'ogd',  refKey:'ogd'},
+    {id:'kellerdecke', u:2.24, flaeche:90, fx:'kellerdecke', refKey:'kellerdecke'},
+    {id:'fenster', u:1.30, flaeche:23, fx:'fenster', refKey:'fenster'},
+    {id:'tuer', u:3.00, flaeche:2, fx:'tuer', refKey:'tuer'}
+  ];
+  var kWerte = UK.ehStufen.map(function(st){
+    return paketFuer(beispiel, st.ht, KENNWERTE.wbZuschlag.saniert).k; });
+  var monoton = true;
+  for(var q=1;q<kWerte.length;q++){ if(kWerte[q] <= kWerte[q-1]) monoton = false; }
+  console.log((monoton?'✅ PASS':'❌ FAIL')+' – Löser: strengere Stufe = strengere Zielwerte ('+
+              kWerte.map(function(x){return nf(x,2);}).join(' < ')+')');
+  if(!monoton) ok=false;
+
+  /* 11. Jedes Paket muss sein eigenes Kriterium auch wirklich einhalten. */
+  var alleErfuellt = true;
+  UK.ehStufen.forEach(function(st){
+    var pk = paketFuer(beispiel, st.ht, KENNWERTE.wbZuschlag.saniert);
+    if(!pk.erreichbar) return;
+    if(pk.quote*100 > st.ht + 0.5) alleErfuellt = false;
+  });
+  console.log((alleErfuellt?'✅ PASS':'❌ FAIL')+' – jedes Paket hält sein H′T-Kriterium ein');
+  if(!alleErfuellt) ok=false;
+
+  /* 12. Ein Haus auf Referenzniveau erfuellt EH 85 ohne jede Massnahme. */
+  var refTeile = [
+    {id:'wand', u:UK.uRef.wand, flaeche:180, fx:'wand', refKey:'wand'},
+    {id:'dach', u:UK.uRef.dach, flaeche:110, fx:'dach', refKey:'dach'},
+    {id:'fenster', u:UK.uRef.fenster, flaeche:28, fx:'fenster', refKey:'fenster'}
+  ];
+  var refBil = htBilanz(refTeile, UK.dUwbRef);
+  console.log((refBil.verhaeltnis<=1.0001?'✅ PASS':'❌ FAIL')+
+              ' – Referenzhaus erfüllt EH 85 ohne Maßnahme ('+nf(refBil.verhaeltnis*100,1)+' %)');
+  if(refBil.verhaeltnis>1.0001) ok=false;
+
+  /* 13. Geometrie: Reihenmittelhaus muss weniger Aussenwand haben als ein
+         freistehendes Haus derselben Groesse. */
+  var basis = {laenge:10, breite:9, geschosse:2, raumhoehe:2.5, baujahr:1970,
+               dgBeheizt:'nein', keller:'ja', kellerBeheizt:'nein', fensterAnteil:'0'};
+  function mitTyp(t){ var o={}; for(var kk in basis) o[kk]=basis[kk]; o.haustyp=t; return geometrie(o).aWand; }
+  var frei = mitTyp('frei'), mitte = mitTyp('reihenmitte');
+  console.log((mitte < frei*0.75 ?'✅ PASS':'❌ FAIL')+
+              ' – Reihenmittelhaus hat weniger Außenwand ('+nf(mitte,0)+' statt '+nf(frei,0)+' m²)');
+  if(!(mitte < frei*0.75)) ok=false;
 
   console.log(ok ? '✅ SELBSTTEST U-WERT-RECHNER BESTANDEN'
                  : '❌ SELBSTTEST U-WERT-RECHNER: Abweichungen – Rechenkern prüfen');
