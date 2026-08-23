@@ -293,6 +293,81 @@ Zielwerte je Bauteil kommen aus `KENNWERTE.zielU`, also aus dem CONFIG des
 Sanierungsrechners. `BASISZIEL` ist nur noch ein Alias darauf – vorher standen
 dieselben sieben Zahlen an zwei Stellen.
 
+### Zwei Richtungen, ein Löser
+
+Der Rechner beantwortet zwei entgegengesetzte Fragen mit derselben Mechanik.
+Je Bauteil hat der Nutzer vier Zustände zur Wahl (`G[id].modus`):
+
+| Zustand | Bedeutung | im Löser |
+|---|---|---|
+| `offen` | der Löser entscheidet | frei über `k` |
+| `geplant` | „ich mache 14 cm Mineralwolle" | fester U-Wert |
+| `hoechstens` | „mehr geht bei mir nicht" | Untergrenze |
+| `bleibt` | wird nicht angefasst | fester U-Wert = Ist |
+
+Daraus entstehen zwei Karten: `festKarte()` und `grenzenKarte()`. Beide gehen
+durch `zielUFuer(id, k, grenzen, fest)` in `paketFuer`. **Ein zweiter
+Algorithmus wäre falsch** – die Ausgleichsrechnung fällt aus dieser einen
+Mechanik heraus, weil `k` sinkt, sobald ein Bauteil festhängt.
+
+`renderPlan()` zeigt daraus die Ampel je Stufe und darunter, welches Bauteil
+wie viel brächte. **Die Wirkung ist exakt, nicht geschätzt**: H′T,ref hängt nur
+an der Geometrie, deshalb gilt Δ%-Punkte = 100 · fx · ΔU · A / htRef
+(`wirkung()`). Ein Selbsttest prüft das gegen die tatsächlich gerechnete
+Bilanz.
+
+Sind alle Bauteile festgelegt und die Stufe trotzdem verfehlt, wechselt der
+Text von „was noch fehlt" zu „was Sie am Plan ändern müssten" – dann wird der
+Löser einmal **ohne** die festen Werte gefragt. Die Summenzeile rechnet immer
+selbst nach (`ergibt()`), nie über den Löserwert: Sobald eine wirkungslose
+Zeile weggelassen wird, stimmte der sonst nicht mehr.
+
+**Hier ist die Ehrlichkeitsgrenze am dünnsten.** Ein Plan-Ergebnis verführt zu
+„Sie erreichen Effizienzhaus 55". Der Rechner sagt ausschließlich „Kriterium
+erfüllt" und erklärt darunter, dass QP fehlt. Wer das umformuliert, macht aus
+dem Werkzeug eine Zusage.
+
+### Förderwerte (TMA)
+
+`TMA` enthält die Bauteil-Anforderungswerte aus den Technischen
+Mindestanforderungen zur **BEG-EM-Förderrichtlinie vom 17.07.2026** (in Kraft
+seit 21.07.2026), Spalte Wohngebäude ab 19 °C:
+
+| Bauteil | Regelfall | Denkmal / erhaltenswerte Bausubstanz |
+|---|---|---|
+| Außenwand | 0,20 | 0,45 |
+| Dach, oberste Geschossdecke | 0,14 | kein U-Wert, höchstmögliche Dicke λ ≤ 0,040 |
+| Fenster | 0,95 | 1,40 |
+| Kellerdecke, Bodenplatte | 0,25 | – |
+| Haustür | 1,30 | – |
+
+**Der Vorbehalt gehört an jede Stelle, die die gelockerten Werte zeigt:** Die
+Richtlinie lässt sie nur zu, wenn ein Sachverständiger der Kategorie
+„BEG – Wohngebäude Denkmal" beteiligt ist – auch bei der einfachen
+Einzelmaßnahme, nicht erst beim Effizienzhaus. **Der Betreiber hat diese
+Eintragung nicht** (Stand 23.08.2026). Der Text führt deshalb auf
+Zusammenarbeit und Weiterempfehlung, nicht auf einen Auftrag. Ändert sich die
+Eintragung, sind `renderDenkmal()` und `planFoerderung()` die beiden Stellen.
+
+Die Stufe **erhaltenswerte Bausubstanz** ist nicht auf Denkmäler beschränkt:
+Es genügt eine Erhaltungssatzung nach § 172 Abs. 1 Nr. 1 BauGB, ein
+Sanierungsgebiet nach § 142 BauGB oder eine kommunale Ausweisung. Bestätigt
+wird das **von der Kommune**, formlos – nicht von der Denkmalbehörde.
+
+### Grundstücksgrenze
+
+Wählt der Nutzer bei der Wand den Grund „Grundstücksgrenze", erscheint
+`grenzHinweis()`: Nach § 7c Nachbarrechtsgesetz Baden-Württemberg muss der
+Nachbar eine überstehende Wärmedämmung **bis 25 cm** dulden. Das ist
+**Landesrecht** – der Hinweis sagt das ausdrücklich, weil er außerhalb
+Baden-Württembergs nicht gilt. Er steht drin, weil im Einsatzgebiet
+regelmäßig auf Innendämmung ausgewichen wird, wo außen zulässig wäre.
+
+`flaechenMittel()` deckt den Fall „außen wo erlaubt, innen an den geschützten
+Flächen" ab. Die technischen FAQ zur BEG lassen zu, dass eine Teilfläche den
+Anforderungswert verfehlt, solange der flächengewichtete Mittelwert über die
+gesamte neu gedämmte Fläche stimmt.
+
 `AUFBAUTEN` sind **Beispiele**, keine Statistik. Der Selbsttest prüft sie nur
 gegen ein Plausibilitätsband (Faktor 0,5 bis 2,0) um die Baualterstabelle des
 Sanierungsrechners – er soll vertippte λ-Werte fangen, nicht Übereinstimmung
@@ -303,8 +378,10 @@ mit einem Bestandsmittelwert erzwingen.
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser + Plausibilität).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
-`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (Handrechnung, Umkehrprobe,
-DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische Aufbauten).
+`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (30 Fälle: Handrechnung,
+Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische
+Aufbauten, Grenzen und Ausgleich, Primärenergie, feste Werte, Wirkung,
+BEG-Anforderungswerte, Flächenmittel).
 Schlägt ein Fall fehl, wurde das Rechenmodell beschädigt – Änderung zurücknehmen
 oder CONFIG korrigieren. Zusätzlich: Seite bei 390 px Breite ohne horizontales
 Scrollen, Wizard einmal komplett durchklicken.

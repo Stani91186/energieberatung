@@ -324,7 +324,7 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
 .stell-kopf{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
 .stell-kopf b{font-size:.95rem}
 .stell-hilfe{font-size:.86rem;color:var(--muted);margin-bottom:14px;max-width:64ch}
-.stell-zeile{display:grid;grid-template-columns:150px auto auto 1fr;gap:12px;align-items:center;
+.stell-zeile{display:grid;grid-template-columns:142px 176px minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:center;
   padding:9px 0;border-top:1px solid var(--line-soft);font-size:.89rem}
 .stell-zeile:first-of-type{border-top:none}
 .stell-zeile>*{min-width:0}
@@ -361,8 +361,94 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
 
 @media (max-width:700px){
   .stell-zeile{grid-template-columns:1fr;gap:6px;padding:12px 0}
+  .stell-zeile.stell-grund{grid-template-columns:1fr}
   .ausgleich-zeile{grid-template-columns:1fr;gap:2px}
 }
+
+/* ==== Massnahmenzeile ==== */
+.stell-modus select{width:100%;max-width:172px}
+.stell-plan{display:flex;flex-wrap:wrap;align-items:center;gap:7px}
+.stell-plan input[type=number]{width:74px;text-align:right}
+.stell-plan select{max-width:200px}
+.stell-zeile.stell-grund{grid-template-columns:142px minmax(0,1fr);
+  border-top:none;padding-top:0;margin-top:2px}
+.stell-grund>*{min-width:0}
+.stell-grund select{width:100%;max-width:230px;font-size:.83rem}
+.stell-folge{font-variant-numeric:tabular-nums}
+.stell-folge b{font-weight:600;color:var(--ink)}
+.stell-bleibt{color:var(--muted);font-style:italic}
+.grenz-hinweis{background:var(--forest-soft);border-radius:var(--radius-sm);
+  padding:13px 16px;margin:10px 0 2px;font-size:.85rem;color:var(--forest);grid-column:1/-1}
+.grenz-hinweis b{display:block;margin-bottom:4px}
+
+/* ==== Plan-Ampel ==== */
+.plan-box{background:var(--white);border:2px solid var(--forest);border-radius:var(--radius);
+  padding:24px 26px;margin:4px 0 20px}
+.plan-box h3{font-size:1.12rem;margin:0 0 3px}
+.plan-sub{font-size:.86rem;color:var(--muted);margin:0 0 16px;max-width:66ch}
+.plan-summe{background:var(--cream-2);border-radius:var(--radius-sm);padding:13px 16px;
+  font-size:.94rem;margin-bottom:16px}
+.plan-summe em{font-style:normal;font-weight:700;color:var(--forest)}
+.stufe-zeile{display:grid;grid-template-columns:minmax(0,1fr) 116px 128px;gap:10px;
+  align-items:center;padding:9px 0;border-top:1px solid var(--line-soft);font-size:.9rem}
+.stufe-zeile:first-of-type{border-top:none}
+.stufe-zeile>*{min-width:0}
+.stufe-grenze{color:var(--muted);font-variant-numeric:tabular-nums;font-size:.85rem}
+.stufe-ja{color:var(--ok);font-weight:700}
+.stufe-nein{color:var(--muted);font-variant-numeric:tabular-nums}
+.plan-warn{font-size:.84rem;color:var(--muted);margin-top:14px;padding-top:12px;
+  border-top:1px solid var(--line);max-width:70ch}
+.fehlt-kopf{font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;margin:20px 0 6px}
+.fehlt-zeile{display:grid;grid-template-columns:minmax(0,1fr) 124px 148px;gap:10px;
+  padding:8px 0;border-top:1px solid var(--line-soft);font-size:.89rem}
+.fehlt-zeile>*{min-width:0}
+.fehlt-wert,.fehlt-wirkung{font-variant-numeric:tabular-nums}
+.fehlt-wie{display:block;font-size:.83rem;color:var(--muted);margin-top:1px}
+.fehlt-wirkung{color:var(--forest);font-weight:600}
+.fehlt-summe{font-size:.88rem;margin-top:11px;padding-top:10px;border-top:1px solid var(--line)}
+.fehlt-hinweis{font-size:.86rem;color:var(--muted);margin:0 0 4px;max-width:68ch}
+.foerder-zeile{display:grid;grid-template-columns:minmax(0,1fr) 92px minmax(0,1.5fr);gap:10px;
+  padding:8px 0;border-top:1px solid var(--line-soft);font-size:.89rem}
+.foerder-zeile>*{min-width:0}
+.foerder-u{font-variant-numeric:tabular-nums;font-weight:600}
+.foerder-ja{color:var(--ok)}
+.foerder-nein{color:var(--bad)}
+.foerder-offen{color:var(--amber-deep)}
+@media (max-width:700px){
+  .plan-box{padding:19px 17px}
+  .stufe-zeile{grid-template-columns:1fr auto;gap:4px 10px}
+  .stufe-zeile .stufe-grenze{grid-column:1/-1;order:3}
+  .fehlt-zeile,.foerder-zeile{grid-template-columns:1fr;gap:2px}
+}
+
+/* ==== Teilflaechen-Mittelung ==== */
+.misch{background:var(--cream-2);border-radius:var(--radius-sm);padding:15px 17px;
+  margin:10px 0 2px;font-size:.86rem;grid-column:1/-1}
+.misch b{display:block;margin-bottom:3px}
+.misch p{margin:0 0 11px;color:var(--muted);max-width:66ch}
+.misch-zeile{display:grid;grid-template-columns:74px 46px 74px 46px minmax(0,1fr);
+  gap:8px;align-items:center;padding:4px 0}
+.misch-zeile>*{min-width:0}
+.misch-zeile input{width:100%;text-align:right}
+.misch-zeile span{color:var(--muted);font-size:.82rem}
+.misch-erg{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);
+  font-variant-numeric:tabular-nums}
+.misch-erg b{display:inline;font-weight:700}
+@media (max-width:640px){
+  .misch-zeile{grid-template-columns:1fr 40px 1fr 40px;gap:6px}
+  .misch-zeile>*:last-child{grid-column:1/-1}
+}
+
+/* ==== Anforderungswerte bei Schutz ==== */
+.tma-huelle{overflow-x:auto;margin:12px 0 4px}
+.tma-tab{width:100%;border-collapse:collapse;font-size:.88rem;min-width:420px}
+.tma-tab th{text-align:left;font-size:.71rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;padding:0 12px 8px 0}
+.tma-tab td{padding:9px 12px 9px 0;border-top:1px solid var(--line-soft)}
+.tma-tab td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tma-tab td.frei{color:var(--forest);font-weight:600}
+.tma-tab tr.sonder td:first-child{color:var(--muted)}
 
 /* GEMEINSAM:CSS */
 /* Kopf, Menue, Knoepfe und Fuss stammen aus index.html.
@@ -681,6 +767,7 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
       Dämmstärke aus Ihrem Aufbau aus.</p>
     <div class="stufen-reiter" id="stufenReiter"></div>
     <div id="stellBox"></div>
+    <div id="planBox"></div>
     <div id="vorschlagBox"></div>
   </section>
 
@@ -1317,12 +1404,12 @@ var FRAGEN = [
    zeigeWenn:function(a){ return a.wandGedaemmt==='ja'; },
    hilfe:'Messen Sie die Tiefe der Fensterlaibung – so dick ist ungefähr die Dämmung.',
    info:'Wenn Sie es nicht genau wissen: Dämmungen aus den 1980er Jahren sind meist 4 bis 6 cm dick, aus den 1990ern 6 bis 8 cm, ab 2010 dann 12 bis 16 cm. Die Rechnung reagiert empfindlich darauf – im Zweifel lieber etwas zu wenig als zu viel angeben.'},
-  {id:'denkmal', l:'Steht das Haus unter Denkmalschutz?', typ:'karten', def:'nein',
-   hilfe:'Für Denkmäler gelten eigene Regeln – sie sind oft der einzige Weg, wenn die Fassade nicht gedämmt werden darf.',
-   info:'Eingetragenes Denkmal heißt: Das Haus steht in der Denkmalliste Ihrer Gemeinde oder des Landesdenkmalamts. Fragen Sie im Zweifel bei der Unteren Denkmalschutzbehörde Ihres Landkreises nach – der Eintrag ist kostenlos einsehbar. „Besonders erhaltenswerte Bausubstanz" ist die Stufe darunter: kein förmlicher Denkmalschutz, aber die Gemeinde bescheinigt, dass das Erscheinungsbild erhalten bleiben soll, etwa über eine Erhaltungssatzung. Beides eröffnet die Effizienzhausstufe Denkmal, für die kein Grenzwert beim Transmissionswärmeverlust gilt.',
-   opts:[['nein','Nein','Normales Bestandsgebäude.'],
-         ['denkmal','Ja, eingetragenes Denkmal','Steht in der Denkmalliste.'],
-         ['erhaltenswert','Besonders erhaltenswerte Bausubstanz','Von der Gemeinde bescheinigt, etwa über eine Erhaltungssatzung.']]},
+  {id:'denkmal', l:'Steht das Haus oder seine Umgebung unter Schutz?', typ:'karten', def:'nein',
+   hilfe:'Auch wenn nur die Umgebung geschützt ist, gelten für Ihr Haus mildere Anforderungswerte.',
+   info:'Drei Fälle sind zu unterscheiden. Erstens: Das Haus selbst ist eingetragenes Denkmal – es steht in der Denkmalliste der Gemeinde oder des Landesdenkmalamts, kostenlos einsehbar bei der Unteren Denkmalschutzbehörde des Landkreises. Zweitens: Nicht das Haus, aber sein Umfeld ist geschützt. Das genügt bereits, wenn das Grundstück in einem Gebiet mit Erhaltungssatzung nach § 172 Absatz 1 Nummer 1 Baugesetzbuch oder in einem Sanierungsgebiet nach § 142 Baugesetzbuch liegt – ebenso, wenn die Gemeinde das Haus per Satzung, öffentlicher Liste, integriertem Stadtentwicklungskonzept oder Quartierskonzept als erhaltenswert ausweist. Diese Bestätigung stellt die Kommune aus, formlos und auf Antrag; die Denkmalbehörde ist dafür nicht zuständig. Die KfW führt dafür ein eigenes Formular. Drittens: gar kein Schutz. Die ersten beiden Fälle eröffnen deutlich mildere Anforderungswerte je Bauteil und zusätzlich die Effizienzhausstufe Denkmal, für die kein Grenzwert beim Transmissionswärmeverlust gilt.',
+   opts:[['nein','Nein, keine Auflagen','Normales Bestandsgebäude.'],
+         ['denkmal','Ja, das Haus ist eingetragenes Denkmal','Es steht selbst in der Denkmalliste.'],
+         ['erhaltenswert','Nicht das Haus, aber die Umgebung','Erhaltungssatzung, Sanierungsgebiet, Ensemble- oder Ortsbildschutz, kommunale Liste.']]},
   {id:'nurInnen', l:'Muss die Fassade erhalten bleiben?', typ:'karten', def:'nein',
    hilfe:'Dann ist nur Innendämmung möglich – und dafür gelten eigene Regeln.',
    info:'Von außen dämmen geht nicht, wenn die Fassade so bleiben muss, wie sie ist: bei Denkmalschutz, bei Sichtfachwerk, bei Zierklinker oder gegliederten Putzfassaden, und wenn das Haus direkt an der Grundstücksgrenze steht. Innendämmung ist dann möglich, aber bauphysikalisch heikel – der Rechner zeigt Ihnen dazu eine Ampel nach DIN 4108-3.',
@@ -1544,6 +1631,43 @@ function istZustand(a){
 }
 
 /* ===========================================================================
+   FOERDERUNG: Anforderungswerte je Bauteil
+   Technische Mindestanforderungen zur Foerderrichtlinie BEG Einzelmassnahmen
+   vom 17.07.2026, in Kraft seit 21.07.2026. Angegeben ist die Spalte
+   "Wohngebaeude und Zonen von Nichtwohngebaeuden mit T >= 19 Grad C".
+
+   n = Regelfall, d = Baudenkmal und - nur bei Wohngebaeuden - sonstige
+   besonders erhaltenswerte Bausubstanz. Ist d gleich null und dText gesetzt,
+   verlangt die Richtlinie dort keinen U-Wert, sondern die hoechstmoegliche
+   Daemmstoffdicke.
+
+   WICHTIG: Die gelockerten Werte darf nur in Anspruch nehmen, wer einen
+   Sachverstaendigen der Kategorie "BEG - Wohngebaeude Denkmal" beteiligt -
+   auch bei einer einfachen Einzelmassnahme, nicht erst beim Effizienzhaus.
+   Dieser Vorbehalt gehoert an jede Stelle, die die d-Werte zeigt.
+   ======================================================================== */
+var TMA = {
+  wand:        { n:0.20, d:0.45, nm:'Außenwand' },
+  dach:        { n:0.14, d:null, nm:'Dach',
+                 dText:'höchstmögliche Dämmstoffdicke mit λ ≤ 0,040 W/(m·K)' },
+  ogd:         { n:0.14, d:null, nm:'Oberste Geschossdecke',
+                 dText:'höchstmögliche Dämmstoffdicke mit λ ≤ 0,040 W/(m·K)' },
+  kellerdecke: { n:0.25, d:null, nm:'Kellerdecke' },
+  boden:       { n:0.25, d:null, nm:'Bodenplatte' },
+  fenster:     { n:0.95, d:1.40, nm:'Fenster' },
+  tuer:        { n:1.30, d:null, nm:'Haustür' }
+};
+
+/* Faelle, die der Rechner nicht als eigenes Bauteil fuehrt, aber nennen soll */
+var TMA_SONDER = [
+  { nm:'Außenwand mit Sichtfachwerk, innen gedämmt', n:null, d:0.65 },
+  { nm:'Fenster mit echten glasteilenden Sprossen',  n:null, d:1.60 },
+  { nm:'Ertüchtigung von Fenstern und Kastenfenstern', n:1.30, d:1.60 },
+  { nm:'Einblas- oder Kerndämmung im zweischaligen Mauerwerk',
+    lam:0.035 }
+];
+
+/* ===========================================================================
    PRIMAERENERGIE
    Faktoren aus Anlage 4 GEG/GModG (zu Paragraf 22 Absatz 1), nicht
    erneuerbarer Anteil. Amtlich und exakt.
@@ -1604,25 +1728,48 @@ var U_MINIMUM = { wand:0.10, dach:0.09, ogd:0.09, kellerdecke:0.15,
    dann bei den uebrigen Bauteilen hereinholen. Genau das ist die
    Ausgleichsrechnung, und sie faellt aus der vorhandenen Mechanik heraus:
    k sinkt, also werden alle unbegrenzten Bauteile strenger. */
-function zielUFuer(id, k, grenzen){
+/* fest = {bauteilId: U}. Dieses Bauteil steht bereits fest - entweder weil
+   der Nutzer eine Massnahme geplant hat, oder weil es unangetastet bleibt.
+   Der Loeser darf es dann weder verbessern noch verschlechtern; k geht daran
+   vorbei. Alle uebrigen Bauteile muessen den Rest aufbringen, und genau das
+   macht aus dem Loeser den Ratgeber fuer "was fehlt mir noch". */
+function zielUFuer(id, k, grenzen, fest){
+  if(fest && fest[id]!=null) return fest[id];
   var basis = BASISZIEL[id] != null ? BASISZIEL[id] : 0.25;
   var ziel = Math.max(U_MINIMUM[id]!=null?U_MINIMUM[id]:0.10, basis*k);
   if(grenzen && grenzen[id]!=null) ziel = Math.max(ziel, grenzen[id]);
   return ziel;
 }
 
-function zieleFuer(teile, k, grenzen){
+function zieleFuer(teile, k, grenzen, fest){
   return teile.map(function(t){
-    return { u: Math.min(t.u, zielUFuer(t.id, k, grenzen)),
-             flaeche:t.flaeche, fx:t.fx, refKey:t.refKey };
+    var z = zielUFuer(t.id, k, grenzen, fest);
+    /* Ein fester Wert gilt, wie er ist. Ein gerechneter darf ein Bauteil nie
+       schlechter machen, als es heute schon ist. */
+    var u = (fest && fest[t.id]!=null) ? z : Math.min(t.u, z);
+    return { u:u, flaeche:t.flaeche, fx:t.fx, refKey:t.refKey };
   });
 }
 
-function paketFuer(teile, zielProzent, wbNachher, grenzen){
+/* Sind alle Bauteile fest, gibt es nichts mehr zu loesen - dann ist das
+   Ergebnis eine reine Bilanz. */
+function alleFest(teile, fest){
+  if(!fest) return false;
+  for(var i=0;i<teile.length;i++){ if(fest[teile[i].id]==null) return false; }
+  return true;
+}
+
+function paketFuer(teile, zielProzent, wbNachher, grenzen, fest){
   var quote = zielProzent/100;
   function quoteBei(k){
-    var b = htBilanz(zieleFuer(teile, k, grenzen), wbNachher);
+    var b = htBilanz(zieleFuer(teile, k, grenzen, fest), wbNachher);
     return b ? b.verhaeltnis : 99;
+  }
+  /* Nichts mehr offen: kein Loesen, nur noch nachrechnen. */
+  if(alleFest(teile, fest)){
+    var q = quoteBei(1);
+    return { erreichbar:(q <= quote), k:1, quote:q, grenzen:grenzen, fest:fest,
+             starr:true };
   }
   if(quoteBei(1.6) <= quote){          /* schon mit lockeren Zielen erreicht */
     var kLocker = 1.6;
@@ -1631,17 +1778,17 @@ function paketFuer(teile, zielProzent, wbNachher, grenzen){
       var probe = kLocker*1.08;
       if(quoteBei(probe) <= quote) kLocker = probe; else break;
     }
-    return { erreichbar:true, k:kLocker, quote:quoteBei(kLocker), grenzen:grenzen };
+    return { erreichbar:true, k:kLocker, quote:quoteBei(kLocker), grenzen:grenzen, fest:fest };
   }
   if(quoteBei(0.25) > quote){          /* auch mit Bestwerten nicht erreichbar */
-    return { erreichbar:false, k:0.25, quote:quoteBei(0.25), grenzen:grenzen };
+    return { erreichbar:false, k:0.25, quote:quoteBei(0.25), grenzen:grenzen, fest:fest };
   }
   var lo=0.25, hi=1.6;
   for(var j=0;j<40;j++){
     var m=(lo+hi)/2;
     if(quoteBei(m) <= quote) lo=m; else hi=m;
   }
-  return { erreichbar:true, k:lo, quote:quoteBei(lo), grenzen:grenzen };
+  return { erreichbar:true, k:lo, quote:quoteBei(lo), grenzen:grenzen, fest:fest };
 }
 
 /* Welches begrenzte Bauteil blockiert die Stufe? Je Grenze ein Lauf mit
@@ -1934,37 +2081,84 @@ function zeigeErgebnis(){
    Bauteilen herein. */
 var G = null;
 
+/* Vier Zustaende je Bauteil. "offen" ueberlaesst dem Loeser die Wahl,
+   "geplant" und "bleibt" legen den U-Wert fest, "hoechstens" setzt nur eine
+   Untergrenze. Aus den drei Zustaenden entstehen die beiden Karten, mit
+   denen der Loeser rechnet: fest und grenzen. */
+var MODI = [
+  ['offen',     'offen – Rechner entscheidet'],
+  ['geplant',   'geplant – ich mache …'],
+  ['hoechstens','höchstens – mehr geht nicht'],
+  ['bleibt',    'bleibt, wie es ist']
+];
+
+/* Gruende, aus denen an der Wand Schluss ist. Der Grund ist nicht Kosmetik:
+   bei der Grundstuecksgrenze gilt in Baden-Wuerttemberg eine Duldungspflicht,
+   von der die meisten nichts wissen. */
+var WAND_GRUENDE = [
+  ['',        'Grund angeben (freiwillig)'],
+  ['grenze',  'Grundstücksgrenze oder Gehweg'],
+  ['schutz',  'Denkmal-, Ensemble- oder Ortsbildschutz'],
+  ['optik',   'Fassade soll erhalten bleiben (Klinker, Fachwerk, Gliederung)'],
+  ['platz',   'Platz im Raum (bei Innendämmung)'],
+  ['geld',    'Kosten']
+];
+
 function grenzenInit(){
   G = {};
   IST.teile.forEach(function(t){
-    G[t.id] = { maxDicke:null, lage: (t.id==='wand' && A.nurInnen==='ja') ? 'innen' : 'aussen',
-                maxTyp:null };
+    G[t.id] = { modus:'offen',
+                lage:(t.id==='wand' && A.nurInnen==='ja') ? 'innen' : 'aussen',
+                maxDicke:null, maxTyp:null,
+                planDicke:null, planStoff:null, planTyp:null,
+                misch:{aF:null, aD:null, iF:null, iD:null},
+                grund:(t.id==='wand' && A.nurInnen==='ja') ? 'optik' : '' };
   });
-}
-
-/* Bester erreichbarer U-Wert eines Bauteils unter seiner Grenze.
-   null heisst: keine Grenze gesetzt. */
-function grenzU(t){
-  var g = G[t.id];
-  if(!g) return null;
-  if(t.id==='fenster'){
-    return g.maxTyp ? KENNWERTE.uFenster[g.maxTyp] : null;
-  }
-  if(g.maxDicke==null || !(g.maxDicke>0)) return null;
-  if(!t.schichten) return null;
-  var b = daemmstoffFuer(t);
-  return uWert(t.schichten.concat([{id:b.id, d:g.maxDicke}]), t.lage);
 }
 
 /* Welcher Daemmstoff gilt fuer dieses Bauteil? Bei innen gedaemmter Wand der
    kapillaraktive Standard, sonst der Wunsch aus dem Fragebogen. */
 function daemmstoffFuer(t){
-  if(t.id==='wand' && G && G.wand && G.wand.lage==='innen'){
+  var g = G && G[t.id];
+  if(g && g.planStoff){ var ps = stoff(g.planStoff); if(ps) return ps; }
+  if(t.id==='wand' && wandInnen()){
     var w = stoff(A.daemmstoffWunsch);
     if(w && w.g==='innen') return w;
     return stoff('mineralschaum');
   }
   return stoff(A.daemmstoffWunsch) || stoff('eps_035');
+}
+
+/* Welche Daemmstoffe darf man hier waehlen? Innen nur kapillaraktive. */
+function daemmAuswahl(t){
+  var innen = (t.id==='wand' && wandInnen());
+  return BAUSTOFFE.filter(function(b){
+    return innen ? (b.g==='innen') : (b.g==='daemm');
+  });
+}
+
+/* U-Wert eines Bauteils mit einer Daemmschicht der Dicke d (cm) */
+function uMitDaemmung(t, d, stoffId){
+  if(!t.schichten || !(d>0)) return null;
+  var b = stoffId ? (stoff(stoffId) || daemmstoffFuer(t)) : daemmstoffFuer(t);
+  return uWert(t.schichten.concat([{id:b.id, d:d}]), t.lage);
+}
+
+/* Bester erreichbarer U-Wert unter der Grenze. null heisst: keine Grenze. */
+function grenzU(t){
+  var g = G[t.id];
+  if(!g || g.modus!=='hoechstens') return null;
+  if(t.id==='fenster') return g.maxTyp ? KENNWERTE.uFenster[g.maxTyp] : null;
+  return uMitDaemmung(t, g.maxDicke);
+}
+
+/* U-Wert der geplanten Massnahme. null heisst: nichts Verwertbares eingetragen. */
+function planU(t){
+  var g = G[t.id];
+  if(!g || g.modus!=='geplant') return null;
+  if(t.id==='fenster') return g.planTyp ? KENNWERTE.uFenster[g.planTyp] : null;
+  if(t.id==='tuer')    return KENNWERTE.uTuer.neu;
+  return uMitDaemmung(t, g.planDicke, g.planStoff);
 }
 
 function grenzenKarte(){
@@ -1976,9 +2170,34 @@ function grenzenKarte(){
   return g;
 }
 
+function festKarte(){
+  var f = {};
+  IST.teile.forEach(function(t){
+    var m = G[t.id] && G[t.id].modus;
+    if(m==='bleibt'){ f[t.id] = t.u; return; }
+    if(m==='geplant'){ var u = planU(t); if(u!=null) f[t.id] = u; }
+  });
+  return f;
+}
+
+/* Hat der Nutzer ueberhaupt schon etwas geplant? Entscheidet, ob die
+   Plan-Ampel angezeigt wird. */
+function hatPlan(){
+  var f = festKarte();
+  for(var k in f){ if(f.hasOwnProperty(k)) return true; }
+  return false;
+}
+
 function wandInnen(){ return !!(G && G.wand && G.wand.lage==='innen'); }
 function wbNachher(){ return wandInnen() ? KENNWERTE.wbZuschlag.unsaniert
                                          : KENNWERTE.wbZuschlag.saniert; }
+
+function neuRechnen(){
+  renderStellschrauben();
+  renderPlan();
+  renderVorschlag();
+  renderInnenVergleich();
+}
 
 function renderStellschrauben(){
   var box = $('stellBox'); box.innerHTML='';
@@ -1986,96 +2205,145 @@ function renderStellschrauben(){
 
   var k = el('div','stell-box');
   var kopf = el('div','stell-kopf');
-  var b1 = el('b',null,'Was bei Ihnen nicht geht');
-  b1.appendChild(infoKnopf('Stellschrauben',
-    'Hier sagen Sie, wo Schluss ist – etwa weil die Wand nur 8 cm verträgt oder die Fenster bleiben sollen. Der Rechner verteilt die fehlende Dämmwirkung dann auf die übrigen Bauteile und sagt Ihnen, ob das noch reicht. Ohne Eintrag rechnet er frei.'));
+  var b1 = el('b',null,'Ihre Maßnahmen und Grenzen');
+  b1.appendChild(infoKnopf('Was hier hineingehört',
+    'Zwei Fragen in einer Zeile. „Geplant" heißt: Das mache ich so – der Rechner nimmt den Wert und sagt Ihnen am Ende, ob es reicht. „Höchstens" heißt: Mehr geht bei mir nicht – dann verteilt der Rechner die fehlende Dämmwirkung auf die übrigen Bauteile. „Offen" überlässt ihm die Wahl, „bleibt" nimmt das Bauteil aus der Sanierung heraus.'));
   kopf.appendChild(b1);
-  var reset = el('button','stell-zuruecksetzen','Alle Grenzen aufheben');
-  reset.addEventListener('click', function(){ grenzenInit(); renderStellschrauben(); renderVorschlag(); renderInnenVergleich(); });
+  var reset = el('button','stell-zuruecksetzen','Alles zurücksetzen');
+  reset.addEventListener('click', function(){ grenzenInit(); neuRechnen(); });
   kopf.appendChild(reset);
   k.appendChild(kopf);
   k.appendChild(el('div','stell-hilfe',
-    'Leer lassen heißt: keine Grenze. Tragen Sie nur ein, was Sie wirklich einschränkt.'));
+    'Alles auf „offen" lassen heißt: Der Rechner sagt Ihnen, was nötig wäre. ' +
+    'Sobald Sie etwas planen, sagt er zusätzlich, ob Ihr Plan reicht.'));
 
   IST.teile.forEach(function(t){
-    if(t.id==='tuer') return;
+    var g = G[t.id];
     var z = el('div','stell-zeile');
     z.appendChild(el('div','stell-name', t.n));
 
-    /* Spalte 2: bei der Wand aussen/innen */
-    var sp2 = el('div');
+    /* Spalte 2: Zustand */
+    var sp2 = el('div','stell-modus');
+    var msel = el('select');
+    msel.setAttribute('aria-label','Was passiert mit '+t.n+'?');
+    MODI.forEach(function(m){
+      if(t.id==='tuer' && m[0]==='hoechstens') return;
+      var o = el('option',null,m[1]); o.value=m[0];
+      if(g.modus===m[0]) o.selected = true;
+      msel.appendChild(o);
+    });
+    msel.addEventListener('change', function(){
+      g.modus = msel.value;
+      if(g.modus==='geplant' && g.planDicke==null && t.schichten)
+        g.planDicke = wandInnen() && t.id==='wand' ? 8 : 14;
+      neuRechnen();
+    });
+    sp2.appendChild(msel);
+    z.appendChild(sp2);
+
+    /* Spalte 3: Eingabe je nach Zustand */
+    var sp3 = el('div','stell-plan');
     if(t.id==='wand'){
       var lg = el('div','stell-lage');
       [['aussen','außen'],['innen','innen']].forEach(function(o){
-        var bt = el('button', G.wand.lage===o[0]?'aktiv':null, o[1]);
+        var bt = el('button', g.lage===o[0]?'aktiv':null, o[1]);
         if(o[0]==='aussen' && A.nurInnen==='ja'){
           bt.disabled = true;
           bt.title = 'Sie haben angegeben, dass die Fassade erhalten bleiben muss.';
         }
         bt.addEventListener('click', function(){
-          G.wand.lage = o[0];
-          if(o[0]==='innen' && G.wand.maxDicke==null) G.wand.maxDicke = 8;
-          if(o[0]==='aussen' && G.wand.maxDicke===8) G.wand.maxDicke = null;
-          renderStellschrauben(); renderVorschlag(); renderInnenVergleich();
+          g.lage = o[0]; g.planStoff = null;
+          neuRechnen();
         });
         lg.appendChild(bt);
       });
-      sp2.appendChild(lg);
+      sp3.appendChild(lg);
     }
-    z.appendChild(sp2);
 
-    /* Spalte 3: Grenze */
-    var sp3 = el('div','stell-max');
-    if(t.id==='fenster'){
-      var sel = el('select');
-      var o0 = el('option',null,'keine Grenze'); o0.value=''; sel.appendChild(o0);
-      ['iso_95','ws_2001','ws_2010','dreifach'].forEach(function(kk){
-        var namen = {iso_95:'höchstens Isolierglas 1995', ws_2001:'höchstens Wärmeschutz 2001',
-                     ws_2010:'höchstens Wärmeschutz 2010', dreifach:'höchstens Dreifachglas'};
-        var o = el('option',null,namen[kk]+' · U '+nf(KENNWERTE.uFenster[kk],2));
-        o.value = kk;
-        if(G.fenster && G.fenster.maxTyp===kk) o.selected = true;
-        sel.appendChild(o);
-      });
-      sel.addEventListener('change', function(){
-        G.fenster.maxTyp = sel.value || null;
-        renderVorschlag();
-      });
-      sp3.appendChild(sel);
-    } else if(t.schichten){
-      var inp = el('input'); inp.type='number'; inp.min='0'; inp.max='60'; inp.step='0.5';
-      inp.placeholder='frei';
-      inp.value = G[t.id].maxDicke==null ? '' : G[t.id].maxDicke;
-      inp.setAttribute('aria-label','Höchstens wie viele Zentimeter Dämmung bei '+t.n);
-      inp.addEventListener('input', function(){
-        var v = Number(inp.value);
-        G[t.id].maxDicke = (inp.value==='' || !(v>0)) ? null : v;
-        renderVorschlag();
-        if(t.id==='wand') renderInnenVergleich();
-      });
-      sp3.appendChild(inp);
-      sp3.appendChild(el('span','stell-frei','cm höchstens'));
+    if(g.modus==='geplant' || g.modus==='hoechstens'){
+      var istPlan = (g.modus==='geplant');
+      if(t.id==='fenster'){
+        var fsel = el('select');
+        var o0 = el('option',null, istPlan?'Verglasung wählen':'keine Grenze');
+        o0.value=''; fsel.appendChild(o0);
+        ['iso_95','ws_2001','ws_2010','dreifach'].forEach(function(kk){
+          var namen = {iso_95:'Isolierglas ab 1995', ws_2001:'Wärmeschutzglas ab 2001',
+                       ws_2010:'Wärmeschutzglas ab 2010', dreifach:'Dreifachverglasung'};
+          var o = el('option',null, namen[kk]+' · U '+nf(KENNWERTE.uFenster[kk],2));
+          o.value = kk;
+          if((istPlan?g.planTyp:g.maxTyp)===kk) o.selected = true;
+          fsel.appendChild(o);
+        });
+        fsel.addEventListener('change', function(){
+          if(istPlan) g.planTyp = fsel.value || null; else g.maxTyp = fsel.value || null;
+          renderStellschrauben(); renderPlan(); renderVorschlag();
+        });
+        sp3.appendChild(fsel);
+      } else if(t.schichten){
+        var inp = el('input'); inp.type='number'; inp.min='0'; inp.max='60'; inp.step='0.5';
+        inp.placeholder = istPlan ? 'cm' : 'frei';
+        var wert = istPlan ? g.planDicke : g.maxDicke;
+        inp.value = wert==null ? '' : wert;
+        inp.setAttribute('aria-label',(istPlan?'Geplante':'Höchste')+' Dämmstärke bei '+t.n+' in Zentimeter');
+        inp.addEventListener('input', function(){
+          var v = Number(inp.value);
+          var neu = (inp.value==='' || !(v>0)) ? null : v;
+          if(istPlan) g.planDicke = neu; else g.maxDicke = neu;
+          renderPlan(); renderVorschlag();
+          if(t.id==='wand') renderInnenVergleich();
+          folgeSchreiben();
+        });
+        sp3.appendChild(inp);
+        sp3.appendChild(el('span','stell-frei','cm'));
+        if(istPlan){
+          var ssel = el('select');
+          ssel.setAttribute('aria-label','Dämmstoff für '+t.n);
+          daemmAuswahl(t).forEach(function(b){
+            var o = el('option',null, b.n.split(',')[0]+' · λ '+nf(b.l,3));
+            o.value = b.id;
+            if((g.planStoff||daemmstoffFuer(t).id)===b.id) o.selected = true;
+            ssel.appendChild(o);
+          });
+          ssel.addEventListener('change', function(){
+            g.planStoff = ssel.value;
+            renderStellschrauben(); renderPlan(); renderVorschlag(); renderInnenVergleich();
+          });
+          sp3.appendChild(ssel);
+        }
+      } else if(t.id==='tuer' && istPlan){
+        sp3.appendChild(el('span','stell-frei','gedämmte Haustür, U '+nf(KENNWERTE.uTuer.neu,2)));
+      }
+    } else if(g.modus==='bleibt'){
+      sp3.appendChild(el('span','stell-bleibt','wird nicht angefasst'));
+    } else {
+      sp3.appendChild(el('span','stell-frei','der Rechner wählt den Zielwert'));
     }
     z.appendChild(sp3);
 
     /* Spalte 4: was daraus folgt */
-    var u = grenzU(t);
-    var sp4 = el('div','stell-frei');
-    if(u!=null){
-      sp4.textContent = 'damit höchstens U = ' + nf(u,2) + ' W/(m²·K)';
-      if(t.id==='wand' && wandInnen() && G.wand.maxDicke>0){
-        var bst = daemmstoffFuer(t);
-        var amp = innenAmpel((G.wand.maxDicke/100)/bst.l, bst);
-        var pt = el('span','id-punkt id-p-'+amp.stufe);
-        pt.style.marginLeft='8px';
-        sp4.appendChild(pt);
-        sp4.appendChild(infoKnopf(bst.n+' · '+amp.titel, amp.text));
-      }
-    } else {
-      sp4.textContent = 'keine Grenze';
-    }
+    var sp4 = el('div','stell-frei stell-folge');
+    sp4.id = 'folge_'+t.id;
     z.appendChild(sp4);
     k.appendChild(z);
+
+    /* Grund bei begrenzter oder innen gedaemmter Wand */
+    if(t.id==='wand' && (g.modus==='hoechstens' || g.lage==='innen')){
+      var gz = el('div','stell-zeile stell-grund');
+      gz.appendChild(el('div','stell-frei','Grund'));
+      var gsel = el('select');
+      gsel.setAttribute('aria-label','Warum ist an der Außenwand Schluss?');
+      WAND_GRUENDE.forEach(function(o){
+        var op = el('option',null,o[1]); op.value=o[0];
+        if((g.grund||'')===o[0]) op.selected = true;
+        gsel.appendChild(op);
+      });
+      gsel.addEventListener('change', function(){ g.grund = gsel.value; renderStellschrauben(); });
+      var gw = el('div'); gw.appendChild(gsel);
+      gz.appendChild(gw);
+      k.appendChild(gz);
+      if(g.grund==='grenze') k.appendChild(grenzHinweis());
+      k.appendChild(mischWand());
+    }
   });
 
   k.appendChild(el('div','stell-fuss',
@@ -2083,6 +2351,469 @@ function renderStellschrauben(){
     'Primärenergiebedarf, nicht auf den Transmissionswärmeverlust. Bei der Hülle ' +
     'lässt sich nur zwischen Bauteilen umverteilen – dazu unten mehr.'));
   box.appendChild(k);
+  folgeSchreiben();
+}
+
+/* Spalte 4 getrennt schreiben, damit die Eingabe beim Tippen nicht neu
+   aufgebaut wird und der Fokus im Feld bleibt. */
+function folgeSchreiben(){
+  IST.teile.forEach(function(t){
+    var sp = $('folge_'+t.id); if(!sp) return;
+    var g = G[t.id];
+    sp.innerHTML = '';
+    if(g.modus==='bleibt'){
+      sp.appendChild(el('span',null,'bleibt bei U = '+nf(t.u,2)));
+      return;
+    }
+    if(g.modus==='geplant'){
+      var u = planU(t);
+      if(u==null){ sp.appendChild(el('span',null,'noch nichts eingetragen')); return; }
+      var b1 = el('b',null,nf(t.u,2)+' → '+nf(u,2));
+      sp.appendChild(b1);
+      sp.appendChild(document.createTextNode(' W/(m²·K)'));
+      ampelAnhaengen(sp, t, g.planDicke);
+      return;
+    }
+    if(g.modus==='hoechstens'){
+      var gu = grenzU(t);
+      if(gu==null){ sp.appendChild(el('span',null,'keine Grenze')); return; }
+      sp.appendChild(document.createTextNode('damit höchstens U = '));
+      sp.appendChild(el('b',null,nf(gu,2)));
+      ampelAnhaengen(sp, t, g.maxDicke);
+      return;
+    }
+    sp.appendChild(el('span',null,'offen'));
+  });
+}
+
+/* DIN-4108-3-Ampel, wenn die Wand von innen gedaemmt wird */
+function ampelAnhaengen(sp, t, dicke){
+  if(t.id!=='wand' || !wandInnen() || !(dicke>0)) return;
+  var bst = daemmstoffFuer(t);
+  var amp = innenAmpel((dicke/100)/bst.l, bst);
+  var pt = el('span','id-punkt id-p-'+amp.stufe);
+  pt.style.marginLeft='8px';
+  sp.appendChild(pt);
+  sp.appendChild(infoKnopf(bst.n+' · '+amp.titel, amp.text));
+}
+
+/* U-Wert der Wand mit einer Daemmschicht bestimmter Dicke, aussen oder innen.
+   Die Schichtreihenfolge spielt fuer den U-Wert keine Rolle - nur der
+   Daemmstoff unterscheidet sich, innen muss er kapillaraktiv sein. */
+function uWandMit(dicke, innen){
+  var t = null;
+  IST.teile.forEach(function(x){ if(x.id==='wand') t = x; });
+  if(!t || !t.schichten || !(dicke>0)) return null;
+  var b;
+  if(innen){
+    var w = stoff(A.daemmstoffWunsch);
+    b = (w && w.g==='innen') ? w : stoff('mineralschaum');
+  } else {
+    var o = stoff(A.daemmstoffWunsch);
+    b = (o && o.g==='daemm') ? o : stoff('eps_035');
+  }
+  return uWert(t.schichten.concat([{id:b.id, d:dicke}]), 'wand');
+}
+
+/* Teilflaechen-Mittelung. Die technischen FAQ zur BEG lassen zu, dass eine
+   Teilflaeche den Anforderungswert verfehlt, solange der flaechengewichtete
+   Mittelwert ueber die gesamte nachtraeglich gedaemmte Flaeche stimmt. Genau
+   der Fall "aussen wo erlaubt, innen an den geschuetzten Flaechen". */
+function mischWand(){
+  var g = G.wand;
+  if(!g.misch) g.misch = {aF:null, aD:null, iF:null, iD:null};
+  var m = g.misch;
+
+  var box = el('div','misch');
+  box.appendChild(el('b',null,'Ein Teil außen, ein Teil innen?'));
+  var p1 = el('p',null,
+    'Muss nur ein Teil der Fassade erhalten bleiben – die Straßenseite, ein ' +
+    'Fachwerkgiebel, die Grenzwand –, darf der Rest außen gedämmt werden. Für die ' +
+    'Förderung zählt dann der flächengewichtete Mittelwert über die gesamte neu ' +
+    'gedämmte Fläche, nicht jede Teilfläche für sich.');
+  box.appendChild(p1);
+
+  function zeile(label, fKey, dKey, innen){
+    var z = el('div','misch-zeile');
+    var fi = el('input'); fi.type='number'; fi.min='0'; fi.step='1';
+    fi.placeholder='0'; fi.value = m[fKey]==null?'':m[fKey];
+    fi.setAttribute('aria-label','Fläche '+label+' in Quadratmetern');
+    z.appendChild(fi);
+    z.appendChild(el('span',null,'m²'));
+    var di = el('input'); di.type='number'; di.min='0'; di.max='60'; di.step='0.5';
+    di.placeholder='0'; di.value = m[dKey]==null?'':m[dKey];
+    di.setAttribute('aria-label','Dämmstärke '+label+' in Zentimeter');
+    z.appendChild(di);
+    z.appendChild(el('span',null,'cm'));
+    z.appendChild(el('span',null,label));
+    function auf(){
+      var fv=Number(fi.value), dv=Number(di.value);
+      m[fKey] = (fi.value===''||!(fv>0))?null:fv;
+      m[dKey] = (di.value===''||!(dv>0))?null:dv;
+      mischErgebnis();
+    }
+    fi.addEventListener('input', auf);
+    di.addEventListener('input', auf);
+    return z;
+  }
+  box.appendChild(zeile('außen gedämmt','aF','aD',false));
+  box.appendChild(zeile('innen gedämmt','iF','iD',true));
+
+  var erg = el('div','misch-erg'); erg.id='mischErg';
+  box.appendChild(erg);
+  setTimeout(mischErgebnis, 0);
+  return box;
+}
+
+/* Flaechengewichteter Mittelwert. Paare aus Flaeche und U-Wert; Eintraege
+   ohne brauchbare Flaeche fallen heraus. null, wenn nichts uebrig bleibt. */
+function flaechenMittel(paare){
+  var summe=0, flaeche=0;
+  for(var i=0;i<paare.length;i++){
+    var f=paare[i][0], u=paare[i][1];
+    if(!(f>0) || u==null || !isFinite(u)) continue;
+    summe += f*u; flaeche += f;
+  }
+  return flaeche>0 ? summe/flaeche : null;
+}
+
+function mischErgebnis(){
+  var e = $('mischErg'); if(!e) return;
+  var m = G.wand.misch;
+  e.innerHTML = '';
+  var uA = uWandMit(m.aD, false), uI = uWandMit(m.iD, true);
+  var fA = (m.aF>0 && uA!=null) ? m.aF : 0;
+  var fI = (m.iF>0 && uI!=null) ? m.iF : 0;
+  if(fA + fI <= 0){
+    e.appendChild(el('span',null,'Fläche und Dämmstärke eintragen, dann rechnet der Mittelwert mit.'));
+    return;
+  }
+  var mittel = flaechenMittel([[fA,uA],[fI,uI]]);
+  if(mittel==null) return;
+  var soll = TMA.wand.n;
+  var denk = (A.denkmal && A.denkmal!=='nein');
+  var ok = mittel <= soll + 0.001;
+  var okD = denk && mittel <= TMA.wand.d + 0.001;
+
+  var teile = [];
+  if(fA>0) teile.push(nf(fA,0)+' m² außen bei U '+nf(uA,2));
+  if(fI>0) teile.push(nf(fI,0)+' m² innen bei U '+nf(uI,2));
+  e.appendChild(document.createTextNode(teile.join(' · ')+' → gewichtet '));
+  e.appendChild(el('b',null,'U = '+nf(mittel,2)));
+  e.appendChild(document.createTextNode(' W/(m²·K). '));
+
+  var s2 = el('span', ok?'foerder-ja':(okD?'foerder-ja':'foerder-nein'));
+  s2.textContent = ok
+    ? ('Das erfüllt den Anforderungswert von '+nf(soll,2)+'.')
+    : (okD
+        ? ('Über dem Regelwert von '+nf(soll,2)+', aber innerhalb der '+nf(TMA.wand.d,2)+
+           ' für Denkmal und erhaltenswerte Bausubstanz.')
+        : ('Nötig sind '+nf(soll,2)+
+           (denk?(' – bei erhaltenswerter Bausubstanz '+nf(TMA.wand.d,2)):'')+'.'));
+  e.appendChild(s2);
+}
+
+/* Duldungspflicht nach Landesrecht. Baden-Wuerttemberg hat eine, und sie wird
+   im Einsatzgebiet regelmaessig uebersehen. */
+function grenzHinweis(){
+  var h = el('div','grenz-hinweis');
+  h.appendChild(el('b',null,'An der Grenze ist oft mehr möglich, als man denkt'));
+  h.appendChild(el('span',null,
+    'Steht das Haus an der Grundstücksgrenze, entfällt die Dämmpflicht nach ' +
+    'Bundesrecht nur so weit, wie gedämmt das Nachbargrundstück überbaut würde – ' +
+    'und auch das nur, wenn das Landesrecht keine Duldungspflicht kennt. ' +
+    'Baden-Württemberg kennt eine: Nach § 7c Nachbarrechtsgesetz muss der Nachbar ' +
+    'eine überstehende Wärmedämmung bis 25 cm dulden. Voraussetzung ist, dass eine ' +
+    'vergleichbare Dämmung nicht auf weniger belastende Weise mit zumutbarem Aufwand ' +
+    'möglich ist, dass Wärmedämmung bei Errichtung des Grenzbaus noch nicht üblich war ' +
+    'und dass der Überstand öffentlich-rechtlich zulässig bleibt – vor allem beim ' +
+    'Brandschutz. Das ist Landesrecht; außerhalb Baden-Württembergs gelten andere Regeln. ' +
+    'Vor der Planung mit dem Nachbarn und dem Bauamt klären.'));
+  return h;
+}
+
+/* ---------- Ihr Plan: reicht das? ----------
+   Die Gegenrichtung zum Loeser. Der Nutzer traegt ein, was er tatsaechlich
+   vorhat; gerechnet wird die Bilanz daraus und gegen jede Stufe gehalten.
+
+   Beantwortet wird ausschliesslich das H'T-Kriterium. Der Primaerenergie-
+   bedarf braucht DIN V 18599 und ist im Browser nicht zu haben - deshalb
+   steht hier nie "Sie erreichen Effizienzhaus 55", sondern immer nur, dass
+   die Huelle dessen H'T-Kriterium erfuellt. */
+
+/* Wirkung einer Verbesserung auf das H'T-Verhaeltnis, in Prozentpunkten.
+   H'T,ref haengt nur an der Geometrie und aendert sich nicht, also laesst
+   sich die Wirkung direkt aus dem Zaehler ableiten. */
+function wirkung(t, uNeu, bilanz){
+  var fx = KENNWERTE.fx[t.fx]; if(fx==null) fx = 1.0;
+  return 100 * fx * (t.u - uNeu) * t.flaeche / bilanz.htRef;
+}
+
+/* Welche Verglasung erfuellt einen Zielwert? Die schwaechste, die reicht -
+   sonst wird jemand zu Dreifachglas geschickt, wo Zweifach genuegt.
+   Die Reihenfolge ist deshalb von schwach nach stark. */
+var VERGLASUNGEN = [
+  ['iso_95',  'Isolierglas ab 1995'],
+  ['ws_2001', 'Wärmeschutzglas ab 2001'],
+  ['ws_2010', 'Wärmeschutzglas ab 2010'],
+  ['dreifach','Dreifachverglasung']
+];
+function verglasungFuer(zielU){
+  for(var i=0;i<VERGLASUNGEN.length;i++){
+    var k = VERGLASUNGEN[i][0];
+    if(KENNWERTE.uFenster[k] <= zielU + 0.001)
+      return { key:k, n:VERGLASUNGEN[i][1], u:KENNWERTE.uFenster[k] };
+  }
+  return null;
+}
+
+/* Umsetzbare Beschreibung eines Zielwerts: Zentimeter beim opaken Bauteil,
+   Produktklasse beim Fenster, konkrete Tuer bei der Haustuer. */
+function machbarZiel(t, zielU){
+  if(t.id==='fenster'){
+    var w = verglasungFuer(zielU);
+    return w ? { u:w.u, text:w.n }
+             : { u:zielU, text:'besser als Dreifachverglasung' };
+  }
+  if(t.id==='tuer'){
+    /* Eine Haustuer laesst sich nicht "etwas besser" bestellen - es gibt den
+       Wert des neuen Modells oder gar nichts. Ein gerechneter Zwischenwert
+       waere eine Zahl, zu der niemand ein Produkt kaufen kann. */
+    return { u:KENNWERTE.uTuer.neu, text:'gedämmte Haustür' };
+  }
+  if(t.schichten){
+    var b = daemmstoffFuer(t);
+    var d = dickeFuerZiel(t.schichten, t.lage, zielU, b.l);
+    if(d!=null) return { u:zielU, text:nf(d,1)+' cm '+b.n.split(',')[0] };
+  }
+  return { u:zielU, text:'' };
+}
+
+function punkte(n){ return nf(n,0) + (Math.round(n)===1 ? ' Punkt' : ' Punkte'); }
+
+function planTeile(fest){
+  return IST.teile.map(function(t){
+    return { id:t.id, n:t.n, u:(fest[t.id]!=null ? fest[t.id] : t.u),
+             flaeche:t.flaeche, fx:t.fx, refKey:t.refKey };
+  });
+}
+
+function renderPlan(){
+  var box = $('planBox'); if(!box) return;
+  box.innerHTML='';
+  if(!G) grenzenInit();
+  if(!hatPlan()) return;
+
+  var fest = festKarte(), gr = grenzenKarte(), wb = wbNachher();
+  var b = htBilanz(planTeile(fest), wb);
+  if(!b) return;
+  var q = b.verhaeltnis*100;
+
+  var v = el('div','plan-box');
+  v.appendChild(el('h3',null,'Reicht Ihr Plan?'));
+  v.appendChild(el('p','plan-sub',
+    'Gerechnet mit den Maßnahmen, die Sie oben eingetragen haben. Bauteile auf ' +
+    '„offen" oder „höchstens" zählen dabei mit ihrem heutigen Wert – sie sind ja ' +
+    'noch nicht geplant.'));
+
+  var su = el('div','plan-summe');
+  su.innerHTML = 'Mit Ihrem Plan: H′T <em>'+nf(b.hStrich,3)+'</em> W/(m²·K), das sind <em>'+
+    nf(q,0)+' %</em> des Referenzgebäudes – heute sind es '+
+    nf(IST.bilanz.verhaeltnis*100,0)+' %.';
+  v.appendChild(su);
+
+  /* Ampel je Stufe, von der leichtesten zur schwersten */
+  var stufen = UK.ehStufen.slice().sort(function(x,y){ return y.ht - x.ht; });
+  stufen.forEach(function(st){
+    var z = el('div','stufe-zeile');
+    z.appendChild(el('div',null,'Effizienzhaus '+st.name));
+    z.appendChild(el('div','stufe-grenze','H′T ≤ '+st.ht+' %'));
+    if(q <= st.ht + 0.05){
+      z.appendChild(el('div','stufe-ja','Kriterium erfüllt'));
+    } else {
+      z.appendChild(el('div','stufe-nein', punkte(q-st.ht)+
+        (Math.round(q-st.ht)===1 ? ' fehlt' : ' fehlen')));
+    }
+    v.appendChild(z);
+  });
+
+  var w = el('p','plan-warn');
+  w.innerHTML = '<b>Was das heißt und was nicht.</b> Geprüft ist der spezifische ' +
+    'Transmissionswärmeverlust H′T – das Kriterium für die Gebäudehülle. Eine ' +
+    'Effizienzhausstufe hat ein zweites: den Primärenergiebedarf QP. Der verlangt ' +
+    'eine Berechnung nach DIN V 18599 mit der gesamten Anlagentechnik und lässt sich ' +
+    'hier nicht seriös rechnen. „Kriterium erfüllt" heißt deshalb: Ihre Hülle ist so ' +
+    'weit. Ob die Stufe insgesamt steht, entscheidet die Heizung mit.';
+  v.appendChild(w);
+
+  /* Was fehlt zur naechsten Stufe? */
+  var naechste = null;
+  UK.ehStufen.forEach(function(st){
+    if(q > st.ht + 0.05 && (!naechste || st.ht > naechste.ht)) naechste = st;
+  });
+  if(naechste) planLuecke(v, naechste, fest, gr, wb, b);
+
+  planFoerderung(v, fest);
+  box.appendChild(v);
+}
+
+/* Welches Bauteil bringt wie viel? Nur was noch nicht festgelegt ist. */
+function planLuecke(v, st, fest, gr, wb, b){
+  var paket = paketFuer(IST.teile, st.ht, wb, gr, fest);
+  var zeilen = [];
+  IST.teile.forEach(function(t){
+    if(fest[t.id]!=null) return;                 /* schon entschieden */
+    var ziel = zielUFuer(t.id, paket.k, gr, fest);
+    if(t.u <= ziel + 0.005) return;              /* reicht schon */
+    var mb = machbarZiel(t, ziel);
+    zeilen.push({ t:t, jetzt:t.u, ziel:mb.u, wie:mb.text, p:wirkung(t, mb.u, b) });
+  });
+
+  /* Ist schon alles geplant, hilft "was fehlt" nicht weiter - dann muss der
+     Plan selbst besser werden. Dafuer wird der Loeser einmal ohne die festen
+     Werte gefragt: Was verlangt die Stufe an diesen Bauteilen wirklich? */
+  var nachbessern = false;
+  if(!zeilen.length){
+    var frei = paketFuer(IST.teile, st.ht, wb, gr);
+    if(frei.erreichbar){
+      nachbessern = true;
+      IST.teile.forEach(function(t){
+        var ist = fest[t.id]!=null ? fest[t.id] : t.u;
+        var ziel = zielUFuer(t.id, frei.k, gr);
+        if(ist <= ziel + 0.005) return;
+        var mb = machbarZiel(t, ziel);
+        if(mb.u >= ist - 0.005) return;
+        zeilen.push({ t:t, jetzt:ist, ziel:mb.u, wie:mb.text,
+                      p:wirkung({u:ist, flaeche:t.flaeche, fx:t.fx}, mb.u, b) });
+      });
+    }
+  }
+  /* Was kommt heraus, wenn genau die angezeigten Zeilen umgesetzt werden?
+     Selbst nachrechnen statt den Loeser zu zitieren - sonst stimmt die Zahl
+     nicht mehr, sobald eine Zeile weggelassen wird. */
+  function ergibt(liste){
+    var karte = {};
+    liste.forEach(function(r){ karte[r.t.id] = r.ziel; });
+    var bb = htBilanz(IST.teile.map(function(t){
+      var u = karte[t.id]!=null ? karte[t.id]
+            : (fest[t.id]!=null ? fest[t.id] : t.u);
+      return { u:u, flaeche:t.flaeche, fx:t.fx, refKey:t.refKey };
+    }), wb);
+    return bb ? bb.verhaeltnis*100 : 999;
+  }
+
+  /* Zeilen ohne spuerbare Wirkung sind Rauschen - aber nur weglassen, wenn
+     die Stufe auch ohne sie haelt. */
+  var spuerbar = zeilen.filter(function(r){ return r.p >= 0.5; });
+  if(spuerbar.length && spuerbar.length < zeilen.length
+     && ergibt(spuerbar) <= st.ht + 0.05) zeilen = spuerbar;
+
+  zeilen.sort(function(x,y){ return y.p - x.p; });
+
+  v.appendChild(el('div','fehlt-kopf',
+    (nachbessern ? 'Was Sie am Plan ändern müssten für Effizienzhaus '
+                 : 'Was noch fehlt für Effizienzhaus ') + st.name));
+
+  if(!zeilen.length){
+    v.appendChild(el('p','fehlt-summe',
+      'Auch wenn Sie jedes Bauteil auf den bestmöglichen Wert bringen, bleibt das ' +
+      'H′T-Kriterium für Effizienzhaus '+st.name+' außer Reichweite. Das liegt dann ' +
+      'nicht an der Dämmung, sondern an der Geometrie – viel Außenfläche im ' +
+      'Verhältnis zum Volumen oder ein hoher Fensteranteil. Hier ist eine niedrigere ' +
+      'Stufe der ehrlichere Weg.'));
+    return;
+  }
+
+  if(nachbessern){
+    v.appendChild(el('p','fehlt-hinweis',
+      'Sie haben bereits alle Bauteile festgelegt. Damit die Stufe hält, müsste an ' +
+      'diesen Stellen mehr geschehen als geplant:'));
+  }
+
+  zeilen.forEach(function(r){
+    var z = el('div','fehlt-zeile');
+    var nm = el('div');
+    nm.appendChild(el('span',null, r.t.n));
+    if(r.wie) nm.appendChild(el('span','fehlt-wie', r.wie));
+    z.appendChild(nm);
+    z.appendChild(el('div','fehlt-wert', nf(r.jetzt,2)+' → '+nf(r.ziel,2)));
+    z.appendChild(el('div','fehlt-wirkung', 'bringt '+punkte(r.p)));
+    v.appendChild(z);
+  });
+
+  var dann = ergibt(zeilen);
+  var sum = el('p','fehlt-summe');
+  if(dann <= st.ht + 0.05){
+    sum.innerHTML = (nachbessern
+        ? 'Mit diesen Änderungen käme die Hülle auf <b>'
+        : 'Zusammen genügt das: Die Hülle käme auf <b>') + nf(dann,0) +
+      ' %</b> und hielte damit das H′T-Kriterium für Effizienzhaus '+st.name+'.';
+  } else {
+    var beste = besteStufeMit(IST.teile, wb, gr);
+    sum.innerHTML = 'Auch zusammen genügt das nicht – die Hülle bliebe bei rund <b>'+
+      nf(dann,0)+' %</b>. ' +
+      (beste ? 'Erreichbar wäre das Kriterium für Effizienzhaus '+beste.name+'.'
+             : 'Mit den gesetzten Grenzen hält keine Stufe.');
+  }
+  v.appendChild(sum);
+}
+
+/* Foerderung der Einzelmassnahme: je Bauteil ein Anforderungswert.
+   Der zweite Weg neben dem Effizienzhaus - und der haeufigere. */
+function planFoerderung(v, fest){
+  var geplant = IST.teile.filter(function(t){
+    return G[t.id] && G[t.id].modus==='geplant' && planU(t)!=null; });
+  if(!geplant.length) return;
+
+  var denk = (A.denkmal && A.denkmal!=='nein');
+  v.appendChild(el('div','fehlt-kopf','Förderung als Einzelmaßnahme'));
+
+  var offeneLuecke = false;
+  geplant.forEach(function(t){
+    var m = TMA[t.id]; if(!m) return;
+    var u = planU(t);
+    var z = el('div','foerder-zeile');
+    z.appendChild(el('div',null, t.n));
+    z.appendChild(el('div','foerder-u', nf(u,2)));
+    var txt = el('div');
+    if(m.n!=null && u <= m.n + 0.001){
+      txt.appendChild(el('span','foerder-ja','erfüllt den Anforderungswert '+nf(m.n,2)));
+    } else if(denk && m.d!=null && u <= m.d + 0.001){
+      txt.appendChild(el('span','foerder-ja','über dem Regelwert '+nf(m.n,2)+
+        ', aber innerhalb der '+nf(m.d,2)+' für geschützte Bausubstanz'));
+    } else if(denk && m.d==null && m.dText){
+      /* Kein Freibrief: Die Richtlinie ersetzt den U-Wert hier durch eine
+         Ausfuehrungspflicht. Deshalb weder gruen noch rot. */
+      txt.appendChild(el('span','foerder-offen','über dem Regelwert '+nf(m.n,2)+
+        ' – bei geschützter Bausubstanz gilt hier aber kein U-Wert, sondern: '+
+        m.dText+'. Ob Ihre Dämmung als höchstmögliche gilt, muss begründet werden.'));
+    } else {
+      offeneLuecke = true;
+      txt.appendChild(el('span','foerder-nein','nötig sind '+nf(m.n,2)));
+      if(m.d!=null) txt.appendChild(el('span',null,
+        ' – bei Denkmal oder geschützter Bausubstanz '+nf(m.d,2)));
+    }
+    z.appendChild(txt);
+    v.appendChild(z);
+  });
+
+  var h = el('p','plan-warn');
+  h.innerHTML = 'Anforderungswerte der Technischen Mindestanforderungen zur ' +
+    'BEG-Förderrichtlinie für Einzelmaßnahmen, Fassung vom 17. Juli 2026. ' +
+    'Maßgeblich ist die Fassung, die bei Ihrer Antragstellung gilt. ' +
+    (denk
+      ? '<b>Wichtig zu den gelockerten Werten:</b> Die Richtlinie lässt sie nur zu, ' +
+        'wenn eine Sachverständige oder ein Sachverständiger der Kategorie ' +
+        '„BEG – Wohngebäude Denkmal" aus der Energie-Effizienz-Expertenliste beteiligt ist – ' +
+        'auch bei einer einfachen Einzelmaßnahme, nicht erst beim Effizienzhaus. ' +
+        'Dazu kommt die Genehmigung der Denkmalschutzbehörde oder einer sonstigen ' +
+        'zuständigen Behörde, zum Beispiel des Bauamts.'
+      : (offeneLuecke
+          ? 'Wird ein Wert nicht erreicht, ist die Maßnahme deshalb nicht automatisch ' +
+            'draußen: Bei technisch begrenzter Dämmschichtdicke und bei geschützter ' +
+            'Bausubstanz gibt es eigene Regeln – siehe die Hinweise weiter unten.'
+          : ''));
+  v.appendChild(h);
 }
 
 /* ---------- Ergebnis: Vorschlaege je Stufe ---------- */
@@ -2110,27 +2841,92 @@ function renderStufen(){
     box.appendChild(d);
   }
   renderStellschrauben();
+  renderPlan();
   renderVorschlag();
 }
 
 /* Effizienzhaus Denkmal - der Weg, wenn die Huelle keine Stufe schafft */
 function renderDenkmal(){
   var box = $('vorschlagBox'); box.innerHTML='';
+  var eigen = (A.denkmal==='denkmal');
   var v = el('div','vorschlag');
-  v.appendChild(el('h3',null,'Effizienzhaus Denkmal'));
-  v.appendChild(el('p','v-sub',
-    'Der eigene Weg für Denkmäler und besonders erhaltenswerte Bausubstanz.'));
+  v.appendChild(el('h3',null, eigen ? 'Effizienzhaus Denkmal'
+                                    : 'Erhaltenswerte Bausubstanz'));
+  v.appendChild(el('p','v-sub', eigen
+    ? 'Der eigene Weg für eingetragene Denkmäler.'
+    : 'Ihr Haus ist kein Denkmal – für die Förderung zählt es trotzdem als geschützt.'));
+
+  if(!eigen){
+    var e0 = el('div','ausgleich');
+    e0.appendChild(el('b',null,'Warum das auch ohne Denkmalschutz gilt'));
+    e0.appendChild(el('span',null,
+      'Die Förderrichtlinie kennt neben dem Baudenkmal die „sonstige besonders ' +
+      'erhaltenswerte Bausubstanz". Dafür genügt es, dass das Grundstück in einem ' +
+      'Gebiet mit Erhaltungssatzung nach § 172 Absatz 1 Nummer 1 Baugesetzbuch oder ' +
+      'in einem Sanierungsgebiet nach § 142 Baugesetzbuch liegt – oder dass die ' +
+      'Gemeinde das Haus per Satzung, öffentlicher Liste oder Quartierskonzept als ' +
+      'erhaltenswert ausweist. Bestätigt wird das von der Kommune, formlos und auf ' +
+      'Antrag des Eigentümers; die Denkmalbehörde ist dafür nicht zuständig. Die KfW ' +
+      'führt für diese Bestätigung ein eigenes Formular. Bei Wohngebäuden gelten dann ' +
+      'dieselben milderen Bauteilwerte wie beim Denkmal.'));
+    v.appendChild(e0);
+  }
 
   var m = el('div','ausgleich');
-  m.appendChild(el('b',null,'Warum das Ihr Fall sein kann'));
+  m.appendChild(el('b',null, eigen ? 'Warum das Ihr Fall sein kann'
+                                   : 'Zwei Vorteile, nicht nur einer'));
   m.appendChild(el('span',null,
-    'Für Effizienzhaus Denkmal gilt nach Angaben der KfW kein Grenzwert für den ' +
-    'Transmissionswärmeverlust in Prozent. Verlangt wird ein Primärenergiebedarf von ' +
-    'höchstens 160 % des Referenzgebäudes, dazu angepasste Anforderungswerte für ' +
-    'einzelne Bauteile – etwa für Außenwand und Fenster. Genau das Kriterium, das eine ' +
-    'gedämmte Fassade erzwingt, entfällt also. Für ein Haus, dessen Fassade erhalten ' +
-    'bleiben muss, ist das oft der einzige gangbare Weg zu einer Effizienzhausförderung.'));
+    'Erstens gelten mildere Anforderungswerte je Bauteil – und zwar bereits bei der ' +
+    'einfachen Einzelmaßnahme, nicht erst beim Effizienzhaus. Zweitens gilt für die ' +
+    'Stufe Effizienzhaus Denkmal nach Angaben der KfW kein Grenzwert für den ' +
+    'Transmissionswärmeverlust in Prozent; verlangt wird ein Primärenergiebedarf von ' +
+    'höchstens 160 % des Referenzgebäudes. Genau das Kriterium, das eine gedämmte ' +
+    'Fassade erzwingt, entfällt damit.'));
   v.appendChild(m);
+
+  /* Die Werte selbst */
+  v.appendChild(el('div','fehlt-kopf','Anforderungswerte für die Förderung'));
+  var wrap = el('div','tma-huelle');
+  var tab = el('table','tma-tab');
+  var th = el('thead'), tr = el('tr');
+  ['Bauteil','Regelfall','bei Schutz'].forEach(function(x, ix){
+    var c = el('th',null,x); if(ix) c.style.textAlign='right'; tr.appendChild(c); });
+  th.appendChild(tr); tab.appendChild(th);
+  var tb = el('tbody');
+
+  function zeile(nm, n, d, dText, sonder){
+    var r = el('tr', sonder?'sonder':null);
+    r.appendChild(el('td',null,nm));
+    r.appendChild(el('td','num', n==null ? '–' : nf(n,2)));
+    if(d!=null)          r.appendChild(el('td','num', nf(d,2)));
+    else if(dText)       r.appendChild(el('td','num frei','kein U-Wert'));
+    else                 r.appendChild(el('td','num','–'));
+    tb.appendChild(r);
+  }
+  ['wand','dach','ogd','fenster','kellerdecke','boden','tuer'].forEach(function(id){
+    var e2 = TMA[id]; if(!e2) return;
+    zeile(e2.nm, e2.n, e2.d, e2.dText, false);
+  });
+  TMA_SONDER.forEach(function(x){
+    if(x.lam!=null){
+      var r = el('tr','sonder');
+      r.appendChild(el('td',null,x.nm));
+      r.appendChild(el('td','num','λ ≤ '+nf(x.lam,3)));
+      r.appendChild(el('td','num','–'));
+      tb.appendChild(r);
+      return;
+    }
+    zeile(x.nm, x.n, x.d, null, true);
+  });
+  tab.appendChild(tb); wrap.appendChild(tab); v.appendChild(wrap);
+
+  var hin1 = el('p','plan-warn');
+  hin1.innerHTML = 'Bei Dach, oberster Geschossdecke und Flachdach verlangt die ' +
+    'Richtlinie im Schutzfall keinen U-Wert, sondern die höchstmögliche Dämmstoffdicke ' +
+    'mit λ ≤ 0,040 W/(m·K). Werte der Technischen Mindestanforderungen zur ' +
+    'BEG-Förderrichtlinie für Einzelmaßnahmen, Fassung vom 17. Juli 2026, Spalte ' +
+    'Wohngebäude. Maßgeblich ist die Fassung bei Ihrer Antragstellung.';
+  v.appendChild(hin1);
 
   var ist = IST.bilanz;
   var z = el('div','v-summe');
@@ -2143,21 +2939,17 @@ function renderDenkmal(){
   var w = el('div','engpass');
   w.appendChild(el('b',null,'Was Sie dafür brauchen'));
   w.appendChild(el('span',null,
-    'Die KfW verlangt für Effizienzhaus Denkmal eine Sachkundige bzw. einen Sachkundigen ' +
-    'der Kategorie „BEG: Wohngebäude Denkmal" aus der Energie-Effizienz-Expertenliste des ' +
-    'Bundes – eine gesonderte Eintragung, die nicht jede Energieberatung hat. ' +
-    'Außerdem muss die Denkmalbehörde einbezogen werden, bevor irgendetwas geplant wird: ' +
-    'Erst wenn feststeht, was zulässig ist, ergibt eine Berechnung Sinn. ' +
-    'Sprechen Sie uns an – wir sagen Ihnen offen, ob wir das für Sie übernehmen können ' +
-    'oder wen Sie dafür brauchen.'));
+    'Die Förderrichtlinie lässt die milderen Werte nur zu, wenn eine Sachverständige ' +
+    'oder ein Sachverständiger der Kategorie „BEG – Wohngebäude Denkmal" aus der ' +
+    'Energie-Effizienz-Expertenliste des Bundes beteiligt ist. Das gilt auch für die ' +
+    'einfache Einzelmaßnahme, nicht erst für das Effizienzhaus – eine gesonderte ' +
+    'Eintragung, die nicht jede Energieberatung hat, unsere derzeit nicht. ' +
+    'Dazu kommt die Genehmigung der Denkmalschutzbehörde oder einer sonstigen ' +
+    'zuständigen Behörde, zum Beispiel des Bauamts; die gehört an den Anfang, nicht ' +
+    'ans Ende der Planung. Sprechen Sie uns trotzdem an: Wir sagen Ihnen, was Ihr ' +
+    'Gebäude hergibt, und vermitteln für den Antrag an eine Kollegin oder einen ' +
+    'Kollegen mit der passenden Eintragung.'));
   v.appendChild(w);
-
-  var hin = el('p',null,
-    'Die genauen Anforderungswerte je Bauteil stehen in den technischen Mindest' +
-    'anforderungen der Bundesförderung und ändern sich mit den Richtlinien. ' +
-    'Maßgeblich ist die Fassung, die bei Ihrer Antragstellung gilt.');
-  hin.style.cssText='font-size:.85rem;color:var(--muted);margin-top:12px';
-  v.appendChild(hin);
 
   box.appendChild(v);
 }
@@ -2446,8 +3238,9 @@ function renderInnenVergleich(){
   var hin = el('p',null,
     'Anlage 7 des Gebäudeenergie- bzw. Gebäudemodernisierungsgesetzes kennt diesen Fall: ' +
     'Ist die Dämmschichtdicke technisch begrenzt, gilt statt des Höchstwerts von ' +
-    nf(UK.uMax.wand,2) + ' W/(m²·K) die höchstmögliche Dicke mit λ = 0,035 W/(m·K). ' +
-    'Das muss begründet und dokumentiert sein.');
+    nf(UK.uMax.wand,2) + ' W/(m²·K) die höchstmögliche Dicke mit λ = 0,035 W/(m·K) – ' +
+    'bei Einblasdämmung in Hohlräume und bei Dämmstoffen aus nachwachsenden ' +
+    'Rohstoffen genügt λ = 0,045 W/(m·K). Das muss begründet und dokumentiert sein.');
   hin.style.cssText='font-size:.85rem;color:var(--muted);margin-top:12px';
   f.appendChild(hin);
 }
@@ -2986,6 +3779,100 @@ function detailAlles(){
   console.log((eineQuelle?'✅ PASS':'❌ FAIL')+
               ' – Zielwerte nur aus KENNWERTE.zielU (boden '+nf(BASISZIEL.boden,2)+')');
   if(!eineQuelle) ok=false;
+
+  /* ---- Geplante Massnahmen: fest gegen Loeser ------------------------ */
+
+  /* 23. Ein fester Wert geht am Loeser vorbei, egal wie k steht */
+  var FEST_WAND = 0.42;
+  var fw = {wand:FEST_WAND};
+  var festGilt = (zielUFuer('wand',0.25,{},fw)===FEST_WAND)
+              && (zielUFuer('wand',1.60,{},fw)===FEST_WAND);
+  console.log((festGilt?'✅ PASS':'❌ FAIL')+' – fester Wert schlägt den Löser (U '+
+              nf(FEST_WAND,2)+' bei jedem k)');
+  if(!festGilt) ok=false;
+
+  /* 24. Leere fest-Karte darf nichts veraendern */
+  var pOhneF = paketFuer(hausG, eh70.ht, wbS, {});
+  var pLeerF = paketFuer(hausG, eh70.ht, wbS, {}, {});
+  var unveraendert = Math.abs(pOhneF.k - pLeerF.k) < 1e-9;
+  console.log((unveraendert?'✅ PASS':'❌ FAIL')+
+              ' – leere fest-Karte ändert nichts (k '+nf(pOhneF.k,4)+')');
+  if(!unveraendert) ok=false;
+
+  /* 25. Alles fest: keine Loesung, sondern eine reine Bilanz */
+  var allesFest = {};
+  hausG.forEach(function(t){ allesFest[t.id] = t.u; });
+  var pStarr = paketFuer(hausG, eh70.ht, wbS, {}, allesFest);
+  var direkt = htBilanz(hausG, wbS);
+  var starrOk = pStarr.starr===true && Math.abs(pStarr.quote - direkt.verhaeltnis) < 1e-9;
+  console.log((starrOk?'✅ PASS':'❌ FAIL')+' – alle Bauteile fest ergibt die reine Bilanz ('+
+              nf(pStarr.quote*100,1)+' %)');
+  if(!starrOk) ok=false;
+
+  /* 26. Teilweise fest: die offenen Bauteile muessen mehr leisten.
+         Der feste Wert wird bewusst nur wenig schlechter gewaehlt als der,
+         den der Loeser selbst genommen haette - sonst faellt die Stufe
+         ohnehin und der Test liefe ins Leere. */
+  var ogdFrei  = zielUFuer('ogd',  pOhneF.k, {}, {});
+  var wandFrei = zielUFuer('wand', pOhneF.k, {}, {});
+  var festMild = { wand: wandFrei + 0.05 };
+  var pTeil = paketFuer(hausG, eh70.ht, wbS, {}, festMild);
+  var ogdEng = zielUFuer('ogd', pTeil.k, {}, festMild);
+  var ausgleichOk = pTeil.erreichbar && ogdEng < ogdFrei - 1e-6;
+  console.log((ausgleichOk?'✅ PASS':'❌ FAIL')+' – festes Bauteil zwingt die übrigen: '+
+              'Wand '+nf(wandFrei,3)+' → '+nf(festMild.wand,3)+
+              ' hebt OGD '+nf(ogdFrei,3)+' → '+nf(ogdEng,3)+
+              (pTeil.erreichbar?'':' [Stufe nicht erreichbar – Test untauglich]'));
+  if(!ausgleichOk) ok=false;
+
+  /* 27. Wirkung ist exakt, nicht geschaetzt: die vorhergesagte Verbesserung
+         muss der tatsaechlich gerechneten entsprechen */
+  var b0 = htBilanz(hausG, wbS);
+  var ogdTeil = null;
+  hausG.forEach(function(t){ if(t.id==='ogd') ogdTeil = t; });
+  var U_NEU = 0.14;
+  var b1 = htBilanz(hausG.map(function(t){
+    return t.id==='ogd' ? {u:U_NEU, flaeche:t.flaeche, fx:t.fx, refKey:t.refKey} : t;
+  }), wbS);
+  var vorhergesagt = wirkung(ogdTeil, U_NEU, b0);
+  var gemessen = (b0.verhaeltnis - b1.verhaeltnis)*100;
+  var wirkungOk = Math.abs(vorhergesagt - gemessen) < 0.01;
+  console.log((wirkungOk?'✅ PASS':'❌ FAIL')+' – Wirkung exakt: vorhergesagt '+
+              nf(vorhergesagt,2)+' Punkte, gerechnet '+nf(gemessen,2));
+  if(!wirkungOk) ok=false;
+
+  /* 28. Reihenfolge der Vorschlaege: groesste Wirkung zuerst */
+  var rang = hausG.map(function(t){
+    return { id:t.id, p:wirkung(t, Math.min(t.u, BASISZIEL[t.id]||0.25), b0) };
+  }).sort(function(x,y){ return y.p - x.p; });
+  var sortiert = true;
+  for(var ri=1; ri<rang.length; ri++){ if(rang[ri].p > rang[ri-1].p + 1e-9) sortiert = false; }
+  console.log((sortiert?'✅ PASS':'❌ FAIL')+' – Vorschläge nach Wirkung sortiert (oben: '+
+              rang[0].id+', '+nf(rang[0].p,1)+' Punkte)');
+  if(!sortiert) ok=false;
+
+  /* ---- Foerderung ---------------------------------------------------- */
+
+  /* 29. Anforderungswerte gegen die Richtlinie vom 17.07.2026 */
+  var tmaOk = TMA.wand.n===0.20 && TMA.wand.d===0.45
+           && TMA.fenster.n===0.95 && TMA.fenster.d===1.40
+           && TMA.dach.n===0.14 && TMA.dach.d===null && !!TMA.dach.dText
+           && TMA.ogd.n===0.14 && TMA.kellerdecke.n===0.25 && TMA.boden.n===0.25
+           && TMA.tuer.n===1.30;
+  console.log((tmaOk?'✅ PASS':'❌ FAIL')+' – BEG-Anforderungswerte stimmen '+
+              '(Wand '+nf(TMA.wand.n,2)+'/'+nf(TMA.wand.d,2)+
+              ', Fenster '+nf(TMA.fenster.n,2)+'/'+nf(TMA.fenster.d,2)+')');
+  if(!tmaOk) ok=false;
+
+  /* 30. Teilflaechen-Mittelung gegen die Handrechnung:
+         60 m² mit 0,20 und 40 m² mit 0,45 ergibt (12+18)/100 = 0,30 */
+  var mit1 = flaechenMittel([[60,0.20],[40,0.45]]);
+  var mit2 = flaechenMittel([[0,0.20],[40,0.45]]);   /* leere Teilflaeche faellt raus */
+  var mit3 = flaechenMittel([[0,0.20],[0,0.45]]);    /* nichts uebrig */
+  var mittelOk = Math.abs(mit1-0.30)<1e-9 && Math.abs(mit2-0.45)<1e-9 && mit3===null;
+  console.log((mittelOk?'✅ PASS':'❌ FAIL')+' – flächengewichteter Mittelwert ('+
+              nf(mit1,2)+' aus 60 m² × 0,20 und 40 m² × 0,45)');
+  if(!mittelOk) ok=false;
 
   console.log(ok ? '✅ SELBSTTEST U-WERT-RECHNER BESTANDEN'
                  : '❌ SELBSTTEST U-WERT-RECHNER: Abweichungen – Rechenkern prüfen');
