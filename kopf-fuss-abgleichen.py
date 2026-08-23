@@ -267,8 +267,8 @@ def json_ld_pruefen(vorlage, werte):
 # ---------------------------------------------------------------------------
 KENNWERTE_QUELLE = "sanierungsrechner.html"
 KENNWERTE_KEYS = ("fx", "uWand", "uDach", "uOgdAlt", "uKeller", "uFenster",
-                  "gFenster", "uTuer", "lambdaDaemm", "wbZuschlag",
-                  "klassen", "klassenFarben", "zielU")
+                  "gFenster", "fensterPreis", "uTuer", "lambdaDaemm",
+                  "wbZuschlag", "klassen", "klassenFarben", "zielU")
 
 
 def js_wert(text, schluessel):

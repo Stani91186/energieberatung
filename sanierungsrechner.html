@@ -1213,8 +1213,19 @@ var CONFIG = {
   uDach:   [[1968,1.80],[1978,1.20],[1994,0.50],[2001,0.40],[2015,0.30],[9999,0.20]],
   uOgdAlt: 1.10,
   uKeller: [[1978,1.50],[1994,0.80],[2009,0.60],[9999,0.35]],
-  uFenster:{ einfach:5.0, kasten:2.5, zweifach_alt:3.0, iso_95:1.5, ws_2001:1.3, ws_2010:1.1, dreifach:0.8 },
-  gFenster:{ einfach:0.75, kasten:0.75, zweifach_alt:0.62, iso_95:0.62, ws_2001:0.62, ws_2010:0.62, dreifach:0.50 },
+  /* Uw = ganzes Fenster inkl. Rahmen und Randverbund, nicht Ug (nur Glas).
+     dreifach_wk unterscheidet sich von dreifach NICHT im Glas, sondern im
+     Abstandhalter: Eine warme Kante statt Aluminium senkt Uw um 0,1 bis 0,2.
+     vakuum meint Vakuumglas im ertuechtigten Altbaurahmen - das Glas kann
+     Ug 0,7 bei 10 mm, aber der alte Holzrahmen bestimmt den Uw. */
+  uFenster:{ einfach:5.0, kasten:2.5, zweifach_alt:3.0, iso_95:1.5, ws_2001:1.3, ws_2010:1.1, dreifach:0.8, dreifach_wk:0.7, passiv:0.6, vierfach:0.55, vakuum:1.1 },
+  /* g = solarer Gesamtenergiedurchlass. Jede zusaetzliche Scheibe kostet
+     Sonnenwaerme - deshalb faellt g bei vierfach deutlich ab. */
+  gFenster:{ einfach:0.75, kasten:0.75, zweifach_alt:0.62, iso_95:0.62, ws_2001:0.62, ws_2010:0.62, dreifach:0.50, dreifach_wk:0.50, passiv:0.52, vierfach:0.40, vakuum:0.50 },
+  /* Fensterpreise 2026, eingebaut, EUR je m2 Fensterflaeche. Bewusst je
+     RAHMENMATERIAL und nicht je Verglasung: Den Preis macht der Rahmen, der
+     Schritt von zwei auf drei Scheiben kostet heute fast nichts mehr. */
+  fensterPreis:{ kunststoff:[200,640], holz:[300,750], alu:[450,1000], holzAlu:[550,1200] },
   uTuer:{ alt:3.0, neu:1.3 },
   lambdaDaemm:0.035,
   fensterAnteil:{ vor1950:0.12, standard:0.15, ab1995:0.18 },

@@ -450,6 +450,49 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
 .tma-tab td.frei{color:var(--forest);font-weight:600}
 .tma-tab tr.sonder td:first-child{color:var(--muted)}
 
+/* ==== Fenstervergleich ==== */
+/* Kein Querscroll: Die Spalte mit der Einordnung traegt die Empfehlung und
+   darf auf dem Handy nicht seitlich verschwinden. Deshalb Raster statt
+   Tabelle - unter 640 px bricht jede Zeile in eine Karte um. */
+.fv-liste{margin:14px 0 6px;font-size:.89rem}
+.fv-kopf,.fv-zeile{display:grid;grid-template-columns:minmax(0,1.5fr) 92px 76px minmax(0,1.7fr);
+  gap:12px;align-items:start}
+.fv-kopf{font-size:.71rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;padding-bottom:9px}
+.fv-kopf span:nth-child(2),.fv-kopf span:nth-child(3){text-align:right}
+.fv-zeile{padding:13px 0;border-top:1px solid var(--line-soft)}
+.fv-zeile>*{min-width:0}
+.fv-zeile.tipp{background:var(--forest-soft);border-radius:var(--radius-sm);
+  padding:13px 14px;border-top-color:transparent;margin:2px 0}
+.fv-zeile.tipp .fv-name b{color:var(--forest)}
+.fv-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fv-name b{display:block}
+.fv-name span{display:block;font-size:.83rem;color:var(--muted);margin-top:2px}
+.fv-mobil{display:none}
+@media (max-width:640px){
+  .fv-kopf{display:none}
+  .fv-zeile{grid-template-columns:1fr;gap:7px}
+  .fv-num{display:none}
+  .fv-mobil{display:block;font-variant-numeric:tabular-nums;font-size:.85rem;
+    color:var(--forest);font-weight:600}
+}
+.fv-marke{display:inline-block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+  font-weight:700;padding:2px 8px;border-radius:100px;white-space:nowrap}
+.fv-m-ja{background:var(--forest-soft);color:var(--forest)}
+.fv-m-teuer{background:var(--cream-2);color:var(--amber-deep)}
+.fv-m-nein{background:#F6E7E4;color:#8C3A2B}
+.fv-warn{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:var(--radius-sm);
+  padding:16px 19px;margin:18px 0 0;font-size:.9rem;color:#6B5010}
+.fv-warn b{display:block;margin-bottom:5px}
+.fv-preis{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:12px;margin:14px 0 4px}
+.fv-preis div{background:var(--cream-2);border-radius:var(--radius-sm);padding:13px 15px}
+.fv-preis b{display:block;font-size:.86rem;margin-bottom:3px}
+.fv-preis span{font-variant-numeric:tabular-nums;font-size:.95rem;font-weight:600;color:var(--forest)}
+.fv-jetzt{background:var(--cream-2);border-radius:var(--radius-sm);padding:14px 17px;
+  margin:16px 0 0;font-size:.9rem}
+.fv-jetzt b{display:block;margin-bottom:4px}
+@media (max-width:640px){ .fv-preis{grid-template-columns:1fr} }
+
 /* GEMEINSAM:CSS */
 /* Kopf, Menue, Knoepfe und Fuss stammen aus index.html.
    Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
@@ -771,6 +814,14 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
     <div id="vorschlagBox"></div>
   </section>
 
+  <section class="panel" id="p-fenster" style="display:none">
+    <h2>Welches Fenster ist heute das richtige?</h2>
+    <p class="panel-sub">Dreifachverglasung ist längst der Normalfall – die Frage ist
+      nicht mehr zwei oder drei Scheiben, sondern was am Rand der Scheibe passiert
+      und wann eine vierte Scheibe schadet statt nützt.</p>
+    <div id="fvBox"></div>
+  </section>
+
   <section class="panel" id="p-innen" style="display:none">
     <h2>Welche Innendämmung passt zu Ihrer Wand?</h2>
     <p class="panel-sub">Weil die Fassade erhalten bleiben muss, kommt nur Innendämmung
@@ -1031,8 +1082,9 @@ var KENNWERTE = {
   uDach:[[1968,1.80],[1978,1.20],[1994,0.50],[2001,0.40],[2015,0.30],[9999,0.20]],
   uOgdAlt:1.10,
   uKeller:[[1978,1.50],[1994,0.80],[2009,0.60],[9999,0.35]],
-  uFenster:{ einfach:5.0, kasten:2.5, zweifach_alt:3.0, iso_95:1.5, ws_2001:1.3, ws_2010:1.1, dreifach:0.8 },
-  gFenster:{ einfach:0.75, kasten:0.75, zweifach_alt:0.62, iso_95:0.62, ws_2001:0.62, ws_2010:0.62, dreifach:0.50 },
+  uFenster:{ einfach:5.0, kasten:2.5, zweifach_alt:3.0, iso_95:1.5, ws_2001:1.3, ws_2010:1.1, dreifach:0.8, dreifach_wk:0.7, passiv:0.6, vierfach:0.55, vakuum:1.1 },
+  gFenster:{ einfach:0.75, kasten:0.75, zweifach_alt:0.62, iso_95:0.62, ws_2001:0.62, ws_2010:0.62, dreifach:0.50, dreifach_wk:0.50, passiv:0.52, vierfach:0.40, vakuum:0.50 },
+  fensterPreis:{ kunststoff:[200,640], holz:[300,750], alu:[450,1000], holzAlu:[550,1200] },
   uTuer:{ alt:3.0, neu:1.3 },
   lambdaDaemm:0.035,
   wbZuschlag:{ unsaniert:0.10, saniert:0.05, jeGaube:0.02, max:0.15 },
@@ -2070,6 +2122,7 @@ function zeigeErgebnis(){
   grenzenInit();
   renderStufen();
   renderInnenVergleich();
+  renderFensterVergleich();
   renderAnlagentechnik();
   detailStart();
   $('ergebnis').scrollIntoView({block:'start'});
@@ -2197,6 +2250,7 @@ function neuRechnen(){
   renderPlan();
   renderVorschlag();
   renderInnenVergleich();
+  renderFensterVergleich();
 }
 
 function renderStellschrauben(){
@@ -2266,10 +2320,8 @@ function renderStellschrauben(){
         var fsel = el('select');
         var o0 = el('option',null, istPlan?'Verglasung wählen':'keine Grenze');
         o0.value=''; fsel.appendChild(o0);
-        ['iso_95','ws_2001','ws_2010','dreifach'].forEach(function(kk){
-          var namen = {iso_95:'Isolierglas ab 1995', ws_2001:'Wärmeschutzglas ab 2001',
-                       ws_2010:'Wärmeschutzglas ab 2010', dreifach:'Dreifachverglasung'};
-          var o = el('option',null, namen[kk]+' · U '+nf(KENNWERTE.uFenster[kk],2));
+        VERGLASUNG_NEU.forEach(function(kk){
+          var o = el('option',null, VERGLASUNG_NAME[kk]+' · U '+nf(KENNWERTE.uFenster[kk],2));
           o.value = kk;
           if((istPlan?g.planTyp:g.maxTyp)===kk) o.selected = true;
           fsel.appendChild(o);
@@ -2553,11 +2605,28 @@ function wirkung(t, uNeu, bilanz){
    sonst wird jemand zu Dreifachglas geschickt, wo Zweifach genuegt.
    Die Reihenfolge ist deshalb von schwach nach stark. */
 var VERGLASUNGEN = [
-  ['iso_95',  'Isolierglas ab 1995'],
-  ['ws_2001', 'Wärmeschutzglas ab 2001'],
-  ['ws_2010', 'Wärmeschutzglas ab 2010'],
-  ['dreifach','Dreifachverglasung']
+  ['iso_95',     'Isolierglas ab 1995'],
+  ['ws_2001',    'Wärmeschutzglas ab 2001'],
+  ['ws_2010',    'Zweifach-Wärmeschutz'],
+  ['dreifach',   'Dreifachverglasung'],
+  ['dreifach_wk','Dreifachverglasung mit warmer Kante'],
+  ['passiv',     'Passivhausfenster'],
+  ['vierfach',   'Vierfachverglasung']
 ];
+
+/* Was man heute tatsaechlich neu einbauen kann. Isolierglas von 1995 steht
+   bewusst nicht drin - das ist Bestand, kein Angebot. Vakuumglas ebenfalls
+   nicht: Es ist kein neues Fenster, sondern ein Glastausch im alten Rahmen
+   und gehoert deshalb an die Stelle, wo der Rahmen bleiben muss. */
+var VERGLASUNG_NEU = ['ws_2010','dreifach','dreifach_wk','passiv','vierfach','vakuum'];
+var VERGLASUNG_NAME = {
+  einfach:'Einfachverglasung', kasten:'Kastenfenster',
+  zweifach_alt:'Zweifach ohne Beschichtung',
+  iso_95:'Isolierglas ab 1995', ws_2001:'Wärmeschutzglas ab 2001',
+  ws_2010:'Zweifach-Wärmeschutz', dreifach:'Dreifachverglasung',
+  dreifach_wk:'Dreifach mit warmer Kante', passiv:'Passivhausfenster',
+  vierfach:'Vierfachverglasung', vakuum:'Vakuumglas im Altbaurahmen'
+};
 function verglasungFuer(zielU){
   for(var i=0;i<VERGLASUNGEN.length;i++){
     var k = VERGLASUNGEN[i][0];
@@ -3245,6 +3314,197 @@ function renderInnenVergleich(){
   f.appendChild(hin);
 }
 
+/* ---------- Welches Fenster kaufen? ----------
+   Die Frage ist heute nicht mehr zwei oder drei Scheiben - dreifach ist der
+   Normalfall und kostet kaum Aufpreis. Entschieden wird am Randverbund und
+   an der Frage, ab wann eine weitere Scheibe schadet. */
+var FV_ZEILEN = [
+  { id:'ws_2010', marke:'nein', mk:'nicht neu einbauen',
+    kurz:'Zwei Scheiben, moderne Beschichtung.',
+    text:'Verfehlt den Anforderungswert der Förderung und ist kaum billiger als '+
+         'dreifach. Neu nur noch dort sinnvoll, wo der Rahmen keine dickere Scheibe '+
+         'aufnimmt.' },
+  { id:'dreifach', marke:'ja', mk:'Normalfall',
+    kurz:'Drei Scheiben, zwei Beschichtungen, Aluminium-Abstandhalter.',
+    text:'Das, was Sie bekommen, wenn Sie nichts weiter angeben. Förderfähig, '+
+         'bewährt, überall lieferbar.' },
+  { id:'dreifach_wk', marke:'ja', mk:'beste Wahl', tipp:true,
+    kurz:'Dasselbe Glas – aber warme Kante statt Aluminium am Rand.',
+    text:'Kleiner Aufpreis, spürbare Wirkung – warum, steht gleich darunter.' },
+  { id:'passiv', marke:'teuer', mk:'für hohe Stufen',
+    kurz:'Gedämmter Rahmen, Ug 0,5, warme Kante, zertifiziert.',
+    text:'Lohnt, wenn Sie auf Effizienzhaus 40 oder Passivhaus zugehen. Darunter '+
+         'zahlen Sie für Reserve, die die Bilanz nicht braucht.' },
+  { id:'vierfach', marke:'teuer', mk:'Sonderfall',
+    kurz:'Vier Scheiben. Mehr Dämmung – und weniger Sonne.',
+    text:'Nur, wenn eine Stufe anders nicht zu halten ist. Die Begründung steht '+
+         'weiter unten im gelben Kasten.' },
+  { id:'vakuum', marke:'ja', mk:'wenn der Rahmen bleibt',
+    kurz:'Vakuum zwischen zwei Scheiben, rund 10 mm statt 36 mm.',
+    text:'Der Weg für Denkmal, Sichtfachwerk und Kastenfenster: Das Glas wird '+
+         'getauscht, der historische Rahmen bleibt.' }
+];
+
+function renderFensterVergleich(){
+  var box = $('fvBox'); if(!box) return;
+  var panel = $('p-fenster'); if(panel) panel.style.display='';
+  box.innerHTML='';
+
+  /* ---- Vergleich ---- */
+  var liste = el('div','fv-liste');
+  var kopf = el('div','fv-kopf');
+  ['Verglasung','U-Wert Fenster','g-Wert','Einordnung'].forEach(function(x){
+    kopf.appendChild(el('span',null,x)); });
+  liste.appendChild(kopf);
+
+  FV_ZEILEN.forEach(function(z){
+    var u = KENNWERTE.uFenster[z.id], g2 = KENNWERTE.gFenster[z.id];
+    var r = el('div','fv-zeile'+(z.tipp?' tipp':''));
+
+    var n = el('div','fv-name');
+    n.appendChild(el('b',null, VERGLASUNG_NAME[z.id]));
+    n.appendChild(el('span',null, z.kurz));
+    /* Auf dem Handy stehen die Zahlen unter dem Namen statt in Spalten */
+    n.appendChild(el('div','fv-mobil','U '+nf(u,2)+' · g '+nf(g2,2)));
+    r.appendChild(n);
+
+    r.appendChild(el('div','fv-num', nf(u,2)));
+    r.appendChild(el('div','fv-num', nf(g2,2)));
+
+    var e2 = el('div');
+    e2.appendChild(el('span','fv-marke fv-m-'+z.marke, z.mk));
+    e2.appendChild(el('div',null, z.text));
+    r.appendChild(e2);
+    liste.appendChild(r);
+  });
+  box.appendChild(liste);
+
+  var fuss = el('p','plan-warn');
+  fuss.innerHTML = 'Angegeben ist der <b>U<sub>w</sub></b> des ganzen Fensters ' +
+    'einschließlich Rahmen und Randverbund – nicht der U<sub>g</sub> der Scheibe, ' +
+    'mit dem Prospekte gern werben. Der U<sub>g</sub> liegt bei Dreifachglas um 0,5 '+
+    'bis 0,7; was am Ende zählt, ist der schlechtere Gesamtwert. Anhaltswerte für '+
+    'übliche Bauarten; maßgeblich ist das Datenblatt Ihres Angebots.';
+  box.appendChild(fuss);
+
+  /* ---- Warme Kante ---- */
+  var wk = el('div','ausgleich');
+  wk.appendChild(el('b',null,'Warum die warme Kante mehr bringt, als sie kostet'));
+  wk.appendChild(el('span',null,
+    'Die warme Kante ist kein anderes Glas. Zwischen den Scheiben sitzt ein ' +
+    'Abstandhalter, klassisch aus Aluminium – und Aluminium leitet Wärme rund ' +
+    'tausendmal besser als der Kunststoff-Edelstahl-Verbund einer warmen Kante. ' +
+    'Der Randverbund ist damit die Wärmebrücke des Fensters. Erfasst wird sie ' +
+    'nicht im U-Wert der Scheibe, sondern im Ψ-Wert des Randes – deshalb taucht ' +
+    'sie in keinem Glasprospekt auf. Der Wechsel senkt den U-Wert des Fensters um ' +
+    'etwa 0,1 bis 0,2 W/(m²·K). Wichtiger im Alltag: Er hebt die Temperatur der ' +
+    'Glaskante um mehrere Grad. Dort schlägt sich Tauwasser zuerst nieder, und ' +
+    'dort fängt Schimmel an. Für zertifizierte Passivhaus-Komponenten ist ' +
+    'Ψ ≤ 0,035 W/(m·K) bindend – ohne warme Kante nicht zu halten. Der Aufpreis ' +
+    'ist klein. Gemessen an der Wirkung pro Euro ist es die beste Entscheidung, ' +
+    'die Sie am Fenster treffen können.'));
+  box.appendChild(wk);
+
+  /* ---- Die vierte Scheibe ---- */
+  var w4 = el('div','fv-warn');
+  w4.appendChild(el('b',null,'Die vierte Scheibe: mehr ist nicht automatisch besser'));
+  w4.appendChild(el('span',null,
+    'Ein Fenster ist nicht nur ein Loch in der Wand, sondern auch ein ' +
+    'Sonnenkollektor. Jede zusätzliche Scheibe hält Wärme drinnen – und Sonne ' +
+    'draußen. Von drei auf vier Scheiben sinkt der U-Wert um rund ' +
+    nf(KENNWERTE.uFenster.dreifach - KENNWERTE.uFenster.vierfach, 2) +
+    ', der g-Wert aber von ' + nf(KENNWERTE.gFenster.dreifach,2) + ' auf ' +
+    nf(KENNWERTE.gFenster.vierfach,2) + '. Auf der Südseite kann die vierte ' +
+    'Scheibe über eine Heizperiode deshalb mehr Solargewinn kosten, als sie an ' +
+    'Transmission spart – ob sie sich lohnt, entscheidet die Ausrichtung, nicht ' +
+    'der Katalog. Dazu kommen das Gewicht, die Beschläge und Temperatur' +
+    'unterschiede von bis zu 20 Grad zwischen den Scheiben. Vierfachverglasung ' +
+    'ist kein besseres Fenster, sondern ein Spezialfall: sinnvoll, wenn eine Stufe ' +
+    'anders nicht zu halten ist, und dann eher nach Norden und Osten als nach Süden.'));
+  box.appendChild(w4);
+
+  /* ---- Preise ---- */
+  box.appendChild(el('div','fehlt-kopf','Was Fenster kosten'));
+  box.appendChild(el('p','fehlt-hinweis',
+    'Eingebaut, je m² Fensterfläche. Den Preis macht der Rahmen, nicht die Scheibe – ' +
+    'der Schritt von zwei auf drei Scheiben kostet heute fast nichts mehr.'));
+  var pr = el('div','fv-preis');
+  [['kunststoff','Kunststoff'],['holz','Holz'],['alu','Aluminium'],['holzAlu','Holz-Alu']]
+    .forEach(function(x){
+      var v = KENNWERTE.fensterPreis[x[0]]; if(!v) return;
+      var d = el('div');
+      d.appendChild(el('b',null,x[1]));
+      d.appendChild(el('span',null, nf(v[0],0)+' – '+nf(v[1],0)+' €/m²'));
+      pr.appendChild(d);
+    });
+  box.appendChild(pr);
+  box.appendChild(el('p','plan-warn',
+    'Spannen für 2026, einschließlich Einbau. Ein Standardfenster von 1,20 × 1,30 m ' +
+    'liegt damit grob zwischen 650 € (Kunststoff) und 2.100 € (Holz-Alu). Ein ' +
+    'Einfamilienhaus mit vierzehn Fenstern landet je nach Material zwischen 9.000 ' +
+    'und 24.000 €. Orientierung, kein Angebot – Maße, Öffnungsart, Sprossen und ' +
+    'Einbausituation verschieben das erheblich.'));
+
+  /* ---- Entscheidungsregel ---- */
+  box.appendChild(el('div','fehlt-kopf','Die Regel in vier Sätzen'));
+  var liste = el('div','id-regel-liste');
+  [['Im Regelfall', 'Dreifachverglasung mit warmer Kante. Förderfähig, kleiner ' +
+    'Aufpreis, beste Wirkung pro Euro.'],
+   ['Wenn Sie auf Effizienzhaus 40 oder Passivhaus zugehen',
+    'Zertifiziertes Passivhausfenster. Dort ist U ≤ 0,80 Mindestanforderung, gute ' +
+    'Einheiten liegen bei 0,60.'],
+   ['Wenn der Rahmen bleiben muss',
+    'Vakuumglas. Rund 10 mm Aufbau passen in die meisten historischen Holzrahmen, ' +
+    'für die eine Dreifachscheibe viel zu dick ist – und die Denkmalbehörde sieht ' +
+    'die alte Ansicht weiter.'],
+   ['Nie', 'Zweifachverglasung neu einbauen. Sie verfehlt den Anforderungswert der ' +
+    'Förderung, spart kaum etwas und bindet Sie für dreißig Jahre.']
+  ].forEach(function(r){
+    var k = el('div','id-regel');
+    k.appendChild(el('b',null,r[0]));
+    k.appendChild(el('span',null,r[1]));
+    liste.appendChild(k);
+  });
+  box.appendChild(liste);
+
+  fensterJetzt(box);
+}
+
+/* Was hat der Nutzer heute, was plant er - und traegt das die Foerderung? */
+function fensterJetzt(box){
+  var t = null;
+  if(IST && IST.teile) IST.teile.forEach(function(x){ if(x.id==='fenster') t = x; });
+  if(!t) return;
+  var g = G && G.fenster;
+  var geplant = (g && g.modus==='geplant' && g.planTyp) ? g.planTyp : null;
+  var d = el('div','fv-jetzt');
+  d.appendChild(el('b',null,'Ihr Fall'));
+
+  var txt = 'Heute rechnet der Rechner mit ' + nf(t.u,2) + ' W/(m²·K) bei ' +
+            nf(t.flaeche,0) + ' m² Fensterfläche. ';
+  if(geplant){
+    var un = KENNWERTE.uFenster[geplant];
+    txt += 'Geplant ist ' + VERGLASUNG_NAME[geplant] + ' mit ' + nf(un,2) + '. ';
+    var soll = TMA.fenster.n, denk = (A.denkmal && A.denkmal!=='nein');
+    if(un <= soll + 0.001){
+      txt += 'Das erfüllt den Anforderungswert von ' + nf(soll,2) +
+             ' und ist als Einzelmaßnahme förderfähig.';
+    } else if(denk && un <= TMA.fenster.d + 0.001){
+      txt += 'Das liegt über dem Regelwert von ' + nf(soll,2) + ', aber innerhalb der ' +
+             nf(TMA.fenster.d,2) + ' für geschützte Bausubstanz – dort also förderfähig.';
+    } else {
+      txt += 'Damit wird der Anforderungswert von ' + nf(soll,2) + ' verfehlt' +
+             (denk ? ' – auch die ' + nf(TMA.fenster.d,2) +
+                     ' für geschützte Bausubstanz reichen nicht.' : '.');
+    }
+  } else {
+    txt += 'Tragen Sie oben bei den Maßnahmen eine Verglasung ein, dann prüft der ' +
+           'Rechner sie gegen den Anforderungswert der Förderung.';
+  }
+  d.appendChild(el('span',null,txt));
+  box.appendChild(d);
+}
+
 /* ---------- Anlagentechnik: der Hebel beim Primaerenergiebedarf ----------
    Die Faktoren sind amtlich (Anlage 4 GEG/GModG), die Nutzungsgrade sind
    Anhaltswerte. Was hier NICHT steht, ist eine QP-Zahl fuer das Haus - dafuer
@@ -3873,6 +4133,62 @@ function detailAlles(){
   console.log((mittelOk?'✅ PASS':'❌ FAIL')+' – flächengewichteter Mittelwert ('+
               nf(mit1,2)+' aus 60 m² × 0,20 und 40 m² × 0,45)');
   if(!mittelOk) ok=false;
+
+  /* ---- Verglasungen -------------------------------------------------- */
+
+  /* 31. Die Leiter muss aufsteigend sein - sonst waehlt verglasungFuer()
+         nicht die schwaechste ausreichende, sondern irgendeine. */
+  var leiterOk = true, vor = 99;
+  VERGLASUNGEN.forEach(function(x){
+    var u = KENNWERTE.uFenster[x[0]];
+    if(u==null || u > vor) leiterOk = false;
+    vor = u;
+  });
+  console.log((leiterOk?'✅ PASS':'❌ FAIL')+' – Verglasungsleiter absteigend im U-Wert ('+
+              VERGLASUNGEN.map(function(x){ return nf(KENNWERTE.uFenster[x[0]],2); }).join(' > ')+')');
+  if(!leiterOk) ok=false;
+
+  /* 32. Die warme Kante senkt den Uw um 0,1 bis 0,2 - so steht es im Text,
+         also muss die Zahl das auch hergeben. */
+  var dWk = KENNWERTE.uFenster.dreifach - KENNWERTE.uFenster.dreifach_wk;
+  pruef('Warme Kante senkt Uw (dreifach → dreifach_wk)', dWk, 0.095, 0.205);
+
+  /* 33. Jede Scheibe kostet Sonne: der g-Wert muss bei vierfach klar unter
+         dreifach liegen, sonst traegt die Warnung im gelben Kasten nicht. */
+  var gFaellt = KENNWERTE.gFenster.vierfach < KENNWERTE.gFenster.dreifach - 0.05;
+  console.log((gFaellt?'✅ PASS':'❌ FAIL')+' – vierfach dämmt besser, lässt aber weniger Sonne ('+
+              'U '+nf(KENNWERTE.uFenster.vierfach,2)+' < '+nf(KENNWERTE.uFenster.dreifach,2)+
+              ', g '+nf(KENNWERTE.gFenster.vierfach,2)+' < '+nf(KENNWERTE.gFenster.dreifach,2)+')');
+  if(!gFaellt) ok=false;
+
+  /* 34. verglasungFuer nimmt die schwaechste, die reicht - niemand soll zu
+         Vierfachglas geschickt werden, wo dreifach genuegt. */
+  var w1 = verglasungFuer(0.85), w2 = verglasungFuer(0.75), w3 = verglasungFuer(0.62);
+  var wahlOk = w1 && w1.key==='dreifach' && w2 && w2.key==='dreifach_wk'
+            && w3 && w3.key==='passiv' && verglasungFuer(0.30)===null;
+  console.log((wahlOk?'✅ PASS':'❌ FAIL')+' – schwächste ausreichende Verglasung gewählt ('+
+              (w1?w1.key:'-')+' / '+(w2?w2.key:'-')+' / '+(w3?w3.key:'-')+')');
+  if(!wahlOk) ok=false;
+
+  /* 35. Vakuumglas ist der Denkmalweg: schlechter als ein neues Fenster,
+         aber innerhalb des gelockerten Anforderungswerts. */
+  var vak = KENNWERTE.uFenster.vakuum;
+  var vakOk = vak > KENNWERTE.uFenster.dreifach && vak <= TMA.fenster.d + 0.001
+           && vak > TMA.fenster.n;
+  console.log((vakOk?'✅ PASS':'❌ FAIL')+' – Vakuumglas ('+nf(vak,2)+') verfehlt '+
+              nf(TMA.fenster.n,2)+', hält aber '+nf(TMA.fenster.d,2)+' für geschützte Bausubstanz');
+  if(!vakOk) ok=false;
+
+  /* 36. Preisspannen vollstaendig und richtig herum */
+  var preisOk = true, mats = ['kunststoff','holz','alu','holzAlu'];
+  mats.forEach(function(m){
+    var v = KENNWERTE.fensterPreis[m];
+    if(!v || v.length!==2 || !(v[0]>0) || !(v[1]>v[0])) preisOk = false;
+  });
+  console.log((preisOk?'✅ PASS':'❌ FAIL')+' – Fensterpreise je Rahmenmaterial vollständig ('+
+              mats.length+' Materialien, Kunststoff '+
+              (KENNWERTE.fensterPreis.kunststoff||['?','?']).join('–')+' €/m²)');
+  if(!preisOk) ok=false;
 
   console.log(ok ? '✅ SELBSTTEST U-WERT-RECHNER BESTANDEN'
                  : '❌ SELBSTTEST U-WERT-RECHNER: Abweichungen – Rechenkern prüfen');

@@ -354,6 +354,47 @@ Es genügt eine Erhaltungssatzung nach § 172 Abs. 1 Nr. 1 BauGB, ein
 Sanierungsgebiet nach § 142 BauGB oder eine kommunale Ausweisung. Bestätigt
 wird das **von der Kommune**, formlos – nicht von der Denkmalbehörde.
 
+### Fenster
+
+`renderFensterVergleich()` beantwortet „welches Fenster kaufe ich?". Die Werte
+stehen in `KENNWERTE.uFenster` / `gFenster`, kommen also aus dem CONFIG des
+Sanierungsrechners (Regel 6) – dort ändern, nie hier.
+
+| Verglasung | U<sub>w</sub> | g | Einordnung |
+|---|---|---|---|
+| Zweifach-Wärmeschutz | 1,10 | 0,62 | verfehlt den Förderwert 0,95 |
+| Dreifachverglasung | 0,80 | 0,50 | Normalfall |
+| Dreifach mit warmer Kante | 0,70 | 0,50 | **die Empfehlung** |
+| Passivhausfenster | 0,60 | 0,52 | ab Effizienzhaus 40 |
+| Vierfachverglasung | 0,55 | 0,40 | Sonderfall |
+| Vakuumglas im Altbaurahmen | 1,10 | 0,50 | wenn der Rahmen bleibt |
+
+Drei Punkte tragen den Abschnitt und dürfen nicht verkürzt werden:
+
+- **Angegeben ist U<sub>w</sub>, nicht U<sub>g</sub>.** Prospekte werben mit dem
+  Glaswert (0,5 bis 0,7 bei Dreifachglas); zählen tut das ganze Fenster.
+- **Die warme Kante ist kein anderes Glas**, sondern ein anderer Abstandhalter.
+  Sie wirkt über den Ψ-Wert des Randverbunds, nicht über U<sub>g</sub> – deshalb
+  taucht sie in keinem Glasdatenblatt auf. Senkt U<sub>w</sub> um 0,1 bis 0,2
+  und hebt die Temperatur der Glaskante, wo Tauwasser und Schimmel beginnen.
+  Für zertifizierte Passivhaus-Komponenten ist Ψ ≤ 0,035 W/(m·K) bindend.
+- **Die vierte Scheibe ist kein besseres Fenster.** Sie senkt U<sub>w</sub> um
+  0,25, den g-Wert aber von 0,50 auf 0,40. Auf der Südseite kann sie über eine
+  Heizperiode mehr Solargewinn kosten, als sie an Transmission spart. Dazu
+  Gewicht und bis zu 20 K Temperaturunterschied zwischen den Scheiben. Der
+  Rechner sagt das ausdrücklich – **nicht zu einer Kaufempfehlung umschreiben.**
+
+`fensterPreis` in `CONFIG` ist bewusst je **Rahmenmaterial** und nicht je
+Verglasung gegliedert: Den Preis macht der Rahmen, der Schritt von zwei auf
+drei Scheiben kostet heute fast nichts mehr. Spannen für 2026, eingebaut.
+
+Die Frage nach dem Ist-Zustand (`verglasung`) bekommt die neuen Sorten
+**nicht** – der Feuerzeugtest kann eine warme Kante nicht erkennen. Neu
+einbaubar ist, was in `VERGLASUNG_NEU` steht; `VERGLASUNGEN` ist die nach
+U-Wert **aufsteigend sortierte** Leiter, aus der `verglasungFuer()` die
+schwächste ausreichende wählt. Ein Selbsttest prüft die Sortierung – ohne sie
+würde jemand zu Vierfachglas geschickt, wo dreifach genügt.
+
 ### Grundstücksgrenze
 
 Wählt der Nutzer bei der Wand den Grund „Grundstücksgrenze", erscheint
@@ -378,10 +419,10 @@ mit einem Bestandsmittelwert erzwingen.
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser + Plausibilität).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
-`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (30 Fälle: Handrechnung,
+`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (36 Fälle: Handrechnung,
 Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische
 Aufbauten, Grenzen und Ausgleich, Primärenergie, feste Werte, Wirkung,
-BEG-Anforderungswerte, Flächenmittel).
+BEG-Anforderungswerte, Flächenmittel, Verglasungen).
 Schlägt ein Fall fehl, wurde das Rechenmodell beschädigt – Änderung zurücknehmen
 oder CONFIG korrigieren. Zusätzlich: Seite bei 390 px Breite ohne horizontales
 Scrollen, Wizard einmal komplett durchklicken.
