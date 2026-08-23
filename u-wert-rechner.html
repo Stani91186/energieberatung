@@ -295,6 +295,30 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
   .wizard-nav .btn{width:100%}
 }
 
+/* ==== Innendaemmung im Vergleich ==== */
+.id-strategie{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:4px 0 22px}
+.id-karte{border-radius:var(--radius-sm);padding:15px 17px;font-size:.88rem;border-left:4px solid}
+.id-offen{background:var(--ok-soft);border-color:var(--ok);color:#1F5730}
+.id-dicht{background:#EDF1F6;border-color:#4A6785;color:#2C3D52}
+.id-duenn{background:var(--amber-soft);border-color:var(--amber);color:#6B5638}
+.id-karte b{display:block;margin-bottom:5px;font-size:.93rem}
+.id-huelle{overflow-x:auto;margin:6px 0 4px}
+.id-tab{width:100%;font-size:.88rem;min-width:520px;border-collapse:collapse}
+.id-tab th{text-align:left;font-size:.71rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 10px 9px 0;font-weight:700}
+.id-tab td{padding:11px 10px 11px 0;border-top:1px solid var(--line-soft);vertical-align:top}
+.id-tab td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.id-tab tr.empfohlen{background:var(--forest-soft)}
+.id-tab tr.empfohlen td:first-child{font-weight:700}
+.id-name{font-weight:600}
+.id-eignung{display:block;font-size:.84rem;color:var(--ink-2);margin-top:3px;line-height:1.5;max-width:52ch}
+.id-punkt{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.id-regeln{display:grid;gap:11px;margin-top:4px}
+.id-regel{display:grid;grid-template-columns:186px minmax(0,1fr);gap:12px;align-items:baseline}
+.id-regel>*{min-width:0}
+.id-regel b{font-size:.88rem}
+@media (max-width:640px){ .id-regel{grid-template-columns:1fr;gap:2px} }
+.id-p-gruen{background:var(--ok)} .id-p-gelb{background:var(--warn)} .id-p-rot{background:var(--bad)}
+
 /* GEMEINSAM:CSS */
 /* Kopf, Menue, Knoepfe und Fuss stammen aus index.html.
    Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
@@ -612,6 +636,39 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
       Dämmstärke aus Ihrem Aufbau aus.</p>
     <div class="stufen-reiter" id="stufenReiter"></div>
     <div id="vorschlagBox"></div>
+  </section>
+
+  <section class="panel" id="p-innen" style="display:none">
+    <h2>Welche Innendämmung passt zu Ihrer Wand?</h2>
+    <p class="panel-sub">Weil die Fassade erhalten bleiben muss, kommt nur Innendämmung
+      infrage. Es gibt dafür kein bestes Material, sondern drei gegensätzliche
+      Strategien – und die Entscheidung fällt vor der Materialwahl.</p>
+
+    <div class="id-strategie">
+      <div class="id-karte id-offen">
+        <b>Kapillaraktiv: Feuchte darf rein und wieder raus</b>
+        Mineralische Platten nehmen Tauwasser auf und geben es zurück an den Raum.
+        Keine Dampfbremse nötig, kleine Ausführungsfehler werden verziehen.
+        Der Regelfall im Altbau.
+      </div>
+      <div class="id-karte id-dicht">
+        <b>Dampfdicht: Feuchte kommt gar nicht erst hin</b>
+        Schaumglas ist durch geschlossene Zellen vollständig dicht. Sehr sicher –
+        aber nur, wenn lückenlos verklebt wird. Jede Bohrung, jede Steckdose in
+        der Dämmebene hebt den Schutz an dieser Stelle auf.
+      </div>
+      <div class="id-karte id-duenn">
+        <b>Maximal dünn: wo jeder Zentimeter zählt</b>
+        Vakuumplatten und Aerogel dämmen bei einem Bruchteil der Dicke.
+        Der Preis ist hoch, und Vakuumplatten lassen sich weder schneiden noch
+        bohren – sie werden auf Maß gefertigt.
+      </div>
+    </div>
+
+    <h3>Für Ihre Wand gerechnet</h3>
+    <p class="panel-sub" id="idSub"></p>
+    <div class="id-huelle"><table class="id-tab" id="idTab"></table></div>
+    <div id="idFazit"></div>
   </section>
 
   <section class="panel" id="p-qp">
@@ -951,17 +1008,34 @@ var BAUSTOFFE = [
   {id:'zellulose', g:'daemm', n:'Zellulose (Einblasdämmung)',        l:0.040},
   {id:'hanf',     g:'daemm', n:'Hanf oder Flachs',                   l:0.040},
   {id:'kork',     g:'daemm', n:'Korkdämmplatte',                     l:0.045},
-  {id:'schaumglas', g:'daemm', n:'Schaumglas',                       l:0.045},
   {id:'perlite',  g:'daemm', n:'Perlite-Schüttung',                  l:0.050},
-  {id:'vip',      g:'daemm', n:'Vakuumdämmplatte (VIP)',             l:0.007},
 
   /* --- Daemmstoffe fuer Innendaemmung --- */
-  {id:'mineralschaum', g:'innen', n:'Mineralschaumplatte',           l:0.045, kap:true},
-  {id:'kalziumsilikat', g:'innen', n:'Kalziumsilikatplatte',         l:0.065, kap:true},
-  {id:'hf_innen',  g:'innen', n:'Holzfaserplatte für Innendämmung',  l:0.040, kap:true},
-  {id:'klimaplatte', g:'innen', n:'Klimaplatte (Porenbeton)',        l:0.060, kap:true},
-  {id:'aerogel',   g:'innen', n:'Aerogel-Dämmvlies',                 l:0.018}
+  /* Kapillaraktiv: nehmen Tauwasser auf und geben es wieder ab. Brauchen
+     keine Dampfbremse und verzeihen kleine Ausfuehrungsfehler. */
+  {id:'mineralschaum', g:'innen', n:'Mineraldämmplatte (Mineralschaum)', l:0.045, kap:true, dampf:'offen',
+   eignung:'Der ausgewogene Standard: dämmt besser als Kalziumsilikat, nimmt Feuchte auf, braucht keine Dampfbremse. Mineralisch, nicht brennbar, für die meisten Altbauwände die erste Wahl.'},
+  {id:'kalziumsilikat', g:'innen', n:'Kalziumsilikatplatte',         l:0.065, kap:true, dampf:'offen',
+   eignung:'Nimmt das Zweieinhalbfache ihres Gewichts an Feuchte auf und ist stark alkalisch, also schimmelhemmend. Die sicherste Platte bei feuchtegefährdeten Wänden – dämmt dafür am schlechtesten und wird am dicksten.'},
+  {id:'hf_innen',  g:'innen', n:'Holzfaserplatte für Innendämmung',  l:0.040, kap:true, dampf:'offen',
+   eignung:'Gute Dämmwirkung, ökologisch, angenehm im sommerlichen Wärmeschutz. Braucht in der Regel eine feuchtevariable Dampfbremse und einen sauber luftdichten Anschluss – weniger fehlerverzeihend als mineralische Platten.'},
+  {id:'klimaplatte', g:'innen', n:'Klimaplatte (Porenbeton)',        l:0.060, kap:true, dampf:'offen',
+   eignung:'Verwandt mit der Mineraldämmplatte, etwas schwerer und robuster. Gut, wenn die Oberfläche später belastet wird, etwa in Fluren.'},
+  /* Dampfdicht: lassen Feuchte gar nicht erst an die kalte Wand. Konsequent
+     ausgefuehrt sehr sicher - jede Durchdringung ist aber ein Fehler. */
+  {id:'schaumglas', g:'innen', n:'Schaumglasplatte (Foamglas)',      l:0.040, dampf:'dicht',
+   eignung:'Vollständig wasser- und dampfdicht durch geschlossene Zellen, nicht brennbar, unverrottbar. Die Feuchte kommt gar nicht erst an die kalte Wand. Verlangt dafür absolut lückenlose Verklebung – jede Dübelbohrung und jede Steckdose ist ein Leck. Teuer und druckempfindlich.'},
+  /* Maximal duenn: wo jeder Zentimeter zaehlt. */
+  {id:'vip',       g:'innen', n:'Vakuumdämmplatte (VIP)',            l:0.008, dampf:'dicht',
+   eignung:'Mit Abstand dünnster Aufbau – rund fünfmal dünner als Mineraldämmplatte bei gleicher Wirkung. Der Preis: 120 bis 200 € je m², werkseitig auf Maß gefertigt, nicht schneidbar und nicht bohrbar. Eine beschädigte Platte verliert ihre Dämmwirkung fast vollständig. Sinnvoll, wenn wirklich jeder Zentimeter zählt.'},
+  {id:'aerogel',   g:'innen', n:'Aerogel-Dämmvlies',                 l:0.018, dampf:'offen',
+   eignung:'Sehr dünn und im Gegensatz zu VIP zuschneidbar und diffusionsoffen. Deutlich teurer als mineralische Platten, aber unempfindlicher als Vakuumplatten. Der Kompromiss, wenn wenig Platz ist und gebohrt werden muss.'}
 ];
+
+/* Reihenfolge der Innendaemmstoffe im Vergleich - von dick und guetmuetig
+   zu duenn und anspruchsvoll. */
+var INNEN_VERGLEICH = ['kalziumsilikat','klimaplatte','mineralschaum','hf_innen',
+                       'schaumglas','aerogel','vip'];
 
 var GRUPPEN = { trag:'Mauerwerk und Tragschicht', putz:'Putze, Platten, Beläge',
                 daemm:'Dämmstoffe', innen:'Dämmstoffe für Innendämmung' };
@@ -1068,16 +1142,22 @@ function dickeFuerZiel(schichten, lage, uZiel, lambda){
 }
 
 /* Ampel fuer Innendaemmung nach DIN 4108-3, Bezug ist R der Daemmschicht */
-function innenAmpel(rDaemm){
+function innenAmpel(rDaemm, b){
+  var dicht = b && b.dampf==='dicht';
   if(rDaemm <= UK.innen.gruen) return {stufe:'gruen',
     titel:'Nachweisfrei nach DIN 4108-3',
     text:'Bei einem Wärmedurchlasswiderstand der Dämmschicht bis 0,5 m²K/W gilt der Aufbau ohne Schlagregenbeanspruchung als nachweisfrei. Das ist allerdings so wenig Dämmung, dass der energetische Gewinn gering bleibt.'};
-  if(rDaemm <= UK.innen.gelb) return {stufe:'gelb',
-    titel:'Zulässig mit Bedingungen',
-    text:'Zwischen 0,5 und 1,0 m²K/W verlangt DIN 4108-3 einen sᵈ-Wert von mindestens 0,5 m für Dämmschicht samt raumseitiger Bekleidung. Zusätzlich muss verhindert werden, dass Raumluft hinter die Dämmung strömt – jede Fuge, jede Steckdose zählt.'};
+  if(rDaemm <= UK.innen.gelb){
+    if(dicht) return {stufe:'gelb',
+      titel:'Bedingung durch das Material erfüllt',
+      text:'Zwischen 0,5 und 1,0 m²K/W verlangt DIN 4108-3 einen sᵈ-Wert von mindestens 0,5 m für Dämmschicht und raumseitige Bekleidung. Ein dampfdichter Dämmstoff erfüllt das von sich aus deutlich. Entscheidend ist dann die Ausführung: vollflächig verklebt, ohne Fuge, ohne Bohrung, ohne Steckdose in der Dämmebene. Jede Durchdringung hebt den Schutz an dieser Stelle auf.'};
+    return {stufe:'gelb',
+      titel:'Zulässig mit Bedingungen',
+      text:'Zwischen 0,5 und 1,0 m²K/W verlangt DIN 4108-3 einen sᵈ-Wert von mindestens 0,5 m für Dämmschicht samt raumseitiger Bekleidung. Ein kapillaraktiver Dämmstoff erfüllt das absichtlich nicht – er lebt davon, offen zu sein. Solche Systeme werden stattdessen über die bauaufsichtliche Zulassung des Herstellers für den konkreten Wandaufbau nachgewiesen oder rechnerisch. Zusätzlich muss verhindert werden, dass Raumluft hinter die Dämmung strömt.'};
+  }
   return {stufe:'rot',
     titel:'Rechnerischer Nachweis erforderlich',
-    text:'Über 1,0 m²K/W ist der Aufbau nicht mehr nachweisfrei. Das vereinfachte Glaser-Verfahren liefert hier meist keine belastbare Aussage; nötig ist eine hygrothermische Simulation nach DIN EN 15026. Ohne diesen Nachweis ist Innendämmung in dieser Stärke ein echtes Schadensrisiko.'};
+    text:'Über 1,0 m²K/W ist der Aufbau nicht mehr nachweisfrei. Das vereinfachte Glaser-Verfahren liefert hier meist keine belastbare Aussage; nötig ist eine hygrothermische Simulation nach DIN EN 15026 oder die Zulassung des Herstellers für genau diesen Wandaufbau. Ohne diesen Nachweis ist Innendämmung in dieser Stärke ein echtes Schadensrisiko.'};
 }
 
 /* Huellbilanz. bauteile = [{id, u, flaeche, fx, refKey}]
@@ -1485,7 +1565,7 @@ function massnahmenFuer(a, ist, stufe){
               text: wo + ': ' + (d!=null ? nf(d,1)+' cm mit '+daemm.n.split(',')[0]
                                         : 'Dämmstärke nach Aufbau') + '.' };
     if(t.id==='wand' && innen && d!=null){
-      m.ampel = innenAmpel((d/100)/daemm.l);
+      m.ampel = innenAmpel((d/100)/daemm.l, daemm);
     }
     return m;
   });
@@ -1689,6 +1769,7 @@ function zeigeErgebnis(){
   eo.appendChild(m);
 
   renderStufen();
+  renderInnenVergleich();
   detailStart();
   $('ergebnis').scrollIntoView({block:'start'});
 }
@@ -1702,7 +1783,10 @@ function renderStufen(){
     var p = paketFuer(IST.teile, st.ht, wbN);
     var c = el('button','chip'+(STUFE_AKTIV===st.name?' aktiv':'')+(p.erreichbar?' machbar':''),
                'Effizienzhaus '+st.name);
-    c.addEventListener('click', function(){ STUFE_AKTIV=st.name; renderStufen(); });
+    c.addEventListener('click', function(){
+      STUFE_AKTIV=st.name; renderStufen();
+      if(typeof renderInnenVergleich==='function') renderInnenVergleich();
+    });
     box.appendChild(c);
   });
   renderVorschlag();
@@ -1772,6 +1856,162 @@ function renderVorschlag(){
   }
 
   box.appendChild(v);
+}
+
+/* ---------- Innendaemmung im Vergleich ----------
+   Rechnet fuer die tatsaechliche Wand des Nutzers, welche Dicke jeder
+   Innendaemmstoff braucht, um den Zielwert der gewaehlten Stufe zu erreichen -
+   und was das bauphysikalisch bedeutet. Genau das ist die Frage "was ist am
+   besten": Sie laesst sich nur am konkreten Aufbau beantworten. */
+function renderInnenVergleich(){
+  var box = $('p-innen');
+  if(A.nurInnen!=='ja'){ box.style.display='none'; return; }
+  var wand = null;
+  IST.teile.forEach(function(t){ if(t.id==='wand') wand = t; });
+  if(!wand || !wand.schichten){ box.style.display='none'; return; }
+  box.style.display='';
+
+  var st = null;
+  UK.ehStufen.forEach(function(x){ if(x.name===STUFE_AKTIV) st=x; });
+  if(!st) st = UK.ehStufen[2];
+  var wbN = KENNWERTE.wbZuschlag.unsaniert;
+  var pk = paketFuer(IST.teile, st.ht, wbN);
+  var zielU = Math.max(U_MINIMUM.wand, BASISZIEL.wand * pk.k);
+
+  $('idSub').textContent =
+    'Ihre Wand liegt heute bei ' + nf(wand.u,2) + ' W/(m²·K). Für Effizienzhaus ' +
+    st.name + ' wäre ' + nf(zielU,2) + ' W/(m²·K) nötig. So dick müsste die ' +
+    'Dämmschicht je Material ausfallen – und so sieht es der Feuchteschutz.';
+
+  var zeilen = INNEN_VERGLEICH.map(function(id){
+    var b = stoff(id);
+    if(!b) return null;
+    var d = dickeFuerZiel(wand.schichten, 'wand', zielU, b.l);
+    var r = d!=null ? (d/100)/b.l : 0;
+    return { b:b, d:d, r:r, ampel:innenAmpel(r, b) };
+  }).filter(Boolean);
+
+  /* EMPFEHLUNG NACH ENTSCHEIDUNGSREGEL
+     Nicht der duennste Stoff gewinnt, sondern der praktische Regelfall:
+     die Mineraldaemmplatte. Abgewichen wird nur mit Grund - zu wenig Platz,
+     feuchtebelastete Wand, oder wenn ohnehin dampfdicht gebaut wird. Genau
+     so entscheidet ein Berater, und genau das soll hier stehen. */
+  var PLATZGRENZE = 16;   /* cm - darueber wird Innendaemmung im Raum spuerbar */
+  function zeileVon(id){ var z=null; zeilen.forEach(function(x){ if(x.b.id===id) z=x; }); return z; }
+  var standard = zeileVon('mineralschaum');
+  var duenn    = zeileVon('aerogel');
+  var duennst  = zeileVon('vip');
+  var feucht   = zeileVon('kalziumsilikat');
+  var dicht    = zeileVon('schaumglas');
+  var empf = standard || zeilen[0];
+  var platzknapp = standard && standard.d > PLATZGRENZE;
+  var nurNachweis = zeilen.every(function(z){ return z.ampel.stufe==='rot'; });
+
+  var t = $('idTab'); t.innerHTML='';
+  var thead = el('thead'), tr = el('tr');
+  ['Dämmstoff','λ','Nötige Dicke','R der Schicht','Feuchteschutz'].forEach(function(x){
+    tr.appendChild(el('th',null,x)); });
+  thead.appendChild(tr); t.appendChild(thead);
+  var tb = el('tbody');
+  zeilen.sort(function(x,y){ return (x.d||99) - (y.d||99); }).forEach(function(z){
+    var r = el('tr');
+    if(empf && z===empf) r.className='empfohlen';
+    var c1 = el('td');
+    c1.appendChild(el('span','id-name', z.b.n));
+    if(z.b.eignung) c1.appendChild(el('span','id-eignung', z.b.eignung));
+    r.appendChild(c1);
+    r.appendChild(el('td','num', nf(z.b.l,3)));
+    r.appendChild(el('td','num', z.d!=null ? nf(z.d,1)+' cm' : '–'));
+    r.appendChild(el('td','num', nf(z.r,2)));
+    var c5 = el('td');
+    var pk2 = el('span','id-punkt id-p-'+z.ampel.stufe);
+    c5.appendChild(pk2);
+    c5.appendChild(document.createTextNode(z.ampel.titel));
+    c5.appendChild(infoKnopf(z.b.n + ' · ' + z.ampel.titel, z.ampel.text));
+    r.appendChild(c5);
+    tb.appendChild(r);
+  });
+  t.appendChild(tb);
+
+  var f = $('idFazit'); f.innerHTML='';
+  var m = el('div','merk');
+  m.appendChild(el('b',null,'Welche nehmen? Die Entscheidungsregel'));
+  var liste = el('div','id-regeln');
+
+  function regel(wann, was){
+    var z = el('div','id-regel');
+    z.appendChild(el('b',null,wann));
+    z.appendChild(el('span',null,was));
+    return z;
+  }
+
+  if(standard){
+    liste.appendChild(regel('Im Regelfall',
+      'Mineraldämmplatte, bei Ihrer Wand ' + nf(standard.d,1) + ' cm. Kapillaraktiv, ' +
+      'mineralisch, nicht brennbar, keine Dampfbremse nötig – und sie verzeiht kleine ' +
+      'Ausführungsfehler, weil Feuchte wieder heraus kann. Das ist im Altbau der ' +
+      'entscheidende Vorteil.'));
+  }
+  if(platzknapp && duenn && duennst){
+    liste.appendChild(regel('Wenn der Platz fehlt',
+      nf(standard.d,1) + ' cm sind im Raum spürbar. Aerogel schafft dasselbe mit ' +
+      nf(duenn.d,1) + ' cm und bleibt zuschneidbar, Vakuumplatten sogar mit ' +
+      nf(duennst.d,1) + ' cm. Der Preis: Vakuumplatten kosten 120 bis 200 € je m², werden ' +
+      'werkseitig auf Maß gefertigt und dürfen weder geschnitten noch gebohrt werden – ' +
+      'eine beschädigte Platte ist wirkungslos. Für ein einzelnes enges Zimmer sinnvoll, ' +
+      'für die ganze Fassade selten.'));
+  } else if(duenn && standard && duenn.d < standard.d){
+    liste.appendChild(regel('Wenn jeder Zentimeter zählt',
+      'Aerogel mit ' + nf(duenn.d,1) + ' cm oder Vakuumplatten mit ' +
+      (duennst?nf(duennst.d,1):'wenigen') + ' cm. Deutlich teurer; Vakuumplatten sind ' +
+      'zudem nicht schneidbar und nicht bohrbar.'));
+  }
+  if(feucht){
+    liste.appendChild(regel('Bei feuchter Wand',
+      'Kalziumsilikat, ' + nf(feucht.d,1) + ' cm. Nimmt das Zweieinhalbfache seines ' +
+      'Gewichts an Feuchte auf und ist stark alkalisch, also schimmelhemmend. Dämmt ' +
+      'am schlechtesten und wird am dicksten – dafür die sicherste Platte, wenn die ' +
+      'Wand ohnehin Feuchte zieht.'));
+  }
+  if(dicht){
+    liste.appendChild(regel('Wenn ohnehin dicht gebaut wird',
+      'Schaumglas, ' + nf(dicht.d,1) + ' cm. Vollständig dampf- und wasserdicht, nicht ' +
+      'brennbar, unverrottbar – die Feuchte kommt gar nicht erst an die kalte Wand. ' +
+      'Nur bei lückenloser Verklebung: jede Bohrung und jede Steckdose in der Dämmebene ' +
+      'ist ein Leck. Passend im Bad, im Technikraum oder gegen Erdreich.'));
+  }
+  liste.appendChild(regel('Nie eine gute Idee',
+    'EPS oder XPS von innen. Beide sind weder kapillaraktiv noch zuverlässig dicht – ' +
+    'Feuchte kommt hinein und nicht wieder heraus. Genau so entstehen die ' +
+    'Schimmelschäden, für die Innendämmung ihren schlechten Ruf hat.'));
+  m.appendChild(liste);
+  f.appendChild(m);
+
+  if(nurNachweis && standard){
+    var ueblich = 8;
+    var uUeblich = uWert(wand.schichten.concat([{id:standard.b.id, d:ueblich}]), 'wand');
+    var w2 = el('div','ampel-box ampel-gelb');
+    w2.appendChild(el('b',null,'Für Effizienzhaus ' + st.name + ' reicht keine dieser Varianten ohne Nachweis'));
+    w2.appendChild(el('span',null,
+      'Nötig wären ' + nf(zielU,2) + ' W/(m²·K), also eine Dämmschicht weit über der ' +
+      'Schwelle von 1,0 m²K/W. Das ist kein Ausschlussgrund, sondern der Punkt, an dem ' +
+      'eine hygrothermische Simulation nach DIN EN 15026 zwingend wird. ' +
+      'Zum Vergleich: Üblich ausgeführt werden 6 bis 10 cm. Mit ' + ueblich + ' cm ' +
+      standard.b.n + ' käme Ihre Wand von ' + nf(wand.u,2) + ' auf ' + nf(uUeblich,2) +
+      ' W/(m²·K) – das bringt den größten Teil des Gewinns. Der letzte Zentimeter ' +
+      'kostet bei Innendämmung überproportional viel: an Platz, an Geld und an Risiko. ' +
+      'Oft ist deshalb eine niedrigere Stufe der ehrlichere Weg – oder die Wand wird ' +
+      'kombiniert gedämmt, außen wo erlaubt, innen nur an den geschützten Flächen.'));
+    f.appendChild(w2);
+  }
+
+  var hin = el('p',null,
+    'Anlage 7 des Gebäudeenergie- bzw. Gebäudemodernisierungsgesetzes kennt diesen Fall: ' +
+    'Ist die Dämmschichtdicke technisch begrenzt, gilt statt des Höchstwerts von ' +
+    nf(UK.uMax.wand,2) + ' W/(m²·K) die höchstmögliche Dicke mit λ = 0,035 W/(m·K). ' +
+    'Das muss begründet und dokumentiert sein.');
+  hin.style.cssText='font-size:.85rem;color:var(--muted);margin-top:12px';
+  f.appendChild(hin);
 }
 
 /* ---------- Detailmodus: Schichteditor ---------- */
@@ -1939,7 +2179,7 @@ function renderDaemmung(){
   if(Z.lage==='innen' && Z.daemmDicke>0){
     var b = stoff(Z.daemmstoff);
     var rD = b ? (Z.daemmDicke/100)/b.l : 0;
-    var a = innenAmpel(rD);
+    var a = innenAmpel(rD, b);
     var bx = el('div','ampel-box ampel-'+a.stufe);
     bx.appendChild(el('b',null,a.titel+' · R der Dämmschicht '+nf(rD,2)+' m²K/W'));
     bx.appendChild(el('span',null,a.text));
