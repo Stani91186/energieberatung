@@ -319,6 +319,51 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
 @media (max-width:640px){ .id-regel{grid-template-columns:1fr;gap:2px} }
 .id-p-gruen{background:var(--ok)} .id-p-gelb{background:var(--warn)} .id-p-rot{background:var(--bad)}
 
+/* ==== Stellschrauben ==== */
+.stell-box{background:var(--cream-2);border-radius:var(--radius-sm);padding:18px 20px;margin:4px 0 20px}
+.stell-kopf{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
+.stell-kopf b{font-size:.95rem}
+.stell-hilfe{font-size:.86rem;color:var(--muted);margin-bottom:14px;max-width:64ch}
+.stell-zeile{display:grid;grid-template-columns:150px auto auto 1fr;gap:12px;align-items:center;
+  padding:9px 0;border-top:1px solid var(--line-soft);font-size:.89rem}
+.stell-zeile:first-of-type{border-top:none}
+.stell-zeile>*{min-width:0}
+.stell-name{font-weight:600}
+.stell-lage{display:inline-flex;border:1.5px solid var(--line);border-radius:100px;overflow:hidden}
+.stell-lage button{padding:5px 13px;font-size:.82rem;background:var(--white);transition:.2s}
+.stell-lage button.aktiv{background:var(--forest);color:#fff}
+.stell-lage button[disabled]{opacity:.4;cursor:not-allowed}
+.stell-max{display:inline-flex;align-items:center;gap:7px}
+.stell-max input{width:74px;text-align:right}
+.stell-max select{max-width:190px}
+.stell-frei{font-size:.83rem;color:var(--muted)}
+.stell-fuss{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+.stell-zuruecksetzen{color:var(--amber-deep);font-weight:600;font-size:.85rem}
+
+/* ==== Ausgleich und Engpass ==== */
+.ausgleich{background:var(--forest-soft);border-radius:var(--radius-sm);padding:16px 19px;margin:16px 0;font-size:.9rem;color:var(--forest)}
+.ausgleich b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.75}
+.ausgleich-zeile{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:5px 0}
+.ausgleich-zeile span:last-child{font-variant-numeric:tabular-nums}
+.engpass{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:var(--radius-sm);padding:16px 19px;margin:16px 0;font-size:.9rem;color:#6B5010}
+.engpass b{display:block;margin-bottom:6px}
+
+/* ==== Anlagentechnik ==== */
+.pe-huelle{overflow-x:auto;margin:10px 0 6px}
+.pe-tab{width:100%;font-size:.89rem;min-width:520px;border-collapse:collapse}
+.pe-tab th{text-align:left;font-size:.71rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 10px 9px 0;font-weight:700}
+.pe-tab td{padding:10px 10px 10px 0;border-top:1px solid var(--line-soft)}
+.pe-tab td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pe-tab tr.heute{background:var(--cream-2)}
+.pe-tab tr.heute td:first-child::after{content:" · heute";color:var(--muted);font-weight:400}
+.pe-besser{color:var(--ok);font-weight:600}
+.pe-schlechter{color:var(--bad);font-weight:600}
+
+@media (max-width:700px){
+  .stell-zeile{grid-template-columns:1fr;gap:6px;padding:12px 0}
+  .ausgleich-zeile{grid-template-columns:1fr;gap:2px}
+}
+
 /* GEMEINSAM:CSS */
 /* Kopf, Menue, Knoepfe und Fuss stammen aus index.html.
    Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
@@ -635,6 +680,7 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
       Bauteil, die das H′<sub>T</sub>-Kriterium erfüllen, und rechnet die nötige
       Dämmstärke aus Ihrem Aufbau aus.</p>
     <div class="stufen-reiter" id="stufenReiter"></div>
+    <div id="stellBox"></div>
     <div id="vorschlagBox"></div>
   </section>
 
@@ -676,11 +722,17 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
     <p class="panel-sub">Die Hülle ist die eine Hälfte. Diese Punkte wirken auf die andere –
       den Primärenergiebedarf. Sie ändern den H′<sub>T</sub>-Wert oben nicht.</p>
 
+    <h3>Wärmeerzeuger im Vergleich</h3>
+    <p class="panel-sub" id="peSub"></p>
+    <div class="pe-huelle"><table class="pe-tab" id="peTab"></table></div>
+    <div id="peFazit"></div>
+
+    <h3 style="margin-top:26px">Und was sonst noch zählt</h3>
     <div class="qp-liste">
       <div class="qp-zeile">
         <b>Luftdichtheit</b>
-        <span>Das Gesetz verlangt n<sub>50</sub> ≤ 3,0 h⁻¹ ohne und ≤ 1,5 h⁻¹ mit
-        ventilatorgestützter Lüftungsanlage. Gemessen wird mit dem Blower-Door-Verfahren
+        <span>Das Gesetz verlangt n<sub>50</sub> ≤ <b id="n50Ohne">3,0</b> h⁻¹ ohne und
+        ≤ <b id="n50Mit">1,5</b> h⁻¹ mit ventilatorgestützter Lüftungsanlage. Gemessen wird mit dem Blower-Door-Verfahren
         nach DIN EN ISO 9972: Ein Ventilator in der Haustür erzeugt 50 Pascal Über- und
         Unterdruck, gemessen wird die Luftmenge, die dabei durch Undichtigkeiten strömt.
         Für die höheren Effizienzhausstufen ist der Nachweis Voraussetzung.</span>
@@ -899,7 +951,7 @@ var KENNWERTE = {
   wbZuschlag:{ unsaniert:0.10, saniert:0.05, jeGaube:0.02, max:0.15 },
   klassen:[ ['A+',30],['A',50],['B',75],['C',100],['D',130],['E',160],['F',200],['G',250],['H',1e9] ],
   klassenFarben:{ 'A+':'#1E7A44','A':'#4C8C33','B':'#87A22B','C':'#B8A81F','D':'#C98A1E','E':'#C96F22','F':'#BC5524','G':'#AC3E26','H':'#983024' },
-  zielU:{ wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25, fenster:0.95, tuer:1.3 }
+  zielU:{ wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25, boden:0.25, fenster:0.95, tuer:1.3 }
 };
 /* /GEMEINSAM:KENNWERTE */
 
@@ -1265,6 +1317,12 @@ var FRAGEN = [
    zeigeWenn:function(a){ return a.wandGedaemmt==='ja'; },
    hilfe:'Messen Sie die Tiefe der Fensterlaibung – so dick ist ungefähr die Dämmung.',
    info:'Wenn Sie es nicht genau wissen: Dämmungen aus den 1980er Jahren sind meist 4 bis 6 cm dick, aus den 1990ern 6 bis 8 cm, ab 2010 dann 12 bis 16 cm. Die Rechnung reagiert empfindlich darauf – im Zweifel lieber etwas zu wenig als zu viel angeben.'},
+  {id:'denkmal', l:'Steht das Haus unter Denkmalschutz?', typ:'karten', def:'nein',
+   hilfe:'Für Denkmäler gelten eigene Regeln – sie sind oft der einzige Weg, wenn die Fassade nicht gedämmt werden darf.',
+   info:'Eingetragenes Denkmal heißt: Das Haus steht in der Denkmalliste Ihrer Gemeinde oder des Landesdenkmalamts. Fragen Sie im Zweifel bei der Unteren Denkmalschutzbehörde Ihres Landkreises nach – der Eintrag ist kostenlos einsehbar. „Besonders erhaltenswerte Bausubstanz" ist die Stufe darunter: kein förmlicher Denkmalschutz, aber die Gemeinde bescheinigt, dass das Erscheinungsbild erhalten bleiben soll, etwa über eine Erhaltungssatzung. Beides eröffnet die Effizienzhausstufe Denkmal, für die kein Grenzwert beim Transmissionswärmeverlust gilt.',
+   opts:[['nein','Nein','Normales Bestandsgebäude.'],
+         ['denkmal','Ja, eingetragenes Denkmal','Steht in der Denkmalliste.'],
+         ['erhaltenswert','Besonders erhaltenswerte Bausubstanz','Von der Gemeinde bescheinigt, etwa über eine Erhaltungssatzung.']]},
   {id:'nurInnen', l:'Muss die Fassade erhalten bleiben?', typ:'karten', def:'nein',
    hilfe:'Dann ist nur Innendämmung möglich – und dafür gelten eigene Regeln.',
    info:'Von außen dämmen geht nicht, wenn die Fassade so bleiben muss, wie sie ist: bei Denkmalschutz, bei Sichtfachwerk, bei Zierklinker oder gegliederten Putzfassaden, und wenn das Haus direkt an der Grundstücksgrenze steht. Innendämmung ist dann möglich, aber bauphysikalisch heikel – der Rechner zeigt Ihnen dazu eine Ampel nach DIN 4108-3.',
@@ -1364,6 +1422,17 @@ var FRAGEN = [
          ['70','Effizienzhaus 70','Häufigstes Ziel bei Bestandssanierungen.'],
          ['55','Effizienzhaus 55','Anspruchsvoll, aber im Bestand oft erreichbar.'],
          ['40','Effizienzhaus 40','Höchste Stufe. Verlangt in aller Regel alles.']]},
+  {id:'erzeuger', l:'Womit heizen Sie heute?', typ:'karten', def:'gas_bw',
+   hilfe:'Bestimmt, wie viel ein Wechsel des Wärmeerzeugers beim Primärenergiebedarf bringen würde.',
+   info:'Schauen Sie auf das Typenschild am Kessel oder in die letzte Wartungsrechnung. „Brennwert" steht meist im Gerätenamen; erkennbar ist er auch am Kunststoff-Abgasrohr und am Kondensatablauf in den Abfluss. Ein Niedertemperatur- oder Konstanttemperaturkessel hat ein metallenes Abgasrohr und keinen Kondensatablauf. Bei Fernwärme steht im Keller kein Kessel, sondern eine Übergabestation.',
+   opts:[['gas_bw','Gas-Brennwert','Kunststoff-Abgasrohr, Kondensatablauf.'],
+         ['gas_nt','Gas, Niedertemperatur oder älter','Metallenes Abgasrohr, kein Kondensatablauf.'],
+         ['oel_bw','Öl-Brennwert','Öltank im Keller, Brennwertgerät.'],
+         ['oel_nt','Öl, Niedertemperatur oder älter','Öltank, älterer Kessel.'],
+         ['pellets','Pellets oder Scheitholz','Holzlager, Förderschnecke.'],
+         ['fernwaerme','Fernwärme','Übergabestation statt Kessel.'],
+         ['wp','Wärmepumpe','Außengerät oder Erdsonde.'],
+         ['strom','Strom direkt','Nachtspeicher oder Infrarot.']]},
   {id:'daemmstoffWunsch', l:'Womit soll gerechnet werden?', typ:'karten', def:'eps_035',
    hilfe:'Bestimmt, wie dick die vorgeschlagene Dämmung ausfällt – bessere Dämmstoffe brauchen weniger Dicke.',
    info:'Die Wärmeleitfähigkeit λ sagt, wie gut ein Stoff dämmt: je kleiner, desto besser. Mit λ 0,035 brauchen Sie für denselben U-Wert rund 15 Prozent weniger Dicke als mit λ 0,040. Bei Innendämmung sind kapillaraktive Stoffe wie Mineralschaum oder Kalziumsilikat die sicherere Wahl, weil sie Feuchte zurückführen können – dafür dämmen sie schlechter und brauchen mehr Dicke.',
@@ -1475,6 +1544,46 @@ function istZustand(a){
 }
 
 /* ===========================================================================
+   PRIMAERENERGIE
+   Faktoren aus Anlage 4 GEG/GModG (zu Paragraf 22 Absatz 1), nicht
+   erneuerbarer Anteil. Amtlich und exakt.
+
+   Die Aufwandszahl je Kilowattstunde Waerme = fP / Nutzungsgrad bzw. fP / JAZ.
+   Sie erlaubt einen sauberen RELATIVEN Vergleich der Waermeerzeuger.
+   Was sie NICHT erlaubt: eine QP-Zahl fuer das Haus. Dafuer fehlt der
+   Waermebedarf, und der kommt aus DIN V 18599 - nicht aus dem Browser.
+   ======================================================================== */
+var FP = {
+  gas:1.1, oel:1.1, fluessiggas:1.1, steinkohle:1.1, braunkohle:1.2,
+  biogas:1.1, biooel:1.1, holz:0.2,
+  strom:1.8, stromPvEigen:0.0, kwkVerdraengung:2.8,
+  erdwaerme:0.0, solarthermie:0.0, umweltwaerme:0.0, abwaerme:0.0
+};
+
+/* Nutzungsgrade und Jahresarbeitszahlen als uebliche Anhaltswerte.
+   Die Faktoren oben sind amtlich, diese Zahlen sind es nicht - deshalb steht
+   auf der Seite ausdruecklich "Anhaltswerte". */
+var ERZEUGER = [
+  {id:'gas_nt',     n:'Gas, Niedertemperatur',      fp:FP.gas,   nutz:0.84, art:'nutz'},
+  {id:'gas_bw',     n:'Gas-Brennwert',              fp:FP.gas,   nutz:0.92, art:'nutz'},
+  {id:'oel_nt',     n:'Öl, Niedertemperatur',       fp:FP.oel,   nutz:0.82, art:'nutz'},
+  {id:'oel_bw',     n:'Öl-Brennwert',               fp:FP.oel,   nutz:0.89, art:'nutz'},
+  {id:'strom',      n:'Strom direkt (Nachtspeicher)', fp:FP.strom, nutz:1.00, art:'nutz'},
+  {id:'pellets',    n:'Pellets oder Scheitholz',    fp:FP.holz,  nutz:0.78, art:'nutz'},
+  {id:'wp_30',      n:'Wärmepumpe, JAZ 3,0',        fp:FP.strom, nutz:3.0,  art:'jaz'},
+  {id:'wp_35',      n:'Wärmepumpe, JAZ 3,5',        fp:FP.strom, nutz:3.5,  art:'jaz'},
+  {id:'wp_40',      n:'Wärmepumpe, JAZ 4,0',        fp:FP.strom, nutz:4.0,  art:'jaz'}
+];
+
+/* Zuordnung der Fragebogen-Antwort auf einen Eintrag oben */
+var ERZEUGER_HEUTE = { gas_bw:'gas_bw', gas_nt:'gas_nt', oel_bw:'oel_bw',
+  oel_nt:'oel_nt', pellets:'pellets', wp:'wp_30', strom:'strom',
+  fernwaerme:null /* je Netz verschieden, nicht vergleichbar */ };
+
+function aufwandszahl(e){ return e.fp / e.nutz; }
+function erzeugerVon(id){ for(var i=0;i<ERZEUGER.length;i++){ if(ERZEUGER[i].id===id) return ERZEUGER[i]; } return null; }
+
+/* ===========================================================================
    LOESER: welche Zielwerte je Bauteil erfuellen eine Stufe?
 
    Statt undurchsichtig zu optimieren wird eine gemeinsame Guete k gesucht:
@@ -1482,23 +1591,37 @@ function istZustand(a){
    Intervallhalbierung so bestimmt, dass H'T gerade das Kriterium erfuellt.
    Das ist nachvollziehbar - ein Berater rechnet genauso, nur von Hand.
    ======================================================================== */
-var BASISZIEL = { wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25,
-                  boden:0.25, fenster:0.95, tuer:1.30 };
+/* Zielwerte NICHT hier pflegen: Sie stehen im CONFIG von
+   sanierungsrechner.html und kommen ueber GEMEINSAM:KENNWERTE herein.
+   Vorher standen dieselben sieben Zahlen an beiden Stellen - genau das
+   Muster, das dieses Projekt schon dreimal eingeholt hat. */
+var BASISZIEL = KENNWERTE.zielU;
 var U_MINIMUM = { wand:0.10, dach:0.09, ogd:0.09, kellerdecke:0.15,
                   boden:0.15, fenster:0.70, tuer:0.80 };
 
-function zieleFuer(teile, k){
+/* grenzen = {bauteilId: besterErreichbarerU}. Ein begrenztes Bauteil kann
+   nicht besser werden als sein Grenzwert - der Loeser muss die Differenz
+   dann bei den uebrigen Bauteilen hereinholen. Genau das ist die
+   Ausgleichsrechnung, und sie faellt aus der vorhandenen Mechanik heraus:
+   k sinkt, also werden alle unbegrenzten Bauteile strenger. */
+function zielUFuer(id, k, grenzen){
+  var basis = BASISZIEL[id] != null ? BASISZIEL[id] : 0.25;
+  var ziel = Math.max(U_MINIMUM[id]!=null?U_MINIMUM[id]:0.10, basis*k);
+  if(grenzen && grenzen[id]!=null) ziel = Math.max(ziel, grenzen[id]);
+  return ziel;
+}
+
+function zieleFuer(teile, k, grenzen){
   return teile.map(function(t){
-    var basis = BASISZIEL[t.id] != null ? BASISZIEL[t.id] : 0.25;
-    var ziel = Math.max(U_MINIMUM[t.id]!=null?U_MINIMUM[t.id]:0.10, basis*k);
-    return { u: Math.min(t.u, ziel), flaeche:t.flaeche, fx:t.fx, refKey:t.refKey };
+    return { u: Math.min(t.u, zielUFuer(t.id, k, grenzen)),
+             flaeche:t.flaeche, fx:t.fx, refKey:t.refKey };
   });
 }
 
-function paketFuer(teile, zielProzent, wbNachher){
+function paketFuer(teile, zielProzent, wbNachher, grenzen){
   var quote = zielProzent/100;
   function quoteBei(k){
-    var b = htBilanz(zieleFuer(teile, k), wbNachher);
+    var b = htBilanz(zieleFuer(teile, k, grenzen), wbNachher);
     return b ? b.verhaeltnis : 99;
   }
   if(quoteBei(1.6) <= quote){          /* schon mit lockeren Zielen erreicht */
@@ -1508,37 +1631,63 @@ function paketFuer(teile, zielProzent, wbNachher){
       var probe = kLocker*1.08;
       if(quoteBei(probe) <= quote) kLocker = probe; else break;
     }
-    return { erreichbar:true, k:kLocker, quote:quoteBei(kLocker) };
+    return { erreichbar:true, k:kLocker, quote:quoteBei(kLocker), grenzen:grenzen };
   }
   if(quoteBei(0.25) > quote){          /* auch mit Bestwerten nicht erreichbar */
-    return { erreichbar:false, k:0.25, quote:quoteBei(0.25) };
+    return { erreichbar:false, k:0.25, quote:quoteBei(0.25), grenzen:grenzen };
   }
   var lo=0.25, hi=1.6;
   for(var j=0;j<40;j++){
     var m=(lo+hi)/2;
     if(quoteBei(m) <= quote) lo=m; else hi=m;
   }
-  return { erreichbar:true, k:lo, quote:quoteBei(lo) };
+  return { erreichbar:true, k:lo, quote:quoteBei(lo), grenzen:grenzen };
+}
+
+/* Welches begrenzte Bauteil blockiert die Stufe? Je Grenze ein Lauf mit
+   aufgehobener Grenze - wird die Stufe dadurch erreichbar, ist es der
+   Engpass. Mehrere moegliche werden nach Wirkung sortiert. */
+function engpaesse(teile, zielProzent, wbNachher, grenzen){
+  var aus = [];
+  for(var id in grenzen){
+    if(!grenzen.hasOwnProperty(id) || grenzen[id]==null) continue;
+    var ohneDiese = {};
+    for(var k2 in grenzen){ if(k2!==id && grenzen[k2]!=null) ohneDiese[k2]=grenzen[k2]; }
+    var p = paketFuer(teile, zielProzent, wbNachher, ohneDiese);
+    if(p.erreichbar) aus.push({ id:id, quoteOhne:p.quote });
+  }
+  aus.sort(function(a,b){ return a.quoteOhne - b.quoteOhne; });
+  return aus;
+}
+
+/* Beste Stufe, die mit den gesetzten Grenzen noch erreichbar ist */
+function besteStufeMit(teile, wbNachher, grenzen){
+  var beste = null;
+  UK.ehStufen.forEach(function(st){
+    if(paketFuer(teile, st.ht, wbNachher, grenzen).erreichbar){
+      if(!beste || st.ht > beste.ht) beste = st;
+    }
+  });
+  return beste;
 }
 
 /* Aus den Zielwerten konkrete Massnahmen machen */
-function massnahmenFuer(a, ist, stufe){
-  var wbNachher = a.nurInnen==='ja'
-    ? KENNWERTE.wbZuschlag.unsaniert : KENNWERTE.wbZuschlag.saniert;
-  var p = paketFuer(ist.teile, stufe.ht, wbNachher);
-  var daemm = stoff(a.daemmstoffWunsch) || stoff('eps_035');
-  var innen = a.nurInnen==='ja';
+function massnahmenFuer(a, ist, stufe, grenzen, wb){
+  grenzen = grenzen || {};
+  if(wb==null) wb = KENNWERTE.wbZuschlag.saniert;
+  var p = paketFuer(ist.teile, stufe.ht, wb, grenzen);
+  var innen = (typeof wandInnen==='function') ? wandInnen() : (a.nurInnen==='ja');
+
   var liste = ist.teile.map(function(t){
-    var basis = BASISZIEL[t.id]!=null ? BASISZIEL[t.id] : 0.25;
-    var zielU = Math.max(U_MINIMUM[t.id]!=null?U_MINIMUM[t.id]:0.10, basis*p.k);
+    var zielU = zielUFuer(t.id, p.k, grenzen);
+    var daemm = (typeof daemmstoffFuer==='function') ? daemmstoffFuer(t)
+                                                     : (stoff(a.daemmstoffWunsch)||stoff('eps_035'));
     if(t.u <= zielU + 0.001){
-      return { id:t.id, n:t.n, fertig:true, uAlt:t.u, uNeu:t.u,
+      return { id:t.id, n:t.n, fertig:true, uAlt:t.u, uNeu:t.u, zielU:zielU,
+               begrenzt: grenzen[t.id]!=null,
                text:'Bleibt, wie es ist – dieser Wert reicht für die Stufe.' };
     }
     if(t.id==='fenster'){
-      /* Von der schwaechsten zur staerksten Verglasung suchen und die erste
-         nehmen, die reicht. Andersherum wuerde der Rechner Dreifachglas
-         empfehlen, wo eine gute Zweifachverglasung genuegt. */
       var wahl = null;
       ['iso_95','ws_2001','ws_2010','dreifach'].forEach(function(kk){
         if(!wahl && KENNWERTE.uFenster[kk] <= zielU) wahl = kk;
@@ -1546,22 +1695,25 @@ function massnahmenFuer(a, ist, stufe){
       var namen = {dreifach:'Dreifachverglasung', ws_2010:'Wärmeschutzglas ab 2010',
                    ws_2001:'Wärmeschutzglas ab 2001', iso_95:'Isolierglas ab 1995'};
       return { id:t.id, n:t.n, uAlt:t.u, uNeu: wahl?KENNWERTE.uFenster[wahl]:zielU,
-               zielU:zielU,
+               zielU:zielU, begrenzt: grenzen[t.id]!=null,
                text: wahl ? ('Fenster tauschen gegen ' + namen[wahl] + '.')
-                          : 'Fenster tauschen – nötig ist besser als Dreifachverglasung.' };
+                          : ('Fenster tauschen gegen Dreifachverglasung in Passivhausqualität – '
+                             + 'nötig ist U ≤ ' + nf(zielU,2) + ' W/(m²·K), das leistet normales '
+                             + 'Dreifachglas mit 0,80 nicht mehr.') };
     }
     if(t.id==='tuer'){
       return { id:t.id, n:t.n, uAlt:t.u, uNeu:KENNWERTE.uTuer.neu, zielU:zielU,
+               begrenzt:false,
                text:'Haustür gegen ein gedämmtes Modell tauschen.' };
     }
     var d = t.schichten ? dickeFuerZiel(t.schichten, t.lage, zielU, daemm.l) : null;
-    var lage = (t.id==='wand' && innen) ? 'innen' : 'außen';
-    var wo = { wand: innen ? 'Innendämmung' : 'Außendämmung',
+    var wo = { wand: (innen ? 'Innendämmung' : 'Außendämmung'),
                dach:'Dämmung zwischen und unter den Sparren',
                ogd:'Dämmung auf der obersten Geschossdecke',
                kellerdecke:'Dämmung unter der Kellerdecke',
                boden:'Dämmung auf der Bodenplatte' }[t.id] || 'Dämmung';
-    var m = { id:t.id, n:t.n, uAlt:t.u, uNeu:zielU, zielU:zielU, dicke:d,
+    var m = { id:t.id, n:t.n, uAlt:t.u, uNeu:zielU, zielU:zielU, dicke:d, daemm:daemm,
+              begrenzt: grenzen[t.id]!=null,
               text: wo + ': ' + (d!=null ? nf(d,1)+' cm mit '+daemm.n.split(',')[0]
                                         : 'Dämmstärke nach Aufbau') + '.' };
     if(t.id==='wand' && innen && d!=null){
@@ -1569,7 +1721,7 @@ function massnahmenFuer(a, ist, stufe){
     }
     return m;
   });
-  return { paket:p, liste:liste, daemm:daemm, innen:innen, wb:wbNachher };
+  return { paket:p, liste:liste, innen:innen, wb:wb, grenzen:grenzen };
 }
 
 /* ===========================================================================
@@ -1768,59 +1920,341 @@ function zeigeErgebnis(){
        'Zeichen – es sagt nur, dass noch keine Effizienzhausstufe erreicht ist.')));
   eo.appendChild(m);
 
+  grenzenInit();
   renderStufen();
   renderInnenVergleich();
+  renderAnlagentechnik();
   detailStart();
   $('ergebnis').scrollIntoView({block:'start'});
+}
+
+/* ---------- Stellschrauben ----------
+   Was beim Nutzer NICHT geht. Aus jeder Grenze wird der bestmoegliche U-Wert
+   des Bauteils abgeleitet; der Loeser holt die Differenz bei den uebrigen
+   Bauteilen herein. */
+var G = null;
+
+function grenzenInit(){
+  G = {};
+  IST.teile.forEach(function(t){
+    G[t.id] = { maxDicke:null, lage: (t.id==='wand' && A.nurInnen==='ja') ? 'innen' : 'aussen',
+                maxTyp:null };
+  });
+}
+
+/* Bester erreichbarer U-Wert eines Bauteils unter seiner Grenze.
+   null heisst: keine Grenze gesetzt. */
+function grenzU(t){
+  var g = G[t.id];
+  if(!g) return null;
+  if(t.id==='fenster'){
+    return g.maxTyp ? KENNWERTE.uFenster[g.maxTyp] : null;
+  }
+  if(g.maxDicke==null || !(g.maxDicke>0)) return null;
+  if(!t.schichten) return null;
+  var b = daemmstoffFuer(t);
+  return uWert(t.schichten.concat([{id:b.id, d:g.maxDicke}]), t.lage);
+}
+
+/* Welcher Daemmstoff gilt fuer dieses Bauteil? Bei innen gedaemmter Wand der
+   kapillaraktive Standard, sonst der Wunsch aus dem Fragebogen. */
+function daemmstoffFuer(t){
+  if(t.id==='wand' && G && G.wand && G.wand.lage==='innen'){
+    var w = stoff(A.daemmstoffWunsch);
+    if(w && w.g==='innen') return w;
+    return stoff('mineralschaum');
+  }
+  return stoff(A.daemmstoffWunsch) || stoff('eps_035');
+}
+
+function grenzenKarte(){
+  var g = {};
+  IST.teile.forEach(function(t){
+    var u = grenzU(t);
+    if(u!=null) g[t.id] = u;
+  });
+  return g;
+}
+
+function wandInnen(){ return !!(G && G.wand && G.wand.lage==='innen'); }
+function wbNachher(){ return wandInnen() ? KENNWERTE.wbZuschlag.unsaniert
+                                         : KENNWERTE.wbZuschlag.saniert; }
+
+function renderStellschrauben(){
+  var box = $('stellBox'); box.innerHTML='';
+  if(!G) grenzenInit();
+
+  var k = el('div','stell-box');
+  var kopf = el('div','stell-kopf');
+  var b1 = el('b',null,'Was bei Ihnen nicht geht');
+  b1.appendChild(infoKnopf('Stellschrauben',
+    'Hier sagen Sie, wo Schluss ist – etwa weil die Wand nur 8 cm verträgt oder die Fenster bleiben sollen. Der Rechner verteilt die fehlende Dämmwirkung dann auf die übrigen Bauteile und sagt Ihnen, ob das noch reicht. Ohne Eintrag rechnet er frei.'));
+  kopf.appendChild(b1);
+  var reset = el('button','stell-zuruecksetzen','Alle Grenzen aufheben');
+  reset.addEventListener('click', function(){ grenzenInit(); renderStellschrauben(); renderVorschlag(); renderInnenVergleich(); });
+  kopf.appendChild(reset);
+  k.appendChild(kopf);
+  k.appendChild(el('div','stell-hilfe',
+    'Leer lassen heißt: keine Grenze. Tragen Sie nur ein, was Sie wirklich einschränkt.'));
+
+  IST.teile.forEach(function(t){
+    if(t.id==='tuer') return;
+    var z = el('div','stell-zeile');
+    z.appendChild(el('div','stell-name', t.n));
+
+    /* Spalte 2: bei der Wand aussen/innen */
+    var sp2 = el('div');
+    if(t.id==='wand'){
+      var lg = el('div','stell-lage');
+      [['aussen','außen'],['innen','innen']].forEach(function(o){
+        var bt = el('button', G.wand.lage===o[0]?'aktiv':null, o[1]);
+        if(o[0]==='aussen' && A.nurInnen==='ja'){
+          bt.disabled = true;
+          bt.title = 'Sie haben angegeben, dass die Fassade erhalten bleiben muss.';
+        }
+        bt.addEventListener('click', function(){
+          G.wand.lage = o[0];
+          if(o[0]==='innen' && G.wand.maxDicke==null) G.wand.maxDicke = 8;
+          if(o[0]==='aussen' && G.wand.maxDicke===8) G.wand.maxDicke = null;
+          renderStellschrauben(); renderVorschlag(); renderInnenVergleich();
+        });
+        lg.appendChild(bt);
+      });
+      sp2.appendChild(lg);
+    }
+    z.appendChild(sp2);
+
+    /* Spalte 3: Grenze */
+    var sp3 = el('div','stell-max');
+    if(t.id==='fenster'){
+      var sel = el('select');
+      var o0 = el('option',null,'keine Grenze'); o0.value=''; sel.appendChild(o0);
+      ['iso_95','ws_2001','ws_2010','dreifach'].forEach(function(kk){
+        var namen = {iso_95:'höchstens Isolierglas 1995', ws_2001:'höchstens Wärmeschutz 2001',
+                     ws_2010:'höchstens Wärmeschutz 2010', dreifach:'höchstens Dreifachglas'};
+        var o = el('option',null,namen[kk]+' · U '+nf(KENNWERTE.uFenster[kk],2));
+        o.value = kk;
+        if(G.fenster && G.fenster.maxTyp===kk) o.selected = true;
+        sel.appendChild(o);
+      });
+      sel.addEventListener('change', function(){
+        G.fenster.maxTyp = sel.value || null;
+        renderVorschlag();
+      });
+      sp3.appendChild(sel);
+    } else if(t.schichten){
+      var inp = el('input'); inp.type='number'; inp.min='0'; inp.max='60'; inp.step='0.5';
+      inp.placeholder='frei';
+      inp.value = G[t.id].maxDicke==null ? '' : G[t.id].maxDicke;
+      inp.setAttribute('aria-label','Höchstens wie viele Zentimeter Dämmung bei '+t.n);
+      inp.addEventListener('input', function(){
+        var v = Number(inp.value);
+        G[t.id].maxDicke = (inp.value==='' || !(v>0)) ? null : v;
+        renderVorschlag();
+        if(t.id==='wand') renderInnenVergleich();
+      });
+      sp3.appendChild(inp);
+      sp3.appendChild(el('span','stell-frei','cm höchstens'));
+    }
+    z.appendChild(sp3);
+
+    /* Spalte 4: was daraus folgt */
+    var u = grenzU(t);
+    var sp4 = el('div','stell-frei');
+    if(u!=null){
+      sp4.textContent = 'damit höchstens U = ' + nf(u,2) + ' W/(m²·K)';
+      if(t.id==='wand' && wandInnen() && G.wand.maxDicke>0){
+        var bst = daemmstoffFuer(t);
+        var amp = innenAmpel((G.wand.maxDicke/100)/bst.l, bst);
+        var pt = el('span','id-punkt id-p-'+amp.stufe);
+        pt.style.marginLeft='8px';
+        sp4.appendChild(pt);
+        sp4.appendChild(infoKnopf(bst.n+' · '+amp.titel, amp.text));
+      }
+    } else {
+      sp4.textContent = 'keine Grenze';
+    }
+    z.appendChild(sp4);
+    k.appendChild(z);
+  });
+
+  k.appendChild(el('div','stell-fuss',
+    'Eine Wärmepumpe oder Photovoltaik hilft hier nicht: Sie wirken auf den ' +
+    'Primärenergiebedarf, nicht auf den Transmissionswärmeverlust. Bei der Hülle ' +
+    'lässt sich nur zwischen Bauteilen umverteilen – dazu unten mehr.'));
+  box.appendChild(k);
 }
 
 /* ---------- Ergebnis: Vorschlaege je Stufe ---------- */
 function renderStufen(){
   var box = $('stufenReiter'); box.innerHTML='';
+  if(!G) grenzenInit();
   if(!STUFE_AKTIV) STUFE_AKTIV = A.ziel || '70';
+  var gr = grenzenKarte(), wb = wbNachher();
   UK.ehStufen.slice().reverse().forEach(function(st){
-    var wbN = A.nurInnen==='ja' ? KENNWERTE.wbZuschlag.unsaniert : KENNWERTE.wbZuschlag.saniert;
-    var p = paketFuer(IST.teile, st.ht, wbN);
+    var p = paketFuer(IST.teile, st.ht, wb, gr);
     var c = el('button','chip'+(STUFE_AKTIV===st.name?' aktiv':'')+(p.erreichbar?' machbar':''),
                'Effizienzhaus '+st.name);
     c.addEventListener('click', function(){
-      STUFE_AKTIV=st.name; renderStufen();
-      if(typeof renderInnenVergleich==='function') renderInnenVergleich();
+      STUFE_AKTIV=st.name; renderStufen(); renderInnenVergleich();
     });
     box.appendChild(c);
   });
+  /* Denkmal nur, wenn das Haus tatsaechlich eines ist. Es hat kein
+     H'T-Kriterium, deshalb auch kein Machbar-Punkt. */
+  if(A.denkmal && A.denkmal!=='nein'){
+    var d = el('button','chip'+(STUFE_AKTIV==='denkmal'?' aktiv':''),'Effizienzhaus Denkmal');
+    d.addEventListener('click', function(){
+      STUFE_AKTIV='denkmal'; renderStufen(); renderInnenVergleich();
+    });
+    box.appendChild(d);
+  }
+  renderStellschrauben();
   renderVorschlag();
+}
+
+/* Effizienzhaus Denkmal - der Weg, wenn die Huelle keine Stufe schafft */
+function renderDenkmal(){
+  var box = $('vorschlagBox'); box.innerHTML='';
+  var v = el('div','vorschlag');
+  v.appendChild(el('h3',null,'Effizienzhaus Denkmal'));
+  v.appendChild(el('p','v-sub',
+    'Der eigene Weg für Denkmäler und besonders erhaltenswerte Bausubstanz.'));
+
+  var m = el('div','ausgleich');
+  m.appendChild(el('b',null,'Warum das Ihr Fall sein kann'));
+  m.appendChild(el('span',null,
+    'Für Effizienzhaus Denkmal gilt nach Angaben der KfW kein Grenzwert für den ' +
+    'Transmissionswärmeverlust in Prozent. Verlangt wird ein Primärenergiebedarf von ' +
+    'höchstens 160 % des Referenzgebäudes, dazu angepasste Anforderungswerte für ' +
+    'einzelne Bauteile – etwa für Außenwand und Fenster. Genau das Kriterium, das eine ' +
+    'gedämmte Fassade erzwingt, entfällt also. Für ein Haus, dessen Fassade erhalten ' +
+    'bleiben muss, ist das oft der einzige gangbare Weg zu einer Effizienzhausförderung.'));
+  v.appendChild(m);
+
+  var ist = IST.bilanz;
+  var z = el('div','v-summe');
+  z.innerHTML = 'Ihre Hülle liegt heute bei <em>'+nf(ist.verhaeltnis*100,0)+' %</em> des ' +
+    'Referenzgebäudes. Für Effizienzhaus Denkmal ist dieser Wert nicht ausschlaggebend – ' +
+    'entscheidend sind der Primärenergiebedarf und die Bauteilwerte der Maßnahmen, ' +
+    'die Sie tatsächlich umsetzen.';
+  v.appendChild(z);
+
+  var w = el('div','engpass');
+  w.appendChild(el('b',null,'Was Sie dafür brauchen'));
+  w.appendChild(el('span',null,
+    'Die KfW verlangt für Effizienzhaus Denkmal eine Sachkundige bzw. einen Sachkundigen ' +
+    'der Kategorie „BEG: Wohngebäude Denkmal" aus der Energie-Effizienz-Expertenliste des ' +
+    'Bundes – eine gesonderte Eintragung, die nicht jede Energieberatung hat. ' +
+    'Außerdem muss die Denkmalbehörde einbezogen werden, bevor irgendetwas geplant wird: ' +
+    'Erst wenn feststeht, was zulässig ist, ergibt eine Berechnung Sinn. ' +
+    'Sprechen Sie uns an – wir sagen Ihnen offen, ob wir das für Sie übernehmen können ' +
+    'oder wen Sie dafür brauchen.'));
+  v.appendChild(w);
+
+  var hin = el('p',null,
+    'Die genauen Anforderungswerte je Bauteil stehen in den technischen Mindest' +
+    'anforderungen der Bundesförderung und ändern sich mit den Richtlinien. ' +
+    'Maßgeblich ist die Fassung, die bei Ihrer Antragstellung gilt.');
+  hin.style.cssText='font-size:.85rem;color:var(--muted);margin-top:12px';
+  v.appendChild(hin);
+
+  box.appendChild(v);
 }
 
 function renderVorschlag(){
   var box = $('vorschlagBox'); box.innerHTML='';
   var st = null;
   UK.ehStufen.forEach(function(x){ if(x.name===STUFE_AKTIV) st=x; });
+  if(st===null && STUFE_AKTIV==='denkmal'){ renderDenkmal(); return; }
   if(!st) return;
+  if(!G) grenzenInit();
 
-  var erg = massnahmenFuer(A, IST, st);
+  var gr = grenzenKarte();
+  var wb = wbNachher();
+  var hatGrenzen = Object.keys(gr).length > 0;
+
+  var mit  = massnahmenFuer(A, IST, st, gr, wb);
+  var ohne = hatGrenzen ? massnahmenFuer(A, IST, st, {}, wb) : mit;
+
   var v = el('div','vorschlag');
   v.appendChild(el('h3',null,'Effizienzhaus '+st.name));
   v.appendChild(el('p','v-sub',
     'Kriterium: H′T höchstens '+st.ht+' % des Referenzgebäudes. '+
     'Der Primärenergiebedarf darf zusätzlich höchstens '+st.qp+' % betragen.'));
 
-  if(!erg.paket.erreichbar){
-    var w = el('div','v-warnung');
-    w.innerHTML = '<b>Mit der Gebäudehülle allein nicht erreichbar.</b> Selbst mit sehr guten '+
-      'Dämmwerten an allen Bauteilen bleibt die Hülle bei rund '+nf(erg.paket.quote*100,0)+
-      ' % statt der geforderten '+st.ht+' %. Das liegt meist an der Geometrie: viel Außenfläche '+
-      'im Verhältnis zum Volumen, oder ein sehr hoher Fensteranteil. Hier hilft nur eine '+
-      'genaue Berechnung im Einzelfall – manchmal über Wärmebrückennachweis, manchmal ist '+
-      'eine niedrigere Stufe der ehrlichere Weg.';
-    v.appendChild(w);
+  /* --- Fall 1: mit Grenzen nicht erreichbar --- */
+  if(!mit.paket.erreichbar){
+    var eng = hatGrenzen ? engpaesse(IST.teile, st.ht, wb, gr) : [];
+    var beste = besteStufeMit(IST.teile, wb, gr);
+    if(eng.length){
+      var e1 = el('div','engpass');
+      var namen = eng.map(function(x){
+        var t=null; IST.teile.forEach(function(y){ if(y.id===x.id) t=y; });
+        return t?t.n:x.id; });
+      e1.appendChild(el('b',null,'Engpass: '+namen[0]));
+      e1.appendChild(el('span',null,
+        'Die Grenze, die Sie bei „' + namen[0] + '" gesetzt haben, verhindert Effizienzhaus ' + st.name +
+        '. Ohne diese Grenze wäre die Stufe erreichbar – die übrigen Bauteile können den '+
+        'Ausfall nicht auffangen.' +
+        (namen.length>1 ? ' Dasselbe gilt für: '+namen.slice(1).join(', ')+'.' : '') +
+        (beste ? ' Mit den gesetzten Grenzen erreichen Sie noch Effizienzhaus '+beste.name+'.'
+               : ' Mit den gesetzten Grenzen wird keine Stufe erreicht.')));
+      v.appendChild(e1);
+    } else {
+      var w = el('div','v-warnung');
+      w.innerHTML = '<b>Mit der Gebäudehülle allein nicht erreichbar.</b> Selbst mit sehr guten '+
+        'Dämmwerten an allen Bauteilen bleibt die Hülle bei rund '+nf(mit.paket.quote*100,0)+
+        ' % statt der geforderten '+st.ht+' %. Das liegt meist an der Geometrie: viel Außenfläche '+
+        'im Verhältnis zum Volumen, oder ein sehr hoher Fensteranteil.' +
+        (A.denkmal && A.denkmal!=='nein'
+          ? ' Für Ihr Gebäude gibt es aber einen anderen Weg – siehe den Reiter Effizienzhaus Denkmal.'
+          : ' Hier hilft nur eine genaue Berechnung im Einzelfall; manchmal ist eine niedrigere Stufe der ehrlichere Weg.');
+      v.appendChild(w);
+    }
   }
 
+  /* --- Ausgleich sichtbar machen --- */
+  if(hatGrenzen && mit.paket.erreichbar && ohne.paket.erreichbar){
+    var zeilen = [];
+    mit.liste.forEach(function(m){
+      var o=null; ohne.liste.forEach(function(x){ if(x.id===m.id) o=x; });
+      if(!o || m.begrenzt) return;
+      if(m.dicke!=null && o.dicke!=null && m.dicke > o.dicke + 0.4){
+        zeilen.push({n:m.n, von:nf(o.dicke,1)+' cm', bis:nf(m.dicke,1)+' cm'});
+      } else if(m.dicke==null && o.uNeu!=null && m.uNeu < o.uNeu - 0.01){
+        zeilen.push({n:m.n, von:'U '+nf(o.uNeu,2), bis:'U '+nf(m.uNeu,2)});
+      }
+    });
+    if(zeilen.length){
+      var begrenzteNamen = [];
+      mit.liste.forEach(function(m){ if(m.begrenzt) begrenzteNamen.push(m.n.toLowerCase()); });
+      var ag = el('div','ausgleich');
+      ag.appendChild(el('b',null,'Ausgleich für Ihre Grenzen'));
+      ag.appendChild(el('span',null,
+        'Weil ' + begrenzteNamen.join(' und ') + ' begrenzt ' +
+        (begrenzteNamen.length>1?'sind':'ist') + ', müssen die übrigen Bauteile mehr leisten:'));
+      zeilen.forEach(function(z){
+        var r = el('div','ausgleich-zeile');
+        r.appendChild(el('span',null,z.n));
+        r.appendChild(el('span',null, z.von + '  →  ' + z.bis));
+        ag.appendChild(r);
+      });
+      v.appendChild(ag);
+    }
+  }
+
+  /* --- Massnahmenliste --- */
   var reihenfolge = {ogd:1, kellerdecke:2, dach:3, wand:4, fenster:5, boden:6, tuer:7};
-  erg.liste.slice().sort(function(p,q){
-    return (reihenfolge[p.id]||9)-(reihenfolge[q.id]||9); }).forEach(function(m){
+  mit.liste.slice().sort(function(x,y){
+    return (reihenfolge[x.id]||9)-(reihenfolge[y.id]||9); }).forEach(function(m){
     var z = el('div','massnahme');
-    z.appendChild(el('div','m-bauteil', m.n));
+    var nm = el('div','m-bauteil', m.n);
+    if(m.begrenzt){
+      var bg = el('span','badge badge-warn','begrenzt');
+      bg.style.marginLeft='7px'; nm.appendChild(bg);
+    }
+    z.appendChild(nm);
     var mid = el('div','m-text'+(m.fertig?' m-fertig':''));
     mid.textContent = m.text;
     if(m.ampel){
@@ -1836,21 +2270,22 @@ function renderVorschlag(){
     v.appendChild(z);
   });
 
-  var zieleListe = erg.liste.map(function(m){
+  /* --- Summe --- */
+  var zieleListe = mit.liste.map(function(m){
     var t=null; IST.teile.forEach(function(x){ if(x.id===m.id) t=x; });
     return { u:m.fertig?m.uAlt:m.uNeu, flaeche:t.flaeche, fx:t.fx, refKey:t.refKey };
   });
-  var bNeu = htBilanz(zieleListe, erg.wb);
-  var s = el('div','v-summe');
-  s.innerHTML = 'Danach: H′T <em>'+nf(bNeu.hStrich,3)+'</em> W/(m²·K), das sind <em>'+
+  var bNeu = htBilanz(zieleListe, mit.wb);
+  var su = el('div','v-summe');
+  su.innerHTML = 'Danach: H′T <em>'+nf(bNeu.hStrich,3)+'</em> W/(m²·K), das sind <em>'+
     nf(bNeu.verhaeltnis*100,0)+' %</em> des Referenzgebäudes – heute sind es '+
     nf(IST.bilanz.verhaeltnis*100,0)+' %.';
-  v.appendChild(s);
+  v.appendChild(su);
 
-  if(erg.innen){
-    var h = el('p',null,'Weil die Fassade erhalten bleiben muss, ist für die Wand nur '+
-      'Innendämmung gerechnet. Der Wärmebrückenzuschlag bleibt deshalb auf '+
-      nf(erg.wb,2)+' W/(m²·K) – einbindende Decken und Innenwände bleiben kalt.');
+  if(mit.innen){
+    var h = el('p',null,'Für die Wand ist Innendämmung gerechnet. Der Wärmebrückenzuschlag '+
+      'bleibt deshalb auf '+nf(mit.wb,2)+' W/(m²·K) – einbindende Decken und Innenwände '+
+      'bleiben bei Innendämmung kalt.');
     h.style.cssText='font-size:.85rem;color:var(--muted);margin-top:12px';
     v.appendChild(h);
   }
@@ -1865,7 +2300,10 @@ function renderVorschlag(){
    besten": Sie laesst sich nur am konkreten Aufbau beantworten. */
 function renderInnenVergleich(){
   var box = $('p-innen');
-  if(A.nurInnen!=='ja'){ box.style.display='none'; return; }
+  /* Haengt jetzt an der Stellschraube der Wand, nicht mehr an der Frage
+     "Fassade erhalten": So kann jeder die Innendaemmung durchrechnen, auch
+     wer sie nur als Alternative prueft. */
+  if(!G || !G.wand || G.wand.lage!=='innen'){ box.style.display='none'; return; }
   var wand = null;
   IST.teile.forEach(function(t){ if(t.id==='wand') wand = t; });
   if(!wand || !wand.schichten){ box.style.display='none'; return; }
@@ -1873,9 +2311,9 @@ function renderInnenVergleich(){
 
   var st = null;
   UK.ehStufen.forEach(function(x){ if(x.name===STUFE_AKTIV) st=x; });
-  if(!st) st = UK.ehStufen[2];
+  if(!st) st = UK.ehStufen[2];   /* bei Denkmal-Reiter auf EH 70 zurueckfallen */
   var wbN = KENNWERTE.wbZuschlag.unsaniert;
-  var pk = paketFuer(IST.teile, st.ht, wbN);
+  var pk = paketFuer(IST.teile, st.ht, wbN, grenzenKarte());
   var zielU = Math.max(U_MINIMUM.wand, BASISZIEL.wand * pk.k);
 
   $('idSub').textContent =
@@ -2014,6 +2452,91 @@ function renderInnenVergleich(){
   f.appendChild(hin);
 }
 
+/* ---------- Anlagentechnik: der Hebel beim Primaerenergiebedarf ----------
+   Die Faktoren sind amtlich (Anlage 4 GEG/GModG), die Nutzungsgrade sind
+   Anhaltswerte. Was hier NICHT steht, ist eine QP-Zahl fuer das Haus - dafuer
+   fehlt der Waermebedarf, und der kommt aus DIN V 18599. */
+function renderAnlagentechnik(){
+  /* Luftdichtheit aus UK.n50 statt hart im Markup */
+  var a1 = $('n50Ohne'), a2 = $('n50Mit');
+  if(a1) a1.textContent = nf(UK.n50.ohneAnlage,1);
+  if(a2) a2.textContent = nf(UK.n50.mitAnlage,1);
+
+  var heuteId = ERZEUGER_HEUTE[A.erzeuger];
+  var heute = heuteId ? erzeugerVon(heuteId) : null;
+
+  $('peSub').textContent = heute
+    ? ('Primärenergieaufwand je Kilowattstunde Wärme, gerechnet aus dem Primärenergiefaktor '+
+       'nach Anlage 4 des Gebäudeenergie- bzw. Gebäudemodernisierungsgesetzes und dem '+
+       'üblichen Nutzungsgrad. Verglichen wird mit Ihrem heutigen Erzeuger.')
+    : ('Primärenergieaufwand je Kilowattstunde Wärme nach Anlage 4 des Gebäudeenergie- bzw. '+
+       'Gebäudemodernisierungsgesetzes. Für Fernwärme hängt der Faktor am Netz – fragen Sie '+
+       'beim Versorger nach, die Spanne reicht von 0,0 bis über 1,0.');
+
+  var t = $('peTab'); t.innerHTML='';
+  var thead = el('thead'), tr = el('tr');
+  ['Wärmeerzeuger','Faktor f_P','Nutzungsgrad bzw. JAZ','je kWh Wärme',
+   heute?'gegenüber heute':''].forEach(function(x){ tr.appendChild(el('th',null,x)); });
+  thead.appendChild(tr); t.appendChild(thead);
+  var tb = el('tbody');
+  ERZEUGER.forEach(function(e){
+    var az = aufwandszahl(e);
+    var r = el('tr');
+    if(heute && e.id===heute.id) r.className='heute';
+    r.appendChild(el('td',null,e.n));
+    r.appendChild(el('td','num', nf(e.fp,1)));
+    r.appendChild(el('td','num', e.art==='jaz' ? nf(e.nutz,1) : nf(e.nutz,2)));
+    r.appendChild(el('td','num', nf(az,2)));
+    var c5 = el('td','num');
+    if(heute && e.id!==heute.id){
+      var diff = (az/aufwandszahl(heute) - 1) * 100;
+      var sp = el('span', diff<0?'pe-besser':'pe-schlechter',
+                  (diff<0?'−':'+') + nf(Math.abs(diff),0) + ' %');
+      c5.appendChild(sp);
+    } else if(heute && e.id===heute.id){
+      c5.textContent = '—';
+    }
+    r.appendChild(c5);
+    tb.appendChild(r);
+  });
+  t.appendChild(tb);
+
+  var f = $('peFazit'); f.innerHTML='';
+  var m = el('div','merk');
+  m.appendChild(el('b',null,'Was die Tabelle sagt – und was nicht'));
+  var txt = 'Die Faktoren sind exakt, der Wärmebedarf, auf den sie wirken, ist es nicht. ' +
+    'Deshalb steht hier kein Prozentwert für Ihr Haus, sondern nur der Vergleich der ' +
+    'Erzeuger untereinander. ';
+  if(heute){
+    var wp = erzeugerVon('wp_35');
+    var d = (1 - aufwandszahl(wp)/aufwandszahl(heute)) * 100;
+    if(d > 5){
+      txt += 'Bei Ihnen heißt das: Ein Wechsel von ' + heute.n + ' auf eine Wärmepumpe mit ' +
+             'Jahresarbeitszahl 3,5 senkt den Primärenergiebedarf für Heizung und Warmwasser ' +
+             'um rund ' + nf(d,0) + ' %. Das ist meist der größte Einzelschritt auf der ' +
+             'Anlagenseite – ob eine Wärmepumpe zu Ihrem Haus passt, entscheidet die ' +
+             'Vorlauftemperatur.';
+    } else {
+      txt += 'Ihr heutiger Erzeuger schneidet bereits gut ab – auf der Anlagenseite ist ' +
+             'wenig zu holen. Der Hebel liegt dann bei der Hülle und bei Photovoltaik.';
+    }
+  }
+  m.appendChild(el('span',null,txt));
+  f.appendChild(m);
+
+  var pv = el('div','ausgleich');
+  pv.appendChild(el('b',null,'Photovoltaik: Faktor null'));
+  pv.appendChild(el('span',null,
+    'Strom aus gebäudeintegrierter Photovoltaik wird nach Anlage 4 mit dem ' +
+    'Primärenergiefaktor 0,0 bewertet, ebenso Umweltwärme, Erdwärme und Solarthermie. ' +
+    'Deshalb ist PV auf dem eigenen Dach zusammen mit einer Wärmepumpe der wirksamste ' +
+    'Weg beim Primärenergiebedarf – und oft der Schritt, der eine Stufe möglich macht, ' +
+    'wenn die Hülle schon stimmt. Auf den Transmissionswärmeverlust wirkt sie nicht: ' +
+    'Eine schlechte Hülle lässt sich mit Technik nicht ausgleichen.'));
+  f.appendChild(pv);
+  return true;
+}
+
 /* ---------- Detailmodus: Schichteditor ---------- */
 var Z = { bauteil:'wand', schichten:[], lage:'aussen', daemmstoff:'eps_035', daemmDicke:14 };
 
@@ -2058,7 +2581,7 @@ function detailStart(){
   if(!vorhanden.length) return;
   Z.bauteil = vorhanden[0].id;
   Z.schichten = vorhanden[0].schichten.slice();
-  Z.lage = A.nurInnen==='ja' ? 'innen' : 'aussen';
+  Z.lage = (G && G.wand && G.wand.lage==='innen') ? 'innen' : 'aussen';
   Z.daemmstoff = A.daemmstoffWunsch || 'eps_035';
   detailAlles();
 }
@@ -2380,6 +2903,89 @@ function detailAlles(){
   console.log((mitte < frei*0.75 ?'✅ PASS':'❌ FAIL')+
               ' – Reihenmittelhaus hat weniger Außenwand ('+nf(mitte,0)+' statt '+nf(frei,0)+' m²)');
   if(!(mitte < frei*0.75)) ok=false;
+
+  /* ---- Grenzen und Ausgleich ---------------------------------------- */
+  var hausG = [
+    {id:'wand', u:1.13, flaeche:188, fx:'wand', refKey:'wand'},
+    {id:'ogd',  u:1.38, flaeche:90,  fx:'ogd',  refKey:'ogd'},
+    {id:'kellerdecke', u:2.24, flaeche:90, fx:'kellerdecke', refKey:'kellerdecke'},
+    {id:'fenster', u:1.30, flaeche:23, fx:'fenster', refKey:'fenster'},
+    {id:'tuer', u:3.00, flaeche:2, fx:'tuer', refKey:'tuer'}
+  ];
+  var wbS = KENNWERTE.wbZuschlag.saniert;
+  var eh70 = UK.ehStufen[2];   /* ht 85 % */
+
+  /* 14. Rueckwaertskompatibilitaet: ohne Grenzen muss alles bleiben wie vorher */
+  var pOhne  = paketFuer(hausG, eh70.ht, wbS);
+  var pLeer  = paketFuer(hausG, eh70.ht, wbS, {});
+  var gleich = Math.abs(pOhne.k - pLeer.k) < 1e-9;
+  console.log((gleich?'✅ PASS':'❌ FAIL')+' – Löser ohne Grenzen unverändert (k '+nf(pOhne.k,4)+')');
+  if(!gleich) ok=false;
+
+  /* 15. Grenze wirkt: begrenztes Bauteil darf seinen Grenzwert nicht unterbieten */
+  var GRENZE_WAND = 0.42;                       /* etwa 8 cm auf dieser Wand */
+  var pMit = paketFuer(hausG, eh70.ht, wbS, {wand:GRENZE_WAND});
+  var zielWand = zielUFuer('wand', pMit.k, {wand:GRENZE_WAND});
+  console.log((zielWand >= GRENZE_WAND - 1e-9 ?'✅ PASS':'❌ FAIL')+
+              ' – Grenze wirkt: Ziel-U der Wand '+nf(zielWand,2)+' ≥ Grenze '+nf(GRENZE_WAND,2));
+  if(zielWand < GRENZE_WAND - 1e-9) ok=false;
+
+  /* 16. Ausgleich greift: die uebrigen Bauteile muessen strenger werden */
+  var ogdOhne = zielUFuer('ogd', pOhne.k, {});
+  var ogdMit  = zielUFuer('ogd', pMit.k, {wand:GRENZE_WAND});
+  var kelOhne = zielUFuer('kellerdecke', pOhne.k, {});
+  var kelMit  = zielUFuer('kellerdecke', pMit.k, {wand:GRENZE_WAND});
+  var strenger = (ogdMit < ogdOhne - 1e-6) && (kelMit < kelOhne - 1e-6);
+  console.log((strenger?'✅ PASS':'❌ FAIL')+' – Ausgleich greift: OGD '+nf(ogdOhne,3)+
+              ' → '+nf(ogdMit,3)+', Keller '+nf(kelOhne,3)+' → '+nf(kelMit,3));
+  if(!strenger) ok=false;
+
+  /* 17. Kriterium haelt auch mit Grenzen */
+  var haeltMit = !pMit.erreichbar || (pMit.quote*100 <= eh70.ht + 0.5);
+  console.log((haeltMit?'✅ PASS':'❌ FAIL')+' – mit Grenze '+
+              (pMit.erreichbar ? ('erreichbar und Kriterium gehalten ('+nf(pMit.quote*100,1)+
+                                  ' % ≤ '+eh70.ht+' %)')
+                               : ('korrekt als nicht erreichbar gemeldet ('+nf(pMit.quote*100,1)+
+                                  ' % > '+eh70.ht+' %)')));
+  if(!haeltMit) ok=false;
+
+  /* 18. Engpass wird benannt: eine Grenze, die die Stufe unmoeglich macht */
+  var hart = {wand:0.90};                        /* kaum gedaemmt */
+  var pHart = paketFuer(hausG, UK.ehStufen[1].ht, wbS, hart);   /* EH 55, ht 70 % */
+  var eng = engpaesse(hausG, UK.ehStufen[1].ht, wbS, hart);
+  var engOk = !pHart.erreichbar && eng.length===1 && eng[0].id==='wand';
+  console.log((engOk?'✅ PASS':'❌ FAIL')+' – Engpass richtig benannt ('+
+              (eng.length?eng.map(function(x){return x.id;}).join(','):'keiner')+')');
+  if(!engOk) ok=false;
+
+  /* 19. besteStufeMit liefert nie eine Stufe, die der Loeser ablehnt */
+  var beste = besteStufeMit(hausG, wbS, hart);
+  var besteOk = !beste || paketFuer(hausG, beste.ht, wbS, hart).erreichbar;
+  console.log((besteOk?'✅ PASS':'❌ FAIL')+' – beste erreichbare Stufe stimmig ('+
+              (beste?('EH '+beste.name):'keine')+')');
+  if(!besteOk) ok=false;
+
+  /* ---- Primaerenergie ------------------------------------------------ */
+  /* 20. Aufwandszahlen gegen die Handrechnung aus Anlage 4 GModG */
+  function az(id){ return aufwandszahl(erzeugerVon(id)); }
+  pruef('Aufwandszahl Gas-Brennwert (1,1 / 0,92)', az('gas_bw'), 1.19, 1.21);
+  pruef('Aufwandszahl Pellets (0,2 / 0,78)',       az('pellets'), 0.25, 0.27);
+  pruef('Aufwandszahl Wärmepumpe JAZ 3,5 (1,8 / 3,5)', az('wp_35'), 0.51, 0.52);
+  var pvNull = FP.stromPvEigen===0 && FP.umweltwaerme===0;
+  console.log((pvNull?'✅ PASS':'❌ FAIL')+' – PV und Umweltwärme mit Faktor 0,0');
+  if(!pvNull) ok=false;
+
+  /* 21. Waermepumpe muss gegenueber jedem fossilen Erzeuger besser sein */
+  var wpBesser = az('wp_35') < az('gas_bw') && az('wp_35') < az('oel_bw')
+              && az('wp_35') < az('gas_nt');
+  console.log((wpBesser?'✅ PASS':'❌ FAIL')+' – Wärmepumpe schlägt fossile Erzeuger');
+  if(!wpBesser) ok=false;
+
+  /* 22. Zielwerte kommen aus der einen Quelle, nicht aus einer zweiten Kopie */
+  var eineQuelle = BASISZIEL === KENNWERTE.zielU && BASISZIEL.boden != null;
+  console.log((eineQuelle?'✅ PASS':'❌ FAIL')+
+              ' – Zielwerte nur aus KENNWERTE.zielU (boden '+nf(BASISZIEL.boden,2)+')');
+  if(!eineQuelle) ok=false;
 
   console.log(ok ? '✅ SELBSTTEST U-WERT-RECHNER BESTANDEN'
                  : '❌ SELBSTTEST U-WERT-RECHNER: Abweichungen – Rechenkern prüfen');

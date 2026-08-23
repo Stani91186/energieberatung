@@ -268,9 +268,30 @@ Normative Grundlage, alles im Objekt `UK` am Anfang des Scripts:
 | Luftdichtheit | n50 ≤ 3,0 ohne, ≤ 1,5 mit Lüftungsanlage | GEG/GModG |
 | Übergangswiderstände | Wand 0,13/0,04 · Dach 0,10/0,04 · Keller 0,17/0,17 · Boden 0,17/0 | DIN EN ISO 6946 |
 
+**Zwei Kriterien, zwei getrennte Werkzeuge – das ist die Kernaussage der Seite:**
+Beim H′T lässt sich nur zwischen Bauteilen umverteilen (Stellschrauben je
+Bauteil, der Löser gleicht über einen kleineren Faktor k aus). Beim
+Primärenergiebedarf wirken Wärmeerzeuger, Lüftung und PV. **Eine Wärmepumpe
+rettet kein H′T-Kriterium** – dieser Satz steht bewusst im Rechner.
+
+Die Primärenergiefaktoren in `FP` stammen aus Anlage 4 GEG/GModG (Gas 1,1 ·
+Strom 1,8 · Holz 0,2 · PV vom eigenen Dach 0,0 · Umweltwärme 0,0) und sind
+amtlich. Die Nutzungsgrade und Jahresarbeitszahlen in `ERZEUGER` sind
+Anhaltswerte – deshalb rechnet der Rechner nur den **Vergleich der Erzeuger
+untereinander** und nie eine QP-Zahl fürs Haus.
+
+**Effizienzhaus Denkmal** erscheint nur, wenn im Fragebogen Denkmalschutz oder
+besonders erhaltenswerte Bausubstanz gewählt wurde. Es hat kein
+H′T-Kriterium – nur Primärenergie ≤ 160 % und angepasste Bauteilwerte – und
+verlangt eine Eintragung der Kategorie „BEG: Wohngebäude Denkmal".
+
 `BAUSTOFFE` enthält rund 55 Materialien mit λ-Anhaltswerten. Der sichtbare
 Hinweis, dass für Förderanträge der deklarierte λ_D des Produkts zählt, gehört
 zur Seite und bleibt stehen.
+
+Zielwerte je Bauteil kommen aus `KENNWERTE.zielU`, also aus dem CONFIG des
+Sanierungsrechners. `BASISZIEL` ist nur noch ein Alias darauf – vorher standen
+dieselben sieben Zahlen an zwei Stellen.
 
 `AUFBAUTEN` sind **Beispiele**, keine Statistik. Der Selbsttest prüft sie nur
 gegen ein Plausibilitätsband (Faktor 0,5 bis 2,0) um die Baualterstabelle des

@@ -1248,7 +1248,9 @@ var CONFIG = {
   foerderWPMaxBetrag:22400,
   foerderWPHinweis:'Gerechnet mit 50 % (Grundförderung 30 % + Klimageschwindigkeitsbonus 20 % beim Austausch einer alten Öl- oder Gasheizung). Mit Einkommens- und Effizienzbonus sind bis zu 22.400 € möglich.',
   foerderDeckelWP:30000,
-  zielU:{ wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25, fenster:0.95, tuer:1.3 },
+  /* Zielwerte der BEG-Einzelmassnahme. Werden ueber GEMEINSAM:KENNWERTE
+     auch vom U-Wert-Rechner gelesen - dort steht keine zweite Kopie. */
+  zielU:{ wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25, boden:0.25, fenster:0.95, tuer:1.3 },
   kosten:{ // €/m² bzw. pauschal [von, bis]
     wand:[130,250], dach:[70,120], ogd:[20,70], kellerdecke:[20,60],
     fensterStk:[500,1200], fensterM2ProStk:1.8, tuer:[2000,4500],
