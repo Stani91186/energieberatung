@@ -7,7 +7,7 @@ Abhängigkeiten – die Dateien werden so hochgeladen, wie sie hier liegen.
 |---|---|
 | `index.html` | Startseite – **Vorlage** für Kopf, Fuß und die Preise |
 | `sanierungsrechner.html` | Rechner mit Bericht-Download und Lead-Formular |
-| `u-wert-rechner.html` | U-Werte aus dem Schichtaufbau, Dämmstärke, Effizienzhaus-Einstufung |
+| `u-wert-rechner.html` | Fragebogen zum Ist-Zustand, danach Maßnahmen je Effizienzhausstufe – mit Grenzen je Bauteil und Ausgleichsrechnung |
 | `sanierungsfahrplan.html` | Leistungsseite iSFP mit Honorartabelle |
 | `ratgeber.html`, `ratgeber-*.html` | 9 Ratgeberartikel – **erzeugt**, nicht von Hand ändern |
 | `aktuelles.html` | Meldungen zu Förderung und Gesetzen – **erzeugt**, wöchentlich automatisch |
@@ -26,7 +26,7 @@ Abhängigkeiten – die Dateien werden so hochgeladen, wie sie hier liegen.
 | `SICHTBARKEIT-AUFBAUEN.md` | Anleitung: Google-Unternehmensprofil, Verzeichnisse, Backlinks, Social Media |
 | `CLAUDE.md` | Projektregeln für die Weiterarbeit mit Claude Code |
 
-### Die drei Erzeugerskripte
+### Die fünf Erzeugerskripte
 
 Ortsseiten und Ratgeber werden aus `index.html` gebaut. Wer Kopf, Fuß oder die
 Preise ändert, ändert sie **in `index.html`** und lässt danach laufen:
