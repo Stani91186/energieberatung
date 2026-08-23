@@ -1231,7 +1231,13 @@ var CONFIG = {
   fensterAnteil:{ vor1950:0.12, standard:0.15, ab1995:0.18 },
   dachFaktor:{ sattel:1.25, walm:1.35, pult:1.15, flach:1.05 },
   gaubeFlaeche:4.0,
-  wbZuschlag:{ unsaniert:0.10, saniert:0.05, jeGaube:0.02, max:0.15 },
+  /* Waermebrueckenzuschlag: vier Nachweiswege, nicht vier Bauqualitaeten.
+     unsaniert 0,10 = Pauschalwert ohne jeden Nachweis
+     saniert   0,05 = Gleichwertigkeitsnachweis DIN 4108 Beiblatt 2, Kat. A
+     kurzverfahren 0,035 = KfW-Waermebrueckenkurzverfahren
+     kategorieB 0,03 = Kategorie B bzw. detaillierte Berechnung je Anschluss
+     Der Wert geht direkt in H'T ein - er ist der groesste Einzelhebel. */
+  wbZuschlag:{ unsaniert:0.10, saniert:0.05, kurzverfahren:0.035, kategorieB:0.03, jeGaube:0.02, max:0.15 },
   luftwechsel:{ alt:0.70, standard:0.50, wrg:0.25 },
   interneGewinne:5, heiztage:185, solarStrahlung:280, solarFaktor:0.55, rollladenFaktor:0.9,
   minHeizbedarf:15,

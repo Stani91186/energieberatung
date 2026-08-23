@@ -395,6 +395,75 @@ U-Wert **aufsteigend sortierte** Leiter, aus der `verglasungFuer()` die
 schwächste ausreichende wählt. Ein Selbsttest prüft die Sortierung – ohne sie
 würde jemand zu Vierfachglas geschickt, wo dreifach genügt.
 
+### Wärmebrücken: der größte Hebel
+
+`WB_STUFEN` bietet vier **Nachweiswege** an – keine vier Bauqualitäten. Die
+Werte stehen in `KENNWERTE.wbZuschlag` (also im CONFIG des Sanierungsrechners):
+
+| Weg | ΔU<sub>WB</sub> | Formblatt der KfW |
+|---|---|---|
+| ohne Nachweis | 0,10 | – |
+| Gleichwertigkeitsnachweis, DIN 4108 Beiblatt 2:2019-06 Kat. A | 0,05 | A |
+| KfW-Wärmebrückenkurzverfahren | 0,035 | D |
+| Kategorie B bzw. detaillierte Berechnung | 0,03 | C |
+
+**Warum das so viel bewegt:** ΔU<sub>WB</sub> wird mit der Hüllfläche
+multipliziert und sofort wieder durch sie geteilt – es steht unverändert im
+H′T. Die Wirkung hängt deshalb **nicht** davon ab, welche Bauteile gedämmt
+werden, sondern nur von H′T,ref. Beim Beispielhaus sind 0,10 → 0,03 rund
+**20 Prozentpunkte**, mehr als der Abstand zwischen zwei Effizienzhausstufen.
+Zwei Selbsttests sichern das ab: die Linearität und die Prozentpunktformel
+gegen die tatsächlich gerechnete Bilanz.
+
+`wbNachher()` liest die Nutzerwahl. **Eine Ausnahme bleibt hart verdrahtet:**
+Bei Innendämmung wird auf 0,10 hochgesetzt, solange nicht die detaillierte
+Berechnung gewählt ist – einbindende Decken und Innenwände bleiben dabei kalt,
+und die pauschalen Gleichwertigkeitswege tragen diesen Fall nicht.
+
+Für die Sanierung wichtig und im Text so gesagt: Der Gleichwertigkeitsnachweis
+nach Beiblatt 2 ist im Bestand häufig nicht möglich, weil das Verfahren für den
+Neubau entwickelt wurde. Dann bleibt Formblatt B (erweiterter
+Gleichwertigkeitsnachweis, Ergebnis zwischen 0,10 und 0,05) oder Formblatt C.
+
+Quelle ist das KfW-Infoblatt zur Wärmebrückenbewertung – **Stand 11/2015, es
+zitiert noch die EnEV.** Verfahren und Zahlen decken sich mit Beiblatt
+2:2019-06, aber vor dem Livegang gegen die aktuelle Arbeitshilfe prüfen. Die
+Seite nennt deshalb Werte und Formblätter, aber kein Datum als Zusage.
+
+### Hülle und Anlage sauber trennen
+
+`p-huelle` beantwortet die Frage, die zu den meisten Missverständnissen führt:
+Was zählt überhaupt? **Zur Hüllfläche gehört nur, was Beheiztes von
+Unbeheiztem oder von draußen trennt.**
+
+- Eine **Geschossdecke zwischen zwei beheizten Geschossen zählt zu keinem der
+  beiden Kriterien** – sie liegt gar nicht in der Hüllfläche. Dämmung dort ist
+  Schallschutz. Häufigste Verwechslung, deshalb mit eigenem Hinweis.
+- Eine Geschossdecke **gegen Außenluft** (Durchfahrt, Carport) zählt sehr wohl,
+  Anforderungswert 0,20.
+- **Wärmepumpe, Lüftung, Klimadecke und PV erscheinen in H′T nie.** Die
+  Klimadecke wirkt nur indirekt: rund 2,5–3 % bessere Arbeitszahl je Kelvin
+  niedrigerer Vorlauftemperatur, 30–35 °C statt 45–55 °C bei Heizkörpern.
+
+Darunter die Checkliste „Was am Nachweis geprüft gehört", zweispaltig nach
+Kriterium getrennt. **Die Tonlage ist bewusst sachlich** – der Betreiber hat
+das so entschieden. Kein Wort von Tricks; der Abschnitt schließt mit dem einen
+Satz, dass erfundene Flächen oder Maßnahmen Subventionsbetrug nach § 264 StGB
+sind und der Sachverständige mithaftet. Ein Satz, kein Absatz.
+
+### Wann die Stufe festgelegt wird
+
+`p-ablauf` beantwortet die teuerste Frage: Nein, die Stufe wird nicht nach
+Fertigstellung gerechnet. Die Bestätigung zum Antrag entsteht **vor** dem
+Antrag aus der Planung; die Bestätigung nach Durchführung prüft nur nach.
+**Eine Aufstockung über den beantragten Umfang hinaus ist ausgeschlossen –
+ausdrücklich auch bei besseren Ergebnissen als beantragt.** Höher geht nur über
+Verzicht auf die Zusage und neuen Antrag.
+
+Daraus folgt der Satz, der die ganze Seite trägt und nicht wegfallen darf:
+**Was der Rechner zeigt, gehört in die Planung – nach der Zusage ist es nichts
+mehr wert.**
+
 ### Grundstücksgrenze
 
 Wählt der Nutzer bei der Wand den Grund „Grundstücksgrenze", erscheint
@@ -419,10 +488,10 @@ mit einem Bestandsmittelwert erzwingen.
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser + Plausibilität).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
-`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (36 Fälle: Handrechnung,
+`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (41 Fälle: Handrechnung,
 Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische
 Aufbauten, Grenzen und Ausgleich, Primärenergie, feste Werte, Wirkung,
-BEG-Anforderungswerte, Flächenmittel, Verglasungen).
+BEG-Anforderungswerte, Flächenmittel, Verglasungen, Wärmebrücken).
 Schlägt ein Fall fehl, wurde das Rechenmodell beschädigt – Änderung zurücknehmen
 oder CONFIG korrigieren. Zusätzlich: Seite bei 390 px Breite ohne horizontales
 Scrollen, Wizard einmal komplett durchklicken.

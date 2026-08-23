@@ -493,6 +493,74 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
 .fv-jetzt b{display:block;margin-bottom:4px}
 @media (max-width:640px){ .fv-preis{grid-template-columns:1fr} }
 
+/* ==== Waermebruecken-Hebel ==== */
+.wb-block{margin-top:16px;padding-top:15px;border-top:1px solid var(--line)}
+.wb-kopf{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:4px}
+.wb-kopf b{font-size:.95rem}
+.wb-hilfe{font-size:.86rem;color:var(--muted);margin-bottom:12px;max-width:68ch}
+.wb-wahl{margin-bottom:12px}
+.wb-wahl select{width:100%;max-width:340px}
+.wb-tab{margin-top:10px}
+.wb-zeile{display:grid;grid-template-columns:minmax(0,1fr) 62px 78px 104px;gap:10px;
+  padding:8px 0;border-top:1px solid var(--line-soft);font-size:.87rem;align-items:center}
+.wb-zeile>*{min-width:0}
+.wb-zeile.aktiv{background:var(--forest-soft);border-radius:var(--radius-sm);
+  padding-left:11px;padding-right:11px;border-top-color:transparent;font-weight:600;color:var(--forest)}
+.wb-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.wb-gewinn{color:var(--forest);font-weight:600}
+.wb-warn{background:var(--warn-soft);border-left:4px solid var(--warn);
+  border-radius:var(--radius-sm);padding:13px 16px;margin-top:12px;font-size:.86rem;color:#6B5010}
+@media (max-width:640px){
+  .wb-zeile{grid-template-columns:1fr 70px 92px;gap:6px 10px}
+  .wb-zeile>*:nth-child(2){display:none}
+}
+
+/* ==== Was zaehlt zur Huelle ==== */
+.hz-liste{margin:16px 0 6px}
+.hz-kopf,.hz-zeile{display:grid;grid-template-columns:minmax(0,1.6fr) 92px 92px minmax(0,1.5fr);
+  gap:12px;align-items:start}
+.hz-kopf{font-size:.71rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  font-weight:700;padding-bottom:9px}
+.hz-kopf span:nth-child(2),.hz-kopf span:nth-child(3){text-align:center}
+.hz-zeile{padding:12px 0;border-top:1px solid var(--line-soft);font-size:.89rem}
+.hz-zeile>*{min-width:0}
+.hz-zeile b{display:block}
+.hz-mark{text-align:center;font-weight:700}
+.hz-ja{color:var(--ok)}
+.hz-nein{color:var(--muted)}
+.hz-hinweis{font-size:.84rem;color:var(--muted);margin-top:3px}
+.hz-mobil{display:none}
+@media (max-width:640px){
+  .hz-kopf{display:none}
+  .hz-zeile{grid-template-columns:1fr;gap:5px}
+  .hz-mark{display:none}
+  .hz-mobil{display:block;font-size:.85rem;font-weight:600}
+}
+
+/* ==== Optimierungs-Checkliste ==== */
+.ck-spalten{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;margin-top:16px}
+.ck-spalte{background:var(--cream-2);border-radius:var(--radius-sm);padding:19px 21px}
+.ck-spalte>b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:3px}
+.ck-spalte>span{display:block;font-size:.86rem;color:var(--muted);margin-bottom:13px}
+.ck-punkt{padding:9px 0;border-top:1px solid var(--line-soft);font-size:.88rem}
+.ck-punkt:first-of-type{border-top:none}
+.ck-punkt b{display:block;margin-bottom:1px}
+.ck-gross{color:var(--forest)}
+.ck-grenze{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:var(--radius-sm);
+  padding:15px 18px;margin-top:18px;font-size:.88rem;color:#6B5010}
+
+/* ==== Ablauf BzA - BnD ==== */
+.ab-kette{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:16px 0 6px}
+.ab-schritt{background:var(--cream-2);border-radius:100px;padding:8px 16px;font-size:.87rem;font-weight:600}
+.ab-schritt.hier{background:var(--forest);color:#fff}
+.ab-pfeil{color:var(--muted);font-size:1.05rem}
+.ab-punkte{margin-top:14px}
+.ab-punkt{padding:10px 0;border-top:1px solid var(--line-soft);font-size:.89rem}
+.ab-punkt b{display:block;margin-bottom:2px}
+.ab-schluss{background:var(--forest-soft);border-radius:var(--radius-sm);padding:16px 19px;
+  margin-top:16px;font-size:.92rem;color:var(--forest);font-weight:600}
+
 /* GEMEINSAM:CSS */
 /* Kopf, Menue, Knoepfe und Fuss stammen aus index.html.
    Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
@@ -855,6 +923,140 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
     <div id="idFazit"></div>
   </section>
 
+  <section class="panel" id="p-huelle">
+    <h2>Was zählt zur Hülle – und was nicht</h2>
+    <p class="panel-sub">Eine Effizienzhausstufe hat zwei Kriterien, und fast jede
+      Verwechslung entsteht hier: Zur Hüllfläche gehört nur, was Beheiztes von
+      Unbeheiztem oder von draußen trennt. Anlagentechnik erscheint im
+      Transmissionswärmeverlust grundsätzlich nicht.</p>
+
+    <div class="hz-liste">
+      <div class="hz-kopf">
+        <span>Bauteil oder Anlage</span><span>Hülle H′<sub>T</sub></span>
+        <span>Primärenergie</span><span>Anmerkung</span>
+      </div>
+
+      <div class="hz-zeile">
+        <div><b>Außenwand, Dach, oberste Geschossdecke, Kellerdecke, Bodenplatte, Fenster, Haustür</b>
+          <div class="hz-mobil hz-ja">Hülle: ja · Primärenergie: ja</div></div>
+        <div class="hz-mark hz-ja">ja</div><div class="hz-mark hz-ja">ja</div>
+        <div>Die klassische Gebäudehülle. Alles, was der Rechner oben bilanziert.</div>
+      </div>
+
+      <div class="hz-zeile">
+        <div><b>Geschossdecke zwischen zwei beheizten Geschossen</b>
+          <div class="hz-mobil hz-nein">Hülle: nein · Primärenergie: nein</div></div>
+        <div class="hz-mark hz-nein">nein</div><div class="hz-mark hz-nein">nein</div>
+        <div>Beide Seiten sind warm – das Bauteil liegt gar nicht in der Hüllfläche.
+          Dämmung dort ist Schallschutz und sonst nichts.
+          <div class="hz-hinweis">Häufigste Verwechslung. Nicht zu verwechseln mit der
+          obersten Geschossdecke gegen einen unbeheizten Dachraum, die sehr wohl zählt.</div></div>
+      </div>
+
+      <div class="hz-zeile">
+        <div><b>Geschossdecke gegen Außenluft</b>
+          <div class="hz-mobil hz-ja">Hülle: ja · Primärenergie: ja</div></div>
+        <div class="hz-mark hz-ja">ja</div><div class="hz-mark hz-ja">ja</div>
+        <div>Über einer Durchfahrt, einem Carport oder einem auskragenden Geschoss.
+          Anforderungswert der Förderung: 0,20 W/(m²·K).</div>
+      </div>
+
+      <div class="hz-zeile">
+        <div><b>Wand oder Decke gegen unbeheizten Raum</b>
+          <div class="hz-mobil hz-ja">Hülle: anteilig · Primärenergie: ja</div></div>
+        <div class="hz-mark hz-ja">anteilig</div><div class="hz-mark hz-ja">ja</div>
+        <div>Zählt über den Temperatur-Korrekturfaktor F<sub>x</sub> nur anteilig –
+          hinter der Wand ist es kälter als drinnen, aber wärmer als draußen.</div>
+      </div>
+
+      <div class="hz-zeile">
+        <div><b>Wärmepumpe</b>
+          <div class="hz-mobil hz-nein">Hülle: nein · Primärenergie: ja</div></div>
+        <div class="hz-mark hz-nein">nein</div><div class="hz-mark hz-ja">ja</div>
+        <div>Der größte Hebel beim Primärenergiebedarf – und ohne jede Wirkung auf
+          das Hüllkriterium. Eine Wärmepumpe rettet kein H′<sub>T</sub>.</div>
+      </div>
+
+      <div class="hz-zeile">
+        <div><b>Lüftungsanlage mit Wärmerückgewinnung</b>
+          <div class="hz-mobil hz-nein">Hülle: nein · Primärenergie: ja</div></div>
+        <div class="hz-mark hz-nein">nein</div><div class="hz-mark hz-ja">ja</div>
+        <div>Senkt den Primärenergiebedarf deutlich. Verschärft allerdings die
+          Luftdichtheitsanforderung von n<sub>50</sub> 3,0 auf 1,5.</div>
+      </div>
+
+      <div class="hz-zeile">
+        <div><b>Klimadecke, Fußboden- oder Wandheizung</b>
+          <div class="hz-mobil hz-nein">Hülle: nein · Primärenergie: indirekt</div></div>
+        <div class="hz-mark hz-nein">nein</div><div class="hz-mark hz-ja">indirekt</div>
+        <div>Kein Dämmwert, aber eine niedrigere Vorlauftemperatur – und die
+          entscheidet über die Arbeitszahl der Wärmepumpe. Mehr dazu unten.</div>
+      </div>
+
+      <div class="hz-zeile">
+        <div><b>Photovoltaik</b>
+          <div class="hz-mobil hz-nein">Hülle: nein · Primärenergie: ja</div></div>
+        <div class="hz-mark hz-nein">nein</div><div class="hz-mark hz-ja">ja</div>
+        <div>Strom vom eigenen Dach wird mit dem Primärenergiefaktor 0,0 bewertet.</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:30px">Was am Nachweis geprüft gehört</h3>
+    <p class="panel-sub">Zwei Kriterien, zwei Werkzeugkästen. Diese Punkte entscheiden
+      regelmäßig darüber, ob eine Stufe hält – und sie werden ebenso regelmäßig
+      pauschal abgehakt.</p>
+
+    <div class="ck-spalten">
+      <div class="ck-spalte">
+        <b>Wirkt auf die Hülle</b>
+        <span>Hier zählen nur Dämmung, Fenster und Geometrie.</span>
+        <div class="ck-punkt ck-gross"><b>Wärmebrückennachweis</b>
+          Der größte Einzelhebel – oben im Ergebnis durchgerechnet.</div>
+        <div class="ck-punkt"><b>Systemgrenze</b>
+          Gilt der Keller als beheizt, das Dachgeschoss als ausgebaut? Das ändert
+          die Hüllfläche und damit den Bezugswert.</div>
+        <div class="ck-punkt"><b>Temperatur-Korrekturfaktoren</b>
+          Bauteile gegen unbeheizte Räume zählen nur anteilig, nicht voll.</div>
+        <div class="ck-punkt"><b>Deklarierter λ<sub>D</sub></b>
+          Der Wert aus dem Produktdatenblatt statt der Tabellenwert – oft eine
+          Wärmeleitgruppe besser.</div>
+        <div class="ck-punkt"><b>U<sub>w</sub> aus dem Fensterdatenblatt</b>
+          Das konkrete Fenster mit warmer Kante statt eines Pauschalwerts.</div>
+        <div class="ck-punkt"><b>Vorhandene Dämmung belegen</b>
+          Eine Kerndämmung oder alte Dachdämmung, die dokumentiert ist, zählt.
+          Geschätzt wird sie konservativ angesetzt.</div>
+        <div class="ck-punkt"><b>Effizienzhaus Denkmal</b>
+          Wo es zutrifft, entfällt das Hüllkriterium ganz.</div>
+      </div>
+
+      <div class="ck-spalte">
+        <b>Wirkt auf den Primärenergiebedarf</b>
+        <span>Hier zählt die Technik – auf die Hülle wirkt nichts davon.</span>
+        <div class="ck-punkt ck-gross"><b>Wärmeerzeuger und Arbeitszahl</b>
+          Der größte Hebel auf dieser Seite.</div>
+        <div class="ck-punkt"><b>Vorlauftemperatur senken</b>
+          Flächenheizung, größere Heizkörper, hydraulischer Abgleich – jedes Kelvin
+          zahlt auf die Arbeitszahl ein.</div>
+        <div class="ck-punkt"><b>Lüftung mit Wärmerückgewinnung</b>
+          Senkt den Bedarf und ist ab hohen Stufen ohnehin schwer zu umgehen.</div>
+        <div class="ck-punkt"><b>Photovoltaik vom eigenen Dach</b>
+          Primärenergiefaktor 0,0.</div>
+        <div class="ck-punkt"><b>Solarthermie und Speicher</b>
+          Vor allem beim Warmwasser wirksam.</div>
+        <div class="ck-punkt"><b>Rohrdämmung und Pumpentausch</b>
+          Klein, billig, wird oft vergessen.</div>
+        <div class="ck-punkt"><b>n<sub>50</sub> aus der Messung</b>
+          Ein gemessener Blower-Door-Wert ist meist besser als der Standardansatz.</div>
+      </div>
+    </div>
+
+    <div class="ck-grenze"><b>Wo die Optimierung aufhört.</b>
+      Flächen, Dämmschichten oder Maßnahmen anzusetzen, die es nicht gibt, ist kein
+      Rechenweg, sondern Subventionsbetrug nach § 264 StGB – und die Sachverständige
+      oder der Sachverständige haftet mit. Alles oben Genannte ist das Gegenteil
+      davon: genauer rechnen statt pauschal ansetzen.</div>
+  </section>
+
   <section class="panel" id="p-qp">
     <h2>Was zur Effizienzhausstufe zusätzlich zählt</h2>
     <p class="panel-sub">Die Hülle ist die eine Hälfte. Diese Punkte wirken auf die andere –
@@ -889,6 +1091,17 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
         <a href="ratgeber-waermepumpe-altbau.html" style="color:var(--amber-deep);font-weight:600">dazu der Ratgeber</a>.</span>
       </div>
       <div class="qp-zeile">
+        <b>Vorlauftemperatur und Flächenheizung</b>
+        <span>Der stillste Hebel auf dieser Seite. Jedes Kelvin niedrigere
+        Vorlauftemperatur verbessert die Arbeitszahl einer Wärmepumpe um rund
+        2,5 bis 3 %. Flächenheizungen – Fußboden, Wand oder Klimadecke – kommen mit
+        30 bis 35 °C aus, Heizkörper brauchen meist 45 bis 55 °C; das hebt die
+        Arbeitszahl typischerweise um 0,5 bis 1,0. Auf den H′<sub>T</sub>-Wert wirkt
+        eine Klimadecke dagegen nicht: Sie ist Heizfläche, kein Dämmstoff.
+        In der Tabelle oben sehen Sie den Unterschied zwischen den Arbeitszahlen
+        bereits gerechnet.</span>
+      </div>
+      <div class="qp-zeile">
         <b>Erneuerbare Anteile</b>
         <span>Photovoltaik, Solarthermie und Umweltwärme senken den Primärenergiebedarf
         zusätzlich. Sie sind oft der Schritt, der eine Stufe möglich macht, wenn die
@@ -918,6 +1131,58 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
   </section>
 
   <!-- ===================== DETAILMODUS ===================== -->
+  <section class="panel" id="p-ablauf">
+    <h2>Wann die Stufe festgelegt wird</h2>
+    <p class="panel-sub">Die vielleicht wichtigste Auskunft auf dieser Seite, weil sie
+      am meisten Geld kostet, wenn man sie zu spät bekommt: Die Effizienzhausstufe
+      entsteht in der Planung, nicht auf der Baustelle.</p>
+
+    <div class="ab-kette">
+      <span class="ab-schritt">Planung</span>
+      <span class="ab-pfeil">→</span>
+      <span class="ab-schritt hier">Bestätigung zum Antrag</span>
+      <span class="ab-pfeil">→</span>
+      <span class="ab-schritt">Antrag</span>
+      <span class="ab-pfeil">→</span>
+      <span class="ab-schritt">Bauen</span>
+      <span class="ab-pfeil">→</span>
+      <span class="ab-schritt">Bestätigung nach Durchführung</span>
+      <span class="ab-pfeil">→</span>
+      <span class="ab-schritt">Auszahlung</span>
+    </div>
+
+    <div class="ab-punkte">
+      <div class="ab-punkt"><b>Die Stufe steht vor dem Antrag fest.</b>
+        Die Bestätigung zum Antrag entsteht aus der Planung – eine Berechnung dessen,
+        was gebaut werden soll. Ohne sie gibt es keinen Antrag, und der Antrag muss
+        vor Vorhabenbeginn gestellt sein.</div>
+      <div class="ab-punkt"><b>Die Bestätigung nach Durchführung prüft nur nach.</b>
+        Sie bestätigt, dass das Geplante auch so ausgeführt wurde. Sie ist keine
+        zweite Chance, eine bessere Stufe geltend zu machen.</div>
+      <div class="ab-punkt"><b>Besser als beantragt bringt kein Geld.</b>
+        Eine Aufstockung über den bei Antragstellung beantragten Umfang hinaus ist
+        ausgeschlossen – ausdrücklich auch dann, wenn das Ergebnis besser ausfällt
+        als beantragt. Wer auf Effizienzhaus 70 beantragt und faktisch 55 baut,
+        bekommt die Förderung für 70.</div>
+      <div class="ab-punkt"><b>Höher geht nur mit Verzicht und neuem Antrag.</b>
+        Der Wechsel in eine höhere Stufe setzt voraus, dass auf die erste Zusage
+        verzichtet und neu beantragt wird. Wer später erneut saniert und dabei eine
+        höhere Stufe erreicht, kann die dann anfallenden Kosten wieder fördern
+        lassen – als eigenen Antrag, nicht als Nachbesserung des ersten.</div>
+      <div class="ab-punkt"><b>Zu optimistisch ist ebenso teuer.</b>
+        Was in der Bestätigung zum Antrag steht, muss am Ende auch dastehen.
+        Reserve gehört deshalb in die Planung, nicht in die Hoffnung.</div>
+    </div>
+
+    <div class="ab-schluss">Was dieser Rechner zeigt, gehört in die Planung.
+      Nach der Zusage ist es nichts mehr wert.</div>
+
+    <p class="panel-sub" style="margin-top:16px;font-size:.84rem">
+      Verfahrensangaben nach den Arbeitshilfen und Merkblättern der KfW. Maßgeblich
+      ist der Stand bei Ihrer Antragstellung – Programme und Bedingungen ändern
+      sich mehrmals im Jahr.</p>
+  </section>
+
   <section class="panel" id="p-detail">
     <button class="detail-schalter" id="detailSchalter" aria-expanded="false" aria-controls="detailInhalt">
       <span class="detail-pfeil">›</span>
@@ -1087,7 +1352,7 @@ var KENNWERTE = {
   fensterPreis:{ kunststoff:[200,640], holz:[300,750], alu:[450,1000], holzAlu:[550,1200] },
   uTuer:{ alt:3.0, neu:1.3 },
   lambdaDaemm:0.035,
-  wbZuschlag:{ unsaniert:0.10, saniert:0.05, jeGaube:0.02, max:0.15 },
+  wbZuschlag:{ unsaniert:0.10, saniert:0.05, kurzverfahren:0.035, kategorieB:0.03, jeGaube:0.02, max:0.15 },
   klassen:[ ['A+',30],['A',50],['B',75],['C',100],['D',130],['E',160],['F',200],['G',250],['H',1e9] ],
   klassenFarben:{ 'A+':'#1E7A44','A':'#4C8C33','B':'#87A22B','C':'#B8A81F','D':'#C98A1E','E':'#C96F22','F':'#BC5524','G':'#AC3E26','H':'#983024' },
   zielU:{ wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25, boden:0.25, fenster:0.95, tuer:1.3 }
@@ -2242,8 +2507,33 @@ function hatPlan(){
 }
 
 function wandInnen(){ return !!(G && G.wand && G.wand.lage==='innen'); }
-function wbNachher(){ return wandInnen() ? KENNWERTE.wbZuschlag.unsaniert
-                                         : KENNWERTE.wbZuschlag.saniert; }
+
+/* Der Waermebrueckenzuschlag ist keine Bauqualitaet, sondern ein NACHWEISWEG.
+   Wer nichts nachweist, rechnet mit 0,10 - und das kostet bei einem typischen
+   Haus rund 20 Prozentpunkte gegenueber der detaillierten Berechnung, also
+   mehr als der Abstand zwischen zwei Effizienzhausstufen. Deshalb ist das
+   hier eine Auswahl und keine Annahme. */
+var WB_WAHL = 'saniert';
+var WB_STUFEN = [
+  ['unsaniert',     'Ohne Nachweis',
+   'Der Pauschalwert. Kostet nichts an Arbeit und viel an Ergebnis.'],
+  ['saniert',       'Gleichwertigkeitsnachweis',
+   'DIN 4108 Beiblatt 2:2019-06, Kategorie A. Formblatt A der KfW.'],
+  ['kurzverfahren', 'KfW-Wärmebrückenkurzverfahren',
+   'Standardisiertes Verfahren bei Einhaltung geometrischer und konstruktiver Vorgaben. Formblatt D.'],
+  ['kategorieB',    'Detaillierte Berechnung',
+   'Jeder Anschluss einzeln gerechnet. Formblatt C – im Bestand oft der einzige Weg unter 0,05.']
+];
+
+function wbNachher(){
+  var v = KENNWERTE.wbZuschlag[WB_WAHL];
+  if(v==null) v = KENNWERTE.wbZuschlag.saniert;
+  /* Bei Innendaemmung bleiben einbindende Decken und Innenwaende kalt. Die
+     pauschalen Gleichwertigkeitswege tragen das nicht - nur eine detaillierte
+     Berechnung kann zeigen, was dabei wirklich herauskommt. */
+  if(wandInnen() && WB_WAHL !== 'kategorieB') v = KENNWERTE.wbZuschlag.unsaniert;
+  return v;
+}
 
 function neuRechnen(){
   renderStellschrauben();
@@ -2397,6 +2687,8 @@ function renderStellschrauben(){
       k.appendChild(mischWand());
     }
   });
+
+  k.appendChild(wbHebel());
 
   k.appendChild(el('div','stell-fuss',
     'Eine Wärmepumpe oder Photovoltaik hilft hier nicht: Sie wirken auf den ' +
@@ -2563,6 +2855,81 @@ function mischErgebnis(){
         : ('Nötig sind '+nf(soll,2)+
            (denk?(' – bei erhaltenswerter Bausubstanz '+nf(TMA.wand.d,2)):'')+'.'));
   e.appendChild(s2);
+}
+
+/* Der groesste Einzelhebel: der Nachweisweg bei den Waermebruecken.
+   Delta-U_WB wird mit der gesamten Huellflaeche multipliziert und dann durch
+   sie geteilt - es steht also unveraendert im H'T. Die Differenz zwischen
+   zwei Stufen ist deshalb (dUwb1 - dUwb2) / H'T,ref und haengt nicht davon
+   ab, welche Bauteile gedaemmt werden. */
+function wbHebel(){
+  var b = el('div','wb-block');
+  var kopf = el('div','wb-kopf');
+  var t = el('b',null,'Wärmebrücken: welcher Nachweis?');
+  t.appendChild(infoKnopf('Warum das so viel ausmacht',
+    'Wärmebrücken werden nicht einzeln gerechnet, sondern über einen Zuschlag auf die gesamte Hüllfläche erfasst. Wer keinen Nachweis führt, muss den Pauschalwert 0,10 W/(m²·K) ansetzen – der geht unverändert in den Transmissionswärmeverlust ein. Mit einem Gleichwertigkeitsnachweis sind es 0,05, mit dem KfW-Kurzverfahren 0,035, mit einer detaillierten Berechnung auch weniger. Die KfW schreibt dazu selbst, anspruchsvolle Effizienzhausstandards seien mit dem Pauschalansatz ohne Nachweis kaum umsetzbar. Wichtig für Bestandsgebäude: Der Gleichwertigkeitsnachweis nach Beiblatt 2 ist in der Sanierung häufig nicht möglich, weil das Verfahren für den Neubau entwickelt wurde – dann bleibt der erweiterte Gleichwertigkeitsnachweis oder die detaillierte Berechnung.'));
+  kopf.appendChild(t);
+  b.appendChild(kopf);
+  b.appendChild(el('div','wb-hilfe',
+    'Kein Bauteil, sondern ein Rechenweg – und trotzdem oft der größte Hebel ' +
+    'auf dem Weg zu einer Stufe.'));
+
+  var w = el('div','wb-wahl');
+  var sel = el('select');
+  sel.setAttribute('aria-label','Nachweisweg für die Wärmebrücken');
+  WB_STUFEN.forEach(function(x){
+    var o = el('option',null, x[1]+' · ΔU '+nf(KENNWERTE.wbZuschlag[x[0]],3));
+    o.value = x[0];
+    if(WB_WAHL===x[0]) o.selected = true;
+    sel.appendChild(o);
+  });
+  sel.addEventListener('change', function(){ WB_WAHL = sel.value; neuRechnen(); });
+  w.appendChild(sel);
+  b.appendChild(w);
+
+  /* Wirkung: dieselbe Bauteilliste, nur der Zuschlag wechselt. Bezugspunkt
+     ist "ohne Nachweis" - das ist der Wert, den man ohne Arbeit bekommt. */
+  var teile = planTeile(festKarte());
+  var bilBasis = htBilanz(teile, KENNWERTE.wbZuschlag.unsaniert);
+  if(!bilBasis) return b;
+  var basis = bilBasis.verhaeltnis*100;
+
+  var tab = el('div','wb-tab');
+  WB_STUFEN.forEach(function(x){
+    var dUwb = KENNWERTE.wbZuschlag[x[0]];
+    var bil = htBilanz(teile, dUwb);
+    if(!bil) return;
+    var q = bil.verhaeltnis*100;
+    var z = el('div','wb-zeile'+(WB_WAHL===x[0]?' aktiv':''));
+    z.appendChild(el('div',null,x[1]));
+    z.appendChild(el('div','wb-num','ΔU '+nf(dUwb,3)));
+    z.appendChild(el('div','wb-num','H′T '+nf(q,0)+' %'));
+    z.appendChild(el('div','wb-num'+(q<basis-0.5?' wb-gewinn':''),
+      q < basis-0.5 ? ('−'+nf(basis-q,0)+' Punkte') : 'Ausgangswert'));
+    tab.appendChild(z);
+  });
+  b.appendChild(tab);
+
+  if(wandInnen() && WB_WAHL !== 'kategorieB'){
+    var wn = el('div','wb-warn');
+    wn.innerHTML = '<b>Bei Innendämmung gerechnet mit ' +
+      nf(KENNWERTE.wbZuschlag.unsaniert,2) + '.</b> Einbindende Decken und ' +
+      'Innenwände bleiben innen gedämmt kalt – die pauschalen ' +
+      'Gleichwertigkeitswege tragen diesen Fall nicht. Nur eine detaillierte ' +
+      'Berechnung kann zeigen, was dabei wirklich herauskommt.';
+    b.appendChild(wn);
+  }
+
+  var f = el('p','plan-warn');
+  f.innerHTML = 'Nachweiswege nach DIN 4108 Beiblatt 2:2019-06 und den ' +
+    'Arbeitshilfen der KfW (Formblätter A bis D). In der Sanierung trägt der ' +
+    'Gleichwertigkeitsnachweis nach Beiblatt 2 häufig nicht, weil das Verfahren ' +
+    'für den Neubau entwickelt wurde – dann bleibt der erweiterte ' +
+    'Gleichwertigkeitsnachweis (Formblatt B, Ergebnis zwischen 0,10 und 0,05) ' +
+    'oder die detaillierte Berechnung. Welcher Weg für Ihr Haus trägt, ' +
+    'entscheidet sich am Gebäude, nicht am Rechner.';
+  b.appendChild(f);
+  return b;
 }
 
 /* Duldungspflicht nach Landesrecht. Baden-Wuerttemberg hat eine, und sie wird
@@ -4189,6 +4556,59 @@ function detailAlles(){
               mats.length+' Materialien, Kunststoff '+
               (KENNWERTE.fensterPreis.kunststoff||['?','?']).join('–')+' €/m²)');
   if(!preisOk) ok=false;
+
+  /* ---- Waermebruecken ------------------------------------------------ */
+
+  /* 37. Der Zuschlag geht LINEAR in H'T ein - er wird mit der Huellflaeche
+         multipliziert und sofort wieder durch sie geteilt. Genau darauf beruht
+         die Aussage der Seite, die Wirkung haenge nicht davon ab, welche
+         Bauteile gedaemmt werden. */
+  var bWbHoch = htBilanz(hausG, KENNWERTE.wbZuschlag.unsaniert);
+  var bWbNied = htBilanz(hausG, KENNWERTE.wbZuschlag.saniert);
+  var dSoll = KENNWERTE.wbZuschlag.unsaniert - KENNWERTE.wbZuschlag.saniert;
+  var linear = Math.abs((bWbHoch.hStrich - bWbNied.hStrich) - dSoll) < 1e-9;
+  console.log((linear?'✅ PASS':'❌ FAIL')+' – Wärmebrückenzuschlag wirkt linear auf H′T ('+
+              nf(bWbHoch.hStrich,3)+' − '+nf(bWbNied.hStrich,3)+' = '+nf(dSoll,3)+')');
+  if(!linear) ok=false;
+
+  /* 38. Und die Prozentpunkte stimmen: erwartete Wirkung aus der reinen
+         Formel gegen die tatsaechlich gerechnete Bilanz. */
+  var ppErwartet = 100 * dSoll / bWbHoch.hStrichRef;
+  var ppGemessen = (bWbHoch.verhaeltnis - bWbNied.verhaeltnis) * 100;
+  var ppOk = Math.abs(ppErwartet - ppGemessen) < 0.01;
+  console.log((ppOk?'✅ PASS':'❌ FAIL')+' – Wirkung in Prozentpunkten exakt: erwartet '+
+              nf(ppErwartet,1)+', gerechnet '+nf(ppGemessen,1));
+  if(!ppOk) ok=false;
+
+  /* 39. Voreinstellung unveraendert - kein bestehendes Ergebnis darf kippen */
+  var vorOk = WB_WAHL==='saniert'
+           && KENNWERTE.wbZuschlag[WB_WAHL]===KENNWERTE.wbZuschlag.saniert;
+  console.log((vorOk?'✅ PASS':'❌ FAIL')+' – Voreinstellung bleibt der '+
+              'Gleichwertigkeitsnachweis ('+nf(KENNWERTE.wbZuschlag[WB_WAHL],3)+')');
+  if(!vorOk) ok=false;
+
+  /* 40. Die vier Nachweiswege kommen aus KENNWERTE, nicht aus einer zweiten
+         Kopie, und sind absteigend sortiert. */
+  var wbVor = 9, wbAb = true, wbAusKenn = true;
+  WB_STUFEN.forEach(function(x){
+    var v = KENNWERTE.wbZuschlag[x[0]];
+    if(v==null){ wbAusKenn = false; return; }
+    if(v > wbVor) wbAb = false;
+    wbVor = v;
+  });
+  console.log(((wbAb&&wbAusKenn)?'✅ PASS':'❌ FAIL')+' – vier Nachweiswege aus KENNWERTE, absteigend ('+
+              WB_STUFEN.map(function(x){ return nf(KENNWERTE.wbZuschlag[x[0]],3); }).join(' > ')+')');
+  if(!(wbAb&&wbAusKenn)) ok=false;
+
+  /* 41. Monotonie: Ein besserer Nachweis darf eine Stufe nie schwerer machen.
+         Waere das verletzt, wuerde der Rechner jemanden vom Nachweis abraten. */
+  var pWbHoch = paketFuer(hausG, eh70.ht, KENNWERTE.wbZuschlag.unsaniert);
+  var pWbNied = paketFuer(hausG, eh70.ht, KENNWERTE.wbZuschlag.kategorieB);
+  var monoton = (!pWbHoch.erreichbar || pWbNied.erreichbar)
+             && (!pWbHoch.erreichbar || pWbNied.k >= pWbHoch.k - 1e-9);
+  console.log((monoton?'✅ PASS':'❌ FAIL')+' – besserer Nachweis macht die Stufe nie schwerer ('+
+              'k '+nf(pWbHoch.k,3)+' → '+nf(pWbNied.k,3)+')');
+  if(!monoton) ok=false;
 
   console.log(ok ? '✅ SELBSTTEST U-WERT-RECHNER BESTANDEN'
                  : '❌ SELBSTTEST U-WERT-RECHNER: Abweichungen – Rechenkern prüfen');
