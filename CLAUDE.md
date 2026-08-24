@@ -478,6 +478,23 @@ Flächen" ab. Die technischen FAQ zur BEG lassen zu, dass eine Teilfläche den
 Anforderungswert verfehlt, solange der flächengewichtete Mittelwert über die
 gesamte neu gedämmte Fläche stimmt.
 
+### Detailmodus: ein Stand je Bauteil
+
+Der aufklappbare Schichtaufbau hält seit dem Umbau **für jedes Bauteil einen
+eigenen Stand** in `D` – vorher gab es nur `Z`, und beim Wechsel wurde neu aus
+`IST.teile` geladen, womit jede Eingabe verloren ging. `Z` ist jetzt nur noch
+der Arbeitsstand des offenen Bauteils; `detailSpeichern()` und `detailLaden()`
+schieben zwischen beiden hin und her.
+
+`beruehrt` wird ausschließlich in `detailGeaendert()` gesetzt – **nicht** beim
+bloßen Anschauen. Sonst stünde in der Bilanz eine Dämmung, die niemand gewählt
+hat: Beim Öffnen sind 14 cm außen vorbelegt. Unberührte Bauteile gehen deshalb
+mit ihrem **Ist-Wert** in `detailSumme()` ein und werden als offen ausgewiesen.
+
+`schichtenVon(st)` ist die gemeinsame Quelle für die Schichtfolge samt Dämmung –
+außen hängt sie hinten an, innen kommt sie nach vorn. Die Reihenfolge ist nicht
+kosmetisch, ein Selbsttest prüft sie.
+
 `AUFBAUTEN` sind **Beispiele**, keine Statistik. Der Selbsttest prüft sie nur
 gegen ein Plausibilitätsband (Faktor 0,5 bis 2,0) um die Baualterstabelle des
 Sanierungsrechners – er soll vertippte λ-Werte fangen, nicht Übereinstimmung
@@ -488,10 +505,10 @@ mit einem Bestandsmittelwert erzwingen.
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser + Plausibilität).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
-`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (41 Fälle: Handrechnung,
+`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (44 Fälle: Handrechnung,
 Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische
 Aufbauten, Grenzen und Ausgleich, Primärenergie, feste Werte, Wirkung,
-BEG-Anforderungswerte, Flächenmittel, Verglasungen, Wärmebrücken).
+BEG-Anforderungswerte, Flächenmittel, Verglasungen, Wärmebrücken, Detailmodus).
 Schlägt ein Fall fehl, wurde das Rechenmodell beschädigt – Änderung zurücknehmen
 oder CONFIG korrigieren. Zusätzlich: Seite bei 390 px Breite ohne horizontales
 Scrollen, Wizard einmal komplett durchklicken.

@@ -561,6 +561,29 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
 .ab-schluss{background:var(--forest-soft);border-radius:var(--radius-sm);padding:16px 19px;
   margin-top:16px;font-size:.92rem;color:var(--forest);font-weight:600}
 
+/* ==== Detailmodus: Bilanz ueber alle Bauteile ==== */
+.ds-block{margin-top:26px;padding-top:20px;border-top:2px solid var(--line)}
+.ds-zeile{display:grid;grid-template-columns:minmax(0,1fr) 118px 132px;gap:12px;
+  padding:9px 0;border-top:1px solid var(--line-soft);font-size:.89rem;align-items:center}
+.ds-zeile>*{min-width:0}
+.ds-zeile:first-of-type{border-top:none}
+.ds-wert{font-variant-numeric:tabular-nums;text-align:right}
+.ds-mark{font-size:.83rem}
+.ds-fertig{color:var(--ok);font-weight:600}
+.ds-offen{color:var(--muted)}
+.ds-aussen{color:var(--muted);font-style:italic}
+.ds-summe{background:var(--cream-2);border-radius:var(--radius-sm);padding:15px 18px;
+  margin-top:14px;font-size:.95rem}
+.ds-summe em{font-style:normal;font-weight:700;color:var(--forest)}
+.ds-stufe{margin-top:12px;font-size:.92rem;font-weight:600;color:var(--forest)}
+.ds-stufe.knapp{color:var(--amber-deep)}
+.ds-fortschritt{font-size:.86rem;color:var(--muted);margin-bottom:12px}
+.chip.fertig::after{content:" ✓";color:var(--ok);font-weight:700}
+@media (max-width:640px){
+  .ds-zeile{grid-template-columns:1fr auto;gap:3px 10px}
+  .ds-zeile .ds-mark{grid-column:1/-1}
+}
+
 /* GEMEINSAM:CSS */
 /* Kopf, Menue, Knoepfe und Fuss stammen aus index.html.
    Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
@@ -1192,10 +1215,13 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
       <p class="panel-sub" style="margin-top:14px">
         Hier rechnen Sie ein einzelnes Bauteil Schicht für Schicht durch – mit den
         Baustoffen aus der Bibliothek und deren Wärmeleitfähigkeit λ. Der Aufbau ist
-        aus Ihren Antworten vorbelegt und lässt sich frei ändern. Diese Rechnung
-        beeinflusst das Ergebnis oben nicht.
+        aus Ihren Antworten vorbelegt und lässt sich frei ändern. Ihre Eingaben
+        bleiben je Bauteil erhalten – Sie können also die Wand aufbauen, zum Dach
+        wechseln und später zurück. Unten steht die Bilanz über alle Bauteile.
+        Diese Rechnung ist von der Auswertung oben unabhängig.
       </p>
 
+      <div class="ds-fortschritt" id="detailFortschritt"></div>
       <div class="chips" id="bauteilChips"></div>
       <div class="schichten" id="schichtBox"></div>
       <button class="btn btn-ghost btn-sm" id="schichtPlus">+ Schicht hinzufügen</button>
@@ -1234,6 +1260,8 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
 
       <h3 style="margin-top:22px">Dicke für einen Zielwert</h3>
       <div class="ziel-grid" id="zielGrid"></div>
+
+      <div class="ds-block" id="detailSummeBox"></div>
     </div>
   </section>
 
@@ -3958,7 +3986,39 @@ function renderAnlagentechnik(){
 }
 
 /* ---------- Detailmodus: Schichteditor ---------- */
+/* Z ist der Arbeitsstand des gerade offenen Bauteils, D die Ablage fuer alle.
+   Vorher wurde beim Wechsel neu aus dem Ist-Zustand geladen - alles, was am
+   vorigen Bauteil eingegeben war, ging dabei verloren. */
 var Z = { bauteil:'wand', schichten:[], lage:'aussen', daemmstoff:'eps_035', daemmDicke:14 };
+var D = {};
+
+function detailSpeichern(){
+  if(!Z.bauteil) return;
+  var alt = D[Z.bauteil] || {};
+  D[Z.bauteil] = {
+    schichten: Z.schichten.map(function(x){ return {id:x.id, d:x.d}; }),
+    lage: Z.lage, daemmstoff: Z.daemmstoff, daemmDicke: Z.daemmDicke,
+    beruehrt: !!alt.beruehrt
+  };
+}
+
+function detailLaden(id){
+  var st = D[id];
+  Z.bauteil = id;
+  if(!st) return;
+  Z.schichten = st.schichten.map(function(x){ return {id:x.id, d:x.d}; });
+  Z.lage = st.lage; Z.daemmstoff = st.daemmstoff; Z.daemmDicke = st.daemmDicke;
+}
+
+/* Schichtfolge inklusive der ergaenzten Daemmung - fuer einen beliebigen
+   gespeicherten Stand, nicht nur fuer den gerade offenen. */
+function schichtenVon(st){
+  if(!st || !st.schichten) return [];
+  if(st.lage==='keine' || !(st.daemmDicke>0)) return st.schichten.slice();
+  var d = {id:st.daemmstoff, d:st.daemmDicke};
+  return st.lage==='innen' ? [d].concat(st.schichten) : st.schichten.concat([d]);
+}
+function uAusStand(id, st){ return uWert(schichtenVon(st), btDef(id).lage); }
 
 function btDef(id){ for(var i=0;i<BAUTEILE.length;i++){ if(BAUTEILE[i].id===id) return BAUTEILE[i]; } return BAUTEILE[0]; }
 function refKey(id){ return id; }
@@ -3990,28 +4050,35 @@ function stoffSelect(gewaehlt, nurDaemm){
   return s;
 }
 
-function schichtenMitDaemmung(){
-  if(Z.lage==='keine' || !(Z.daemmDicke>0)) return Z.schichten.slice();
-  var d = {id:Z.daemmstoff, d:Z.daemmDicke};
-  return Z.lage==='innen' ? [d].concat(Z.schichten) : Z.schichten.concat([d]);
-}
+function schichtenMitDaemmung(){ return schichtenVon(Z); }
 
 function detailStart(){
   var vorhanden = IST.teile.filter(function(t){ return t.schichten; });
   if(!vorhanden.length) return;
-  Z.bauteil = vorhanden[0].id;
-  Z.schichten = vorhanden[0].schichten.slice();
-  Z.lage = (G && G.wand && G.wand.lage==='innen') ? 'innen' : 'aussen';
-  Z.daemmstoff = A.daemmstoffWunsch || 'eps_035';
+  var innen = (G && G.wand && G.wand.lage==='innen');
+  var wunsch = A.daemmstoffWunsch || 'eps_035';
+  /* Jedes Bauteil bekommt seinen eigenen Startstand aus dem Ist-Zustand. */
+  D = {};
+  vorhanden.forEach(function(t){
+    D[t.id] = {
+      schichten: t.schichten.map(function(x){ return {id:x.id, d:x.d}; }),
+      lage: (t.id==='wand' && innen) ? 'innen' : 'aussen',
+      daemmstoff: wunsch, daemmDicke: 14, beruehrt: false
+    };
+  });
+  detailLaden(vorhanden[0].id);
   detailAlles();
 }
 
 function renderBauteilChips(){
   var box = $('bauteilChips'); box.innerHTML='';
   IST.teile.filter(function(t){ return t.schichten; }).forEach(function(t){
-    var c = el('button','chip'+(t.id===Z.bauteil?' aktiv':''), t.n);
+    var fertig = D[t.id] && D[t.id].beruehrt;
+    var c = el('button','chip'+(t.id===Z.bauteil?' aktiv':'')+(fertig?' fertig':''), t.n);
     c.addEventListener('click', function(){
-      Z.bauteil = t.id; Z.schichten = t.schichten.slice(); detailAlles();
+      detailSpeichern();          /* Stand des bisherigen Bauteils sichern */
+      detailLaden(t.id);          /* und den des neuen holen */
+      detailAlles();
     });
     box.appendChild(c);
   });
@@ -4033,17 +4100,17 @@ function renderSchichten(){
   Z.schichten.forEach(function(sch, i){
     var b = stoff(sch.id), r = el('div','schicht');
     var sel = stoffSelect(sch.id, false);
-    sel.addEventListener('change', function(){ Z.schichten[i].id = sel.value; detailAlles(); });
+    sel.addEventListener('change', function(){ Z.schichten[i].id = sel.value; detailGeaendert(); });
     r.appendChild(sel);
     var inp = el('input'); inp.type='number'; inp.min='0'; inp.max='200'; inp.step='0.5';
     inp.value = sch.d; inp.setAttribute('aria-label','Dicke in Zentimeter');
-    inp.addEventListener('input', function(){ Z.schichten[i].d = Number(inp.value); detailAlles(); });
+    inp.addEventListener('input', function(){ Z.schichten[i].d = Number(inp.value); detailGeaendert(); });
     r.appendChild(inp);
     r.appendChild(el('div','zahl sp-l', b ? nf(b.l,3) : '–'));
     r.appendChild(el('div','zahl sp-r', b && sch.d>0 ? nf((sch.d/100)/b.l,3) : '–'));
     var weg = el('button','schicht-weg','×');
     weg.setAttribute('aria-label','Schicht entfernen');
-    weg.addEventListener('click', function(){ Z.schichten.splice(i,1); detailAlles(); });
+    weg.addEventListener('click', function(){ Z.schichten.splice(i,1); detailGeaendert(); });
     r.appendChild(weg);
     box.appendChild(r);
   });
@@ -4097,7 +4164,7 @@ function renderLageChips(){
         Z.daemmstoff='mineralschaum'; Z.daemmDicke=Math.min(Z.daemmDicke,6); }
       if(Z.lage==='aussen' && stoff(Z.daemmstoff) && stoff(Z.daemmstoff).g==='innen'){
         Z.daemmstoff='eps_035'; }
-      detailAlles();
+      detailGeaendert();
     });
   });
 }
@@ -4107,13 +4174,13 @@ function renderDaemmung(){
   $('daemmFelder').style.display = (Z.lage==='keine') ? 'none' : '';
   var alt = $('daemmstoff'), neu = stoffSelect(Z.daemmstoff, true);
   neu.id='daemmstoff';
-  neu.addEventListener('change', function(){ Z.daemmstoff=neu.value; detailAlles(); });
+  neu.addEventListener('change', function(){ Z.daemmstoff=neu.value; detailGeaendert(); });
   alt.parentNode.replaceChild(neu, alt);
 
   var dicke = $('daemmDicke');
   if(document.activeElement!==dicke) dicke.value = Z.daemmDicke;
   if(!dicke._geb){ dicke._geb=true;
-    dicke.addEventListener('input', function(){ Z.daemmDicke=Number(dicke.value); detailAlles(); }); }
+    dicke.addEventListener('input', function(){ Z.daemmDicke=Number(dicke.value); detailGeaendert(); }); }
 
   $('uVorher').textContent  = nf(uWert(Z.schichten, bt.lage),2);
   $('uNachher').textContent = nf(uWert(schichtenMitDaemmung(), bt.lage),2);
@@ -4157,8 +4224,103 @@ function renderZiele(){
 }
 
 function detailAlles(){
+  detailSpeichern();
   renderBauteilChips(); renderSchichten(); renderVergleich();
   renderLageChips(); renderDaemmung(); renderZiele();
+  detailSumme();
+}
+
+/* Bilanz ueber alle Bauteile - das Ergebnis, das am Ende stehen soll.
+   Bauteile, die der Nutzer noch nicht bearbeitet hat, gehen mit ihrem
+   Ist-Wert ein und werden als offen ausgewiesen. Alles andere waere eine
+   Zahl, die niemand eingegeben hat. */
+function detailSumme(){
+  var box = $('detailSummeBox');
+  var fort = $('detailFortschritt');
+  if(!box || !IST || !IST.teile) return;
+  box.innerHTML = '';
+
+  var zeilen = [], teile = [], offeneNamen = [], gebaut = 0;
+  IST.teile.forEach(function(t){
+    var st = t.schichten ? D[t.id] : null;
+    if(st){
+      gebaut++;
+      var fertig = !!st.beruehrt;
+      var u = fertig ? uAusStand(t.id, st) : t.u;
+      if(!fertig) offeneNamen.push(t.n);
+      zeilen.push({ n:t.n, alt:t.u, neu:fertig?u:null, art:fertig?'fertig':'offen' });
+      teile.push({ u:u, flaeche:t.flaeche, fx:t.fx, refKey:t.refKey });
+    } else {
+      zeilen.push({ n:t.n, alt:t.u, neu:null, art:'aussen' });
+      teile.push({ u:t.u, flaeche:t.flaeche, fx:t.fx, refKey:t.refKey });
+    }
+  });
+
+  /* Fortschrittszeile ueber den Bauteil-Chips */
+  if(fort){
+    var fertigZahl = gebaut - offeneNamen.length;
+    fort.textContent = offeneNamen.length===0
+      ? ('Alle ' + gebaut + ' Bauteile eingegeben – die Bilanz unten ist vollständig.')
+      : (fertigZahl + ' von ' + gebaut + ' Bauteilen eingegeben. Es fehlt noch: ' +
+         offeneNamen.join(', ') + '.');
+  }
+
+  box.appendChild(el('h3',null,'Ergebnis über alle Bauteile'));
+  box.appendChild(el('p','panel-sub',
+    'Aus den Aufbauten, die Sie hier zusammengestellt haben – zusammen mit den ' +
+    'Flächen aus Ihren Antworten.'));
+
+  zeilen.forEach(function(z){
+    var r = el('div','ds-zeile');
+    r.appendChild(el('div',null,z.n));
+    r.appendChild(el('div','ds-wert',
+      z.neu!=null ? (nf(z.alt,2)+' → '+nf(z.neu,2)) : nf(z.alt,2)));
+    var m = el('div','ds-mark ds-'+z.art);
+    m.textContent = z.art==='fertig' ? 'eingegeben'
+                  : (z.art==='offen' ? 'noch offen – zählt mit dem Ist-Wert'
+                                     : 'kein Schichtaufbau – zählt mit dem Ist-Wert');
+    r.appendChild(m);
+    box.appendChild(r);
+  });
+
+  var b = htBilanz(teile, wbNachher());
+  if(!b) return;
+  var q = b.verhaeltnis*100;
+
+  var su = el('div','ds-summe');
+  su.innerHTML = 'H′T <em>'+nf(b.hStrich,3)+'</em> W/(m²·K) – das sind <em>'+
+    nf(q,0)+' %</em> des Referenzgebäudes. Heute sind es '+
+    nf(IST.bilanz.verhaeltnis*100,0)+' %.';
+  box.appendChild(su);
+
+  /* Beste Stufe, deren H'T-Kriterium diese Huelle haelt */
+  var beste = null;
+  UK.ehStufen.forEach(function(st){
+    if(q <= st.ht + 0.05 && (!beste || st.ht < beste.ht)) beste = st;
+  });
+  var z2 = el('div','ds-stufe'+(offeneNamen.length?' knapp':''));
+  z2.textContent = beste
+    ? ('Damit erfüllt die Hülle das H′T-Kriterium für Effizienzhaus ' + beste.name +
+       (offeneNamen.length ? ' – noch mit ungeprüften Bauteilen.' : '.'))
+    : ('Damit hält die Hülle noch keine Effizienzhausstufe – nötig wären ' +
+       UK.ehStufen[3].ht + ' % für die niedrigste Stufe.');
+  box.appendChild(z2);
+
+  var h = el('p','plan-warn');
+  h.innerHTML = 'Gerechnet mit einem Wärmebrückenzuschlag von ' +
+    nf(wbNachher(),3) + ' W/(m²·K) und den Flächen aus dem Fragebogen. ' +
+    'Wie oben gilt: Geprüft ist nur der Transmissionswärmeverlust. Ob eine ' +
+    'Effizienzhausstufe insgesamt steht, entscheidet der Primärenergiebedarf mit.';
+  box.appendChild(h);
+}
+
+/* Eine Aenderung durch den Nutzer - erst damit gilt ein Bauteil als
+   eingegeben. Reines Anschauen zaehlt nicht, sonst stuende in der Bilanz
+   eine Daemmung, die niemand gewaehlt hat. */
+function detailGeaendert(){
+  if(D[Z.bauteil]) D[Z.bauteil].beruehrt = true;
+  else D[Z.bauteil] = {beruehrt:true};
+  detailAlles();
 }
 
 /* ---------- Start ---------- */
@@ -4180,7 +4342,7 @@ function detailAlles(){
     renderSchritt(); $('fragebogen').scrollIntoView({block:'start'});
   });
   $('schichtPlus').addEventListener('click', function(){
-    Z.schichten.push({id:'mw_035', d:5}); detailAlles(); });
+    Z.schichten.push({id:'mw_035', d:5}); detailGeaendert(); });
   var ds = $('detailSchalter');
   ds.addEventListener('click', function(){
     var offen = $('detailInhalt').hidden;
@@ -4609,6 +4771,54 @@ function detailAlles(){
   console.log((monoton?'✅ PASS':'❌ FAIL')+' – besserer Nachweis macht die Stufe nie schwerer ('+
               'k '+nf(pWbHoch.k,3)+' → '+nf(pWbNied.k,3)+')');
   if(!monoton) ok=false;
+
+  /* ---- Detailmodus: Stand je Bauteil --------------------------------- */
+
+  /* 42. Der Stand eines Bauteils muss den Wechsel ueberleben. Genau das ging
+         vorher verloren: Beim Umschalten wurde neu aus dem Ist-Zustand
+         geladen, und alle Eingaben waren weg. */
+  var zSicher = { bauteil:Z.bauteil, schichten:Z.schichten, lage:Z.lage,
+                  daemmstoff:Z.daemmstoff, daemmDicke:Z.daemmDicke };
+  var dSicher = D;
+  D = {};
+  Z.bauteil='wand'; Z.schichten=[{id:'hlz',d:30}]; Z.lage='aussen';
+  Z.daemmstoff='eps_035'; Z.daemmDicke=16;
+  detailSpeichern();
+  Z.bauteil='ogd'; Z.schichten=[{id:'beton',d:16}]; Z.daemmDicke=26;
+  detailSpeichern();
+  detailLaden('wand');
+  var haelt = Z.daemmDicke===16 && Z.schichten.length===1
+           && Z.schichten[0].id==='hlz' && Z.schichten[0].d===30;
+  console.log((haelt?'✅ PASS':'❌ FAIL')+' – Detailmodus behält den Stand je Bauteil ('+
+              'Wand 16 cm nach Wechsel auf OGD und zurück: '+nf(Z.daemmDicke,0)+' cm)');
+  if(!haelt) ok=false;
+
+  /* 43. Die Daemmung gehoert je nach Lage vor oder hinter den Bestand -
+         auf die Reihenfolge kommt es an, weil die Innendaemmungs-Ampel
+         daran haengt. */
+  var stA = {schichten:[{id:'hlz',d:30}], lage:'aussen', daemmstoff:'eps_035', daemmDicke:16};
+  var stI = {schichten:[{id:'hlz',d:30}], lage:'innen', daemmstoff:'mineralschaum', daemmDicke:6};
+  var stK = {schichten:[{id:'hlz',d:30}], lage:'keine', daemmstoff:'eps_035', daemmDicke:16};
+  var sA = schichtenVon(stA), sI = schichtenVon(stI), sK = schichtenVon(stK);
+  var reiheOk = sA.length===2 && sA[1].id==='eps_035'
+             && sI.length===2 && sI[0].id==='mineralschaum'
+             && sK.length===1;
+  console.log((reiheOk?'✅ PASS':'❌ FAIL')+' – Dämmschicht sitzt richtig: außen hinten, '+
+              'innen vorn, ohne gar nicht ('+sA.length+'/'+sI.length+'/'+sK.length+' Schichten)');
+  if(!reiheOk) ok=false;
+
+  /* 44. Und der U-Wert daraus bleibt plausibel */
+  var uA = uAusStand('wand', stA), uK = uAusStand('wand', stK);
+  var uOk = uA < uK && uA > 0.15 && uA < 0.25;
+  console.log((uOk?'✅ PASS':'❌ FAIL')+' – 30 cm Hochlochziegel mit 16 cm EPS: U '+
+              nf(uK,2)+' → '+nf(uA,2));
+  if(!uOk) ok=false;
+
+  /* Zustand des Detailmodus wieder herstellen - der Selbsttest darf die
+     Bedienoberflaeche nicht veraendern. */
+  D = dSicher;
+  Z.bauteil=zSicher.bauteil; Z.schichten=zSicher.schichten; Z.lage=zSicher.lage;
+  Z.daemmstoff=zSicher.daemmstoff; Z.daemmDicke=zSicher.daemmDicke;
 
   console.log(ok ? '✅ SELBSTTEST U-WERT-RECHNER BESTANDEN'
                  : '❌ SELBSTTEST U-WERT-RECHNER: Abweichungen – Rechenkern prüfen');
