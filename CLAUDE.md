@@ -478,6 +478,18 @@ Flächen" ab. Die technischen FAQ zur BEG lassen zu, dass eine Teilfläche den
 Anforderungswert verfehlt, solange der flächengewichtete Mittelwert über die
 gesamte neu gedämmte Fläche stimmt.
 
+### Dach oder oberste Geschossdecke – nie beides
+
+`geometrie()` liefert je nach `dgBeheizt` **entweder** `aDach` **oder** `aOgd`,
+das jeweils andere ist 0. Fachlich richtig: Bei unbeheiztem Dachgeschoss endet
+die Hülle an der obersten Geschossdecke, das Dach liegt außerhalb.
+
+Das führt regelmäßig zu „wo ist das Dach hin?". Die Frage war im Fragebogen
+hinter dem (i) erklärt, im **Ergebnis** aber nirgends – dort sah man nur ein
+fehlendes Bauteil. `dachHinweis()` erzeugt den passenden Text, gezeigt an zwei
+Stellen: unter der Ist-Tabelle und als Kurzfassung über den Bauteil-Chips des
+Detailmodus. Ein Selbsttest sichert das Entweder-oder ab.
+
 ### Detailmodus: ein Stand je Bauteil
 
 Der aufklappbare Schichtaufbau hält seit dem Umbau **für jedes Bauteil einen
@@ -505,7 +517,7 @@ mit einem Bestandsmittelwert erzwingen.
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser + Plausibilität).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
-`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (44 Fälle: Handrechnung,
+`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (45 Fälle: Handrechnung,
 Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische
 Aufbauten, Grenzen und Ausgleich, Primärenergie, feste Werte, Wirkung,
 BEG-Anforderungswerte, Flächenmittel, Verglasungen, Wärmebrücken, Detailmodus).

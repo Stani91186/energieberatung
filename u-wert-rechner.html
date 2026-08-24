@@ -584,6 +584,12 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
   .ds-zeile .ds-mark{grid-column:1/-1}
 }
 
+/* ==== Dach oder oberste Geschossdecke ==== */
+.dach-hinweis{background:var(--cream-2);border-radius:var(--radius-sm);
+  padding:14px 17px;margin:14px 0 4px;font-size:.87rem;max-width:74ch}
+.dach-hinweis b{display:block;margin-bottom:3px}
+.ds-dach{font-size:.85rem;color:var(--muted);margin-top:6px}
+
 /* GEMEINSAM:CSS */
 /* Kopf, Menue, Knoepfe und Fuss stammen aus index.html.
    Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
@@ -890,6 +896,7 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
       Räume oder Erdreich verlieren weniger Wärme als solche gegen Außenluft und
       zählen deshalb anteilig.
     </p>
+    <div class="dach-hinweis" id="istDachHinweis" hidden></div>
     <div id="istKennzahlen"></div>
     <div id="istEinordnung"></div>
   </section>
@@ -2386,6 +2393,8 @@ function zeigeErgebnis(){
     tb.appendChild(r);
   });
   t.appendChild(tb);
+
+  renderDachHinweis();
 
   var kz = $('istKennzahlen'); kz.innerHTML='';
   var grid = el('div');
@@ -4230,6 +4239,44 @@ function detailAlles(){
   detailSumme();
 }
 
+/* Dach und oberste Geschossdecke schliessen einander aus - je nachdem, wo die
+   beheizte Huelle endet. Im Fragebogen steht das hinter dem (i), im Ergebnis
+   stand es bisher nirgends: Wer dort ankam, sah nur, dass ein Bauteil fehlt. */
+function dachHinweis(){
+  if(!IST || !IST.teile) return null;
+  var hatDach=false, hatOgd=false;
+  IST.teile.forEach(function(t){
+    if(t.id==='dach') hatDach = true;
+    if(t.id==='ogd')  hatOgd  = true;
+  });
+  if(hatOgd && !hatDach) return {
+    titel:'Warum hier kein Dach steht',
+    text:'Sie haben angegeben, dass das Dachgeschoss nicht beheizt wird. Damit endet '+
+         'die beheizte Hülle an der obersten Geschossdecke – der Dachraum darüber '+
+         'liegt außerhalb und zählt nicht mit. Die Schrägen zu dämmen würde den '+
+         'kalten Dachboden wärmen, nicht die Wohnräume. Ist das Dachgeschoss doch '+
+         'ausgebaut, ändern Sie die Antwort im Fragebogen – dann rechnet der Rechner '+
+         'mit den Dachflächen statt mit der Decke.'
+  };
+  if(hatDach && !hatOgd) return {
+    titel:'Warum hier keine oberste Geschossdecke steht',
+    text:'Sie haben angegeben, dass das Dachgeschoss ausgebaut und beheizt ist. Damit '+
+         'verläuft die Hülle durch die Dachschrägen, und eine oberste Geschossdecke '+
+         'gegen einen unbeheizten Dachraum gibt es nicht. Die Decke zwischen zwei '+
+         'beheizten Geschossen zählt zu keinem der beiden Kriterien.'
+  };
+  return null;
+}
+
+function renderDachHinweis(){
+  var box = $('istDachHinweis'); if(!box) return;
+  var h = dachHinweis();
+  if(!h){ box.hidden = true; box.innerHTML=''; return; }
+  box.hidden = false; box.innerHTML='';
+  box.appendChild(el('b',null,h.titel));
+  box.appendChild(el('span',null,h.text));
+}
+
 /* Bilanz ueber alle Bauteile - das Ergebnis, das am Ende stehen soll.
    Bauteile, die der Nutzer noch nicht bearbeitet hat, gehen mit ihrem
    Ist-Wert ein und werden als offen ausgewiesen. Alles andere waere eine
@@ -4259,10 +4306,20 @@ function detailSumme(){
   /* Fortschrittszeile ueber den Bauteil-Chips */
   if(fort){
     var fertigZahl = gebaut - offeneNamen.length;
-    fort.textContent = offeneNamen.length===0
+    fort.innerHTML = '';
+    fort.appendChild(el('span',null, offeneNamen.length===0
       ? ('Alle ' + gebaut + ' Bauteile eingegeben – die Bilanz unten ist vollständig.')
       : (fertigZahl + ' von ' + gebaut + ' Bauteilen eingegeben. Es fehlt noch: ' +
-         offeneNamen.join(', ') + '.');
+         offeneNamen.join(', ') + '.')));
+    /* Kurz erklaeren, warum Dach oder Decke fehlt - hier faellt es am ehesten auf */
+    var dh = dachHinweis();
+    if(dh){
+      var hatOgd = false;
+      IST.teile.forEach(function(t){ if(t.id==='ogd') hatOgd = true; });
+      fort.appendChild(el('div','ds-dach', hatOgd
+        ? 'Kein Dach in der Liste: Ihr Dachgeschoss ist unbeheizt, die Hülle endet an der obersten Geschossdecke.'
+        : 'Keine oberste Geschossdecke in der Liste: Ihr Dachgeschoss ist beheizt, die Hülle verläuft durch die Dachschrägen.'));
+    }
   }
 
   box.appendChild(el('h3',null,'Ergebnis über alle Bauteile'));
@@ -4819,6 +4876,22 @@ function detailGeaendert(){
   D = dSicher;
   Z.bauteil=zSicher.bauteil; Z.schichten=zSicher.schichten; Z.lage=zSicher.lage;
   Z.daemmstoff=zSicher.daemmstoff; Z.daemmDicke=zSicher.daemmDicke;
+
+  /* 45. Dach und oberste Geschossdecke schliessen einander aus. Genau das
+         fuehrt zu der Frage "wo ist das Dach hin" - je nachdem, wo die
+         beheizte Huelle endet, gibt es nur eines von beiden. */
+  function dachOgd(dg){
+    var o={}; for(var kk in basis) o[kk]=basis[kk];
+    o.haustyp='frei'; o.dgBeheizt=dg; o.dachform='sattel'; o.gauben=0;
+    var gg = geometrie(o);
+    return { dach:gg.aDach, ogd:gg.aOgd };
+  }
+  var kalt = dachOgd('nein'), warm = dachOgd('ja');
+  var entwederOder = (kalt.dach===0 && kalt.ogd>0) && (warm.dach>0 && warm.ogd===0);
+  console.log((entwederOder?'✅ PASS':'❌ FAIL')+' – Dach und oberste Geschossdecke '+
+              'schließen einander aus (unbeheizt: OGD '+nf(kalt.ogd,0)+' m², kein Dach · '+
+              'beheizt: Dach '+nf(warm.dach,0)+' m², keine OGD)');
+  if(!entwederOder) ok=false;
 
   console.log(ok ? '✅ SELBSTTEST U-WERT-RECHNER BESTANDEN'
                  : '❌ SELBSTTEST U-WERT-RECHNER: Abweichungen – Rechenkern prüfen');
