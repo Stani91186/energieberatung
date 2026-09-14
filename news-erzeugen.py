@@ -280,7 +280,7 @@ NEWS_CSS = """
 }
 .news-kat-foerderung{background:var(--amber-soft);color:#6B5638}
 .news-kat-markt{background:#EDEFF2;color:#4A5560}
-.news-eintrag h2{font-size:1.16rem;line-height:1.35;margin:0 0 9px}
+.news-eintrag h2{font-size:1.35rem;line-height:1.3;margin:0 0 10px}
 .news-eintrag p{font-size:.95rem;color:var(--ink-2);margin:0 0 12px}
 .news-quelle{font-size:.84rem;color:var(--muted);margin:0}
 .news-quelle a{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}

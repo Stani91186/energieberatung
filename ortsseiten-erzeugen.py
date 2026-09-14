@@ -895,6 +895,7 @@ def seite(o):
     }});
   }});
 
+  document.documentElement.classList.add('faq-js');
   document.querySelectorAll('.faq-item').forEach(function(item, i){{
     var q = item.querySelector('.faq-q'), a = item.querySelector('.faq-a');
     q.id = 'fq'+(i+1); a.id = 'fa'+(i+1);
@@ -907,25 +908,14 @@ def seite(o):
       var offen = item.classList.contains('open');
       document.querySelectorAll('.faq-item.open').forEach(function(o){{
         o.classList.remove('open');
-        o.querySelector('.faq-a').style.maxHeight = null;
         o.querySelector('.faq-q').setAttribute('aria-expanded','false');
       }});
       if(!offen){{
         item.classList.add('open');
-        a.style.maxHeight = a.scrollHeight + 'px';
         q.setAttribute('aria-expanded','true');
       }}
     }});
   }});
-  var t = null;
-  window.addEventListener('resize', function(){{
-    clearTimeout(t);
-    t = setTimeout(function(){{
-      document.querySelectorAll('.faq-item.open .faq-a').forEach(function(a){{
-        a.style.maxHeight = a.scrollHeight + 'px';
-      }});
-    }}, 120);
-  }}, {{passive:true}});
 
   {popup_js}
 }})();

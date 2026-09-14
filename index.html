@@ -493,7 +493,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .band-ic svg{width:19px;height:19px;stroke:var(--forest);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .band-tile > div{min-width:0}
 .band-tile b{display:block;font-size:.86rem;line-height:1.25;font-weight:600;overflow-wrap:break-word}
-.band-tile span{font-size:.73rem;color:var(--muted);overflow-wrap:break-word;hyphens:auto}
+.band-tile span{font-size:.8125rem;color:var(--muted);overflow-wrap:break-word;hyphens:auto}
 .band-note{margin-top:14px;text-align:center;font-size:.72rem;color:var(--muted)}
 
 /* ===========================================================================
@@ -840,8 +840,20 @@ html.js .reveal.in{opacity:1;transform:none}
 .faq-item.open .faq-icon{background:var(--forest);border-color:var(--forest);transform:rotate(90deg)}
 .faq-item.open .faq-icon::before,.faq-item.open .faq-icon::after{background:#fff}
 .faq-item.open .faq-icon::after{opacity:0}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
-.faq-a p{padding:0 0 22px;font-size:.94rem;color:var(--ink-2);max-width:60ch}
+/* Akkordeon ueber grid-template-rows statt max-height: Die Hoehe folgt dem
+   Inhalt und kann beim Drehen des Handys nicht veralten - vorher musste ein
+   Resize-Handler die Pixelhoehe nachfuehren. Zugeklappt wird nur, wenn das
+   Skript laeuft (.faq-js); ohne JavaScript bleiben die Antworten lesbar.
+   visibility nimmt zugeklappte Antworten aus der Tab-Reihenfolge - vorher
+   sprang der Tabulator in Links unsichtbarer Antworten. */
+.faq-a{overflow:hidden}
+.faq-js .faq-a{display:grid;grid-template-rows:0fr;visibility:hidden;
+  transition:grid-template-rows .45s var(--ease),visibility 0s .45s}
+.faq-js .faq-item.open .faq-a{grid-template-rows:1fr;visibility:visible;
+  transition:grid-template-rows .45s var(--ease),visibility 0s}
+@media (prefers-reduced-motion:reduce){.faq-js .faq-a,.faq-js .faq-item.open .faq-a{transition:none}}
+.faq-a p::after{content:"";display:block;height:22px}
+.faq-a p{min-height:0;margin:0;font-size:.94rem;color:var(--ink-2);max-width:60ch}
 
 /* ===========================================================================
    13. KONTAKT
@@ -1041,6 +1053,9 @@ html.js .reveal.in{opacity:1;transform:none}
   .illu-legend{display:flex}
   .band-tile{padding:12px 13px;gap:10px}
   .band-ic{width:32px;height:32px;border-radius:8px}
+  /* Symbol ueber den Text: nebeneinander blieben der Schrift 82 px, und
+     "Bundesfoerderung" oder "Verbrauchsausweis" brachen mitten im Wort. */
+  .band-tile{flex-direction:column;align-items:flex-start}
   .band-tile b{font-size:.8rem}
   .problem-body{padding:22px 22px 26px}
   .problem-illu{padding:18px 18px 0}
@@ -2922,6 +2937,7 @@ html.js .reveal.in{opacity:1;transform:none}
   /* --- FAQ-Akkordeon ---
      IDs und ARIA werden hier gesetzt statt im HTML: Ohne JavaScript klappt
      das Akkordeon ohnehin nicht, dann sollen auch die Zustandsangaben fehlen. */
+  document.documentElement.classList.add('faq-js');
   var faqItems = document.querySelectorAll('.faq-item');
   faqItems.forEach(function(item, i){
     var q = item.querySelector('.faq-q');
@@ -2940,28 +2956,15 @@ html.js .reveal.in{opacity:1;transform:none}
       var wasOpen = item.classList.contains('open');
       document.querySelectorAll('.faq-item.open').forEach(function(other){
         other.classList.remove('open');
-        other.querySelector('.faq-a').style.maxHeight = null;
         other.querySelector('.faq-q').setAttribute('aria-expanded','false');
       });
       if(!wasOpen){
         item.classList.add('open');
-        a.style.maxHeight = a.scrollHeight + 'px';
         q.setAttribute('aria-expanded','true');
       }
     });
   });
 
-  /* Beim Drehen oder Größenändern wird der Text neu umbrochen – die in Pixeln
-     gesetzte max-height passt dann nicht mehr und schneidet die Antwort ab. */
-  var faqResizeTimer = null;
-  window.addEventListener('resize', function(){
-    clearTimeout(faqResizeTimer);
-    faqResizeTimer = setTimeout(function(){
-      document.querySelectorAll('.faq-item.open .faq-a').forEach(function(a){
-        a.style.maxHeight = a.scrollHeight + 'px';
-      });
-    }, 120);
-  }, {passive:true});
 
   /* --- Interaktive Hero-Grafik: Einsparwerte als Popup ---
      Richtwerte aus öffentlichen Quellen (Stand Juli 2026):

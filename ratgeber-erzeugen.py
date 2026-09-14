@@ -152,7 +152,7 @@ RATGEBER_CSS = """
 .rg-text a{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .rg-kasten{background:var(--forest-soft);border-radius:var(--radius-sm);padding:20px 24px;margin:26px 0;color:var(--forest);font-size:.96rem}
 .rg-kasten b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.75}
-.rg-warnung{background:var(--amber-soft);border-left:4px solid var(--amber);border-radius:var(--radius-sm);padding:18px 22px;margin:24px 0;font-size:.94rem;color:#6B5638}
+.rg-warnung{background:var(--amber-soft);border-radius:var(--radius-sm);padding:18px 22px;margin:24px 0;font-size:.94rem;color:var(--amber-ink)}
 .rg-warnung b{color:#5A4526}
 .rg-tabelle{overflow-x:auto;margin:22px 0}
 .rg-tabelle table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:420px}

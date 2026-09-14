@@ -512,6 +512,84 @@ gegen ein Plausibilitätsband (Faktor 0,5 bis 2,0) um die Baualterstabelle des
 Sanierungsrechners – er soll vertippte λ-Werte fangen, nicht Übereinstimmung
 mit einem Bestandsmittelwert erzwingen.
 
+## Gestaltungsregeln aus dem Audit (14.09.2026)
+
+Ein `/impeccable audit` ergab 13 von 20 Punkten. Die größte Drift stammte aus
+den Rechner-Umbauten selbst: Jede neue Funktion hatte sich einen eigenen
+Hinweiskasten gebaut. Diese Regeln verhindern, dass das wieder passiert.
+
+**Hinweiskästen: drei Rollen, ein Maß.** Im U-Wert-Rechner gibt es genau drei
+Rollen, umgesetzt über gruppierte Selektoren im Block „Hinweise: drei Rollen":
+
+| Rolle | Klassen | Tönung | Symbol |
+|---|---|---|---|
+| Achtung | `.engpass` `.v-warnung` `.fv-warn` `.wb-warn` `.ck-grenze` | `--warn-soft` (`.v-warnung`: `--bad-soft`) | Warndreieck |
+| Info | `.dach-hinweis` `.grenz-hinweis` `.misch` `.fv-jetzt` `.leer-hinweis` `.merk` `.disclaimer` | `--cream-2` | Info-Kreis |
+| Ergebnis | `.ausgleich` `.ab-schluss` `.plan-summe` `.ds-summe` | `--forest-soft` | **keins** |
+
+Wer einen neuen Hinweis braucht, hängt die Klasse an eine dieser Gruppen an
+und baut **keinen siebzehnten Kasten**. Ergebnisse haben bewusst kein Symbol:
+`.plan-summe` und `.ds-summe` melden auch „hält noch keine Stufe", ein Häkchen
+wäre dort irreführend. Info-Kästen in der cremefarbenen `.stell-box` sind weiß,
+sonst stehen sie Creme auf Creme ohne Kontur.
+
+**Keine farbigen Seitenbalken.** `border-left` über 1 px an Karten, Kästen
+oder Hinweisen gilt als das erkennbarste Merkmal generierter Oberflächen. Es
+gab 17 davon, jetzt keinen. Soll eine Karte hervorgehoben werden, bekommt sie
+einen **umlaufenden** Amber-Rand (`.preis-haupt`, `.sim-bericht`).
+
+**Etiketten:** nichts unter 12,5 px. Abschnittsetiketten der Rechner sind
+14 px, normal geschrieben und waldgrün; Spaltenköpfe 13 px. Die Eyebrow bleibt
+in Versalien – Markenzeichen –, mit 13 px und weniger Sperrung.
+
+**Farbtokens für Schrift auf Tönung** stehen im `:root` aller drei
+Hauptdateien (Regel 5): `--warn-ink`, `--bad-ink`, `--ok-ink`, `--ok-hell`,
+`--amber-ink`, `--blau-soft`, `--blau`, `--blau-ink`, `--auf-gruen`. Kein
+neues Hex in eine Regel schreiben, wenn es dafür ein Token gibt.
+
+**Fokusring:** `:focus-visible` steht in `RAHMEN` von `kopf-fuss-abgleichen.py`
+und erreicht damit alle Seiten, auch die Rechner. **Ohne `border-radius`** –
+der frühere Radius von 4 px traf jedes fokussierte Element, und in den
+Rechnern liegt der geteilte Block hinter den Chip-Regeln: Jede Pille wäre bei
+Tastaturfokus eckig geworden. Der Radius steht nur noch an `a:focus-visible`.
+
+**Reduzierte Bewegung gezielt, nie global.** Kein `* { transition-duration:
+0.01ms }` – das zerstört auch die Rückmeldung beim Antippen. Stattdessen
+Bewegung (Anheben, Vergrößern, Drehen, Aufklappen) sofort, Farb- und
+Rahmenwechsel bleiben.
+
+**FAQ-Akkordeon** über `grid-template-rows: 0fr → 1fr` statt `max-height`.
+Die Höhe folgt dem Inhalt und kann beim Drehen nicht veralten, deshalb gibt es
+keinen Resize-Handler mehr. Drei Details, die man leicht kaputt macht:
+- Zugeklappt wird nur unter `.faq-js`, das das FAQ-Skript selbst setzt. Die
+  Leistungsseiten haben kein `html.js` – eine Absicherung darüber hätte ihr
+  Akkordeon lahmgelegt. Ohne JavaScript bleiben die Antworten lesbar.
+- `visibility:hidden` im zugeklappten Zustand nimmt die Antworten aus der
+  Tab-Reihenfolge. Vorher sprang der Tabulator in Links unsichtbarer Antworten.
+- `.faq-a p` braucht `margin:0`, der Abstand darunter kommt aus `::after`.
+  Ein Außenabstand zählt im Grid zur Spurhöhe und bliebe zugeklappt als Lücke
+  stehen. Die Leistungsseiten haben 36 px statt 22 px, weil sie vorher 20 px
+  Innen- plus 16 px geerbten Außenabstand hatten – das Aussehen ist gleich.
+Das Skript steht an **fünf** Stellen: `index.html`, die drei Leistungsseiten
+und die Vorlage in `ortsseiten-erzeugen.py` (dort mit doppelten Klammern).
+
+**Kopfzeile und Logo schrumpfen weiter per `height`-Übergang.** Das meldet der
+Detektor, ist aber ein einmaliger Übergang von 0,35 s an der Scrollschwelle.
+Ein Umbau würde die Kopfzeile aller Seiten anfassen – bewusst belassen.
+
+**Detektor erneut laufen lassen:**
+
+    .claude/skills/impeccable/scripts/impeccable detect --json index.html sanierungsrechner.html u-wert-rechner.html sanierungsfahrplan.html energieberatung-ulm.html ratgeber-fassade-daemmen.html aktuelles.html 404.html
+
+Stand nach dem Audit: 48 Funde (vorher 86). **Erwartet und kein Handlungsbedarf:**
+7 × geringer Kontrast (Fehlalarme – der Detektor liest keine Farbverläufe; im
+Browser 9,2:1 und mehr), 7 × Roboto und 7 × Cremepalette (Markenentscheidung),
+5 × Eyebrow über dem Titel (Entscheidung des Betreibers, trägt örtliche
+Relevanz), 5 × abgeschnittener Überlauf (`body{overflow-x:clip}`, nachweislich
+nichts abgeschnitten), 7 × Höhen-Übergang (Kopfzeile, siehe oben), 7 × Versal-
+Etiketten (Markenstil), 1 × Hausgrafik aus Grundformen (Element des Betreibers).
+Offen und klein: 1 × enger Innenabstand an `.problem-illu`.
+
 ## Qualitätsprüfung nach JEDER Änderung am Rechner
 
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:

@@ -210,8 +210,20 @@ td:first-child{color:var(--ink);font-weight:500}
 .faq-item.open .faq-icon{background:var(--forest);border-color:var(--forest);transform:rotate(90deg)}
 .faq-item.open .faq-icon::before,.faq-item.open .faq-icon::after{background:#fff}
 .faq-item.open .faq-icon::after{opacity:0}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
-.faq-a p{padding:0 0 20px;font-size:.94rem;color:var(--ink-2)}
+/* Akkordeon ueber grid-template-rows statt max-height: Die Hoehe folgt dem
+   Inhalt und kann beim Drehen des Handys nicht veralten - vorher musste ein
+   Resize-Handler die Pixelhoehe nachfuehren. Zugeklappt wird nur, wenn das
+   Skript laeuft (.faq-js); ohne JavaScript bleiben die Antworten lesbar.
+   visibility nimmt zugeklappte Antworten aus der Tab-Reihenfolge - vorher
+   sprang der Tabulator in Links unsichtbarer Antworten. */
+.faq-a{overflow:hidden}
+.faq-js .faq-a{display:grid;grid-template-rows:0fr;visibility:hidden;
+  transition:grid-template-rows .45s var(--ease),visibility 0s .45s}
+.faq-js .faq-item.open .faq-a{grid-template-rows:1fr;visibility:visible;
+  transition:grid-template-rows .45s var(--ease),visibility 0s}
+@media (prefers-reduced-motion:reduce){.faq-js .faq-a,.faq-js .faq-item.open .faq-a{transition:none}}
+.faq-a p::after{content:"";display:block;height:36px}
+.faq-a p{min-height:0;margin:0;font-size:.94rem;color:var(--ink-2)}
 
 /* ==== Abschluss-Aufruf ==== */
 .abschluss{background:var(--white);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:66px 0;margin-bottom:50px}
@@ -845,6 +857,7 @@ td:first-child{color:var(--ink);font-weight:500}
 
   /* FAQ-Akkordeon – IDs und ARIA hier statt im HTML, weil es ohne
      JavaScript ohnehin nicht aufklappt. */
+  document.documentElement.classList.add('faq-js');
   document.querySelectorAll('.faq-item').forEach(function(item, i){
     var q = item.querySelector('.faq-q');
     var a = item.querySelector('.faq-a');
@@ -859,26 +872,14 @@ td:first-child{color:var(--ink);font-weight:500}
       var wasOpen = item.classList.contains('open');
       document.querySelectorAll('.faq-item.open').forEach(function(o){
         o.classList.remove('open');
-        o.querySelector('.faq-a').style.maxHeight = null;
         o.querySelector('.faq-q').setAttribute('aria-expanded','false');
       });
       if(!wasOpen){
         item.classList.add('open');
-        a.style.maxHeight = a.scrollHeight + 'px';
         q.setAttribute('aria-expanded','true');
       }
     });
   });
-  /* Nach dem Drehen passt die in Pixeln gesetzte Hoehe nicht mehr */
-  var t = null;
-  window.addEventListener('resize', function(){
-    clearTimeout(t);
-    t = setTimeout(function(){
-      document.querySelectorAll('.faq-item.open .faq-a').forEach(function(a){
-        a.style.maxHeight = a.scrollHeight + 'px';
-      });
-    }, 120);
-  }, {passive:true});
 })();
 </script>
 

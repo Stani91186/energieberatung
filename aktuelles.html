@@ -448,7 +448,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .band-ic svg{width:19px;height:19px;stroke:var(--forest);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .band-tile > div{min-width:0}
 .band-tile b{display:block;font-size:.86rem;line-height:1.25;font-weight:600;overflow-wrap:break-word}
-.band-tile span{font-size:.73rem;color:var(--muted);overflow-wrap:break-word;hyphens:auto}
+.band-tile span{font-size:.8125rem;color:var(--muted);overflow-wrap:break-word;hyphens:auto}
 .band-note{margin-top:14px;text-align:center;font-size:.72rem;color:var(--muted)}
 
 /* ===========================================================================
@@ -795,8 +795,20 @@ html.js .reveal.in{opacity:1;transform:none}
 .faq-item.open .faq-icon{background:var(--forest);border-color:var(--forest);transform:rotate(90deg)}
 .faq-item.open .faq-icon::before,.faq-item.open .faq-icon::after{background:#fff}
 .faq-item.open .faq-icon::after{opacity:0}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
-.faq-a p{padding:0 0 22px;font-size:.94rem;color:var(--ink-2);max-width:60ch}
+/* Akkordeon ueber grid-template-rows statt max-height: Die Hoehe folgt dem
+   Inhalt und kann beim Drehen des Handys nicht veralten - vorher musste ein
+   Resize-Handler die Pixelhoehe nachfuehren. Zugeklappt wird nur, wenn das
+   Skript laeuft (.faq-js); ohne JavaScript bleiben die Antworten lesbar.
+   visibility nimmt zugeklappte Antworten aus der Tab-Reihenfolge - vorher
+   sprang der Tabulator in Links unsichtbarer Antworten. */
+.faq-a{overflow:hidden}
+.faq-js .faq-a{display:grid;grid-template-rows:0fr;visibility:hidden;
+  transition:grid-template-rows .45s var(--ease),visibility 0s .45s}
+.faq-js .faq-item.open .faq-a{grid-template-rows:1fr;visibility:visible;
+  transition:grid-template-rows .45s var(--ease),visibility 0s}
+@media (prefers-reduced-motion:reduce){.faq-js .faq-a,.faq-js .faq-item.open .faq-a{transition:none}}
+.faq-a p::after{content:"";display:block;height:22px}
+.faq-a p{min-height:0;margin:0;font-size:.94rem;color:var(--ink-2);max-width:60ch}
 
 /* ===========================================================================
    13. KONTAKT
@@ -996,6 +1008,9 @@ html.js .reveal.in{opacity:1;transform:none}
   .illu-legend{display:flex}
   .band-tile{padding:12px 13px;gap:10px}
   .band-ic{width:32px;height:32px;border-radius:8px}
+  /* Symbol ueber den Text: nebeneinander blieben der Schrift 82 px, und
+     "Bundesfoerderung" oder "Verbrauchsausweis" brachen mitten im Wort. */
+  .band-tile{flex-direction:column;align-items:flex-start}
   .band-tile b{font-size:.8rem}
   .problem-body{padding:22px 22px 26px}
   .problem-illu{padding:18px 18px 0}
@@ -1027,7 +1042,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .rg-text a{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .rg-kasten{background:var(--forest-soft);border-radius:var(--radius-sm);padding:20px 24px;margin:26px 0;color:var(--forest);font-size:.96rem}
 .rg-kasten b{display:block;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;margin-bottom:7px;opacity:.75}
-.rg-warnung{background:var(--amber-soft);border-left:4px solid var(--amber);border-radius:var(--radius-sm);padding:18px 22px;margin:24px 0;font-size:.94rem;color:#6B5638}
+.rg-warnung{background:var(--amber-soft);border-radius:var(--radius-sm);padding:18px 22px;margin:24px 0;font-size:.94rem;color:var(--amber-ink)}
 .rg-warnung b{color:#5A4526}
 .rg-tabelle{overflow-x:auto;margin:22px 0}
 .rg-tabelle table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:420px}
@@ -1106,7 +1121,7 @@ main .cta-band{margin-bottom:50px}
 }
 .news-kat-foerderung{background:var(--amber-soft);color:#6B5638}
 .news-kat-markt{background:#EDEFF2;color:#4A5560}
-.news-eintrag h2{font-size:1.16rem;line-height:1.35;margin:0 0 9px}
+.news-eintrag h2{font-size:1.35rem;line-height:1.3;margin:0 0 10px}
 .news-eintrag p{font-size:.95rem;color:var(--ink-2);margin:0 0 12px}
 .news-quelle{font-size:.84rem;color:var(--muted);margin:0}
 .news-quelle a{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
