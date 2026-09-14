@@ -581,7 +581,7 @@ Ein Umbau würde die Kopfzeile aller Seiten anfassen – bewusst belassen.
 
     .claude/skills/impeccable/scripts/impeccable detect --json index.html sanierungsrechner.html u-wert-rechner.html sanierungsfahrplan.html energieberatung-ulm.html ratgeber-fassade-daemmen.html aktuelles.html 404.html
 
-Stand nach dem Audit: 48 Funde (vorher 86). **Erwartet und kein Handlungsbedarf:**
+Stand nach dem Audit: 47 Funde (vorher 86). **Erwartet und kein Handlungsbedarf:**
 7 × geringer Kontrast (Fehlalarme – der Detektor liest keine Farbverläufe; im
 Browser 9,2:1 und mehr), 7 × Roboto und 7 × Cremepalette (Markenentscheidung),
 5 × Eyebrow über dem Titel (Entscheidung des Betreibers, trägt örtliche
