@@ -35,3 +35,12 @@ _ortsseite-kontakt.html
 KUNDENSTIMMEN*
 kundenstimmen*
 zitate-roh*
+
+# impeccable (Design-Skill, installiert lokal in .claude/skills/impeccable/):
+# Seine Kontextdateien bleiben lokal - Wunsch des Betreibers. Das Repository
+# ist oeffentlich und GitHub Pages liefert jede Datei aus; PRODUCT.md laege
+# sonst unter energieberater-albdonau.de/PRODUCT.md. Nur der Hauptordner ist
+# gemeint, deshalb der fuehrende Schraegstrich.
+/PRODUCT.md
+/DESIGN.md
+/.impeccable/
