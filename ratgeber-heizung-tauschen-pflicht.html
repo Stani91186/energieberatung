@@ -132,7 +132,8 @@ em{font-style:normal;font-weight:600;color:var(--ink)}
 i{font-style:normal}
 
 /* Einheitlicher, gut sichtbarer Fokusring für Tastaturbedienung */
-:focus-visible{outline:2.5px solid var(--amber-deep);outline-offset:3px;border-radius:4px}
+:focus-visible{outline:2.5px solid var(--amber-deep);outline-offset:3px}
+a:focus-visible{border-radius:4px}
 
 /* Sprungmarke: erstes fokussierbares Element der Seite */
 .skip-link{
@@ -162,7 +163,7 @@ section{position:relative}
    ======================================================================== */
 .eyebrow{
   display:inline-flex;align-items:center;gap:9px;
-  font-size:.74rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  font-size:.8125rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
   /* Eigener, etwas dunklerer Ton: --amber-deep ergab auf dem getoenten
      Hero-Hintergrund 4,45:1 und verfehlte AA um Haaresbreite. */
   color:#8A5419;margin-bottom:20px;
@@ -295,6 +296,7 @@ html.js .reveal.in{opacity:1;transform:none}
 }
 .site-header.stuck ~ .mobile-nav{top:var(--kopf-klein)}  /* Kopfzeile geschrumpft -> Menue rutscht mit hoch */
 .mobile-nav.open{transform:translateY(0);visibility:visible;transition:transform .45s var(--ease)}
+@media (prefers-reduced-motion:reduce){.mobile-nav,.mobile-nav.open{transition:none}}
 .mobile-nav a{display:block;padding:14px 0;font-size:1.05rem;font-weight:500;border-bottom:1px solid var(--line-soft)}
 .mobile-nav .btn{width:100%;margin-top:20px}
 
@@ -423,7 +425,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .pop-x:hover{background:var(--cream-2);color:var(--ink)}
 .pop-num{font-family:var(--font-serif);font-size:1.8rem;line-height:1.05;color:var(--forest);margin-bottom:6px}
 .pop-text{font-size:.82rem;color:var(--ink-2);line-height:1.5}
-.pop-foot{margin-top:10px;padding-top:8px;border-top:1px solid var(--line-soft);font-size:.68rem;color:var(--muted);line-height:1.45}
+.pop-foot{margin-top:10px;padding-top:8px;border-top:1px solid var(--line-soft);font-size:.8rem;color:var(--muted);line-height:1.45}
 
 /* ===========================================================================
    5b. LOGO-BAND (Qualifikationen & Programme)
@@ -506,6 +508,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .service-icon{width:48px;height:48px;flex:none;border-radius:13px;background:var(--forest);display:grid;place-items:center}
 .service-icon svg{width:23px;height:23px;stroke:#FBF8F2}
 .service h3{margin-bottom:6px}
+.service h3 a{padding-block:4px}
 .service-kicker{font-size:.79rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--amber-deep)}
 .service > p{font-size:.94rem;color:var(--ink-2);margin-bottom:22px}
 .service ul li{
@@ -549,7 +552,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .info-panel{
   margin-top:22px;padding:20px 22px;
   background:var(--cream-2);border-radius:var(--radius-sm);
-  border-left:3px solid var(--amber);
+  border:1px solid var(--line-soft);
   font-size:.9rem;color:var(--ink-2);
 }
 .info-panel p{margin-bottom:10px}
@@ -619,7 +622,7 @@ html.js .reveal.in{opacity:1;transform:none}
 }
 .foerder-karte:hover{background:rgba(255,255,255,.09);border-color:rgba(232,184,122,.45);transform:translateY(-3px)}
 .foerder-traeger{
-  display:block;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  display:block;font-size:.8125rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
   color:#E8B87A;margin-bottom:10px;
 }
 .foerder-karte h3{color:#FBF8F2;font-size:1.1rem;margin-bottom:9px}
@@ -666,7 +669,7 @@ html.js .reveal.in{opacity:1;transform:none}
   display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
   gap:22px 32px;margin-top:52px;padding:28px 32px;
   background:var(--white);border:1px solid var(--line-soft);
-  border-left:4px solid var(--amber);border-radius:var(--radius);
+  border-radius:var(--radius);
   box-shadow:var(--shadow-sm);
 }
 .cta-band-text{min-width:min(100%,26ch);flex:1}
@@ -708,7 +711,7 @@ html.js .reveal.in{opacity:1;transform:none}
    laengsten Inhalts und schiebt die Seite seitwaerts auf. */
 .preis-karten>*{min-width:0}
 .preis-haupt{
-  background:var(--white);border:1px solid var(--line);border-left:5px solid var(--amber);
+  background:var(--white);border:1.5px solid var(--amber);
   border-radius:var(--radius);box-shadow:var(--shadow-md);padding:30px 32px;
 }
 .preis-haupt h3{font-size:1.12rem;margin-bottom:6px}
@@ -804,7 +807,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .contact-line svg{width:20px;height:20px;stroke:var(--amber-deep);flex:none;margin-top:3px}
 .contact-line b{display:block;font-size:.79rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;font-weight:600}
 .contact-line span{font-size:1rem;color:var(--ink)}
-.contact-line a{transition:color .25s}
+.contact-line a{transition:color .25s;padding-block:12px}
 .contact-line a:hover{color:var(--amber-deep);text-decoration:underline;text-underline-offset:3px}
 
 .form-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:38px;box-shadow:var(--shadow-md)}

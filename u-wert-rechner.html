@@ -638,6 +638,21 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
   .ausgleich,.ab-schluss,.plan-summe,.ds-summe{padding:14px}
 }
 
+/* ==== Reduzierte Bewegung ====
+   Bewegung raus, Zustandswechsel bleiben: Farben, Rahmen und Deckkraft
+   wechseln weiter, nur Anheben, Vergroessern, Drehen und Wachsen passieren
+   sofort. Bewusst KEIN globaler 0,01-ms-Abschalter - der wuerde auch die
+   Rueckmeldung beim Antippen zerstoeren. */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .btn,.chip,.opt-karte,.info-i,.detail-pfeil,.stell-lage button,.schicht-weg{
+    transition-property:background-color,border-color,color,box-shadow}
+  .btn-primary:hover,.btn-ghost:hover,.btn-amber:hover,.opt-karte:hover,
+  .info-i:hover,.info-i.on{transform:none}
+  .fs-bar span{transition:none}
+  .info-pop{transition:opacity .15s linear;transform:none}
+}
+
 /* GEMEINSAM:CSS */
 /* Kopf, Menue, Knoepfe und Fuss stammen aus index.html.
    Aenderungen dort vornehmen, dann kopf-fuss-abgleichen.py
@@ -658,6 +673,8 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
    diese Regel erbt der Kopf die schmale Breite - auf dem Impressum wurde das
    Logo dadurch bis auf 0px zusammengedrueckt. 1180px = --maxw der Startseite. */
 .site-header .wrap,.site-footer .wrap{max-width:1180px}
+/* Einheitlicher, gut sichtbarer Fokusring für Tastaturbedienung */
+:focus-visible{outline:2.5px solid var(--amber-deep);outline-offset:3px}
 /* Sprungmarke: erstes fokussierbares Element der Seite */
 .skip-link{
   position:absolute;left:-9999px;top:0;z-index:200;
@@ -757,6 +774,9 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
 .site-header.stuck ~ .mobile-nav{top:var(--kopf-klein)}
 /* Kopfzeile geschrumpft -> Menue rutscht mit hoch */
 .mobile-nav.open{transform:translateY(0);visibility:visible;transition:transform .45s var(--ease)}
+@media (prefers-reduced-motion:reduce){
+.mobile-nav,.mobile-nav.open{transition:none}
+}
 .mobile-nav a{display:block;padding:14px 0;font-size:1.05rem;font-weight:500;border-bottom:1px solid var(--line-soft)}
 .mobile-nav .btn{width:100%;margin-top:20px}
 /* ===========================================================================
