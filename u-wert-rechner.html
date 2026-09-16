@@ -1470,11 +1470,11 @@ select:focus,input:focus{outline:2px solid var(--amber);outline-offset:1px;borde
    laufen lassen, sonst rechnen die beiden Rechner verschieden. */
 var KENNWERTE = {
   fx:{ wand:1.0, fenster:1.0, tuer:1.0, dach:1.0, ogd:0.8, kellerdecke:0.55, bodenplatte:0.40 },
-  uWand:[[1918,1.70],[1948,1.60],[1968,1.40],[1978,1.20],[1983,0.80],[1994,0.50],[2001,0.45],[2009,0.35],[2015,0.24],[9999,0.20]],
-  uDach:[[1968,1.80],[1978,1.20],[1994,0.50],[2001,0.40],[2015,0.30],[9999,0.20]],
+  uWand:[[1918,1.80],[1948,1.80],[1957,1.50],[1968,1.40],[1978,1.00],[1983,0.80],[1994,0.60],[2001,0.50],[2009,0.40],[2015,0.24],[9999,0.20]],
+  uDach:[[1918,2.60],[1968,1.40],[1978,0.80],[1983,0.70],[1994,0.50],[2001,0.30],[9999,0.20]],
   uOgdAlt:1.10,
-  uKeller:[[1978,1.50],[1994,0.80],[2009,0.60],[9999,0.35]],
-  uFenster:{ einfach:5.0, kasten:2.5, zweifach_alt:3.0, iso_95:1.5, ws_2001:1.3, ws_2010:1.1, dreifach:0.8, dreifach_wk:0.7, passiv:0.6, vierfach:0.55, vakuum:1.1 },
+  uKeller:[[1948,1.20],[1957,1.50],[1978,1.00],[1983,0.80],[2001,0.60],[2009,0.50],[9999,0.35]],
+  uFenster:{ einfach:5.0, kasten:2.7, zweifach_alt:3.0, iso_95:1.7, ws_2001:1.5, ws_2010:1.3, dreifach:0.8, dreifach_wk:0.7, passiv:0.6, vierfach:0.55, vakuum:1.1 },
   gFenster:{ einfach:0.75, kasten:0.75, zweifach_alt:0.62, iso_95:0.62, ws_2001:0.62, ws_2010:0.62, dreifach:0.50, dreifach_wk:0.50, passiv:0.52, vierfach:0.40, vakuum:0.50 },
   fensterPreis:{ kunststoff:[200,640], holz:[300,750], alu:[450,1000], holzAlu:[550,1200] },
   uTuer:{ alt:3.0, neu:1.3 },
@@ -1659,9 +1659,13 @@ var AUFBAUTEN = {
     {bis:2015, s:[['gipsputz',1.5],['holz',2.4],['mw_040',14],['dielen',2.4]]},
     {bis:9999, s:[['gipsputz',1.5],['holz',2.4],['mw_035',24],['dielen',2.4]]}
   ],
+  /* Kellerdecke nach BAnz AT 04.12.2020 B1, Tabelle 2: Stahlbeton ohne
+     Daemmung bis 1957 (1,6 bzw. 2,3), ab 1958 mit duenner Trittschall-
+     daemmung unter dem Estrich (1,0). */
   kellerdecke:[
-    {bis:1978, s:[['beton',16],['estrich_z',4],['fliesen',1]]},
-    {bis:1994, s:[['beton',16],['eps_040',2],['estrich_z',4],['fliesen',1]]},
+    {bis:1957, s:[['beton',16],['estrich_z',4],['fliesen',1]]},
+    {bis:1978, s:[['beton',16],['eps_040',2],['estrich_z',4],['fliesen',1]]},
+    {bis:1994, s:[['beton',16],['eps_040',3],['estrich_z',4],['fliesen',1]]},
     {bis:2009, s:[['beton',16],['eps_040',4],['estrich_z',4],['fliesen',1]]},
     {bis:9999, s:[['beton',16],['eps_035',8],['estrich_z',4],['fliesen',1]]}
   ],

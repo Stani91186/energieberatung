@@ -955,7 +955,7 @@ details.annahmen[open] summary::after{content:"–"}
 
   <div class="band-card">
     <h2 style="font-size:1.15rem;margin-bottom:6px">Energieeffizienzklasse</h2>
-    <p class="section-sub">Skala nach Gebäudemodernisierungsgesetz (bis Juli 2026 GEG), Kennwert in kWh je m² Wohnfläche und Jahr – auf Basis Ihres realen Verbrauchs.</p>
+    <p class="section-sub">Skala nach Gebäudemodernisierungsgesetz (bis Juli 2026 GEG), Kennwert in kWh je m² Wohnfläche und Jahr – berechneter Endenergiebedarf des Gebäudes, wie im Bedarfsausweis.</p>
     <div class="band" id="band"></div>
     <div class="kalib" id="kalibBox"></div>
   </div>
@@ -1061,7 +1061,7 @@ details.annahmen[open] summary::after{content:"–"}
       die Euro-Beträge realistisch, statt theoretische Maximalwerte zu versprechen.
     </p>
     <p>
-      Als Ergebnis sehen Sie Ihre <b>Energieeffizienzklasse (A+ bis H)</b> nach
+      Als Ergebnis sehen Sie die <b>Energieeffizienzklasse (A+ bis H)</b> Ihres Gebäudes aus dem berechneten Bedarf nach
       Gebäudemodernisierungsgesetz, die Wärmeverluste je Bauteil in Kilowattstunden und Euro sowie für
       jede Sanierungsmaßnahme die realistische Kostenspanne, die aktuelle <b>BEG-Förderung</b>
       (15 % Zuschuss für Maßnahmen an der Gebäudehülle, mit individuellem Sanierungsfahrplan mehr,
@@ -1235,16 +1235,36 @@ var CONFIG = {
   heizgradstunden: { nord:63, mitte:66, sued:72, alpen:78 },        // kKh/a Heizperiode
   normAussentemp:  { nord:-10, mitte:-12, sued:-14, alpen:-16 },    // °C
   fx: { wand:1.0, fenster:1.0, tuer:1.0, dach:1.0, ogd:0.8, kellerdecke:0.55, bodenplatte:0.40 },
-  uWand:   [[1918,1.70],[1948,1.60],[1968,1.40],[1978,1.20],[1983,0.80],[1994,0.50],[2001,0.45],[2009,0.35],[2015,0.24],[9999,0.20]],
-  uDach:   [[1968,1.80],[1978,1.20],[1994,0.50],[2001,0.40],[2015,0.30],[9999,0.20]],
+  /* U-Werte im Ursprungszustand je Baualtersklasse. Quelle: Bekanntmachung
+     der Regeln zur Datenaufnahme und Datenverwendung im Wohngebaeudebestand,
+     BAnz AT 04.12.2020 B1, Tabelle 2 (opake Bauteile) und Tabelle 3 (Fenster).
+     Wo die Tabelle nach Konstruktion unterscheidet, steht hier der haeufigste
+     Fall im Einfamilienhaus, die Spanne dahinter:
+       Wand bis 1948  1,80 = Vollziegel/Naturstein 20-30 cm
+                            (ueber 30 cm 1,5 · bis 20 cm 2,8 · Fachwerk 1,5-2,0)
+       Wand 1949-57   1,50 = zwischen Hochlochziegel/Bims 1,4 und Vollziegel 1,8
+       Dach           Holzkonstruktion (Steildach); massiv/Flachdach waere
+                      bis 1957 2,1 und 1958-78 1,3
+       Kellerdecke    bis 1948 Kappen-/Ziegeldecke 1,2 (Stahlbeton 1,6,
+                      Holzbalken 1,0); 1949-57 1,5 (Stahlbeton 2,3)
+     Die Tabelle endet mit "ab 2002". Die Stufen ab 2010 sind Anhaltswerte
+     nach EnEV 2009/2014, nicht aus der Bekanntmachung.
+     uOgdAlt 1,10 gilt bis 1968: Holzbalkendecke 0,7-1,0, Massivdecke 2,1. */
+  uWand:   [[1918,1.80],[1948,1.80],[1957,1.50],[1968,1.40],[1978,1.00],[1983,0.80],[1994,0.60],[2001,0.50],[2009,0.40],[2015,0.24],[9999,0.20]],
+  uDach:   [[1918,2.60],[1968,1.40],[1978,0.80],[1983,0.70],[1994,0.50],[2001,0.30],[9999,0.20]],
   uOgdAlt: 1.10,
-  uKeller: [[1978,1.50],[1994,0.80],[2009,0.60],[9999,0.35]],
+  uKeller: [[1948,1.20],[1957,1.50],[1978,1.00],[1983,0.80],[2001,0.60],[2009,0.50],[9999,0.35]],
   /* Uw = ganzes Fenster inkl. Rahmen und Randverbund, nicht Ug (nur Glas).
      dreifach_wk unterscheidet sich von dreifach NICHT im Glas, sondern im
      Abstandhalter: Eine warme Kante statt Aluminium senkt Uw um 0,1 bis 0,2.
      vakuum meint Vakuumglas im ertuechtigten Altbaurahmen - das Glas kann
-     Ug 0,7 bei 10 mm, aber der alte Holzrahmen bestimmt den Uw. */
-  uFenster:{ einfach:5.0, kasten:2.5, zweifach_alt:3.0, iso_95:1.5, ws_2001:1.3, ws_2010:1.1, dreifach:0.8, dreifach_wk:0.7, passiv:0.6, vierfach:0.55, vakuum:1.1 },
+     Ug 0,7 bei 10 mm, aber der alte Holzrahmen bestimmt den Uw.
+     Bestandsfenster nach BAnz AT 04.12.2020 B1, Tabelle 3: einfach 5,0 ·
+     Kasten-/Verbund-/Holz-Isolierfenster bis 1994 2,7 · Kunststoff 3,0 ·
+     1995-2001 Holz 1,6 bzw. Kunststoff/Alu 1,9 (hier 1,7) · ab 2002 1,5.
+     ws_2010 = Zweifach-Waermeschutz mit Ug 1,1 im Rahmen: Uw 1,3 (EnEV-2009-
+     Referenzwert) - der Glaswert 1,1 ist nicht der Fensterwert. */
+  uFenster:{ einfach:5.0, kasten:2.7, zweifach_alt:3.0, iso_95:1.7, ws_2001:1.5, ws_2010:1.3, dreifach:0.8, dreifach_wk:0.7, passiv:0.6, vierfach:0.55, vakuum:1.1 },
   /* g = solarer Gesamtenergiedurchlass. Jede zusaetzliche Scheibe kostet
      Sonnenwaerme - deshalb faellt g bei vierfach deutlich ab. */
   gFenster:{ einfach:0.75, kasten:0.75, zweifach_alt:0.62, iso_95:0.62, ws_2001:0.62, ws_2010:0.62, dreifach:0.50, dreifach_wk:0.50, passiv:0.52, vierfach:0.40, vakuum:0.50 },
@@ -1582,12 +1602,8 @@ function szenarien(e, basis, kal, mnListe){
       if(m){ invest+=m.invest; foerd+=m.foerd; }
     });
     var ersparnis = kostenJahr(e,basis,k) - kostenJahr(e,mod,k);
-    /* Klassen-Anzeige mit Rebound-Korrektur: Der Sparfaktor k (< 1 = sparsames
-       Heizverhalten im unsanierten Haus) verschwindet mit steigender Sanierungs-
-       tiefe teilweise – Komfort steigt. k_eff wandert Richtung 1. */
-    var ratio = mod.eEnd/basis.eEnd;
-    var kEff = k + (1-k)*(1-ratio);
-    var kw = mod.eEnd*kEff/e.wohnflaeche;
+    /* Klasse nach Bedarf wie oben - ohne Kalibrierung am Verbrauch. */
+    var kw = mod.kennwertBedarf;
     return { name:name, sub:sub, invest:invest, foerd:foerd, netto:invest-foerd,
       ersparnis:Math.max(0,ersparnis), ids:investIds,
       klasseNeu:klasseVon(kw), kennwertNeu:kw, spezHeizlast:mod.spezHeizlast };
@@ -1723,7 +1739,8 @@ var STEPS = [
    {id:'traeger',l:'Energieträger',type:'seg',icons:true,opts:[['gas','Erdgas'],['oel','Heizöl'],['strom','Strom'],['pellets','Pellets'],['holz','Stückholz'],['fernwaerme','Fernwärme']],def:'gas'},
    {id:'heizungTyp',l:'Heizungstyp',type:'seg',icons:true,opts:[['standard','Standardkessel (>20 J.)'],['nt','Niedertemperatur'],['brennwert','Brennwert'],['wp','Wärmepumpe'],['nachtspeicher','Nachtspeicher'],['fernwaerme','Fernwärme-Übergabe']],def:'standard'},
    {id:'heizungBaujahr',l:'Baujahr der Heizung',type:'number',min:1900,max:2026,def:1998},
-   {id:'verbrauch',l:'Jahresverbrauch',type:'number',min:1,max:200000,def:24000},
+   {id:'verbrauch',l:'Jahresverbrauch',type:'number',min:1,max:200000,def:null,
+    hint:'Aus der Heizkostenabrechnung – bei Öl, Pellets oder Holz der Mittelwert der letzten Jahre.'},
    {id:'einheit',l:'Einheit',type:'seg',opts:[['kwh','kWh'],['m3','m³ (Gas)'],['l','Liter (Öl)'],['kg','kg (Pellets)'],['srm','Schüttraummeter'],['fm','Festmeter']],def:'kwh'},
    {id:'wwNiveau',l:'Warmwasser-Verbrauch',type:'seg',icons:true,opts:[['niedrig','Niedrig'],['normal','Normal'],['hoch','Hoch']],def:'normal'},
    {id:'zirkulation',l:'Zirkulationsleitung vorhanden?',type:'seg',opts:[['nein','Nein / unbekannt'],['ja','Ja']],def:'nein',
@@ -1908,7 +1925,14 @@ function zeigeErgebnis(){
   var basis = berechne(e);
   var kal = kalibriere(e, basis);
   var kwReal = kal.real / e.wohnflaeche;
-  var kl = klasseVon(kwReal);
+  /* Die Klasse beschreibt das GEBAEUDE und kommt deshalb aus dem berechneten
+     Bedarf - so wie im Bedarfsausweis, der fuer die meisten Haeuser vor 1977
+     vorgeschrieben ist. Der Verbrauch haengt am Heizverhalten: Im unsanierten
+     Altbau liegt er oft 40 % darunter, weil Raeume kalt bleiben. Eine
+     Verbrauchsklasse F sagte dann ueber ein Haus von 1900 das Falsche. */
+  var kwBedarf = basis.kennwertBedarf;
+  var kl = klasseVon(kwBedarf);
+  var klVerbrauch = klasseVon(kwReal);
   var mn = massnahmen(e, basis, kal);
   var sz = szenarien(e, basis, kal, mn);
   var kosten = kal.real * preisFuer(e, e.traeger);
@@ -1916,14 +1940,14 @@ function zeigeErgebnis(){
 
   /* Kacheln */
   $('resTiles').innerHTML =
-    tile('Energieklasse (Verbrauch)','<span class="klasse-chip" style="background:'+CONFIG.klassenFarben[kl]+'">'+kl+'</span> <span style="font-size:1.1rem;margin-left:8px">'+nf(kwReal)+' kWh/m²a</span>','Bedarf (berechnet): '+nf(basis.kennwertBedarf)+' kWh/m²a – wie im Bedarfsausweis')+
+    tile('Energieklasse (Bedarf)','<span class="klasse-chip" style="background:'+CONFIG.klassenFarben[kl]+'">'+kl+'</span> <span style="font-size:1.1rem;margin-left:8px">'+nf(kwBedarf)+' kWh/m²a</span>','wie im Bedarfsausweis · Ihr Verbrauch: '+nf(kwReal)+' kWh/m²a (Klasse '+klVerbrauch+')')+
     tile('Energiekosten pro Jahr', eur(kosten), nf(kal.real)+' kWh '+traegerName(e.traeger).replace('heizung',''))+
     tile('CO₂-Ausstoß pro Jahr', nf(co2/1000,1)+' t', 'Emissionsfaktor '+traegerName(e.traeger));
 
   function tile(l,v,s){ return '<div class="tile"><div class="t-label">'+l+'</div><div class="t-value">'+v+'</div><div class="t-sub">'+s+'</div></div>'; }
 
   /* Band */
-  renderBand(kwReal, sz[3].kennwertNeu);
+  renderBand(kwBedarf, sz[3].kennwertNeu);
 
   /* Kalibrier-Erklärung */
   var pct = Math.round((1-kal.kRoh)*100);
@@ -1991,11 +2015,12 @@ function zeigeErgebnis(){
   /* Ergebnis-Zusammenfassung für die Lead-Übermittlung */
   /* Vollstaendige Daten fuer den Druckbericht - bewusst getrennt vom
      schlanken LETZTES_ERGEBNIS, das an die Datenbank geht. */
-  BERICHT_DATEN = { e:e, kl:kl, kwReal:kwReal, kosten:kosten, kal:kal,
+  BERICHT_DATEN = { e:e, kl:kl, kwBedarf:kwBedarf, kwReal:kwReal, kosten:kosten, kal:kal,
                     basis:basis, mn:mn, sz:sz };
 
   LETZTES_ERGEBNIS = {
-    klasse_verbrauch: kl,
+    klasse_bedarf: kl,
+    klasse_verbrauch: klVerbrauch,
     kennwert_verbrauch_kwh_m2a: Math.round(kwReal),
     kennwert_bedarf_kwh_m2a: Math.round(basis.kennwertBedarf),
     jahresverbrauch_kwh: Math.round(kal.real),
@@ -2015,7 +2040,7 @@ function zeigeErgebnis(){
   $('ergebnis').style.display='block';
   $('ergebnis').classList.add('fx');
   window.scrollTo({top:$('ergebnis').offsetTop-92,behavior:'smooth'});
-  trackEvent('rechner_ergebnis', kl+' '+nf(kwReal));
+  trackEvent('rechner_ergebnis', kl+' '+nf(kwBedarf));
 }
 
 function renderBand(kwHeute, kwNach){
@@ -2471,9 +2496,9 @@ function updateSim(){
   var hinweisWp=$('simWpHinweis');
   if(hinweisWp) hinweisWp.style.display = wpGewaehlt ? 'block' : 'none';
 
-  /* Klassen-Chips – kalibriert, damit sie zu Kacheln und Skala oben passen */
-  var kwVor = vor.eEnd*k/e.wohnflaeche;
-  var kwNach = nach.eEnd*kEff/e.wohnflaeche;
+  /* Klassen-Chips nach Bedarf, wie Kachel und Skala oben */
+  var kwVor = vor.kennwertBedarf;
+  var kwNach = nach.kennwertBedarf;
   var klV=klasseVon(kwVor), klN=klasseVon(kwNach);
   var popKlasse = SIM._klN!=null && SIM._klN!==klN;
   SIM._klN = klN;
@@ -2482,7 +2507,7 @@ function updateSim(){
     '<span class="arrow">→</span>'+
     '<span class="klasse-chip'+(popKlasse?' pop':'')+'" style="background:'+CONFIG.klassenFarben[klN]+'">'+klN+'</span>'+
     '<span style="font-size:.82rem;color:var(--muted);margin-left:2px">'+nf(kwVor)+' → '+nf(kwNach)+' kWh/m²a</span>'+
-    '<span class="hint">auf Basis Ihres realen Verbrauchs – wie die Skala oben</span>';
+    '<span class="hint">berechneter Bedarf des Gebäudes – wie die Skala oben</span>';
 
   /* Haus: bei reinen Regler-Änderungen nur die Pfeile animieren (weich),
      bei Schalter-/Heizungswechsel das Haus neu zeichnen (Farben ändern sich) */
@@ -2631,7 +2656,7 @@ function baueDruckbericht(){
   '</div>';
 
   var kern='<div class="db-kern">'+
-    '<div><b>Effizienzklasse</b><span class="db-klasse" style="background:'+(CONFIG.klassenFarben[d.kl]||'#555')+'">'+d.kl+'</span> <small>'+nf(d.kwReal)+' kWh/m²a</small></div>'+
+    '<div><b>Effizienzklasse (Bedarf)</b><span class="db-klasse" style="background:'+(CONFIG.klassenFarben[d.kl]||'#555')+'">'+d.kl+'</span> <small>'+nf(d.kwBedarf)+' kWh/m²a</small></div>'+
     '<div><b>Energiekosten</b><span>'+eur(d.kosten)+'</span> <small>pro Jahr</small></div>'+
     '<div><b>Heizlast</b><span>'+nf(d.basis.spezHeizlast)+'</span> <small>W/m²</small></div>'+
   '</div>';

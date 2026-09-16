@@ -243,6 +243,44 @@ Die abgeglichenen Bereiche stehen zwischen `GEMEINSAM:`-Markierungen – von Han
 Geändertes wird beim nächsten Lauf überschrieben. Nicht mit übertragen wird
 `--maxw`: Der Rechner ist absichtlich schmaler als die Startseite.
 
+## Sanierungsrechner: Klasse und U-Werte
+
+**Die Effizienzklasse kommt aus dem berechneten Bedarf, nicht aus dem
+Verbrauch** (seit 17.09.2026). Vorher zeigte die Kachel die Verbrauchsklasse,
+und der Jahresverbrauch war mit 24.000 kWh vorbelegt – bei 140 m² ergab das
+für *jedes* Haus 171 kWh/m²a, also F, auch für einen unsanierten Altbau von
+1900, der nach Bedarf in H liegt. Der Betreiber hat das zu Recht als „viel zu
+gut" beanstandet. Jetzt gilt:
+
+- Kachel, Skala, Paketkarten, Simulator-Chips und Druckbericht zeigen die
+  **Bedarfsklasse** – wie der Bedarfsausweis, der für die meisten Häuser vor
+  1977 vorgeschrieben ist. Der Verbrauch steht als Zusatz in der Kachel.
+- Die **Euro-Beträge bleiben am Verbrauch kalibriert** (`kalibriere()`). Das
+  ist kein Widerspruch: Die Klasse beschreibt das Gebäude, die Kosten das
+  Heizverhalten.
+- Der **Jahresverbrauch hat keinen Vorgabewert** mehr und muss eingetragen
+  werden. Nicht wieder vorbelegen – ein Vorgabewert wird nicht geändert und
+  bestimmt dann das Ergebnis.
+- An die Datenbank gehen `klasse_bedarf` und `klasse_verbrauch` getrennt.
+
+Bezugsfläche ist die **Wohnfläche**, nicht die Gebäudenutzfläche A<sub>N</sub>
+des amtlichen Ausweises (typisch 1,2- bis 1,35-mal so groß). Der Rechner liegt
+damit etwa eine halbe Klasse strenger als ein echter Ausweis – bewusst so
+belassen, die Seite verspricht lieber zu wenig.
+
+**U-Werte im CONFIG** folgen der *Bekanntmachung der Regeln zur Datenaufnahme
+und Datenverwendung im Wohngebäudebestand*, BAnz AT 04.12.2020 B1, Tabellen 2
+und 3. Wo die Tabelle nach Konstruktion trennt, steht der häufigste Fall im
+Einfamilienhaus; die Spannen stehen als Kommentar am CONFIG. Nicht erfasst und
+damit Vereinfachungen: Flachdach (massiv: bis 1957 2,1 statt 2,6/1,4),
+Fachwerk (1,5–2,0), Rollladenkästen (ungedämmt 3,6). Die Stufen ab 2010 sind
+Anhaltswerte, die Tabelle endet mit „ab 2002".
+
+Referenzwerte nach der Umstellung (Beispielhaus 140 m², Gas-Standardkessel,
+DG unbeheizt): 1900 → 407 kWh/m²a (H) · 1965 → 348 (H) · 1985 → 183 (F) ·
+2005 mit Brennwert → 99 (C). Die `AUFBAUTEN` des U-Wert-Rechners für die
+Kellerdecke sind dazu nach denselben Baualtersklassen geteilt.
+
 ## U-Wert-Rechner
 
 `u-wert-rechner.html` ist der zweite Rechner und beantwortet eine andere Frage
@@ -362,7 +400,7 @@ Sanierungsrechners (Regel 6) – dort ändern, nie hier.
 
 | Verglasung | U<sub>w</sub> | g | Einordnung |
 |---|---|---|---|
-| Zweifach-Wärmeschutz | 1,10 | 0,62 | verfehlt den Förderwert 0,95 |
+| Zweifach-Wärmeschutz | 1,30 | 0,62 | verfehlt den Förderwert 0,95 |
 | Dreifachverglasung | 0,80 | 0,50 | Normalfall |
 | Dreifach mit warmer Kante | 0,70 | 0,50 | **die Empfehlung** |
 | Passivhausfenster | 0,60 | 0,52 | ab Effizienzhaus 40 |
