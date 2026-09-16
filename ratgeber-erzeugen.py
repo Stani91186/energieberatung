@@ -572,27 +572,57 @@ ARTIKEL = [
            loading="lazy" decoding="async">""",
  "rubrik": "Gesetz & Pflichten",
  "titel": "Heizung tauschen: Was gilt wirklich?",
- "seitentitel": "Heizung tauschen: Pflicht, Fristen, Ausnahmen | Ratgeber",
- "beschreibung": "Muss die alte Öl- oder Gasheizung raus? Was das Gebäudeenergiegesetz "
-                 "wirklich verlangt, welche Fristen gelten und wann Sie nichts tun müssen.",
- "anriss": "Die verbreitetste Sorge unter Eigentümern – und in den meisten Fällen "
-           "unbegründet. Was das Gesetz verlangt, welche Ausnahmen greifen und wann "
-           "ein Austausch trotzdem sinnvoll ist.",
+ # Rechtsstand: Gebaeudemodernisierungsgesetz, Gesetz vom 23.07.2026,
+ # BGBl. 2026 I Nr. 226, Artikel 1 in Kraft seit 29.07.2026. Die frueheren
+ # §§ 71 bis 73 GEG (65-%-Regel, Austauschpflicht nach 30 Jahren) sind
+ # gestrichen, neu ist § 43 GModG. Bei der naechsten Gesetzesaenderung - die
+ # Gruengas-/Gruenheizoelquote nach § 42a ist bis 01.12.2026 angekuendigt -
+ # diesen Artikel zuerst pruefen.
+ "stand": "September 2026",
+ "geaendert": "2026-09-17",
+ "seitentitel": "Heizung tauschen: Pflicht und Fristen nach dem GModG",
+ "beschreibung": "Muss die alte Öl- oder Gasheizung raus? Was seit dem "
+                 "Gebäudemodernisierungsgesetz gilt, was ab 2029 dazukommt und wann "
+                 "Sie nichts tun müssen.",
+ "anriss": "Die verbreitetste Sorge unter Eigentümern – und seit Juli 2026 noch "
+           "seltener begründet. Was das neue Gesetz verlangt, was weggefallen ist und "
+           "wann ein Austausch trotzdem sinnvoll ist.",
  "dauer": "7 Minuten",
  "inhalt": """
       <p>
         Kaum ein Thema verunsichert Eigentümer so sehr. Die Kurzfassung vorweg:
         <strong>Eine funktionierende Heizung dürfen Sie weiter betreiben und
-        reparieren.</strong> Niemand kommt und lässt sie ausbauen. Die Regeln greifen
-        erst, wenn ohnehin etwas passiert – oder wenn die Anlage sehr alt ist.
+        reparieren.</strong> Niemand kommt und lässt sie ausbauen – seit dem
+        29. Juli 2026 auch dann nicht, wenn der Kessel älter als 30 Jahre ist.
       </p>
 
       <div class="rg-kasten">
         <b>Das Wichtigste in einem Satz</b>
-        Solange Ihre Heizung läuft und reparierbar ist, besteht kein Zwang zum
-        Austausch. Die relevanten Fristen betreffen Kessel jenseits der 30 Jahre und
-        den Fall, dass eine Anlage endgültig ausfällt.
+        Eine bestehende Heizung dürfen Sie ohne Frist weiter nutzen; neue Pflichten
+        entstehen erst, wenn Sie nach dem 29. Juli 2026 eine neue Gas- oder
+        Ölheizung einbauen – und auch dann erst ab 2029.
       </div>
+
+      <h2>Was sich im Juli 2026 geändert hat</h2>
+      <p>
+        Das Gebäudeenergiegesetz heißt seit dem 29. Juli 2026
+        <strong>Gebäudemodernisierungsgesetz (GModG)</strong>. Mit dem neuen Namen
+        kamen drei Änderungen, die Eigentümer direkt betreffen:
+      </p>
+      <ul>
+        <li><strong>Die 65-Prozent-Regel ist gestrichen.</strong> Eine neue Heizung
+        muss nicht mehr zu 65 Prozent mit erneuerbaren Energien arbeiten.</li>
+        <li><strong>Die Austauschpflicht nach 30 Jahren ist gestrichen.</strong> Sie
+        betraf alte Konstanttemperaturkessel und fiel zusammen mit der 65-Prozent-Regel
+        weg.</li>
+        <li><strong>Neu ist eine Pflicht für neue Gas- und Ölheizungen.</strong> Wer
+        eine solche Anlage nach dem 29. Juli 2026 einbaut, muss sicherstellen, dass
+        ein wachsender Teil der Wärme aus Biomethan, Bioöl, biogenem Flüssiggas oder
+        Wasserstoff stammt: mindestens 10 Prozent ab 2029, 15 Prozent ab 2030,
+        30 Prozent ab 2035 und 60 Prozent ab 2040 (§&nbsp;43 GModG). Eine
+        Solarthermieanlage passender Größe kann die Pflicht bis Ende 2034 ebenfalls
+        erfüllen.</li>
+      </ul>
 
       <h2>Wann Sie tatsächlich handeln müssen</h2>
       <p>
@@ -600,31 +630,35 @@ ARTIKEL = [
         Pflicht wird:
       </p>
       <ol>
-        <li><strong>Die Heizung ist irreparabel defekt.</strong> Dann greifen beim
-        Ersatz die aktuellen Anforderungen – allerdings mit Übergangsfristen, in denen
-        zunächst auch eine einfache Lösung eingebaut werden darf.</li>
-        <li><strong>Der Kessel ist älter als 30 Jahre</strong> und ein
-        Konstanttemperaturkessel. Niedertemperatur- und Brennwertkessel sind von
-        dieser Austauschpflicht ausgenommen.</li>
-        <li><strong>Sie haben das Haus geerbt oder gekauft.</strong> Dann gelten
-        bestimmte Nachrüstpflichten innerhalb einer Frist nach dem
-        Eigentümerwechsel.</li>
+        <li><strong>Sie bauen eine neue Gas-, Öl- oder Flüssiggasheizung
+        ein.</strong> Dann gilt ab 2029 der steigende Pflichtanteil von oben. Fällt
+        die alte Anlage im Jahr 2028 irreparabel aus, beginnt die Pflicht erst zwölf
+        Monate nach dem Einbau der neuen.</li>
+        <li><strong>Sie haben das Haus geerbt oder gekauft.</strong> Dann müssen
+        ungedämmte, zugängliche Heizungs- und Warmwasserleitungen in unbeheizten
+        Räumen innerhalb von zwei Jahren nach dem Eigentümerwechsel gedämmt
+        werden.</li>
+        <li><strong>Die Heizung fällt endgültig aus.</strong> Welche Technik Sie dann
+        wählen, schreibt das Gesetz nicht mehr vor – eine neue Gas- oder Ölheizung
+        fällt aber unter Punkt 1.</li>
       </ol>
       <p>
-        Selbst genutzte Ein- und Zweifamilienhäuser, in denen die Eigentümer schon
-        lange wohnen, sind von mehreren dieser Pflichten ausgenommen. Genau deshalb
-        lohnt der Blick auf den Einzelfall statt auf die Schlagzeile.
+        Wer sein Ein- oder Zweifamilienhaus schon seit Februar 2002 selbst bewohnt,
+        ist von der Nachrüstpflicht für die Leitungen ausgenommen – sie trifft erst
+        den nächsten Eigentümer. Genau deshalb lohnt der Blick auf den Einzelfall
+        statt auf die Schlagzeile.
       </p>
 
       <div class="rg-warnung">
-        <b>Zur Rechtslage:</b> Das Gebäudeenergiegesetz soll durch ein
-        Gebäudemodernisierungsgesetz abgelöst werden. Solange der
-        Gesetzgebungsprozess läuft, gilt weiter das bestehende Recht. Wer jetzt
-        entscheidet, sollte beide Stände kennen – die wirtschaftlich beste Lösung ist
-        allerdings meist in beiden dieselbe.
+        <b>Zur Rechtslage:</b> Dieser Artikel gibt das Gebäudemodernisierungsgesetz
+        in der Fassung vom 23. Juli 2026 wieder (BGBl. 2026 I Nr. 226). Die
+        Bundesregierung hat bis zum 1. Dezember 2026 ein weiteres Gesetz zu einer
+        Grüngas- und Grünheizölquote angekündigt (§&nbsp;42a GModG). Wer heute eine
+        Gas- oder Ölheizung plant, sollte damit rechnen, dass sich die Brennstoffseite
+        noch einmal bewegt.
       </div>
 
-      <h2>Warum die Frist selten das eigentliche Argument ist</h2>
+      <h2>Warum das Gesetz selten das eigentliche Argument ist</h2>
       <p>
         In der Praxis ist nicht das Gesetz der Grund für einen Austausch, sondern die
         Rechnung. Ein 25 Jahre alter Standardkessel arbeitet mit einem Wirkungsgrad,
@@ -669,6 +703,7 @@ ARTIKEL = [
       <h2>Was wir empfehlen</h2>
       <ul>
         <li>Keine Panikentscheidung, solange die Anlage läuft</li>
+        <li>Bei einer neuen Gas- oder Ölheizung den Pflichtanteil ab 2029 von Anfang an in die Kostenrechnung aufnehmen</li>
         <li>Vor dem Heizungstausch die Gebäudehülle prüfen – sonst wird die neue Anlage zu groß</li>
         <li>Den Förderantrag stellen, <strong>bevor</strong> der Handwerkerauftrag vergeben wird</li>
         <li>Bei sehr alten Kesseln das Ausfallrisiko einkalkulieren: Wer erst im Januar sucht, entscheidet unter Druck und zahlt drauf</li>
@@ -677,8 +712,13 @@ ARTIKEL = [
  "faq": [
    ("Muss ich meine funktionierende Gasheizung austauschen?",
     "Nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden. "
-    "Eine Austauschpflicht kann bei Konstanttemperaturkesseln greifen, die älter als "
-    "30 Jahre sind, sowie beim irreparablen Ausfall der Anlage."),
+    "Die frühere Austauschpflicht für Heizkessel nach 30 Jahren ist mit dem "
+    "Gebäudemodernisierungsgesetz seit dem 29. Juli 2026 gestrichen."),
+   ("Was gilt für eine neue Gas- oder Ölheizung?",
+    "Wer sie nach dem 29. Juli 2026 einbaut, muss sicherstellen, dass ab 2029 "
+    "mindestens 10 Prozent der Wärme aus Biomethan, Bioöl, biogenem Flüssiggas oder "
+    "Wasserstoff stammen, ab 2030 15 Prozent, ab 2035 30 Prozent und ab 2040 "
+    "60 Prozent."),
    ("Wie hoch ist die Förderung für eine Wärmepumpe?",
     "Die Grundförderung liegt bei 30 Prozent. Mit Klimageschwindigkeitsbonus, "
     "Einkommensbonus und Effizienzbonus sind höhere Sätze möglich; der Gesamtsatz und "
@@ -1407,7 +1447,8 @@ ARTIKEL = [
 
       <h2>Wann Sie wählen dürfen – und wann nicht</h2>
       <p>
-        Das Gebäudeenergiegesetz lässt die freie Wahl nicht immer zu. Der
+        Das Gebäudemodernisierungsgesetz (bis Juli 2026: Gebäudeenergiegesetz)
+        lässt die freie Wahl nicht immer zu. Der
         <strong>Bedarfsausweis ist vorgeschrieben</strong>, wenn diese Punkte
         zusammenkommen:
       </p>
@@ -1492,7 +1533,7 @@ ARTIKEL = [
         Eine erste Einordnung, in welcher Klasse Ihr Haus überhaupt steht, liefert der
         <a href="sanierungsrechner.html">Sanierungsrechner</a> in wenigen Minuten. Er
         ist eine Orientierung und ersetzt keinen Energieausweis – ausstellen darf den
-        nur, wer nach dem Gebäudeenergiegesetz dazu berechtigt ist.
+        nur, wer nach dem Gebäudemodernisierungsgesetz dazu berechtigt ist.
       </p>
  """,
  "faq": [
@@ -1618,6 +1659,8 @@ ARTIKEL = [
 
 STAND = "August 2026"
 DATUM_ISO = "2026-08-14"
+# Wird ein Artikel spaeter fachlich ueberarbeitet, bekommt er eigene Felder
+# "stand" (sichtbar) und "geaendert" (dateModified) - sonst gelten diese beiden.
 
 # ---------------------------------------------------------------------------
 # BAUSTEINE
@@ -1726,11 +1769,12 @@ def artikel_seite(a):
         "description": a["beschreibung"],
         "inLanguage": "de-DE",
         "datePublished": DATUM_ISO,
-        "dateModified": DATUM_ISO,
+        "dateModified": a.get("geaendert", DATUM_ISO),
         "mainEntityOfPage": {"@type": "WebPage", "@id": f"{DOMAIN}/{a['datei']}"},
         "author": {"@type": "Person", "name": "Stanislaw Tsukerman",
                    "jobTitle": "Energieberater"},
-        "publisher": {"@type": "Organization", "name": "EBA Energieberater Albdonau",
+        "publisher": {"@type": "Organization", "@id": f"{DOMAIN}/#unternehmen",
+                      "name": "EBA Energieberater Albdonau",
                       "url": DOMAIN},
     }, {
         "@type": "BreadcrumbList",
@@ -1771,13 +1815,13 @@ def artikel_seite(a):
       <p class="lead">{a["anriss"]}</p>
       <div class="rg-meta">
         <span>Lesezeit ca. {a["dauer"]}</span>
-        <span>Stand: {STAND}</span>
+        <span>Stand: {a.get("stand", STAND)}</span>
         <span>Von Stanislaw Tsukerman, Energieberater</span>
       </div>
     </header>
 
     <div class="wrap">
-      {a["bild"]}
+      {a["bild"].replace('loading="lazy"', 'fetchpriority="high"')}
     </div>
 
     <div class="wrap rg-inhalt">

@@ -1072,7 +1072,9 @@ html.js .reveal.in{opacity:1;transform:none}
        ],
      Das verknüpft die Profile mit der Website und stärkt beide.
      KEIN Review/AggregateRating ergänzen - selbst gesammelte Bewertungen
-     schließt Google von Rich Results aus (Regel 10 in CLAUDE.md). -->
+     schließt Google von Rich Results aus (Regel 10 in CLAUDE.md).
+     "email" erst ergänzen, wenn die echte Adresse im Impressum steht -
+     eine Platzhalteradresse liest Google als echte Kontaktangabe. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1095,12 +1097,11 @@ html.js .reveal.in{opacity:1;transform:none}
   "knowsAbout": [
     "Individueller Sanierungsfahrplan (iSFP)",
     "BAFA- und KfW-Förderung",
-    "Energieausweis nach GEG",
+    "Energieausweis nach Gebäudemodernisierungsgesetz (GModG)",
     "Hydraulischer Abgleich",
     "Energetische Sanierung von Wohngebäuden"
   ],
   "telephone": "+4915224290826",
-  "email": "kontakt@ihre-domain.de",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Griesweg 20",
@@ -1135,7 +1136,7 @@ html.js .reveal.in{opacity:1;transform:none}
   "priceRange": "€€",
   "makesOffer": [
     { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Individueller Sanierungsfahrplan (iSFP)", "url": "https://energieberater-albdonau.de/sanierungsfahrplan.html" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Energieausweis nach GEG", "url": "https://energieberater-albdonau.de/energieausweis-ulm.html" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Energieausweis (Bedarfs- und Verbrauchsausweis)", "url": "https://energieberater-albdonau.de/energieausweis-ulm.html" } },
     { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hydraulischer Abgleich (Verfahren B)", "url": "https://energieberater-albdonau.de/hydraulischer-abgleich-ulm.html" } },
     { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fördermittel-Management (BAFA/KfW)" } },
     { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Baubegleitung & Qualitätssicherung" } }
@@ -1163,7 +1164,7 @@ html.js .reveal.in{opacity:1;transform:none}
     {
       "@type": "Question",
       "name": "Muss ich meine Öl- oder Gasheizung jetzt austauschen?",
-      "acceptedAnswer": { "@type": "Answer", "text": "In aller Regel nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden. Wichtig ist, die geplante Gesetzesänderung (Gebäudemodernisierungsgesetz) einzukalkulieren und die wirtschaftlich beste Lösung durchzurechnen, statt vorschnell zu entscheiden." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden – seit dem 29. Juli 2026 auch ohne Altersgrenze, die frühere Austauschpflicht nach 30 Jahren ist gestrichen. Das Gebäudeenergiegesetz heißt seitdem Gebäudemodernisierungsgesetz, die 65-Prozent-Regel entfällt. Wer eine neue Gas- oder Ölheizung einbaut, muss ab 2029 einen steigenden Anteil klimafreundlicher Brennstoffe sicherstellen. Deshalb gilt: keine Panikentscheidung, sondern rechnen." }
     },
     {
       "@type": "Question",
@@ -1193,7 +1194,7 @@ html.js .reveal.in{opacity:1;transform:none}
 <header class="site-header" id="header">
   <div class="wrap header-inner">
     <a href="#top" class="logo">
-      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
     </a>
 
     <nav class="nav" aria-label="Hauptnavigation">
@@ -1737,7 +1738,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <!-- Sobald eine Verbandsmitgliedschaft besteht (GIH, DEN), kann diese
              Kachel darauf umgestellt werden. -->
         <div>
-          <b>Energieausweis nach GEG</b>
+          <b>Energieausweis nach GModG</b>
           <span>Bedarfs- &amp; Verbrauchsausweis</span>
         </div>
       </div>
@@ -1850,10 +1851,10 @@ html.js .reveal.in{opacity:1;transform:none}
         <div class="problem-body">
           <span class="problem-num">03</span>
           <h3>„Muss ich meine Heizung tauschen – und wann?“</h3>
-          <p>Die Regeln werden gerade neu geschrieben: Das Gebäudeenergiegesetz soll durch ein Gebäudemodernisierungsgesetz abgelöst werden. Wer jetzt ohne Plan handelt, entscheidet auf Basis von gestern.</p>
+          <p>Die Regeln sind neu: Seit dem 29. Juli 2026 heißt das Gebäudeenergiegesetz Gebäudemodernisierungsgesetz, die 65-Prozent-Regel ist gestrichen – und für neue Gas- und Ölheizungen kommt ab 2029 eine eigene Pflicht dazu. Wer mit dem Wissen von 2025 entscheidet, entscheidet auf Basis von gestern.</p>
           <div class="problem-answer">
             <b>Unsere Antwort</b>
-            Eine nüchterne Einordnung, was für Ihr Gebäude gilt, was sich ändern soll – und welche Entscheidung in beiden Fällen richtig bleibt.
+            Eine nüchterne Einordnung, was für Ihr Gebäude jetzt gilt, was ab 2029 dazukommt – und welche Entscheidung auch dann noch richtig ist.
           </div>
         </div>
       </article>
@@ -1961,7 +1962,7 @@ html.js .reveal.in{opacity:1;transform:none}
         </div>
         <p>Wenn es erst einmal um eine einzelne Frage geht: Verkauf, Vermietung, hohe Nebenkosten oder eine Heizung, die nicht rund läuft.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> <a href="energieausweis-ulm.html">Bedarfs- und Verbrauchsausweis nach GEG</a></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> <a href="energieausweis-ulm.html">Bedarfs- und Verbrauchsausweis nach GModG</a></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> <a href="hydraulischer-abgleich-ulm.html">Heizlastberechnung und hydraulischer Abgleich</a></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Thermografie in der Heizperiode</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Zweitmeinung zu vorliegenden Angeboten</li>
@@ -2310,7 +2311,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <h3>Steuerliche Alternative</h3>
         <p class="foerder-satz">20 % über drei Jahre</p>
         <p>Wer keine Förderung beantragt, kann Sanierungskosten stattdessen von der Steuer absetzen. Für selbstgenutztes Wohneigentum ab einem bestimmten Gebäudealter.</p>
-        <p class="foerder-deckel">Wichtig: entweder Förderung <em>oder</em> Steuerermäßigung – beides zusammen geht nicht. Was günstiger ist, rechnen wir vorher durch.</p>
+        <p class="foerder-deckel">Wichtig: entweder Förderung <em>oder</em> Steuerermäßigung – beides zusammen geht nicht. Was günstiger ist, rechnen wir vorher durch – <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer im Vergleich</a>.</p>
       </article>
 
     </div>
@@ -2567,7 +2568,7 @@ html.js .reveal.in{opacity:1;transform:none}
 
       <div class="faq-item">
         <button class="faq-q">Muss ich meine Öl- oder Gasheizung jetzt austauschen?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>In aller Regel nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden. Zugleich soll das Gebäudeenergiegesetz durch ein Gebäudemodernisierungsgesetz abgelöst werden, das die 65-Prozent-Regel für neue Heizungen streicht. Weil der Gesetzgebungsprozess noch läuft, ist die wichtigste Empfehlung: keine Panikentscheidung, sondern rechnen – die wirtschaftlich beste Lösung ist meist in beiden Rechtsständen dieselbe.</p></div>
+        <div class="faq-a"><p>Nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden – seit dem 29. Juli 2026 auch ohne Altersgrenze, die frühere Austauschpflicht nach 30 Jahren ist gestrichen. Das Gebäudeenergiegesetz heißt seitdem Gebäudemodernisierungsgesetz, die 65-Prozent-Regel entfällt. Wer eine neue Gas- oder Ölheizung einbaut, muss ab 2029 einen steigenden Anteil klimafreundlicher Brennstoffe sicherstellen. Deshalb gilt: keine Panikentscheidung, sondern rechnen.</p></div>
       </div>
 
       <div class="faq-item">
@@ -2754,7 +2755,7 @@ html.js .reveal.in{opacity:1;transform:none}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#top" class="logo">
-      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
     </a>
         <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision, mit Blick auf das, was sich rechnet.</p>
         <a href="#kontakt" class="btn btn-amber btn-sm">Gratis Erstgespräch</a>

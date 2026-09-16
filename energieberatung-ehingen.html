@@ -1072,18 +1072,25 @@ html.js .reveal.in{opacity:1;transform:none}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "EBA Energieberater Albdonau",
+  "@type": "Service",
+  "name": "Energieberatung Ehingen",
+  "serviceType": "Energieberatung für Wohngebäude",
   "description": "Energieberatung für Wohngebäude in Ehingen: Sanierungsfahrplan, Fördermittel und Energieausweis.",
   "url": "https://energieberater-albdonau.de/energieberatung-ehingen.html",
-  "telephone": "+4915224290826",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Griesweg 20",
-    "postalCode": "89160",
-    "addressLocality": "Dornstadt",
-    "addressRegion": "Baden-Württemberg",
-    "addressCountry": "DE"
+  "provider": {
+    "@type": "ProfessionalService",
+    "@id": "https://energieberater-albdonau.de/#unternehmen",
+    "name": "EBA Energieberater Albdonau",
+    "url": "https://energieberater-albdonau.de/",
+    "telephone": "+4915224290826",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Griesweg 20",
+      "postalCode": "89160",
+      "addressLocality": "Dornstadt",
+      "addressRegion": "Baden-Württemberg",
+      "addressCountry": "DE"
+    }
   },
   "areaServed": { "@type": "City", "name": "Ehingen" }
 }
@@ -1348,7 +1355,7 @@ html.js .reveal.in{opacity:1;transform:none}
 <header class="site-header" id="header">
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
-      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
     </a>
 
     <nav class="nav" aria-label="Hauptnavigation">
@@ -1431,7 +1438,7 @@ html.js .reveal.in{opacity:1;transform:none}
 
     <div class="hero-visual">
       <figure class="ort-foto">
-        <img src="bilder/ort-ehingen.jpg" alt="Kirchtuerme von Ehingen an der Donau hinter Baumwipfeln" width="1000" height="750"
+        <img src="bilder/ort-ehingen.jpg" alt="Kirchtürme von Ehingen an der Donau hinter Baumwipfeln" width="1000" height="750"
              fetchpriority="high" decoding="async">
         <figcaption>Foto: <a href="https://commons.wikimedia.org/wiki/File:Ehingen_(Donau).jpg" rel="noopener">Dr. Eugen Lehle</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.de" rel="noopener">CC BY-SA 3.0</a>, Zuschnitt</figcaption>
       </figure>
@@ -1493,7 +1500,7 @@ html.js .reveal.in{opacity:1;transform:none}
       <ul class="liste">
         <li><a href="sanierungsfahrplan.html">Individueller Sanierungsfahrplan (iSFP)</a> mit Kosten, Einsparung und Amortisation je Maßnahme</li>
         <li>Fördermittel-Management: Antrag bei BAFA und KfW, Fristen im Blick, Verwendungsnachweis</li>
-        <li><a href="energieausweis-ulm.html">Energieausweis nach GEG</a> – Bedarfs- und Verbrauchsausweis</li>
+        <li><a href="energieausweis-ulm.html">Energieausweis nach GModG</a> – Bedarfs- und Verbrauchsausweis</li>
         <li>Baubegleitung und Qualitätssicherung während der Umsetzung</li>
         <li><a href="hydraulischer-abgleich-ulm.html">Heizlastberechnung und hydraulischer Abgleich</a> nach Verfahren B</li>
         <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>
@@ -1733,7 +1740,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <h3>Steuerliche Alternative</h3>
         <p class="foerder-satz">20 % über drei Jahre</p>
         <p>Wer keine Förderung beantragt, kann Sanierungskosten stattdessen von der Steuer absetzen. Für selbstgenutztes Wohneigentum ab einem bestimmten Gebäudealter.</p>
-        <p class="foerder-deckel">Wichtig: entweder Förderung <em>oder</em> Steuerermäßigung – beides zusammen geht nicht. Was günstiger ist, rechnen wir vorher durch.</p>
+        <p class="foerder-deckel">Wichtig: entweder Förderung <em>oder</em> Steuerermäßigung – beides zusammen geht nicht. Was günstiger ist, rechnen wir vorher durch – <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer im Vergleich</a>.</p>
       </article>
 
     </div>
@@ -2063,7 +2070,7 @@ html.js .reveal.in{opacity:1;transform:none}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
     </a>
         <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision, mit Blick auf das, was sich rechnet.</p>
         <a href="index.html#kontakt" class="btn btn-amber btn-sm">Gratis Erstgespräch</a>

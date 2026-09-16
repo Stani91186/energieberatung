@@ -154,7 +154,10 @@ ORTE = [
             "der Förderung nicht mehr erfüllen.",
     "besonderheit": "Auf der Alb ist der Untergrund verkarstet. Erdwärmebohrungen sind "
             "wasserrechtlich heikel und werden nicht überall genehmigt. Vor jeder Planung "
-            "mit Sole-Wasser-Wärmepumpe gehört deshalb die Genehmigungsfrage geklärt.",
+            "mit Sole-Wasser-Wärmepumpe gehört deshalb die Genehmigungsfrage geklärt. "
+            "Was die Höhenlage sonst noch ändert, steht im Ratgeber "
+            "<a href=\"ratgeber-sanieren-schwaebische-alb.html\">Sanieren auf der "
+            "Schwäbischen Alb</a>.",
   },
   {
     "datei": "energieberatung-blaubeuren.html",
@@ -173,11 +176,12 @@ ORTE = [
             "gleichzeitig ist der Ort vor Wind gut geschützt.",
     "bausubstanz": "Der historische Ortskern mit Fachwerk und dem Kloster steht unter "
             "besonderem Schutz. Daneben gibt es Wohngebiete der Nachkriegszeit und die "
-            "Teilorte auf der Albhochfläche, die klimatisch schon zur Höhenlage zählen – "
+            "Teilorte auf der Albhochfläche, die klimatisch schon zur "
+            "<a href=\"ratgeber-sanieren-schwaebische-alb.html\">Höhenlage</a> zählen – "
             "innerhalb einer Gemeinde also zwei unterschiedliche Ausgangslagen.",
     "besonderheit": "Denkmalschutz ist hier keine Randnotiz, sondern die Regel. Bei "
             "geschützten Gebäuden gelten erleichterte Anforderungen im "
-            "Gebäudeenergiegesetz, gleichzeitig sind viele Standardmaßnahmen nicht "
+            "Gebäudemodernisierungsgesetz, gleichzeitig sind viele Standardmaßnahmen nicht "
             "zulässig. Fachwerk verträgt zudem nur bestimmte Dämmsysteme – hier ist die "
             "Reihenfolge besonders wichtig.",
   },
@@ -185,7 +189,7 @@ ORTE = [
     "datei": "energieberatung-erbach.html",
     "isfp_hinweis": "In Erbach stehen am Anfang des Fahrplans fast immer Kellerdecke und oberste Geschossdecke. Die Heizung kommt bewusst danach, weil sie sonst auf den ungedämmten Zustand ausgelegt und damit eine Nummer zu groß gekauft wird.",
     "ort": "Erbach",
-    "typisch": "Viele Häuser in Erbach stammen aus einer Bauphase, in der die Kellerdecke praktisch nie gedämmt wurde. Das merkt man im Erdgeschoss an kalten Böden. Diese Maßnahme ist die günstigste im ganzen Katalog, in Eigenleistung machbar und förderfähig – und sie ist fast immer der richtige erste Schritt, bevor über die Heizung gesprochen wird.",
+    "typisch": "Viele Häuser in Erbach stammen aus einer Bauphase, in der die Kellerdecke praktisch nie gedämmt wurde. Das merkt man im Erdgeschoss an kalten Böden. Diese Maßnahme ist die <a href=\"ratgeber-kellerdecke-daemmen.html\">günstigste im ganzen Katalog</a>, in Eigenleistung machbar und förderfähig – und sie ist fast immer der richtige erste Schritt, bevor über die Heizung gesprochen wird.",
     "artikel": "in",
     "plz": "89155",
     "einwohner": "rund 14.000",
@@ -266,32 +270,32 @@ def stil():
 # ---------------------------------------------------------------------------
 ORTSFOTOS = {
     "Ulm": ("bilder/ort-ulm.jpg",
-            "Luftaufnahme des Ulmer Muensters ueber den Daechern der Altstadt",
+            "Luftaufnahme des Ulmer Münsters über den Dächern der Altstadt",
             "Seematze", "CC BY 3.0",
             "https://creativecommons.org/licenses/by/3.0/deed.de",
             "https://commons.wikimedia.org/wiki/File:Luftbild_Ulmer_Muenster.JPG"),
     "Blaustein": ("bilder/ort-blaustein.jpg",
-            "Blick ueber Blaustein-Herrlingen im Blautal mit bewaldeten Haengen",
+            "Blick über Blaustein-Herrlingen im Blautal mit bewaldeten Hängen",
             "Franzfoto", "CC BY-SA 3.0",
             "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
             "https://commons.wikimedia.org/wiki/File:Blaustein_-_Herrlingen_mit_Blautal.JPG"),
     "Langenau": ("bilder/ort-langenau.jpg",
-            "Daecher von Langenau mit dem weissen Turm der Martinskirche",
+            "Dächer von Langenau mit dem weißen Turm der Martinskirche",
             "Checker1234", "CC BY-SA 3.0",
             "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
             "https://commons.wikimedia.org/wiki/File:Martinskirche1.JPG"),
     "Ehingen": ("bilder/ort-ehingen.jpg",
-            "Kirchtuerme von Ehingen an der Donau hinter Baumwipfeln",
+            "Kirchtürme von Ehingen an der Donau hinter Baumwipfeln",
             "Dr. Eugen Lehle", "CC BY-SA 3.0",
             "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
             "https://commons.wikimedia.org/wiki/File:Ehingen_(Donau).jpg"),
     "Laichingen": ("bilder/ort-laichingen.jpg",
-            "Luftaufnahme von Laichingen auf der Albhochflaeche",
+            "Luftaufnahme von Laichingen auf der Albhochfläche",
             "Karle3", "CC BY-SA 3.0",
             "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
             "https://commons.wikimedia.org/wiki/File:Laichingen_200209.jpg"),
     "Blaubeuren": ("bilder/ort-blaubeuren.jpg",
-            "Hammermuehle am Blautopf in Blaubeuren mit Fachwerk und tuerkisfarbenem Wasser",
+            "Hammermühle am Blautopf in Blaubeuren mit Fachwerk und türkisfarbenem Wasser",
             "Olga Ernst", "CC BY-SA 4.0",
             "https://creativecommons.org/licenses/by-sa/4.0/deed.de",
             "https://commons.wikimedia.org/wiki/File:Hammerm%C3%BChle_am_Blautopf,_Blaubeuren_(2019).jpg"),
@@ -571,18 +575,25 @@ def seite(o):
 <script type="application/ld+json">
 {{
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "EBA Energieberater Albdonau",
+  "@type": "Service",
+  "name": "Energieberatung {ort}",
+  "serviceType": "Energieberatung für Wohngebäude",
   "description": "Energieberatung für Wohngebäude {o['artikel']} {ort}: Sanierungsfahrplan, Fördermittel und Energieausweis.",
   "url": "{url}",
-  "telephone": "{TEL_LINK}",
-  "address": {{
-    "@type": "PostalAddress",
-    "streetAddress": "Griesweg 20",
-    "postalCode": "89160",
-    "addressLocality": "Dornstadt",
-    "addressRegion": "Baden-Württemberg",
-    "addressCountry": "DE"
+  "provider": {{
+    "@type": "ProfessionalService",
+    "@id": "{DOMAIN}/#unternehmen",
+    "name": "EBA Energieberater Albdonau",
+    "url": "{DOMAIN}/",
+    "telephone": "{TEL_LINK}",
+    "address": {{
+      "@type": "PostalAddress",
+      "streetAddress": "Griesweg 20",
+      "postalCode": "89160",
+      "addressLocality": "Dornstadt",
+      "addressRegion": "Baden-Württemberg",
+      "addressCountry": "DE"
+    }}
   }},
   "areaServed": {{ "@type": "City", "name": "{ort}" }}
 }}
@@ -698,7 +709,7 @@ def seite(o):
       <ul class="liste">
         <li><a href="sanierungsfahrplan.html">Individueller Sanierungsfahrplan (iSFP)</a> mit Kosten, Einsparung und Amortisation je Maßnahme</li>
         <li>Fördermittel-Management: Antrag bei BAFA und KfW, Fristen im Blick, Verwendungsnachweis</li>
-        <li><a href="energieausweis-ulm.html">Energieausweis nach GEG</a> – Bedarfs- und Verbrauchsausweis</li>
+        <li><a href="energieausweis-ulm.html">Energieausweis nach GModG</a> – Bedarfs- und Verbrauchsausweis</li>
         <li>Baubegleitung und Qualitätssicherung während der Umsetzung</li>
         <li><a href="hydraulischer-abgleich-ulm.html">Heizlastberechnung und hydraulischer Abgleich</a> nach Verfahren B</li>
         <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>

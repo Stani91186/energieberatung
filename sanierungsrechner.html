@@ -824,7 +824,17 @@ details.annahmen[open] summary::after{content:"–"}
   "operatingSystem": "Web",
   "inLanguage": "de",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-  "provider": { "@type": "ProfessionalService", "name": "EBA Energieberater Albdonau", "url": "https://energieberater-albdonau.de/" }
+  "provider": { "@type": "ProfessionalService", "@id": "https://energieberater-albdonau.de/#unternehmen", "name": "EBA Energieberater Albdonau", "url": "https://energieberater-albdonau.de/" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://energieberater-albdonau.de/" },
+    { "@type": "ListItem", "position": 2, "name": "Sanierungsrechner", "item": "https://energieberater-albdonau.de/sanierungsrechner.html" }
+  ]
 }
 </script>
 </head>
@@ -834,7 +844,7 @@ details.annahmen[open] summary::after{content:"–"}
 <header class="site-header" id="header">
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
-      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
     </a>
 
     <nav class="nav" aria-label="Hauptnavigation">
@@ -945,7 +955,7 @@ details.annahmen[open] summary::after{content:"–"}
 
   <div class="band-card">
     <h2 style="font-size:1.15rem;margin-bottom:6px">Energieeffizienzklasse</h2>
-    <p class="section-sub">Skala nach Gebäudeenergiegesetz, Kennwert in kWh je m² Wohnfläche und Jahr – auf Basis Ihres realen Verbrauchs.</p>
+    <p class="section-sub">Skala nach Gebäudemodernisierungsgesetz (bis Juli 2026 GEG), Kennwert in kWh je m² Wohnfläche und Jahr – auf Basis Ihres realen Verbrauchs.</p>
     <div class="band" id="band"></div>
     <div class="kalib" id="kalibBox"></div>
   </div>
@@ -1052,7 +1062,7 @@ details.annahmen[open] summary::after{content:"–"}
     </p>
     <p>
       Als Ergebnis sehen Sie Ihre <b>Energieeffizienzklasse (A+ bis H)</b> nach
-      Gebäudeenergiegesetz, die Wärmeverluste je Bauteil in Kilowattstunden und Euro sowie für
+      Gebäudemodernisierungsgesetz, die Wärmeverluste je Bauteil in Kilowattstunden und Euro sowie für
       jede Sanierungsmaßnahme die realistische Kostenspanne, die aktuelle <b>BEG-Förderung</b>
       (15 % Zuschuss für Maßnahmen an der Gebäudehülle, mit individuellem Sanierungsfahrplan mehr,
       Heizungsförderung über die KfW) und die Ersparnis über die Lebensdauer. Maßnahmen, die sich
@@ -1126,7 +1136,7 @@ details.annahmen[open] summary::after{content:"–"}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-      <img src="logo.png" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
     </a>
         <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision, mit Blick auf das, was sich rechnet.</p>
         <a href="index.html#kontakt" class="btn btn-amber btn-sm">Gratis Erstgespräch</a>
@@ -1545,7 +1555,7 @@ function massnahmen(e, basis, kal){
     bewerte('brennwert','Brennwertkessel (Ersatz, ohne Förderung neuer Öl/Gas)', {heizung:'brennwert'}, K.brennwert, null, L.brennwert, 0, 1,'Neue reine Öl-/Gaskessel werden nicht mehr gefördert.');
   bewerte('abgleich','Hydraulischer Abgleich + Hocheffizienzpumpe', {extraFaktor:1-CONFIG.abgleichEinsparung}, K.abgleich, null, L.abgleich, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
   if(!e.rohrGedaemmt && e.keller!=='nein' && e.kellerBeheizt!=='ja')
-    bewerte('rohr','Heizungsrohre im Keller dämmen', {extraFaktor:1-CONFIG.rohrEinsparung}, K.rohr, null, L.rohr, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle,'Pflicht nach GEG bei zugänglichen Leitungen – und in Eigenleistung sehr günstig.');
+    bewerte('rohr','Heizungsrohre im Keller dämmen', {extraFaktor:1-CONFIG.rohrEinsparung}, K.rohr, null, L.rohr, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle,'Pflicht nach GModG bei zugänglichen Leitungen – und in Eigenleistung sehr günstig.');
 
   out.sort(function(a,b){ return a.netto-b.netto; });   // kleinste Investition zuerst
   return out;
