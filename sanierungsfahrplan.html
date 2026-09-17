@@ -286,6 +286,8 @@ td:first-child{color:var(--ink);font-weight:500}
 .site-header .wrap,.site-footer .wrap{max-width:1180px}
 /* Einheitlicher, gut sichtbarer Fokusring für Tastaturbedienung */
 :focus-visible{outline:2.5px solid var(--amber-deep);outline-offset:3px}
+/* Markierter Text in der Hausfarbe statt im Browserblau */
+::selection{background:var(--amber-soft);color:var(--ink)}
 /* Sprungmarke: erstes fokussierbares Element der Seite */
 .skip-link{
   position:absolute;left:-9999px;top:0;z-index:200;
@@ -368,7 +370,7 @@ td:first-child{color:var(--ink);font-weight:500}
 .header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
 /* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
 .cta-kurz{display:none}
-.burger{display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);place-items:center;background:var(--white)}
+.burger{display:none;width:42px;height:42px;border-radius:var(--radius-sm);border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
 .burger span+span{margin-top:4.5px}
 .burger.open span:nth-child(1){transform:translateY(6.1px) rotate(45deg)}
@@ -403,12 +405,12 @@ td:first-child{color:var(--ink);font-weight:500}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:34px;padding-bottom:44px}
 .footer-brand p{font-size:.9rem;color:var(--ink-2);margin:18px 0 22px;max-width:34ch}
 /* h3 statt h4: der Fussbereich sprang von H2 auf H4 (Ebene uebersprungen). */
-.footer-col h3{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
+.footer-col h3{font-size:.8125rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
 .footer-col a{display:block;font-size:.9rem;color:var(--ink-2);padding:6px 0;transition:color .25s}
 .footer-col a:hover{color:var(--amber-deep)}
 .badges{display:flex;flex-wrap:wrap;gap:9px;padding:26px 0;border-top:1px solid var(--line)}
 .badge{
-  font-size:.75rem;font-weight:600;color:var(--ink-2);background:var(--white);
+  font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--white);
   border:1px solid var(--line);border-radius:100px;padding:7px 15px;
 }
 .footer-bottom{

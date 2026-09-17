@@ -281,6 +281,41 @@ DG unbeheizt): 1900 → 407 kWh/m²a (H) · 1965 → 348 (H) · 1985 → 183 (F)
 2005 mit Brennwert → 99 (C). Die `AUFBAUTEN` des U-Wert-Rechners für die
 Kellerdecke sind dazu nach denselben Baualtersklassen geteilt.
 
+### Eine Rechnung für Maßnahmen, Pakete und Simulator (seit 17.09.2026)
+
+Eine `/impeccable critique` fand, dass derselbe Rechner für dasselbe Haus
+drei verschiedene Zahlen zeigte (Kachel 536, Simulator 443 kWh/m²a; Paket
+„Hülle komplett" 3.508 €/a gegen 2.487 € im Simulator – fast die ganze
+Heizkostenrechnung). Seitdem gilt:
+
+- **`kostenVergleich(e, vor, nach, k)` ist die einzige Kostenrechnung.**
+  Maßnahmen, Pakete und Simulator rufen sie auf. Rebound über
+  `kEff = k + (1−k)·(1−Verhältnis)²` – quadratisch, weil die lineare Form
+  einer einzelnen Fassadendämmung im Altbau rund 70 % ihrer Einsparung
+  nahm; Studien nennen für den direkten Rebound eher 10–30 %.
+- **`kalibMin` 0,35 statt 0,45.** Beim unsanierten Altbau liegt der Verbrauch
+  oft 60 % unter dem Bedarf; gekappt wurde die Ersparnis rund 12 % zu hoch.
+  Unter 0,35 fragt der Hinweis nach und bietet „Verbrauch prüfen" an.
+- **Reglerstufen des Simulators kommen aus den CONFIG-Tabellen**
+  (`eraStufen()`), und bis zur ersten Reglerbewegung rechnet er mit den
+  Ist-U-Werten des Fragebogens (`simIstU()`, `SIM.bewegt`). Wer eine
+  U-Wert-Tabelle ändert, muss hier nichts nachziehen.
+- **Pakete:** höchstens eine Heizung (bei zwei grünen gewinnt der größere
+  Überschuss über die Lebensdauer), der Titel „von X auf Y" entsteht aus den
+  Werten, gleiche Pakete werden nur einmal gezeigt (`doppelt`).
+- **Fördersätze im Text kommen aus `foerderSatzText()`** – vorher nannten
+  drei Stellen 30 %, gerechnet wurde mit `foerderWP`.
+- **Klassenchips:** `klasseStil()` wählt die Schrift nach Kontrast (B, C, D
+  dunkel), die Buchstaben der Skala sind 19 px fett.
+- **Fragebogen: neun Schritte.** „Ihr Verbrauch" ist ein eigener Schritt
+  (`id:'verbrauch'`), die Einheit steht vorn und zeigt nur, was zum
+  Energieträger passt (`EINHEITEN`). Fehlerhafte Felder bekommen
+  `aria-invalid`, Fokus und rücken ins Bild. Klimaregion vorbelegt mit „Süd".
+- **Rückweg:** „Angaben ändern" im Ergebniskopf; jeder Knopf mit
+  `data-schritt` springt über `zuSchritt()` zurück, die Angaben bleiben.
+- Selbsttest um drei Fälle ergänzt: Reglerstufen, Simulatorstart = Kachel,
+  Pakete mit höchstens einer Heizung und Ersparnis unter den Heizkosten.
+
 ## U-Wert-Rechner
 
 `u-wert-rechner.html` ist der zweite Rechner und beantwortet eine andere Frage
@@ -615,6 +650,37 @@ und die Vorlage in `ortsseiten-erzeugen.py` (dort mit doppelten Klammern).
 Detektor, ist aber ein einmaliger Übergang von 0,35 s an der Scrollschwelle.
 Ein Umbau würde die Kopfzeile aller Seiten anfassen – bewusst belassen.
 
+**Politur U-Wert-Rechner (17.09.2026).** Regeln, die dabei entstanden sind:
+
+- **Fokus überlebt das Neuzeichnen.** Fragebogen, Stufenwahl, Stellschrauben
+  und Bauteil-Chips werden bei jeder Auswahl neu gebaut. Jedes dabei ersetzte
+  Bedienelement trägt `data-fokus` mit festem Schlüssel; `fokusKey()` am
+  Anfang und `fokusZurueck()` am Ende der Render-Funktion setzen den
+  Tastaturfokus zurück. Wer ein neues Bedienelement in einen neu gezeichneten
+  Bereich baut, gibt ihm einen `data-fokus`-Schlüssel.
+- **Zustand wird angesagt.** Auswahlkarten, Chips und die Außen/Innen-Umschalter
+  setzen `aria-pressed` über `gedrueckt()`. Kartenfragen sind `role="group"`
+  mit `aria-label`; Auswahl- und Zahlenfelder haben ein verknüpftes `<label>`.
+- **Erklärknopf als Umschalt-Tipp.** `#infoPop` ist eine Live-Region
+  (`role="status"`), zugeklappt `visibility:hidden`; der Knopf trägt
+  `aria-expanded`, Escape gibt den Fokus an ihn zurück.
+- **„Angaben ändern" statt „Von vorn beginnen".** Der Knopf behält die
+  Antworten; er steht jetzt auch oben im Ergebnis.
+- **Schriftleiter im Rechner:** 13 · 14 · 15 px (.8125 · .875 · .9375rem),
+  darüber 16,5 px Grundschrift und die Zahlenstufen 1,5 und 2,5rem. Vorher
+  gab es 28 Werte. `sub` hat eine Untergrenze von 12,5 px.
+- **Keine Textzeichen als Symbole.** Aufklapp-Pfeil, Schicht-entfernen und
+  „Schicht hinzufügen" sind gezeichnete SVGs.
+- **Erzeugertabelle** stapelt sich unter 560 px je Erzeuger; die Spaltennamen
+  kommen aus `data-label`.
+- Die lokalen `.btn*`-Regeln waren tot (GEMEINSAM:CSS überschreibt sie) und
+  sind entfernt; nur `.btn[disabled]` ist eigen.
+
+`PRODUCT.md`, `DESIGN.md` und `.impeccable/design.json` liegen seit dem
+17.09.2026 lokal vor (gitignored). Der Detektor prüft Schriftgrößen und Radien
+seitdem gegen `DESIGN.md` – neue Werte dort eintragen oder die nächste Stufe
+nehmen.
+
 **Detektor erneut laufen lassen:**
 
     .claude/skills/impeccable/scripts/impeccable detect --json index.html sanierungsrechner.html u-wert-rechner.html sanierungsfahrplan.html energieberatung-ulm.html ratgeber-fassade-daemmen.html aktuelles.html 404.html
@@ -631,7 +697,8 @@ Offen und klein: 1 × enger Innenabstand an `.problem-illu`.
 ## Qualitätsprüfung nach JEDER Änderung am Rechner
 
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
-Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser + Plausibilität).
+Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser, Plausibilität,
+Simulator-Reglerstufen, Simulatorstart und Pakete).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
 `✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (45 Fälle: Handrechnung,
 Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische

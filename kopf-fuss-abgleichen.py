@@ -56,7 +56,7 @@ RAHMEN = (".site-header", ".header-inner", ".header-cta", ".header-links",
           ".btn",
           # Der Fokusring gilt fuer alle Seiten, nicht nur fuer den Rahmen -
           # sonst zeigen die Rechner den Browserstandard statt der Hausfarbe.
-          ":focus-visible")
+          ":focus-visible", "::selection")
 
 # Die Startseite setzt globale Grundregeln (a ohne Unterstrich, svg als Block),
 # auf die der Rahmen baut. Die Zielseiten haben eigene, teils andere

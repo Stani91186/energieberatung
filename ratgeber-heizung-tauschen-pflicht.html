@@ -101,6 +101,9 @@
   --blau:#4A6785;
   --blau-ink:#2C3D52;
   --auf-gruen:#FBF8F2;
+  /* Waldgruen dunkel (Verlaufsende) und Rahmen auf Waldgruen-Toenung */
+  --forest-deep:#22392E;
+  --forest-line:#D3E2D8;
 }
 
 /* ===========================================================================
@@ -134,6 +137,8 @@ i{font-style:normal}
 /* Einheitlicher, gut sichtbarer Fokusring für Tastaturbedienung */
 :focus-visible{outline:2.5px solid var(--amber-deep);outline-offset:3px}
 a:focus-visible{border-radius:4px}
+/* Markierter Text in der Hausfarbe statt im Browserblau */
+::selection{background:var(--amber-soft);color:var(--ink)}
 
 /* Sprungmarke: erstes fokussierbares Element der Seite */
 .skip-link{
@@ -279,7 +284,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
 /* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
 .cta-kurz{display:none}
-.burger{display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);place-items:center;background:var(--white)}
+.burger{display:none;width:42px;height:42px;border-radius:var(--radius-sm);border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
 .burger span+span{margin-top:4.5px}
 .burger.open span:nth-child(1){transform:translateY(6.1px) rotate(45deg)}
@@ -465,9 +470,11 @@ html.js .reveal.in{opacity:1;transform:none}
 .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .problem{padding:0;display:flex;flex-direction:column;overflow:hidden}
 
-/* Illustrationsband am Kartenkopf */
+/* Illustrationsband am Kartenkopf. Unten mit Luft: Die Zeichnungen enden
+   unterschiedlich tief (0 bis 10 px vor dem Rand), die dritte sass sonst
+   direkt auf der Trennlinie, waehrend oben 33 px frei blieben. */
 .problem-illu{
-  position:relative;padding:22px 22px 0;
+  position:relative;padding:22px 22px 16px;
   background:linear-gradient(168deg,var(--cream-2) 0%,var(--cream) 78%);
   border-bottom:1px solid var(--line-soft);
 }
@@ -564,7 +571,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .rechner-vorschau svg{width:100%;height:auto}
 /* Haus oben, darunter die Skala – durch eine feine Linie getrennt */
 .vorschau-haus{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
-.rechner-vorschau figcaption{margin-top:14px;font-size:.76rem;color:var(--muted);text-align:center}
+.rechner-vorschau figcaption{margin-top:14px;font-size:.8125rem;color:var(--muted);text-align:center}
 
 @media (max-width:900px){
   .rechner-teaser{grid-template-columns:1fr;gap:34px;padding:34px 26px}
@@ -589,7 +596,7 @@ html.js .reveal.in{opacity:1;transform:none}
    9. ZAHLEN
    ======================================================================== */
 .stats{
-  background:linear-gradient(165deg,var(--forest) 0%,#22392E 100%);
+  background:linear-gradient(165deg,var(--forest) 0%,var(--forest-deep) 100%);
   color:#F4EFE6;border-radius:var(--radius-lg);padding:62px 52px;position:relative;overflow:hidden;
 }
 .stats::after{
@@ -848,12 +855,12 @@ html.js .reveal.in{opacity:1;transform:none}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:34px;padding-bottom:44px}
 .footer-brand p{font-size:.9rem;color:var(--ink-2);margin:18px 0 22px;max-width:34ch}
 /* h3 statt h4: der Fussbereich sprang von H2 auf H4 (Ebene uebersprungen). */
-.footer-col h3{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
+.footer-col h3{font-size:.8125rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
 .footer-col a{display:block;font-size:.9rem;color:var(--ink-2);padding:6px 0;transition:color .25s}
 .footer-col a:hover{color:var(--amber-deep)}
 .badges{display:flex;flex-wrap:wrap;gap:9px;padding:26px 0;border-top:1px solid var(--line)}
 .badge{
-  font-size:.75rem;font-weight:600;color:var(--ink-2);background:var(--white);
+  font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--white);
   border:1px solid var(--line);border-radius:100px;padding:7px 15px;
 }
 .footer-bottom{
@@ -1013,7 +1020,7 @@ html.js .reveal.in{opacity:1;transform:none}
   .band-tile{flex-direction:column;align-items:flex-start}
   .band-tile b{font-size:.8rem}
   .problem-body{padding:22px 22px 26px}
-  .problem-illu{padding:18px 18px 0}
+  .problem-illu{padding:18px 18px 14px}
 }
 
 /* ==== Ratgeber ==== */

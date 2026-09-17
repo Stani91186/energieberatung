@@ -75,6 +75,9 @@
   --blau:#4A6785;
   --blau-ink:#2C3D52;
   --auf-gruen:#FBF8F2;
+  /* Waldgruen dunkel (Verlaufsende) und Rahmen auf Waldgruen-Toenung */
+  --forest-deep:#22392E;
+  --forest-line:#D3E2D8;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 /* scroll-padding-top: Die Kopfzeile ist fest (fixed). Ohne diesen Abstand
@@ -93,15 +96,10 @@ h3{font-size:1.1rem;line-height:1.3}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.72rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:14px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.8125rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:14px}
 .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--amber)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 24px;border-radius:100px;font-size:.93rem;font-weight:600;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .25s,border-color .25s;white-space:nowrap}
-.btn-primary{background:var(--forest);color:var(--auf-gruen);box-shadow:0 6px 18px rgba(46,74,60,.2)}
-.btn-primary:hover{transform:translateY(-2px)}
-.btn-ghost{background:var(--white);border:1.5px solid var(--line);color:var(--ink)}
-.btn-ghost:hover{border-color:var(--forest);transform:translateY(-2px)}
-.btn-amber{background:var(--amber);color:var(--white)}
-.btn-amber:hover{background:var(--amber-deep);transform:translateY(-2px)}
+/* Knopfregeln kommen aus GEMEINSAM:CSS (Startseite) - die lokalen
+   Kopien wurden dort vollstaendig ueberschrieben. */
 .btn[disabled]{opacity:.45;pointer-events:none}
 
 /* ==== Header ==== */
@@ -121,13 +119,13 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 }
 .site-header.stuck .header-inner{height:var(--kopf-klein)}
 .header-links{display:flex;align-items:center;gap:14px}
-.header-links .back{font-size:.88rem;color:var(--ink-2);font-weight:500}
+.header-links .back{font-size:.875rem;color:var(--ink-2);font-weight:500}
 .header-links .back:hover{color:var(--amber-deep)}
 
 /* Hauptnavigation - identisch zur Startseite, damit der Rechner nicht wie
    eine fremde Seite wirkt. Verweise zeigen auf die Abschnitte der Startseite. */
 .nav{display:flex;align-items:center;gap:24px}
-.nav a{font-size:.9rem;font-weight:500;color:var(--ink-2);position:relative;padding:4px 0;transition:color .25s;white-space:nowrap}
+.nav a{font-size:.9375rem;font-weight:500;color:var(--ink-2);position:relative;padding:4px 0;transition:color .25s;white-space:nowrap}
 .nav a::after{content:"";position:absolute;left:0;bottom:0;height:1.5px;width:0;background:var(--amber);border-radius:2px;transition:width .35s var(--ease)}
 .nav a:hover{color:var(--ink)}
 .nav a:hover::after{width:100%}
@@ -135,7 +133,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .nav a[aria-current="page"]{color:var(--ink);font-weight:600}
 .nav a[aria-current="page"]::after{width:100%}
 
-.burger{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);place-items:center;background:var(--white)}
+.burger{display:none;width:40px;height:40px;border-radius:var(--radius-sm);border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:16px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
 .burger span+span{margin-top:4.5px}
 .burger.open span:nth-child(1){transform:translateY(6.1px) rotate(45deg)}
@@ -155,12 +153,12 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .mobile-nav a{display:block;padding:13px 0;font-size:1.02rem;font-weight:500;border-bottom:1px solid var(--line-soft)}
 .mobile-nav .btn{width:100%;margin-top:18px}
 
-@media (max-width:1080px){ .nav{gap:18px} .nav a{font-size:.85rem} }
+@media (max-width:1080px){ .nav{gap:18px} .nav a{font-size:.875rem} }
 @media (max-width:900px){
   .nav,.header-links .back{display:none}
   .burger{display:grid}
 }
-.btn-sm{padding:10px 18px;font-size:.85rem}
+.btn-sm{padding:10px 18px;font-size:.875rem}
 
 /* ==== Intro ==== */
 /* Text links, Hinweiskasten rechts daneben - spart Hoehe und bringt den
@@ -172,55 +170,55 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .intro{padding:34px 22px 18px}
 .intro .lead{color:var(--ink-2);max-width:62ch;margin-top:14px;font-size:1.02rem}
 .intro-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
-.disclaimer{margin-top:26px;background:var(--amber-soft);border:1px solid #EBD9BC;border-radius:var(--radius-sm);padding:14px 18px;font-size:.82rem;color:var(--amber-ink);max-width:75ch}
+.disclaimer{margin-top:26px;background:var(--amber-soft);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 18px;font-size:.875rem;color:var(--amber-ink);max-width:75ch}
 /* Im Intro sitzt der Kasten in der zweiten Spalte, deshalb ohne Abstand oben */
 .intro .disclaimer{margin-top:6px;max-width:none}
 @media (max-width:900px){
   .intro{grid-template-columns:1fr;gap:22px}
   .intro .disclaimer{margin-top:0}
 }
-.disclaimer b{color:#5A4526}
+.disclaimer b{color:var(--amber-ink)}
 
 /* ==== Wizard (Fragen links, Haus rechts) ==== */
 .panel{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:30px;margin:26px 0 60px}
 .wizard-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:start;margin:26px 0 60px}
 .wizard-wrap .panel{margin:0}
 .wizard-side .sim-visual{position:sticky;top:84px}
-.side-title{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.w-facts{margin-top:12px;display:grid;gap:5px;font-size:.8rem;color:var(--ink-2);list-style:none}
+.side-title{font-size:.8125rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.w-facts{margin-top:12px;display:grid;gap:5px;font-size:.8125rem;color:var(--ink-2);list-style:none}
 .w-facts li{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line-soft);padding-top:5px}
 .w-facts li span:last-child{font-weight:600;color:var(--ink);text-align:right}
 .progress{display:flex;align-items:center;gap:12px;margin-bottom:24px}
 .progress-track{flex:1;height:7px;background:var(--cream-3);border-radius:100px;overflow:hidden}
 .progress-fill{display:block;height:100%;background:linear-gradient(90deg,var(--amber),var(--amber-deep));border-radius:100px;width:0;transition:width .5s var(--ease)}
-.progress-label{font-size:.78rem;font-weight:600;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.progress-label{font-size:.8125rem;font-weight:600;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
 .step-title{margin-bottom:4px}
-.step-sub{font-size:.88rem;color:var(--muted);margin-bottom:22px}
+.step-sub{font-size:.875rem;color:var(--muted);margin-bottom:22px}
 .fields{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}
 .field{display:flex;flex-direction:column;gap:7px}
 .field.full{grid-column:1/-1}
-.field>label{font-size:.85rem;font-weight:600}
-.field .hint{font-size:.75rem;color:var(--muted);margin-top:-2px}
+.field>label{font-size:.875rem;font-weight:600}
+.field .hint{font-size:.8125rem;color:var(--muted);margin-top:-2px}
 .field input[type=number],.field input[type=text],.field input[type=email],.field input[type=tel],.field select{
   width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--radius-sm);
-  background:var(--cream);font:inherit;font-size:.95rem;color:var(--ink);transition:border-color .2s,background .2s,box-shadow .2s;
+  background:var(--cream);font:inherit;font-size:.9375rem;color:var(--ink);transition:border-color .2s,background .2s,box-shadow .2s;
 }
 .field input:focus,.field select:focus{outline:none;border-color:var(--amber);background:var(--white);box-shadow:0 0 0 3.5px rgba(192,122,46,.13)}
 .seg{display:flex;flex-wrap:wrap;gap:8px}
-.seg button{padding:10px 16px;border-radius:100px;border:1.5px solid var(--line);background:var(--cream);font-size:.87rem;font-weight:500;transition:.2s}
+.seg button{padding:10px 16px;border-radius:100px;border:1.5px solid var(--line);background:var(--cream);font-size:.875rem;font-weight:500;transition:.2s}
 .seg button:hover{border-color:var(--amber)}
 .seg button.on{background:var(--forest);border-color:var(--forest);color:var(--auf-gruen);font-weight:600}
 
 /* Bebilderte Antwortkarten (wie im Vorbild-Video) */
 .opt-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
-.opt-card{display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px 6px 11px;border:1.5px solid var(--line);border-radius:14px;background:var(--cream);transition:transform .2s var(--ease),border-color .2s,background .2s,box-shadow .2s;text-align:center}
+.opt-card{display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px 6px 11px;border:1.5px solid var(--line);border-radius:var(--radius-sm);background:var(--cream);transition:transform .2s var(--ease),border-color .2s,background .2s,box-shadow .2s;text-align:center}
 .opt-card svg{width:58px;height:44px;display:block}
-.opt-card span{font-size:.76rem;font-weight:500;line-height:1.25;color:var(--ink-2)}
+.opt-card span{font-size:.8125rem;font-weight:500;line-height:1.25;color:var(--ink-2)}
 .opt-card:hover{border-color:var(--amber);transform:translateY(-2px)}
 .opt-card.on{border-color:var(--forest);background:var(--forest-soft);box-shadow:0 0 0 1.5px var(--forest)}
 .opt-card.on span{color:var(--forest);font-weight:600}
 .wizard-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:28px;padding-top:22px;border-top:1px solid var(--line-soft)}
-.step-error{display:none;margin-top:16px;background:var(--bad-soft);color:var(--bad-ink);border:1px solid #E8C9C2;border-radius:var(--radius-sm);padding:11px 15px;font-size:.85rem}
+.step-error{display:none;margin-top:16px;background:var(--bad-soft);color:var(--bad-ink);border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px 15px;font-size:.875rem}
 .step-error.show{display:block}
 
 /* ==== Ergebnis ==== */
@@ -228,9 +226,9 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .res-head{padding:46px 0 8px}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
 .tile{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);padding:20px 22px}
-.tile .t-label{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.tile .t-label{font-size:.8125rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .tile .t-value{font-family:var(--font-serif);font-size:1.9rem;line-height:1.05;color:var(--forest)}
-.tile .t-sub{font-size:.78rem;color:var(--muted);margin-top:6px}
+.tile .t-sub{font-size:.8125rem;color:var(--muted);margin-top:6px}
 .klasse-chip{display:inline-grid;place-items:center;min-width:46px;height:46px;border-radius:12px;font-family:var(--font-serif);font-size:1.5rem;color:var(--white);text-shadow:0 1px 2px rgba(0,0,0,.55);padding:0 10px}
 
 /* Energieklassen-Skala im Energieausweis-Stil (Pfeile A+ … H) */
@@ -240,26 +238,26 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
    eingefasst, damit er sich von den weissen Reglerkarten abhebt. */
 .sim-bericht{
   margin-top:16px;padding:20px;display:grid;gap:9px;
-  background:linear-gradient(120deg,var(--amber-soft),#FBF3E4);
+  background:linear-gradient(120deg,var(--amber-soft),var(--cream-2));
   border:1.5px solid var(--amber);
   border-radius:var(--radius);box-shadow:var(--shadow-sm);
 }
 .sim-bericht .btn{width:100%;justify-content:center;padding:15px 20px;font-size:.98rem}
 .sim-bericht .btn svg{width:19px;height:19px;flex:none}
-.sim-bericht span{font-size:.78rem;color:var(--amber-ink);text-align:center;line-height:1.45}
+.sim-bericht span{font-size:.8125rem;color:var(--amber-ink);text-align:center;line-height:1.45}
 .ea{display:grid;gap:5px;margin-top:18px}
 .ea-row{display:flex;align-items:center;gap:10px}
 /* Die Klassenfarben sind genormt (Energieausweis) und bleiben. Weisse
    Schrift darauf erreichte auf den hellen Klassen B-D nur 2,35:1; ein
    dunkler Schatten hebt sie ab, ohne die Farbskala anzutasten. */
-.ea-arrow{height:29px;display:flex;align-items:center;padding-left:12px;color:var(--white);text-shadow:0 1px 2px rgba(0,0,0,.55);font-weight:700;font-size:.84rem;border-radius:4px 0 0 4px;flex:none;
+.ea-arrow{height:29px;display:flex;align-items:center;padding-left:12px;color:var(--white);text-shadow:0 1px 2px rgba(0,0,0,.55);font-weight:700;font-size:1.1875rem;border-radius:6px 0 0 6px;flex:none;
   clip-path:polygon(0 0,calc(100% - 13px) 0,100% 50%,calc(100% - 13px) 100%,0 100%)}
-.ea-range{font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums;margin-left:auto;flex:none}
-.ea-mark{display:inline-flex;align-items:center;background:var(--ink);color:var(--auf-gruen);font-size:.72rem;font-weight:600;padding:5px 12px;border-radius:100px;white-space:nowrap;opacity:0;transform:translateX(-10px);animation:eaIn .7s var(--ease) forwards}
+.ea-range{font-size:.8125rem;color:var(--muted);font-variant-numeric:tabular-nums;margin-left:auto;flex:none}
+.ea-mark{display:inline-flex;align-items:center;background:var(--ink);color:var(--auf-gruen);font-size:.8125rem;font-weight:600;padding:5px 12px;border-radius:100px;white-space:nowrap;opacity:0;transform:translateX(-10px);animation:eaIn .7s var(--ease) forwards}
 .ea-mark.after{background:var(--forest);animation-delay:.6s}
 @keyframes eaIn{to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.ea-mark{animation:none;opacity:1;transform:none}}
-.kalib{font-size:.85rem;color:var(--ink-2);background:var(--cream-2);border-radius:var(--radius-sm);padding:13px 16px;margin-top:16px}
+.kalib{font-size:.875rem;color:var(--ink-2);background:var(--cream-2);border-radius:var(--radius-sm);padding:13px 16px;margin-top:16px}
 
 /* Hausgrafik mit Wärmeverlust-Pfeilen */
 .loss-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:26px;align-items:center;margin-top:18px}
@@ -270,61 +268,61 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .sim-visual{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:22px;position:sticky;top:84px}
 .sim-chips{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .sim-chips .arrow{color:var(--muted);font-size:1.1rem}
-.sim-chips .hint{font-size:.68rem;color:var(--muted);margin-left:auto;text-align:right;max-width:16ch}
+.sim-chips .hint{font-size:.8125rem;color:var(--muted);margin-left:auto;text-align:right;max-width:16ch}
 .sim-haus svg{width:100%;height:auto;display:block}
 .sim-kpi{margin-top:12px;display:grid;gap:12px}
-.kpi b{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block;margin-bottom:3px}
+.kpi b{font-size:.8125rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block;margin-bottom:3px}
 .kpi-vals{display:flex;align-items:baseline;gap:9px;font-family:var(--font-serif);font-size:1.3rem;line-height:1.1}
-.kpi-vals .to{color:var(--muted);font-size:.85rem;font-family:var(--font-sans)}
+.kpi-vals .to{color:var(--muted);font-size:.875rem;font-family:var(--font-sans)}
 .kpi-vals .nach{color:var(--forest)}
-.kpi-vals small{font-size:.72rem;color:var(--muted);font-family:var(--font-sans)}
+.kpi-vals small{font-size:.8125rem;color:var(--muted);font-family:var(--font-sans)}
 .kpi-track{display:block;height:9px;background:var(--cream-3);border-radius:100px;overflow:hidden;margin-top:6px}
 .kpi-fill{display:block;height:100%;border-radius:100px;transition:width .5s var(--ease)}
-.kpi-sub{font-size:.7rem;color:var(--muted);margin-top:4px}
+.kpi-sub{font-size:.8125rem;color:var(--muted);margin-top:4px}
 .sim-cards{display:grid;gap:10px}
 .sim-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);padding:13px 16px}
 .sim-card-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 /* Nicht die Ueberschrift dehnt sich, sondern der kWh-Wert dahinter. Dadurch
    werden Kennzeichnung und Sanieren-Schalter in JEDER Karte an den rechten
    Rand geschoben und stehen sauber untereinander. */
-.sim-card-head h3{font-size:.93rem;line-height:1.25}
+.sim-card-head h3{font-size:.9375rem;line-height:1.25}
 /* Erklaerung, warum eine Karte ausnahmsweise keinen Sanieren-Schalter hat */
 .sim-hinweis{
-  margin-top:9px;padding:8px 11px;border-radius:9px;
+  margin-top:9px;padding:8px 11px;border-radius:var(--radius-sm);
   background:var(--cream-2);
   font-size:.8125rem;line-height:1.5;color:var(--muted);
 }
-.sim-kwh{flex:1;font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sim-kwh{flex:1;font-size:.8125rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 .sw-mini{margin-left:auto}
 /* Die Heizungskarte hat zwei Schalter. Untereinander statt nebeneinander,
    damit ALLE Schalter der Seite auf einer senkrechten Linie sitzen. */
 .sw-spalte{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:7px}
 .sw-spalte .sw-mini{margin-left:0}
 .sim-card input[type=range]{width:100%;accent-color:var(--amber);height:26px;margin:2px 0 3px;cursor:pointer}
-.sim-stop{font-size:.74rem;color:var(--ink-2);display:flex;justify-content:space-between;gap:10px}
+.sim-stop{font-size:.8125rem;color:var(--ink-2);display:flex;justify-content:space-between;gap:10px}
 .sim-stop b{color:var(--amber-deep);font-weight:600}
 .switch{position:relative;width:42px;height:24px;flex:none}
 .switch input{position:absolute;opacity:0;inset:0;cursor:pointer;z-index:2;margin:0}
 .switch i{position:absolute;inset:0;background:var(--cream-3);border:1px solid var(--line);border-radius:100px;transition:.25s}
-.switch i::after{content:"";position:absolute;left:2px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--white);box-shadow:0 1px 3px rgba(0,0,0,.22);transition:.25s}
+.switch i::after{content:"";position:absolute;left:2px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--white);box-shadow:0 1px 3px rgba(45,35,20,.22);transition:transform .25s}
 .switch input:checked + i{background:var(--forest);border-color:var(--forest)}
 .switch input:checked + i::after{left:19px}
-.sw-mini{display:flex;align-items:center;gap:8px;font-size:.74rem;color:var(--ink-2)}
+.sw-mini{display:flex;align-items:center;gap:8px;font-size:.8125rem;color:var(--ink-2)}
 .heiz-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
-.heiz-btns button{padding:9px 16px;border-radius:100px;border:1.5px solid var(--line);background:var(--cream);font-size:.83rem;font-weight:500;transition:.2s}
+.heiz-btns button{padding:9px 16px;border-radius:100px;border:1.5px solid var(--line);background:var(--cream);font-size:.875rem;font-weight:500;transition:.2s}
 .heiz-btns button.on{background:var(--forest);border-color:var(--forest);color:var(--auf-gruen);font-weight:600}
-.sim-sum{background:var(--forest-soft);border:1px solid #D3E2D8;border-radius:var(--radius);padding:16px 18px;margin-top:10px}
-.sim-sum .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px 12px;font-size:.92rem;font-variant-numeric:tabular-nums}
-.sim-sum .grid b{display:block;font-size:.64rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.sim-sum{background:var(--forest-soft);border:1px solid var(--forest-line);border-radius:var(--radius);padding:16px 18px;margin-top:10px}
+.sim-sum .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px 12px;font-size:.9375rem;font-variant-numeric:tabular-nums}
+.sim-sum .grid b{display:block;font-size:.8125rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 .sim-note{font-size:.8125rem;color:var(--muted);margin-top:9px}
 .sim-det{margin-top:14px;border-top:1px solid var(--line-soft);padding-top:12px}
-.sim-det summary{cursor:pointer;font-weight:600;font-size:.85rem;color:var(--ink-2);list-style:none;display:flex;justify-content:space-between;align-items:center}
+.sim-det summary{cursor:pointer;font-weight:600;font-size:.875rem;color:var(--ink-2);list-style:none;display:flex;justify-content:space-between;align-items:center}
 .sim-det summary::after{content:"+";color:var(--muted);font-size:1.05rem}
 .sim-det[open] summary::after{content:"–"}
 .sim-det .bars{margin-top:12px}
 .sim-det .bar-row{grid-template-columns:110px 1fr;grid-template-rows:auto auto;padding:3px 4px}
-.sim-det .b-val{grid-column:1/-1;text-align:left;font-size:.76rem}
-.sim-det .b-label{font-size:.79rem}
+.sim-det .b-val{grid-column:1/-1;text-align:left;font-size:.8125rem}
+.sim-det .b-label{font-size:.8125rem}
 .rspin{transform-box:fill-box;transform-origin:center;animation:rspin 7s linear infinite}
 @keyframes rspin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.rspin{animation:none}}
@@ -335,94 +333,97 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .modal{background:var(--white);border-radius:var(--radius-lg);max-width:480px;width:100%;padding:28px;box-shadow:var(--shadow-md);position:relative;max-height:92vh;overflow:auto}
 .modal .pop-x{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:var(--muted);font-size:1.15rem}
 .modal .pop-x:hover{background:var(--cream-2);color:var(--ink)}
-.lead-check{display:flex;gap:10px;align-items:flex-start;font-size:.79rem;color:var(--ink-2);margin-top:12px;cursor:pointer}
+.lead-check{display:flex;gap:10px;align-items:flex-start;font-size:.8125rem;color:var(--ink-2);margin-top:12px;cursor:pointer}
 .lead-check input{width:16px;height:16px;flex:none;margin-top:2px;accent-color:var(--forest)}
-.lead-demo{background:var(--amber-soft);border:1px solid #EBD9BC;border-radius:var(--radius-sm);padding:10px 13px;font-size:.76rem;color:var(--amber-ink);margin-bottom:14px}
+.lead-demo{background:var(--amber-soft);border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 13px;font-size:.8125rem;color:var(--amber-ink);margin-bottom:14px}
 
 /* ==== Info-Icons (i im Kreis) mit Erklärungs-Popup ==== */
 .info-i{
   display:inline-grid;place-items:center;width:20px;height:20px;margin-left:8px;vertical-align:-4px;
   border:1.5px solid var(--amber);border-radius:50%;background:var(--amber-soft);
-  font-family:var(--font-serif);font-style:normal;font-size:.78rem;font-weight:600;color:var(--amber-deep);
-  cursor:pointer;transition:.2s;box-shadow:0 1px 3px rgba(192,122,46,.18);
+  font-family:var(--font-serif);font-style:normal;font-size:.8125rem;font-weight:600;color:var(--amber-ink);
+  cursor:pointer;transition:background-color .2s,color .2s,transform .2s;box-shadow:0 1px 3px rgba(192,122,46,.18);
+  position:relative;
 }
-.info-i:hover,.info-i.on{background:var(--amber);color:var(--white);transform:scale(1.08)}
+/* sichtbar 20 px, antippbar 44 px */
+.info-i::before{content:"";position:absolute;inset:-12px;border-radius:50%}
+.info-i:hover,.info-i.on{background:var(--amber-deep);border-color:var(--amber-deep);color:var(--white);transform:scale(1.08)}
 .info-pop{
   position:absolute;z-index:180;width:min(300px,84vw);
-  background:var(--white);border:1px solid var(--line);border-radius:14px;
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);
   box-shadow:var(--shadow-md);padding:14px 16px;
-  opacity:0;transform:translateY(6px);pointer-events:none;
-  transition:opacity .25s var(--ease),transform .25s var(--ease);
+  opacity:0;transform:translateY(6px);pointer-events:none;visibility:hidden;
+  transition:opacity .25s var(--ease),transform .25s var(--ease),visibility 0s .25s;
 }
-.info-pop.show{opacity:1;transform:none;pointer-events:auto}
-.info-pop b{display:block;font-size:.84rem;margin-bottom:5px}
-.info-pop p{font-size:.8rem;color:var(--ink-2);line-height:1.55}
+.info-pop.show{visibility:visible;transition:opacity .25s var(--ease),transform .25s var(--ease),visibility 0s;opacity:1;transform:none;pointer-events:auto}
+.info-pop b{display:block;font-size:.875rem;margin-bottom:5px}
+.info-pop p{font-size:.8125rem;color:var(--ink-2);line-height:1.55}
 
 /* Verlust-Balken (eine Farbreihe = eine Aussage: Magnitude) */
 .bars{display:grid;gap:10px;margin-top:18px}
-.bar-row{display:grid;grid-template-columns:150px 1fr auto;gap:12px;align-items:center;padding:4px 6px;border-radius:8px}
+.bar-row{display:grid;grid-template-columns:150px 1fr auto;gap:12px;align-items:center;padding:4px 6px;border-radius:var(--radius-sm)}
 .bar-row:hover{background:var(--cream-2)}
-.bar-row .b-label{font-size:.85rem;font-weight:500;color:var(--ink-2)}
-.bar-row .b-track{height:16px;background:var(--cream-3);border-radius:5px;overflow:hidden}
-.bar-row .b-fill{display:block;height:100%;background:var(--forest);border-radius:4px;width:0;transition:width 1s var(--ease)}
-.bar-row .b-val{font-size:.82rem;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap;text-align:right}
+.bar-row .b-label{font-size:.875rem;font-weight:500;color:var(--ink-2)}
+.bar-row .b-track{height:16px;background:var(--cream-3);border-radius:6px;overflow:hidden}
+.bar-row .b-fill{display:block;height:100%;background:var(--forest);border-radius:6px;width:0;transition:width 1s var(--ease)}
+.bar-row .b-val{font-size:.875rem;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap;text-align:right}
 .bar-row .b-val small{color:var(--muted)}
 
 /* Wärmepumpen-Check */
-.wp-box{display:grid;grid-template-columns:auto 1fr;gap:16px;background:var(--forest-soft);border:1px solid #D3E2D8;border-radius:var(--radius);padding:20px 22px;margin:18px 0}
+.wp-box{display:grid;grid-template-columns:auto 1fr;gap:16px;background:var(--forest-soft);border:1px solid var(--forest-line);border-radius:var(--radius);padding:20px 22px;margin:18px 0}
 .wp-box .wp-num{font-family:var(--font-serif);font-size:2rem;color:var(--forest);line-height:1}
-.wp-box p{font-size:.88rem;color:var(--ink-2)}
+.wp-box p{font-size:.875rem;color:var(--ink-2)}
 
 /* Maßnahmen */
 .mn{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);padding:20px 22px;margin-bottom:12px}
 .mn-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:10px}
 .mn-head h3{flex:1;min-width:200px}
-.ampel{display:inline-flex;align-items:center;gap:7px;font-size:.76rem;font-weight:600;padding:5px 12px;border-radius:100px}
+.ampel{display:inline-flex;align-items:center;gap:7px;font-size:.8125rem;font-weight:600;padding:5px 12px;border-radius:100px}
 .ampel i{width:9px;height:9px;border-radius:50%;flex:none}
 .ampel.ok{background:var(--ok-soft);color:var(--ok)}.ampel.ok i{background:var(--ok)}
-.ampel.warn{background:var(--warn-soft);color:#8a6410}.ampel.warn i{background:var(--warn)}
+.ampel.warn{background:var(--warn-soft);color:var(--warn-ink)}.ampel.warn i{background:var(--warn)}
 .ampel.bad{background:var(--bad-soft);color:var(--bad)}.ampel.bad i{background:var(--bad)}
 .mn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 16px;margin-top:8px}
-.tag-diy{display:inline-flex;align-items:center;font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:100px;background:var(--forest-soft);color:var(--forest);border:1px solid #D3E2D8;white-space:nowrap}
+.tag-diy{display:inline-flex;align-items:center;font-size:.8125rem;font-weight:600;padding:5px 11px;border-radius:100px;background:var(--forest-soft);color:var(--forest);border:1px solid var(--forest-line);white-space:nowrap}
 .szen-mn{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.szen-chip{font-size:.7rem;font-weight:600;padding:4px 10px;border-radius:100px;background:var(--cream-2);border:1px solid var(--line-soft);color:var(--ink-2)}
-.szen-chip.diy{background:var(--forest-soft);color:var(--forest);border-color:#D3E2D8}
+.szen-chip{font-size:.8125rem;font-weight:600;padding:4px 10px;border-radius:100px;background:var(--cream-2);border:1px solid var(--line-soft);color:var(--ink-2)}
+.szen-chip.diy{background:var(--forest-soft);color:var(--forest);border-color:var(--forest-line)}
 .mn-kv{min-width:0}
-.mn-kv b{display:block;font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
-.mn-kv span{font-size:.95rem;font-variant-numeric:tabular-nums}
-.mn-note{font-size:.78rem;color:var(--muted);margin-top:10px}
+.mn-kv b{display:block;font-size:.8125rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.mn-kv span{font-size:.9375rem;font-variant-numeric:tabular-nums}
+.mn-note{font-size:.8125rem;color:var(--muted);margin-top:10px}
 
 /* Szenarien */
 .szen-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
 .szen{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);padding:20px 22px}
 .szen h3{margin-bottom:4px}
-.szen .s-sub{font-size:.8rem;color:var(--muted);margin-bottom:14px}
+.szen .s-sub{font-size:.8125rem;color:var(--muted);margin-bottom:14px}
 .szen-klassen{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .szen-klassen .arrow{color:var(--muted)}
-.szen-kv{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-size:.86rem}
-.szen-kv div b{display:block;font-size:.67rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.szen-kv{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-size:.875rem}
+.szen-kv div b{display:block;font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
 /* Annahmen / Details */
 details.annahmen{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);margin:24px 0;overflow:hidden}
-details.annahmen summary{cursor:pointer;padding:18px 22px;font-weight:600;font-size:.95rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.annahmen summary{cursor:pointer;padding:18px 22px;font-weight:600;font-size:.9375rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
 details.annahmen summary::after{content:"+";font-size:1.2rem;color:var(--muted)}
 details.annahmen[open] summary::after{content:"–"}
-.annahmen-body{padding:0 22px 20px;font-size:.85rem;color:var(--ink-2)}
+.annahmen-body{padding:0 22px 20px;font-size:.875rem;color:var(--ink-2)}
 .annahmen-body table{width:100%;border-collapse:collapse;margin-top:8px}
 .annahmen-body td{padding:6px 8px;border-top:1px solid var(--line-soft);font-variant-numeric:tabular-nums}
 .annahmen-body td:last-child{text-align:right}
 
 /* Ergebnis-CTA */
-.res-cta{background:linear-gradient(165deg,var(--forest),#22392E);color:#F4EFE6;border-radius:var(--radius-lg);padding:34px;margin:30px 0 50px;display:grid;grid-template-columns:1.4fr auto;gap:20px;align-items:center}
+.res-cta{background:linear-gradient(165deg,var(--forest),var(--forest-deep));color:var(--auf-gruen);border-radius:var(--radius-lg);padding:34px;margin:30px 0 50px;display:grid;grid-template-columns:1.4fr auto;gap:20px;align-items:center}
 .res-cta h2{color:var(--auf-gruen);margin-bottom:8px}
-.res-cta p{font-size:.9rem;color:rgba(244,239,230,.85)}
+.res-cta p{font-size:.9375rem;color:rgba(244,239,230,.85)}
 /* --amber-deep statt --amber: weisse Schrift auf --amber ergab 3,46:1
    (WCAG AA verlangt 4,5:1). Gleiche Aenderung wie bei .btn-amber. */
 .res-cta .btn{background:var(--amber-deep);color:var(--white)}
 
 .section-h{margin:34px 0 6px}
-.section-sub{font-size:.88rem;color:var(--muted);max-width:70ch}
-.footnote{font-size:.75rem;color:var(--muted);margin:14px 0 40px}
+.section-sub{font-size:.875rem;color:var(--muted);max-width:70ch}
+.footnote{font-size:.8125rem;color:var(--muted);margin:14px 0 40px}
 /* ---------------------------------------------------------------------------
    Erklaertext als aufklappbare Karte.
    Der Text bleibt vollstaendig im HTML stehen - Google liest Inhalte in
@@ -448,7 +449,7 @@ details.annahmen[open] summary::after{content:"–"}
   width:28px;height:28px;flex:none;border-radius:50%;
   background:var(--forest-soft);color:var(--forest);
   display:grid;place-items:center;
-  font-family:var(--font-serif);font-style:normal;font-size:.95rem;font-weight:600;
+  font-family:var(--font-serif);font-style:normal;font-size:.9375rem;font-weight:600;
 }
 .erklaer-i::before{content:"i"}
 .erklaer-pfeil{
@@ -458,7 +459,7 @@ details.annahmen[open] summary::after{content:"–"}
 }
 .erklaer-schalter[aria-expanded="true"] .erklaer-pfeil{transform:rotate(180deg)}
 .erklaer-inhalt{
-  padding:18px 20px 22px;font-size:.92rem;color:var(--ink-2);
+  padding:18px 20px 22px;font-size:.9375rem;color:var(--ink-2);
   display:grid;gap:12px;border-top:1px solid var(--line-soft);
 }
 /* Ohne diese Zeile bleibt der Block sichtbar: display:grid aus dem
@@ -467,11 +468,11 @@ details.annahmen[open] summary::after{content:"–"}
 .erklaer-inhalt a{color:var(--amber-deep);font-weight:600}
 
 /* Fussbereich wie auf der Startseite */
-.site-footer{border-top:1px solid var(--line);background:var(--cream-2);padding:56px 0 26px;font-size:.85rem;color:var(--muted)}
+.site-footer{border-top:1px solid var(--line);background:var(--cream-2);padding:56px 0 26px;font-size:.875rem;color:var(--muted)}
 .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding-bottom:36px}
-.footer-brand p{font-size:.88rem;color:var(--ink-2);margin:16px 0 18px;max-width:34ch}
-.footer-col h4{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
-.footer-col a,.footer-col address{display:block;font-size:.88rem;color:var(--ink-2);padding:5px 0;transition:color .25s;font-style:normal}
+.footer-brand p{font-size:.875rem;color:var(--ink-2);margin:16px 0 18px;max-width:34ch}
+.footer-col h4{font-size:.8125rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
+.footer-col a,.footer-col address{display:block;font-size:.875rem;color:var(--ink-2);padding:5px 0;transition:color .25s;font-style:normal}
 .footer-col a:hover{color:var(--amber-deep)}
 .footer-bottom{
   display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:center;
@@ -491,7 +492,7 @@ details.annahmen[open] summary::after{content:"–"}
   .loss-wrap{grid-template-columns:1fr}
   .ea-range{display:none}
   .ea-row{flex-wrap:wrap}
-  .ea-mark{font-size:.68rem;padding:4px 10px}
+  .ea-mark{font-size:.8125rem;padding:4px 10px}
   .sim-wrap{grid-template-columns:1fr}
   .sim-visual{position:static}
   .sim-sum .grid{grid-template-columns:1fr 1fr}
@@ -503,7 +504,7 @@ details.annahmen[open] summary::after{content:"–"}
   .panel{padding:22px 18px}
   .bar-row{grid-template-columns:110px 1fr;grid-template-rows:auto auto}
   .bar-row .b-val{grid-column:1/-1;text-align:left}
-  .band-cell{font-size:.68rem;height:30px}
+  .band-cell{font-size:.8125rem;height:30px}
 }
 #druckbericht{display:none}
 
@@ -511,8 +512,10 @@ details.annahmen[open] summary::after{content:"–"}
    Ausblenden waere fuer den Kunden nicht nachvollziehbar. */
 .sw-mini.sw-enthalten{opacity:.45}
 .sw-mini.sw-enthalten .switch{cursor:not-allowed}
-.sim-wp-hinweis{display:none;margin-top:9px;font-size:.76rem;line-height:1.5;color:var(--ink-2);background:var(--amber-soft);border-radius:8px;padding:8px 11px}
+.sim-wp-hinweis{display:none;margin-top:9px;font-size:.8125rem;line-height:1.5;color:var(--muted);background:var(--cream-2);border-radius:var(--radius-sm);padding:8px 11px}
 
+/* Druckbericht: kleinste Schrift .75rem = 9 pt - darunter wird ein
+   ausgedrucktes Blatt fuer viele Leser muehsam. */
 /* ==== Druckbericht ==== */
 #druckbericht{font-size:12pt;line-height:1.55;color:var(--ink)}
 #druckbericht .db-kopf{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:2.5px solid var(--forest);padding-bottom:14px;margin-bottom:20px}
@@ -522,46 +525,46 @@ details.annahmen[open] summary::after{content:"–"}
 #druckbericht .db-kopf span{font-size:.78rem;color:var(--muted)}
 #druckbericht h2{font-size:1.02rem;margin:20px 0 8px;color:var(--forest);border-bottom:1px solid var(--line);padding-bottom:4px}
 #druckbericht table{width:100%;border-collapse:collapse;font-size:.8rem}
-#druckbericht th{text-align:left;font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid var(--forest);padding:5px 7px 4px}
+#druckbericht th{text-align:left;font-size:.75rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid var(--forest);padding:5px 7px 4px}
 #druckbericht td{padding:5px 7px;border-bottom:1px solid var(--cream-3);vertical-align:top}
 #druckbericht td:first-child{font-weight:600}
 #druckbericht .db-zahl,#druckbericht th.db-zahl{text-align:right;white-space:nowrap}
 #druckbericht .db-angaben{display:grid;grid-template-columns:repeat(3,1fr);gap:9px 20px;font-size:.85rem}
-#druckbericht .db-angaben b{display:block;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+#druckbericht .db-angaben b{display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 #druckbericht .db-klasse{display:inline-block;min-width:32px;text-align:center;padding:2px 9px;border-radius:6px;color:var(--white);font-weight:700}
 #druckbericht .db-kern{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 4px}
 #druckbericht .db-kern div{border:1px solid var(--line);border-radius:8px;padding:9px 12px}
-#druckbericht .db-kern b{display:block;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+#druckbericht .db-kern b{display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 #druckbericht .db-kern span{font-size:1.02rem;font-weight:700}
-#druckbericht .db-kern small{font-size:.72rem;color:var(--muted)}
-#druckbericht .db-hinweis{font-size:.74rem;color:var(--ink-2);background:var(--cream-2);border-radius:8px;padding:10px 13px;margin-top:9px}
-#druckbericht .db-fuss{margin-top:22px;padding-top:12px;border-top:1.5px solid var(--forest);font-size:.73rem;color:var(--ink-2)}
+#druckbericht .db-kern small{font-size:.75rem;color:var(--muted)}
+#druckbericht .db-hinweis{font-size:.75rem;color:var(--ink-2);background:var(--cream-2);border-radius:8px;padding:10px 13px;margin-top:9px}
+#druckbericht .db-fuss{margin-top:22px;padding-top:12px;border-top:1.5px solid var(--forest);font-size:.75rem;color:var(--ink-2)}
 #druckbericht .db-fuss b{color:var(--ink)}
 #druckbericht .db-block{break-inside:avoid}
 /* Haus und Klassenskala nebeneinander - eine Seite, ein Blick */
 #druckbericht .db-bild{display:grid;grid-template-columns:44% 1fr;gap:18px;align-items:start;margin-top:8px}
 #druckbericht .db-bild svg{width:100%;height:auto}
-#druckbericht .db-bildunter{font-size:.68rem;color:var(--muted);margin-top:4px;text-align:center}
+#druckbericht .db-bildunter{font-size:.75rem;color:var(--muted);margin-top:4px;text-align:center}
 #druckbericht .db-skala .ea{gap:3px;margin-top:6px}
-#druckbericht .db-skala .ea-arrow{height:21px;font-size:.72rem}
-#druckbericht .db-skala .ea-mark{font-size:.64rem;padding:3px 8px}
-#druckbericht .db-skala .ea-range{font-size:.64rem}
+#druckbericht .db-skala .ea-arrow{height:21px;font-size:.75rem}
+#druckbericht .db-skala .ea-mark{font-size:.75rem;padding:3px 8px}
+#druckbericht .db-skala .ea-range{font-size:.75rem}
 /* Vier Wege: Karten statt nackter Tabelle */
 #druckbericht .db-wege{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:8px}
 #druckbericht .db-weg{border:1px solid var(--line);border-radius:9px;padding:10px 12px;break-inside:avoid}
 #druckbericht .db-weg h3{font-size:.86rem;margin:0 0 2px;color:var(--ink)}
-#druckbericht .db-weg .db-weg-sub{font-size:.68rem;color:var(--muted);display:block;margin-bottom:6px}
-#druckbericht .db-weg-klassen{display:flex;align-items:center;gap:6px;margin-bottom:7px;font-size:.7rem;color:var(--muted)}
-#druckbericht .db-weg-kv{display:grid;grid-template-columns:repeat(2,1fr);gap:3px 10px;font-size:.72rem}
+#druckbericht .db-weg .db-weg-sub{font-size:.75rem;color:var(--muted);display:block;margin-bottom:6px}
+#druckbericht .db-weg-klassen{display:flex;align-items:center;gap:6px;margin-bottom:7px;font-size:.75rem;color:var(--muted)}
+#druckbericht .db-weg-kv{display:grid;grid-template-columns:repeat(2,1fr);gap:3px 10px;font-size:.75rem}
 #druckbericht .db-weg-kv b{color:var(--muted);font-weight:600}
 #druckbericht .db-weg-kv span{float:right;font-weight:700;color:var(--ink)}
-#druckbericht .db-chips{margin-top:6px;font-size:.64rem;color:var(--ink-2);line-height:1.5}
+#druckbericht .db-chips{margin-top:6px;font-size:.75rem;color:var(--ink-2);line-height:1.5}
 /* Auswahl des Kunden */
 #druckbericht .db-auswahl{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
 #druckbericht .db-auswahl div{border:1px solid var(--line);border-radius:8px;padding:8px 10px;text-align:center}
-#druckbericht .db-auswahl b{display:block;font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+#druckbericht .db-auswahl b{display:block;font-size:.75rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 #druckbericht .db-auswahl span{font-size:.98rem;font-weight:700}
-#druckbericht .db-gewaehlt{font-size:.74rem;color:var(--ink-2);margin-top:7px}
+#druckbericht .db-gewaehlt{font-size:.75rem;color:var(--ink-2);margin-top:7px}
 
 @media print{
   /* Druckmodus: NUR der Bericht. Die Seite selbst bleibt komplett weg -
@@ -582,19 +585,37 @@ details.annahmen[open] summary::after{content:"–"}
   #ergebnis>*{opacity:1!important;animation:none!important}
 }
 
+/* ==== Kritik 17.09.2026: Ergebniskopf, Fehlerzustand, eingebettete Stile ==== */
+.res-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 20px}
+.res-head h2{font-size:clamp(1.9rem,4.5vw,2.9rem)}
+h2[tabindex="-1"]:focus:not(:focus-visible){outline:none}
+.field.invalid input{border-color:var(--bad);background:var(--bad-soft)}
+.textknopf{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px;
+  padding:10px 0;margin:-10px 0}
+.tag-diy.tag-klein{padding:2px 8px}
+.annahme-fuss{margin-top:10px}
+.bericht-reihe{margin-bottom:60px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.bericht-notiz{font-size:.8125rem;color:var(--muted);max-width:38ch}
+.abstand-50{margin-bottom:50px}
+.band-titel{font-size:1.15rem;margin-bottom:6px}
+.szen-wert{font-size:.875rem;color:var(--muted)}
+.lead-titel{font-size:1.35rem;margin-bottom:8px}
+.lead-text{font-size:.875rem;color:var(--ink-2);margin-bottom:16px}
+::selection{background:var(--amber-soft);color:var(--ink)}
+
 /* ==== Smartphone-Feinschliff ==== */
 @media (max-width:480px){
   /* Seitenabstand hier mit angeben, sonst klebt der Text am Displayrand */
   /* Auf dem Handy so flach wie moeglich - die erste Frage soll ohne
      langes Scrollen erreichbar sein. */
   .intro{padding:20px 22px 12px}
-  .intro .lead{font-size:.95rem;margin-top:10px}
+  .intro .lead{font-size:.9375rem;margin-top:10px}
   .opt-cards{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
   .opt-card svg{width:46px;height:36px}
-  .opt-card span{font-size:.72rem}
+  .opt-card span{font-size:.8125rem}
   .sim-card input[type=range]{height:38px}
   .wizard-nav .btn-primary{flex:1;justify-content:center}
-  .header-links .btn-sm{padding:9px 13px;font-size:.8rem}
+  .header-links .btn-sm{padding:9px 13px;font-size:.8125rem}
   .tile .t-value{font-size:1.55rem}
   .panel{padding:18px 14px}
   .band-card{padding:18px 14px}
@@ -641,6 +662,8 @@ details.annahmen[open] summary::after{content:"–"}
 .site-header .wrap,.site-footer .wrap{max-width:1180px}
 /* Einheitlicher, gut sichtbarer Fokusring für Tastaturbedienung */
 :focus-visible{outline:2.5px solid var(--amber-deep);outline-offset:3px}
+/* Markierter Text in der Hausfarbe statt im Browserblau */
+::selection{background:var(--amber-soft);color:var(--ink)}
 /* Sprungmarke: erstes fokussierbares Element der Seite */
 .skip-link{
   position:absolute;left:-9999px;top:0;z-index:200;
@@ -723,7 +746,7 @@ details.annahmen[open] summary::after{content:"–"}
 .header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
 /* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
 .cta-kurz{display:none}
-.burger{display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);place-items:center;background:var(--white)}
+.burger{display:none;width:42px;height:42px;border-radius:var(--radius-sm);border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
 .burger span+span{margin-top:4.5px}
 .burger.open span:nth-child(1){transform:translateY(6.1px) rotate(45deg)}
@@ -758,12 +781,12 @@ details.annahmen[open] summary::after{content:"–"}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:34px;padding-bottom:44px}
 .footer-brand p{font-size:.9rem;color:var(--ink-2);margin:18px 0 22px;max-width:34ch}
 /* h3 statt h4: der Fussbereich sprang von H2 auf H4 (Ebene uebersprungen). */
-.footer-col h3{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
+.footer-col h3{font-size:.8125rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px}
 .footer-col a{display:block;font-size:.9rem;color:var(--ink-2);padding:6px 0;transition:color .25s}
 .footer-col a:hover{color:var(--amber-deep)}
 .badges{display:flex;flex-wrap:wrap;gap:9px;padding:26px 0;border-top:1px solid var(--line)}
 .badge{
-  font-size:.75rem;font-weight:600;color:var(--ink-2);background:var(--white);
+  font-size:.8125rem;font-weight:600;color:var(--ink-2);background:var(--white);
   border:1px solid var(--line);border-radius:100px;padding:7px 15px;
 }
 .footer-bottom{
@@ -915,10 +938,10 @@ details.annahmen[open] summary::after{content:"–"}
         <span class="progress-track"><span class="progress-fill" id="progFill"></span></span>
         <span class="progress-label" id="progLabel">Schritt 1 / 8</span>
       </div>
-      <h2 class="step-title" id="stepTitle"></h2>
+      <h2 class="step-title" id="stepTitle" tabindex="-1"></h2>
       <p class="step-sub" id="stepSub"></p>
       <div class="fields" id="stepFields"></div>
-      <div class="step-error" id="stepError"></div>
+      <div class="step-error" id="stepError" role="alert"></div>
       <div class="wizard-nav">
         <button class="btn btn-ghost" id="prevBtn">← Zurück</button>
         <button class="btn btn-primary" id="nextBtn">Weiter →</button>
@@ -947,14 +970,17 @@ details.annahmen[open] summary::after{content:"–"}
 
 <section id="ergebnis" class="wrap" role="region" aria-live="polite">
   <div class="res-head">
-    <span class="eyebrow">Ihr Ergebnis</span>
-    <h2 id="resTitle" style="font-size:clamp(1.9rem,4.5vw,2.9rem)">So steht Ihr Haus da.</h2>
+    <div>
+      <span class="eyebrow">Ihr Ergebnis</span>
+      <h2 id="resTitle" tabindex="-1">So steht Ihr Haus da.</h2>
+    </div>
+    <button type="button" class="btn btn-ghost btn-sm no-print" id="angabenAendern" data-schritt="0">Angaben ändern</button>
   </div>
 
   <div class="tiles" id="resTiles"></div>
 
   <div class="band-card">
-    <h2 style="font-size:1.15rem;margin-bottom:6px">Energieeffizienzklasse</h2>
+    <h2 class="band-titel">Energieeffizienzklasse</h2>
     <p class="section-sub">Skala nach Gebäudemodernisierungsgesetz (bis Juli 2026 GEG), Kennwert in kWh je m² Wohnfläche und Jahr – berechneter Endenergiebedarf des Gebäudes, wie im Bedarfsausweis.</p>
     <div class="band" id="band"></div>
     <div class="kalib" id="kalibBox"></div>
@@ -985,7 +1011,7 @@ details.annahmen[open] summary::after{content:"–"}
       <div class="sim-bericht no-print">
         <button class="btn btn-amber" id="berichtBtnOben">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
-          Bericht als PDF herunterladen
+          Bericht als PDF speichern
         </button>
         <span>Kostenlos – Ihre Angaben, Ihr Ergebnis und alle Ersparnisse als Dokument.</span>
       </div>
@@ -1002,14 +1028,13 @@ details.annahmen[open] summary::after{content:"–"}
   </p>
   <div id="mnList"></div>
   <p class="footnote">
-    Fördersätze Stand 07/2026 (BEG Einzelmaßnahmen 15 %, mit iSFP-Bonus; Heizungstausch über KfW 458,
-    Grundförderung 30 %, mit Boni je nach Haushalt bis ca. 70 %) – vor Antragstellung auf bafa.de / kfw.de
+    Fördersätze Stand 07/2026 (<span id="foerderFuss">BEG Einzelmaßnahmen und Heizungstausch, siehe Annahmen unten</span>) – vor Antragstellung auf bafa.de / kfw.de
     prüfen. <b>Antrag immer vor Auftragsvergabe stellen.</b> Bei Ohnehin-Sanierungen (Dach muss sowieso neu)
     zählt nur der Dämm-<em>Mehrpreis</em> – dann rechnet sich fast jede Maßnahme.
   </p>
 
   <h2 class="section-h">Vier Wege im Vergleich</h2>
-  <p class="section-sub">Pakete werden nacheinander gerechnet (Hülle vor Heizung) – Einsparungen einzelner Maßnahmen dürfen nicht einfach addiert werden. Die neue Klasse berücksichtigt, dass nach einer Sanierung meist etwas komfortabler geheizt wird (Rebound).</p>
+  <p class="section-sub">Pakete werden nacheinander gerechnet (Hülle vor Heizung) – Einsparungen einzelner Maßnahmen dürfen nicht einfach addiert werden. Die Einsparung berücksichtigt, dass nach einer Sanierung meist etwas komfortabler geheizt wird (Rebound); die neue Klasse ist der berechnete Bedarf.</p>
   <div class="szen-grid" id="szenGrid"></div>
 
   <details class="annahmen">
@@ -1028,13 +1053,13 @@ details.annahmen[open] summary::after{content:"–"}
     <a class="btn" href="index.html#kontakt" id="ctaBtn">Kostenloses Erstgespräch →</a>
   </div>
 
-  <p class="disclaimer no-print" style="margin-bottom:50px">
+  <p class="disclaimer no-print abstand-50">
     <b>Hinweis:</b> Orientierungsrechnung auf Basis statistischer Kennwerte – ersetzt keine Energieberatung
     und keinen Energieausweis. Alle Kosten sind regionale Spannen, keine Angebote.
   </p>
-  <div class="no-print" style="margin-bottom:60px;display:flex;gap:14px;flex-wrap:wrap;align-items:center">
-    <button class="btn btn-primary" id="berichtBtn">Bericht als PDF herunterladen</button>
-    <span style="font-size:.78rem;color:var(--muted);max-width:38ch">Kostenlos – Sie erhalten den vollständigen Bericht, wir melden uns bei Rückfragen persönlich.</span>
+  <div class="no-print bericht-reihe">
+    <button class="btn btn-primary" id="berichtBtn">Bericht als PDF speichern</button>
+    <span class="bericht-notiz">Kostenlos – Sie erhalten den vollständigen Bericht, wir melden uns bei Rückfragen persönlich.</span>
   </div>
 </section>
 
@@ -1080,7 +1105,7 @@ details.annahmen[open] summary::after{content:"–"}
 </section>
 
 <!-- Erklärungs-Popup für die Info-Icons -->
-<div class="info-pop" id="infoPop" role="tooltip" aria-hidden="true">
+<div class="info-pop" id="infoPop" role="status" aria-live="polite">
   <b id="ipTitle"></b>
   <p id="ipText"></p>
 </div>
@@ -1090,8 +1115,8 @@ details.annahmen[open] summary::after{content:"–"}
   <div class="modal">
     <button type="button" class="pop-x" id="leadClose" aria-label="Schließen">×</button>
     <span class="eyebrow">Ihr Sanierungsbericht</span>
-    <h2 id="leadTitle" style="font-size:1.35rem;margin-bottom:8px">Wohin dürfen wir den Bericht schicken?</h2>
-    <p style="font-size:.86rem;color:var(--ink-2);margin-bottom:16px">
+    <h2 id="leadTitle" class="lead-titel">Ihr Bericht – wie erreichen wir Sie bei Rückfragen?</h2>
+    <p class="lead-text">
       Nach dem Absenden öffnet sich der Druckdialog – dort „Als PDF speichern" wählen.
       Ihr Rechner-Ergebnis wird mit übermittelt, damit wir bei Rückfragen direkt an Ihrem konkreten Haus weiterdenken können.
     </p>
@@ -1292,7 +1317,10 @@ var CONFIG = {
   jazWP:{ hk_unsaniert:2.8, hk_saniert:3.4, fbh:4.0, ww:2.6 },
   verteilverlust:{ ungedaemmt:1.10, gedaemmt:1.07 },   // Verteil-/Speicherverluste; 10 % ungedämmt (kalibriert am Referenzhaus 1965)
   kwhFaktor:{ gas_m3:10.0, oel_l:10.0, pellets_kg:4.8, pellets_srm:3120, holz_fm:2100, holz_srm:1500, kwh:1.0 },
-  kalibMin:0.45, kalibMax:1.60,
+  /* Untergrenze 0,35: Beim unsanierten Altbau liegt der reale Verbrauch oft
+     60 % unter dem Bedarf (Prebound). Mit 0,45 wurde das gekappt, und die
+     Ersparnisse fielen rund 12 % zu hoch aus. */
+  kalibMin:0.35, kalibMax:1.60,
   klassen:[ ['A+',30],['A',50],['B',75],['C',100],['D',130],['E',160],['F',200],['G',250],['H',1e9] ],
   klassenFarben:{ 'A+':'#1E7A44','A':'#4C8C33','B':'#87A22B','C':'#B8A81F','D':'#C98A1E','E':'#C96F22','F':'#BC5524','G':'#AC3E26','H':'#983024' },
   co2:{ gas:0.201, oel:0.266, pellets:0.022, holz:0.022, strom:0.38, fernwaerme:0.15 },
@@ -1338,7 +1366,35 @@ var CONFIG = {
 function nf(x,d){ return (x==null||isNaN(x))?'–':Number(x).toLocaleString('de-DE',{maximumFractionDigits:d==null?0:d,minimumFractionDigits:0}); }
 function eur(x){ return nf(Math.round(x))+' €'; }
 function uAusTabelle(tab,jahr){ for(var i=0;i<tab.length;i++){ if(jahr<=tab[i][0]) return tab[i][1]; } return tab[tab.length-1][1]; }
+/* Baualtersklassen einer U-Wert-Tabelle als Reglerstufen: Beschriftung und
+   ein Jahr, das sicher in der Klasse liegt. */
+function eraStufen(tab){
+  return tab.map(function(z,i){
+    var bis=z[0], ab = i ? tab[i-1][0]+1 : null, label, jahr;
+    if(!ab){ label='bis '+bis; jahr=bis-18; }
+    else if(bis>=9999){ label='ab '+ab; jahr=ab+4; }
+    else {
+      label = Math.floor(ab/100)===Math.floor(bis/100) ? ab+'–'+String(bis).slice(-2) : ab+'–'+bis;
+      jahr = Math.round((ab+bis)/2);
+    }
+    return { label:label, jahr:jahr, u:z[1] };
+  });
+}
+/* Dachstufe im Simulator: Bei unbeheiztem Dachgeschoss ist es die oberste
+   Geschossdecke - bis 1968 gilt dort derselbe Wert wie in berechne(). */
+function uDachSim(jahr, istOgd){
+  return (istOgd && jahr<=1968) ? CONFIG.uOgdAlt : uAusTabelle(CONFIG.uDach, jahr);
+}
 function uMitDaemmung(uAlt,dickeCm){ return 1/(1/uAlt + (dickeCm/100)/CONFIG.lambdaDaemm); }
+/* Schrift auf den Klassenfarben: weiss, solange es als grosse Schrift
+   (3:1) lesbar ist, sonst dunkel. B, C und D lagen weiss bei 2,4 bis 2,9:1. */
+function klasseStil(kl){
+  var hex = CONFIG.klassenFarben[kl] || '#6F685C';
+  var c = [1,3,5].map(function(i){ var v=parseInt(hex.substr(i,2),16)/255;
+    return v<=.03928 ? v/12.92 : Math.pow((v+.055)/1.055,2.4); });
+  var L = .2126*c[0]+.7152*c[1]+.0722*c[2];
+  return 'background:'+hex+((1.05/(L+.05))>=3 ? '' : ';color:var(--ink);text-shadow:none');
+}
 function klasseVon(kennwert){ for(var i=0;i<CONFIG.klassen.length;i++){ if(kennwert<=CONFIG.klassen[i][1]) return CONFIG.klassen[i][0]; } return 'H'; }
 
 /* ===========================================================================
@@ -1497,9 +1553,23 @@ function barwert(ersparnisJahr1, jahre){
   for(var t=1;t<=jahre;t++){ bw += ersparnisJahr1*Math.pow(1+g,t-1)/Math.pow(1+i,t); }
   return bw;
 }
-function kostenJahr(e, ergebnis, k){
-  var kwh = ergebnis.eEnd * k;
-  return kwh * preisFuer(e, ergebnis.traeger);
+/* Jaehrliche Kosten vor und nach einer Aenderung - EINE Rechnung fuer
+   Massnahmen, Pakete und Simulator. Vorher rechneten die Pakete ohne
+   Rebound und die Massnahmen ebenso, der Simulator mit: Dieselbe Auswahl
+   ergab zwei Ersparnisse (1900: 3.508 statt 2.487 EUR). k kalibriert auf den
+   realen Verbrauch, kEff nimmt den Rebound mit - nach einer Sanierung wird
+   komfortabler geheizt, der Sparfaktor wandert Richtung 1.
+   Quadratisch statt linear: Linear kostete eine einzelne Fassadendaemmung
+   im Altbau rund 70 % ihrer Einsparung. Studien zum Heizverhalten nennen
+   fuer den direkten Rebound eher 10 bis 30 % (Eigentuemer am unteren Rand).
+   So bleiben es ueber alle Pakettiefen rund 15 bis 25 %. */
+function kostenVergleich(e, vor, nach, k){
+  var ratio = vor.eEnd>0 ? nach.eEnd/vor.eEnd : 1;
+  var kEff = k + (1-k)*Math.pow(1-ratio, 2);
+  var kostenVor = vor.eEnd*k*preisFuer(e, vor.traeger);
+  var kostenNach = nach.eEnd*kEff*preisFuer(e, nach.traeger);
+  return { kostenVor:kostenVor, kostenNach:kostenNach, ersparnis:kostenVor-kostenNach,
+           kEff:kEff, kwhVor:vor.eEnd*k, kwhNach:nach.eEnd*kEff };
 }
 function co2Jahr(ergebnis, k){
   return ergebnis.eEnd * k * (CONFIG.co2[ergebnis.traeger]||0.2);
@@ -1515,7 +1585,6 @@ var MN_DIY = { ogd:true, kellerdecke:true, rohr:true, dach:'innen' };
 /* Maßnahmenkatalog – angewandt als mods auf berechne() */
 function massnahmen(e, basis, kal){
   var k = kal.k, out=[];
-  var kostenBasis = kostenJahr(e, basis, k);
 
   /* Förderbetrag: Satz auf die förderfähigen Kosten, gedeckelt – und optional
      zusätzlich als absoluter Höchstbetrag begrenzt (Heizungsförderung). */
@@ -1526,8 +1595,8 @@ function massnahmen(e, basis, kal){
 
   function bewerte(id, name, mods, investSpanne, flaeche, leben, foerderSatz, deckel, hinweis, maxBetrag){
     var mod = berechne(e, mods);
-    var kostenMod = kostenJahr(e, mod, k);
-    var ersparnis = kostenBasis - kostenMod;
+    var vg = kostenVergleich(e, basis, mod, k);
+    var ersparnis = vg.ersparnis;
     if(ersparnis < 15) return; // wirkungslos -> nicht anzeigen
     var investVon = flaeche!=null ? investSpanne[0]*flaeche : investSpanne[0];
     var investBis = flaeche!=null ? investSpanne[1]*flaeche : investSpanne[1];
@@ -1546,7 +1615,7 @@ function massnahmen(e, basis, kal){
     if(maxInvest > deckel) maxInvest = bw + foerderBetrag(deckel, foerderSatz, deckel, maxBetrag);
     var ampel = invest < 0.7*maxInvest ? 'ok' : (invest <= 1.1*maxInvest ? 'warn' : 'bad');
     out.push({ id:id, name:name, ersparnis:ersparnis,
-      ersparnisKwh:(basis.eEnd-mod.eEnd)*k,
+      ersparnisKwh:vg.kwhVor-vg.kwhNach,
       investVon:investVon, investBis:investBis, invest:invest,
       foerd:foerd, netto:netto, amort:netto/ersparnis, maxInvest:maxInvest, bw:bw,
       diy: !!MN_DIY[id],
@@ -1580,6 +1649,14 @@ function massnahmen(e, basis, kal){
   out.sort(function(a,b){ return a.netto-b.netto; });   // kleinste Investition zuerst
   return out;
 }
+/* Foerdersaetze im Text immer aus CONFIG - vorher nannten drei Stellen
+   30 % fuer die Heizung, gerechnet wurde mit foerderWP. */
+function foerderSatzText(){
+  var pz = function(x){ return nf(x*100)+' %'; };
+  return 'Gerechnet mit: Gebäudehülle '+pz(CONFIG.foerderHuelle)+' (Deckel '+eur(CONFIG.foerderDeckelHuelle)+
+    ', mit iSFP '+pz(CONFIG.foerderHuelleISFP)+'), Heizungstausch '+pz(CONFIG.foerderWP)+
+    ' (höchstens '+eur(CONFIG.foerderWPMaxBetrag)+').';
+}
 function traegerName(t){ return {gas:'Gasheizung',oel:'Ölheizung',strom:'Stromheizung',pellets:'Pelletheizung',holz:'Holzheizung',fernwaerme:'Fernwärme'}[t]||t; }
 
 /* ===== Szenarien (3.13) – nacheinander gerechnet ===== */
@@ -1601,7 +1678,7 @@ function szenarien(e, basis, kal, mnListe){
       var m = mnListe.find(function(x){return x.id===id;});
       if(m){ invest+=m.invest; foerd+=m.foerd; }
     });
-    var ersparnis = kostenJahr(e,basis,k) - kostenJahr(e,mod,k);
+    var ersparnis = kostenVergleich(e, basis, mod, k).ersparnis;
     /* Klasse nach Bedarf wie oben - ohne Kalibrierung am Verbrauch. */
     var kw = mod.kennwertBedarf;
     return { name:name, sub:sub, invest:invest, foerd:foerd, netto:invest-foerd,
@@ -1619,14 +1696,24 @@ function szenarien(e, basis, kal, mnListe){
   });
   s.push(paket('1 · Sofortmaßnahmen','Kleines Geld, schnelle Wirkung: Die Dämm-Maßnahmen darin sind meist an einem Wochenende in Eigenleistung machbar, den hydraulischen Abgleich übernimmt der Heizungsbetrieb.', sofortMods, sofortIds));
 
-  var gruenIds = mnListe.filter(function(m){return m.ampel==='ok';}).map(function(m){return m.id;});
+  /* Nur EINE Heizung je Paket. Sind Brennwertkessel und Waermepumpe beide
+     gruen, bleibt die mit dem groesseren Ueberschuss ueber die Lebensdauer
+     (Barwert minus Eigenanteil) - vorher standen beide im Paket. */
+  var gruen = mnListe.filter(function(m){return m.ampel==='ok';});
+  var heizGruen = gruen.filter(function(m){ return m.id==='wp'||m.id==='brennwert'; });
+  if(heizGruen.length>1){
+    heizGruen.sort(function(a,b){ return (b.bw-b.netto)-(a.bw-a.netto); });
+    var raus = heizGruen[1].id;
+    gruen = gruen.filter(function(m){ return m.id!==raus; });
+  }
+  var gruenIds = gruen.map(function(m){return m.id;});
   /* Enthaelt das Paket eine Waermepumpe, bringt deren Angebot Abgleich und
      Rohrdaemmung mit - beides faellt hier heraus, sonst zaehlen Kosten UND
      Einsparung doppelt. */
   var gruenWp = gruenIds.indexOf('wp')>=0;
   if(gruenWp) gruenIds = gruenIds.filter(function(id){ return CONFIG.imWpAngebotEnthalten.indexOf(id)<0; });
   var gruenMods={u:{},extraFaktor:1};
-  mnListe.forEach(function(m){ if(m.ampel!=='ok') return;
+  gruen.forEach(function(m){
     if(gruenWp && CONFIG.imWpAngebotEnthalten.indexOf(m.id)>=0) return;
     if(m.mods.u) Object.keys(m.mods.u).forEach(function(kk){ gruenMods.u[kk]=m.mods.u[kk]; });
     if(m.mods.extraFaktor) gruenMods.extraFaktor*=m.mods.extraFaktor;
@@ -1643,7 +1730,16 @@ function szenarien(e, basis, kal, mnListe){
      machte das Paket doppelt guenstig. */
   var vollMods={u:huelleMods(true), heizung:'wp'};
   var vollIds=Object.keys(vollMods.u).map(function(kk){return kk==='dach'&&basis.aOgd>0?'ogd':kk;}).concat(['wp']);
-  s.push(paket('4 · Vollsanierung („von H auf A")','Komplettpaket auf Effizienzhaus-Niveau: Hülle plus moderne Heiztechnik. Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten. Am besten über einige Jahre gestaffelt und mit individuellem Sanierungsfahrplan geplant (bringt +5 Prozentpunkte Förderung).', vollMods, vollIds));
+  s.push(paket('4 · Vollsanierung','Komplettpaket auf Effizienzhaus-Niveau: Hülle plus moderne Heiztechnik. Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten. Am besten über einige Jahre gestaffelt und mit individuellem Sanierungsfahrplan geplant (bringt +5 Prozentpunkte Förderung).', vollMods, vollIds));
+  var klHeute = klasseVon(basis.kennwertBedarf), voll = s[3];
+  if(voll.klasseNeu!==klHeute) voll.name += ' (von '+klHeute+' auf '+voll.klasseNeu+')';
+  /* Zwei Pakete mit denselben Massnahmen zeigen wir nur einmal. */
+  var gesehen = {};
+  s.forEach(function(x){
+    var sig = x.ids.slice().sort().join('+');
+    x.doppelt = !!gesehen[sig];
+    gesehen[sig] = true;
+  });
   return s;
 }
 
@@ -1693,15 +1789,16 @@ var IK = {
 function icon(key){
   if(!IK[key]) return '';
   /* Konturfarbe wie beim Haus: warmes Dunkelbraun statt Schwarz. */
-  return '<svg viewBox="0 0 64 48" fill="none" stroke="#3A3128" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+
+  return '<svg viewBox="0 0 64 48" aria-hidden="true" focusable="false" fill="none" stroke="#3A3128" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+
     IK[key].replace(/class="gnd"/g,'stroke="#E7DFD1"')+'</svg>';
 }
 
 var STEPS = [
- { t:'Bewohner & Nutzung', s:'Wer wohnt im Haus und wie wird geheizt?', f:[
+ { t:'Bewohner & Nutzung', s:'Wer wohnt im Haus, wie alt ist es, und wo steht es?', f:[
    {id:'personen',l:'Anzahl Bewohner',type:'number',min:1,max:10,def:3},
    {id:'baujahr',l:'Baujahr des Hauses',type:'number',min:1850,max:2026,def:1975},
-   {id:'region',l:'Klimaregion',type:'seg',opts:[['nord','Nord'],['mitte','Mitte'],['sued','Süd'],['alpen','Alpenvorland']],def:'mitte'}
+   {id:'region',l:'Klimaregion',type:'seg',opts:[['nord','Nord'],['mitte','Mitte'],['sued','Süd'],['alpen','Alpenvorland']],def:'sued',
+    hint:'Ulm und der Alb-Donau-Kreis liegen in „Süd".'}
  ]},
  { t:'Hausart', s:'Die Bauform bestimmt, wie viel Außenfläche Wärme verliert.', f:[
    {id:'haustyp',l:'Haustyp',type:'seg',icons:true,opts:[['frei','Freistehend'],['dhh','Doppelhaushälfte'],['reihenmitte','Reihenmittelhaus'],['reihenend','Reihenendhaus']],def:'frei'},
@@ -1735,17 +1832,23 @@ var STEPS = [
    {id:'rolllaeden',l:'Rollläden / Nachtabschluss?',type:'seg',opts:[['ja','Ja'],['nein','Nein']],def:'ja'},
    {id:'fensterAnteil',l:'Fensterflächenanteil (% der Wohnfläche, optional)',type:'number',min:0,max:40,def:0,hint:'0 = automatisch schätzen'}
  ]},
- { t:'Heizung & Warmwasser', s:'Der Jahresverbrauch macht die Rechnung realistisch – Wert von der Abrechnung.', f:[
+ { t:'Heizung & Warmwasser', s:'Womit wird geheizt, und wie wird das Wasser warm?', f:[
    {id:'traeger',l:'Energieträger',type:'seg',icons:true,opts:[['gas','Erdgas'],['oel','Heizöl'],['strom','Strom'],['pellets','Pellets'],['holz','Stückholz'],['fernwaerme','Fernwärme']],def:'gas'},
    {id:'heizungTyp',l:'Heizungstyp',type:'seg',icons:true,opts:[['standard','Standardkessel (>20 J.)'],['nt','Niedertemperatur'],['brennwert','Brennwert'],['wp','Wärmepumpe'],['nachtspeicher','Nachtspeicher'],['fernwaerme','Fernwärme-Übergabe']],def:'standard'},
    {id:'heizungBaujahr',l:'Baujahr der Heizung',type:'number',min:1900,max:2026,def:1998},
-   {id:'verbrauch',l:'Jahresverbrauch',type:'number',min:1,max:200000,def:null,
-    hint:'Aus der Heizkostenabrechnung – bei Öl, Pellets oder Holz der Mittelwert der letzten Jahre.'},
-   {id:'einheit',l:'Einheit',type:'seg',opts:[['kwh','kWh'],['m3','m³ (Gas)'],['l','Liter (Öl)'],['kg','kg (Pellets)'],['srm','Schüttraummeter'],['fm','Festmeter']],def:'kwh'},
    {id:'wwNiveau',l:'Warmwasser-Verbrauch',type:'seg',icons:true,opts:[['niedrig','Niedrig'],['normal','Normal'],['hoch','Hoch']],def:'normal'},
    {id:'zirkulation',l:'Zirkulationsleitung vorhanden?',type:'seg',opts:[['nein','Nein / unbekannt'],['ja','Ja']],def:'nein',
     info:'Eine Zirkulationsleitung hält warmes Wasser ständig in den Rohren im Umlauf, damit es am Hahn sofort warm kommt – ohne langes Laufenlassen. Komfortabel, kostet aber Energie: Das Wasser kühlt unterwegs ab und wird laufend nachgeheizt, oft mehrere hundert Kilowattstunden pro Jahr. So erkennen Sie sie: Am Warmwasserspeicher sitzt eine kleine zusätzliche Pumpe (Zirkulationspumpe), und auch im entferntesten Bad kommt fast sofort warmes Wasser. Die meisten Ein- und Zweifamilienhäuser ohne diese Pumpe wählen „Nein". Spartipp: Zeitschaltuhr für die Pumpe.'},
    {id:'extras',l:'Besonderheiten',type:'multi',opts:[['solarthermie','Solarthermie'],['fussbodenheizung','Fußbodenheizung'],['lueftungWRG','Lüftung mit Wärmerückgewinnung'],['rohrGedaemmt','Heizungsrohre bereits gedämmt']],def:[]}
+ ]},
+ /* Eigener Schritt: Vorher stand der Verbrauch zwischen sieben anderen
+    Feldern, am Handy zwei Bildschirme lang, und die Fehlermeldung darunter
+    lag ausser Sicht. Die Einheit kommt zuerst und bietet nur an, was zum
+    Energietraeger passt. */
+ { id:'verbrauch', t:'Ihr Verbrauch', s:'Der Jahresverbrauch macht die Rechnung realistisch – den Wert finden Sie auf der Heizkostenabrechnung.', f:[
+   {id:'einheit',l:'Einheit auf Ihrer Abrechnung',type:'seg',opts:[['kwh','kWh'],['m3','m³ (Gas)'],['l','Liter (Öl)'],['kg','kg (Pellets)'],['srm','Schüttraummeter'],['fm','Festmeter']],def:'kwh'},
+   {id:'verbrauch',l:'Jahresverbrauch',type:'number',min:1,max:200000,def:null,
+    hint:'Bei Öl, Pellets oder Holz der Mittelwert der letzten Jahre.'}
  ]},
  { t:'Preise & Annahmen', s:'Vorbelegt mit typischen Werten – gern anpassen.', f:[
    {id:'arbeitspreis',l:'Ihr Energiepreis (€/kWh)',type:'number',min:0.02,max:1,def:0.12,step:.01,
@@ -1757,23 +1860,31 @@ var STEPS = [
 ];
 
 var stepIdx = 0;
+/* Welche Einheiten zu welchem Energietraeger passen - die erste ist die
+   uebliche Einheit der Abrechnung. */
+var EINHEITEN = { gas:['kwh','m3'], oel:['l','kwh'], strom:['kwh'], pellets:['kg','srm','kwh'],
+                  holz:['fm','srm','kwh'], fernwaerme:['kwh'] };
 var $ = function(id){ return document.getElementById(id); };
 
 /* ===== Info-Icons: Erklärung als Popup bei Klick oder Hover ===== */
 var ipSticky=false, ipTimer=null, ipAnker=null;
 function infoHide(){
-  var pop=$('infoPop'); pop.classList.remove('show'); pop.setAttribute('aria-hidden','true');
-  if(ipAnker) ipAnker.classList.remove('on');
+  var pop=$('infoPop'); pop.classList.remove('show');
+  if(ipAnker){ ipAnker.classList.remove('on'); ipAnker.setAttribute('aria-expanded','false'); }
   ipSticky=false; ipAnker=null;
 }
 function infoShow(titel, text, anker, stick){
   var pop=$('infoPop');
   $('ipTitle').textContent=titel;
-  $('ipText').textContent=text;
-  pop.classList.add('show'); pop.setAttribute('aria-hidden','false');
-  if(ipAnker && ipAnker!==anker) ipAnker.classList.remove('on');
+  /* Beim Antippen erst leeren, dann fuellen - die Live-Region sagt den Text
+     so auch beim zweiten Oeffnen an. */
+  if(stick){ $('ipText').textContent=''; setTimeout(function(){ $('ipText').textContent=text; }, 60); }
+  else $('ipText').textContent=text;
+  pop.classList.add('show');
+  if(ipAnker && ipAnker!==anker){ ipAnker.classList.remove('on'); ipAnker.setAttribute('aria-expanded','false'); }
   ipAnker=anker; anker.classList.add('on');
   ipSticky=!!stick;
+  anker.setAttribute('aria-expanded', stick?'true':'false');
   var r=anker.getBoundingClientRect();
   var w=pop.offsetWidth, h=pop.offsetHeight;
   var x=Math.max(8, Math.min(r.left+window.scrollX+r.width/2-w/2, document.documentElement.clientWidth-w-8+window.scrollX));
@@ -1783,6 +1894,8 @@ function infoShow(titel, text, anker, stick){
   pop.style.top=Math.round(y)+'px';
 }
 function bindInfo(el, titel, text){
+  el.setAttribute('aria-expanded','false');
+  el.setAttribute('aria-controls','infoPop');
   el.addEventListener('mouseenter', function(){ clearTimeout(ipTimer); if(!ipSticky) infoShow(titel,text,el,false); });
   el.addEventListener('mouseleave', function(){ if(!ipSticky) ipTimer=setTimeout(infoHide,180); });
   el.addEventListener('click', function(ev){
@@ -1794,7 +1907,12 @@ document.addEventListener('click', function(ev){
   var pop=document.getElementById('infoPop');
   if(pop && pop.classList.contains('show') && !pop.contains(ev.target) && ev.target!==ipAnker){ infoHide(); }
 });
-document.addEventListener('keydown', function(ev){ if(ev.key==='Escape') infoHide(); });
+document.addEventListener('keydown', function(ev){
+  if(ev.key!=='Escape') return;
+  var zurueck = ipSticky ? ipAnker : null;
+  infoHide();
+  if(zurueck) zurueck.focus();
+});
 (function(){
   var pop=document.getElementById('infoPop');
   pop.addEventListener('mouseenter', function(){ clearTimeout(ipTimer); });
@@ -1819,7 +1937,10 @@ function renderStep(){
     if(f.showIf && !f.showIf(eingaben)) return;
     var w = document.createElement('div');
     w.className = 'field' + ((f.type==='seg'&&f.opts.length>4)||f.type==='multi'?' full':'');
-    var lab = document.createElement('label'); lab.htmlFor='f_'+f.id;
+    var lab = document.createElement('label');
+    /* Nur echte Eingabefelder verknuepfen - bei Knopfgruppen zeigte for
+       vorher auf ein <div> und verband nichts. */
+    if(f.type==='number') lab.htmlFor='f_'+f.id;
     if(f.info){
       /* Letztes Wort + Icon zusammenhalten, damit das i nie allein umbricht */
       var worte=f.l.split(' '); var letztes=worte.pop();
@@ -1838,13 +1959,23 @@ function renderStep(){
       var inp=document.createElement('input'); inp.type='number'; inp.id='f_'+f.id;
       inp.min=f.min; inp.max=f.max; if(f.step) inp.step=f.step;
       inp.value = eingaben[f.id]!=null?eingaben[f.id]:'';
-      inp.addEventListener('input',function(){ eingaben[f.id]=parseFloat(inp.value); });
+      inp.setAttribute('aria-label', f.l);
+      if(f.hint) inp.setAttribute('aria-describedby','h_'+f.id);
+      inp.addEventListener('input',function(){ eingaben[f.id]=parseFloat(inp.value);
+        inp.removeAttribute('aria-invalid'); w.classList.remove('invalid'); });
       w.appendChild(inp);
     } else if(f.type==='seg'){
       var useCards = f.icons;
       var seg=document.createElement('div'); seg.className=useCards?'opt-cards':'seg'; seg.id='f_'+f.id;
+      seg.setAttribute('role','group'); seg.setAttribute('aria-label', f.l);
       if(useCards) w.classList.add('full');
-      f.opts.forEach(function(o){
+      var opts = f.opts;
+      if(f.id==='einheit'){
+        var erlaubt = EINHEITEN[eingaben.traeger] || ['kwh'];
+        opts = f.opts.filter(function(o){ return erlaubt.indexOf(o[0])>=0; });
+        if(erlaubt.indexOf(eingaben.einheit)<0 || !eingaben._einheitGewaehlt) eingaben.einheit = erlaubt[0];
+      }
+      opts.forEach(function(o){
         var b=document.createElement('button'); b.type='button';
         if(useCards){
           b.className='opt-card';
@@ -1853,10 +1984,12 @@ function renderStep(){
           b.textContent=o[1];
         }
         if(eingaben[f.id]===o[0]) b.classList.add('on');
+        b.setAttribute('aria-pressed', eingaben[f.id]===o[0] ? 'true' : 'false');
         b.addEventListener('click',function(){
           eingaben[f.id]=o[0];
-          seg.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
-          b.classList.add('on');
+          if(f.id==='einheit') eingaben._einheitGewaehlt = true;
+          seg.querySelectorAll('button').forEach(function(x){x.classList.remove('on'); x.setAttribute('aria-pressed','false');});
+          b.classList.add('on'); b.setAttribute('aria-pressed','true');
           if(st.f.some(function(ff){return ff.showIf;})) renderStep();
         });
         seg.appendChild(b);
@@ -1864,19 +1997,22 @@ function renderStep(){
       w.appendChild(seg);
     } else if(f.type==='multi'){
       var seg2=document.createElement('div'); seg2.className='seg';
+      seg2.setAttribute('role','group'); seg2.setAttribute('aria-label', f.l);
       f.opts.forEach(function(o){
         var b=document.createElement('button'); b.type='button'; b.textContent=o[1];
         if(eingaben[o[0]]) b.classList.add('on');
-        b.addEventListener('click',function(){ eingaben[o[0]]=!eingaben[o[0]]; b.classList.toggle('on'); });
+        b.setAttribute('aria-pressed', eingaben[o[0]] ? 'true' : 'false');
+        b.addEventListener('click',function(){ eingaben[o[0]]=!eingaben[o[0]]; b.classList.toggle('on');
+          b.setAttribute('aria-pressed', eingaben[o[0]] ? 'true' : 'false'); });
         seg2.appendChild(b);
       });
       w.appendChild(seg2);
     }
-    if(f.hint){ var h=document.createElement('span'); h.className='hint'; h.textContent=f.hint; w.appendChild(h); }
+    if(f.hint){ var h=document.createElement('span'); h.className='hint'; h.id='h_'+f.id; h.textContent=f.hint; w.appendChild(h); }
     host.appendChild(w);
   });
   $('prevBtn').style.visibility = stepIdx===0?'hidden':'visible';
-  $('nextBtn').textContent = stepIdx===STEPS.length-1 ? 'Ergebnis berechnen ✓' : 'Weiter →';
+  $('nextBtn').textContent = stepIdx===STEPS.length-1 ? 'Ergebnis berechnen' : 'Weiter';
   renderWizardHaus();
 }
 
@@ -1884,7 +2020,7 @@ function renderStep(){
    aktuellen Schritts hervor und zeigt die bisherigen Angaben. */
 function renderWizardHaus(){
   var host=$('wizardHaus'); if(!host) return;
-  var fokusJeSchritt=['','', 'wand','dach','keller','fenster','heizung',''];
+  var fokusJeSchritt=['','', 'wand','dach','keller','fenster','heizung','heizung',''];
   var fokus=fokusJeSchritt[stepIdx]||'';
   host.innerHTML = isoHausSvg(null, {}, { marker:'W', focus:fokus, wp:fokus==='heizung' });
   var f=[], e=eingaben;
@@ -1895,25 +2031,38 @@ function renderWizardHaus(){
   if(stepIdx>=1 && e.haustyp) f.push(['Haustyp', namen[e.haustyp]||'']);
   if(e.region) f.push(['Klimaregion', regionen[e.region]||'']);
   if(stepIdx>=6 && e.traeger) f.push(['Heizung', traegerName(e.traeger)]);
-  if(stepIdx>=6 && e.verbrauch) f.push(['Verbrauch', nf(e.verbrauch)+' '+(e.einheit||'kWh')+'/a']);
+  if(stepIdx>=7 && e.verbrauch) f.push(['Verbrauch', nf(e.verbrauch)+' '+(e.einheit||'kWh')+'/a']);
   $('wizardFacts').innerHTML = f.map(function(x){ return '<li><span>'+x[0]+'</span><span>'+x[1]+'</span></li>'; }).join('');
 }
 function validateStep(){
-  var st=STEPS[stepIdx], fehler=[];
+  var st=STEPS[stepIdx], fehler=[], erstesFeld=null;
   st.f.forEach(function(f){
     if(f.showIf && !f.showIf(eingaben)) return;
     if(f.type==='number'){
-      var v=eingaben[f.id];
-      if(v==null||isNaN(v)) fehler.push(f.l+': bitte ausfüllen.');
-      else if(v<f.min||v>f.max) fehler.push(f.l+': bitte zwischen '+f.min+' und '+f.max+'.');
+      var v=eingaben[f.id], falsch=false;
+      if(v==null||isNaN(v)){ fehler.push(f.l+': bitte ausfüllen.'); falsch=true; }
+      else if(v<f.min||v>f.max){ fehler.push(f.l+': bitte zwischen '+f.min+' und '+f.max+'.'); falsch=true; }
+      var feld=$('f_'+f.id);
+      if(feld){
+        if(falsch){ feld.setAttribute('aria-invalid','true'); feld.parentNode.classList.add('invalid');
+          if(!erstesFeld) erstesFeld=feld; }
+        else { feld.removeAttribute('aria-invalid'); feld.parentNode.classList.remove('invalid'); }
+      }
     }
     if(f.type==='seg' && eingaben[f.id]==null) fehler.push(f.l+': bitte auswählen.');
   });
-  if(stepIdx===6){
-    var erlaubt={gas:['kwh','m3'],oel:['l','kwh'],strom:['kwh'],pellets:['kg','srm','kwh'],holz:['fm','srm','kwh'],fernwaerme:['kwh']}[eingaben.traeger]||['kwh'];
+  if(st.id==='verbrauch'){
+    var erlaubt=EINHEITEN[eingaben.traeger]||['kwh'];
     if(erlaubt.indexOf(eingaben.einheit)<0) fehler.push('Einheit passt nicht zum Energieträger '+traegerName(eingaben.traeger)+' – erlaubt: '+erlaubt.join(', ')+'.');
   }
-  if(fehler.length){ var el=$('stepError'); el.innerHTML=fehler.join('<br>'); el.classList.add('show'); return false; }
+  if(fehler.length){
+    var el=$('stepError'); el.innerHTML=fehler.join('<br>'); el.classList.add('show');
+    /* Die Meldung steht unter dem Formular - das Feld selbst ruecken wir
+       ins Bild, damit man am Handy nicht suchen muss. */
+    if(erstesFeld){ erstesFeld.setAttribute('aria-describedby','stepError'); erstesFeld.focus({preventScroll:true});
+      erstesFeld.scrollIntoView({block:'center', behavior:'smooth'}); }
+    return false;
+  }
   return true;
 }
 
@@ -1940,7 +2089,7 @@ function zeigeErgebnis(){
 
   /* Kacheln */
   $('resTiles').innerHTML =
-    tile('Energieklasse (Bedarf)','<span class="klasse-chip" style="background:'+CONFIG.klassenFarben[kl]+'">'+kl+'</span> <span style="font-size:1.1rem;margin-left:8px">'+nf(kwBedarf)+' kWh/m²a</span>','wie im Bedarfsausweis · Ihr Verbrauch: '+nf(kwReal)+' kWh/m²a (Klasse '+klVerbrauch+')')+
+    tile('Energieklasse (Bedarf)','<span class="klasse-chip" style=\"'+klasseStil(kl)+'\">'+kl+'</span> <span style="font-size:1.1rem;margin-left:8px">'+nf(kwBedarf)+' kWh/m²a</span>','wie im Bedarfsausweis · Ihr Verbrauch: '+nf(kwReal)+' kWh/m²a (Klasse '+klVerbrauch+')')+
     tile('Energiekosten pro Jahr', eur(kosten), nf(kal.real)+' kWh '+traegerName(e.traeger).replace('heizung',''))+
     tile('CO₂-Ausstoß pro Jahr', nf(co2/1000,1)+' t', 'Emissionsfaktor '+traegerName(e.traeger));
 
@@ -1953,13 +2102,20 @@ function zeigeErgebnis(){
   var pct = Math.round((1-kal.kRoh)*100);
   var kt;
   if(kal.gekappt){
-    kt='<b>Hinweis:</b> Ihr angegebener Verbrauch weicht ungewöhnlich stark vom rechnerischen Bedarf ab (Faktor '+nf(kal.kRoh,2)+'). Bitte Einheit und Zeitraum der Verbrauchsangabe prüfen – die Rechnung nutzt den begrenzten Faktor '+nf(kal.k,2)+'.';
+    kt='<b>Bitte kurz prüfen:</b> Ihr angegebener Verbrauch weicht ungewöhnlich stark vom rechnerischen Bedarf ab (Faktor '+nf(kal.kRoh,2)+'). Oft steckt eine andere Einheit oder ein halbes Jahr dahinter. Die Rechnung nutzt vorerst den begrenzten Faktor '+nf(kal.k,2)+'. '+
+       '<button type="button" class="textknopf" data-schritt="verbrauch">Verbrauch prüfen</button>';
   } else if(pct>5){
-    kt='Ihr realer Verbrauch liegt <b>'+pct+' % unter dem berechneten Bedarf</b> ('+nf(basis.eEnd)+' kWh/a). Das ist typisch für teilsanierte Häuser: kühlere Räume, ungenutzte Zimmer, Nachtabsenkung (<em>Prebound-Effekt</em>). Einsparungen rechnen wir deshalb auf Ihren <b>realen</b> Verbrauch – nicht auf den theoretischen.';
+    kt='Ihr realer Verbrauch liegt <b>'+pct+' % unter dem berechneten Bedarf</b> ('+nf(basis.eEnd)+' kWh/a). Das ist typisch für ältere und teilsanierte Häuser: kühlere Räume, ungenutzte Zimmer, Nachtabsenkung (<em>Prebound-Effekt</em>). Einsparungen rechnen wir deshalb auf Ihren <b>realen</b> Verbrauch – nicht auf den theoretischen.';
   } else if(pct<-5){
     kt='Ihr Verbrauch liegt <b>'+(-pct)+' % über dem berechneten Bedarf</b> – z. B. durch hohe Raumtemperaturen oder Warmwasserkomfort (<em>Rebound</em>). Die Einsparungen sind auf Ihren realen Verbrauch kalibriert.';
   } else {
     kt='Ihr realer Verbrauch passt gut zum berechneten Bedarf ('+nf(basis.eEnd)+' kWh/a) – die Rechnung ist damit gut kalibriert.';
+  }
+  /* Einordnung fuer den Normalfall Altbau - ein rotes H ist dort kein
+     Eingabefehler. */
+  if((kl==='G'||kl==='H') && e.baujahr<1978 && e.wandGedaemmt!=='ja'){
+    kt = '<b>Klasse '+kl+' ist bei ungedämmten Häusern aus der Zeit vor 1978 der Normalfall.</b> '+
+      'Der Bedarf wird wie im Bedarfsausweis für voll beheizte Räume gerechnet. '+kt;
   }
   $('kalibBox').innerHTML=kt;
 
@@ -1984,17 +2140,17 @@ function zeigeErgebnis(){
   function kv(l,v){ return '<div class="mn-kv"><b>'+l+'</b><span>'+v+'</span></div>'; }
 
   /* Szenarien */
-  $('szenGrid').innerHTML = sz.map(function(s){
+  $('szenGrid').innerHTML = sz.filter(function(s){ return !s.doppelt; }).map(function(s){
     var chips = (s.ids||[]).map(function(id){
       var d=MN_DIY[id];
       var suffix = d===true ? ' · selbst machbar' : (d==='innen' ? ' · innen selbst machbar' : '');
       return '<span class="szen-chip'+(d?' diy':'')+'">'+(MN_NAMEN[id]||id)+suffix+'</span>';
     }).join('');
     return '<div class="szen"><h3>'+s.name+'</h3><p class="s-sub">'+s.sub+'</p>'+
-    '<div class="szen-klassen"><span class="klasse-chip" style="background:'+CONFIG.klassenFarben[kl]+'">'+kl+'</span>'+
+    '<div class="szen-klassen"><span class="klasse-chip" style=\"'+klasseStil(kl)+'\">'+kl+'</span>'+
     '<span class="arrow">→</span>'+
-    '<span class="klasse-chip" style="background:'+CONFIG.klassenFarben[s.klasseNeu]+'">'+s.klasseNeu+'</span>'+
-    '<span style="font-size:.82rem;color:var(--muted)">'+nf(s.kennwertNeu)+' kWh/m²a</span></div>'+
+    '<span class="klasse-chip" style=\"'+klasseStil(s.klasseNeu)+'\">'+s.klasseNeu+'</span>'+
+    '<span class="szen-wert">'+nf(s.kennwertNeu)+' kWh/m²a</span></div>'+
     '<div class="szen-mn">'+chips+'</div>'+
     '<div class="szen-kv">'+
     '<div><b>Investition</b>'+eur(s.invest)+'</div>'+
@@ -2010,7 +2166,8 @@ function zeigeErgebnis(){
   rows+='<tr><td>Wärmebrücken (ΔU '+nf(basis.dUwb,2)+')</td><td>'+nf(basis.aHuelle,1)+' m²</td><td></td><td>'+nf(basis.htWB)+' W/K</td></tr>';
   rows+='<tr><td>Lüftung (n = '+nf(basis.n,2)+'/h)</td><td></td><td></td><td>'+nf(basis.HV)+' W/K</td></tr>';
   $('annahmen').innerHTML='<p>Vereinfachtes Hüllflächenverfahren mit Heizperiodenbilanz, kalibriert am realen Verbrauch (Faktor k = '+nf(kal.k,2)+'). Heizwärmebedarf: '+nf(basis.qHeiz)+' kWh/a · Warmwasser: '+nf(basis.qWW)+' kWh/a · Endenergie (Bedarf): '+nf(basis.eEnd)+' kWh/a'+(basis.jaz?' · JAZ '+nf(basis.jaz,1):' · Anlagen-Nutzungsgrad '+nf(basis.etaA,2))+'.</p><table>'+rows+'</table>'+
-  '<p style="margin-top:10px">*Förderung: Hülle 15 % (Deckel 30.000 €/Jahr; mit iSFP 20 % / 60.000 €), Heizungstausch 30 % Grundförderung (KfW 458, mit Boni bis ca. 70 %). Ohne Gewähr – vor Auftrag prüfen.</p>';
+  '<p class="annahme-fuss">*'+foerderSatzText()+' Ohne Gewähr – vor Auftrag prüfen.</p>';
+  $('foerderFuss').textContent = foerderSatzText();
 
   /* Ergebnis-Zusammenfassung für die Lead-Übermittlung */
   /* Vollstaendige Daten fuer den Druckbericht - bewusst getrennt vom
@@ -2040,6 +2197,7 @@ function zeigeErgebnis(){
   $('ergebnis').style.display='block';
   $('ergebnis').classList.add('fx');
   window.scrollTo({top:$('ergebnis').offsetTop-92,behavior:'smooth'});
+  $('resTitle').focus({preventScroll:true});
   trackEvent('rechner_ergebnis', kl+' '+nf(kwBedarf));
 }
 
@@ -2053,9 +2211,9 @@ function renderBand(kwHeute, kwNach){
     var kl=klp[0];
     var w = 24 + i*8.6;
     html+='<div class="ea-row">'+
-      '<span class="ea-arrow" style="width:'+w+'%;background:'+CONFIG.klassenFarben[kl]+'">'+kl+'</span>';
+      '<span class="ea-arrow" style="width:'+w+'%;'+klasseStil(kl)+'">'+kl+'</span>';
     if(kl===klHeute) html+='<span class="ea-mark">Ihr Haus · '+nf(kwHeute)+' kWh/m²a</span>';
-    if(kl===klNach)  html+='<span class="ea-mark after">Nach Vollsanierung · '+nf(kwNach)+'</span>';
+    if(kl===klNach)  html+='<span class="ea-mark after">Nach Vollsanierung · '+nf(kwNach)+' kWh/m²a</span>';
     html+='<span class="ea-range">'+ranges[i]+'</span></div>';
   });
   html+='</div>';
@@ -2277,21 +2435,21 @@ function isoHausSvg(sh, san, opt){
 function buildSim(e0){
   var basis0 = berechne(e0);
   var Z = CONFIG.zielU, K = CONFIG.kosten;
-  var eraLabelsWand=['vor 1918','1919–48','1949–68','1969–78','1979–83','1984–94','1995–2001','2002–09','2010–15','ab 2016'];
-  var eraYearsWand=[1900,1930,1960,1975,1981,1990,1998,2006,2013,2020];
-  var eraUsWand=CONFIG.uWand.map(function(x){return x[1];});
-  var eraLabelsDach=['vor 1969','1969–78','1979–94','1995–2001','2002–15','ab 2016'];
-  var eraYearsDach=[1950,1975,1990,1998,2010,2020];
-  var eraUsDach=CONFIG.uDach.map(function(x){return x[1];});
-  var eraLabelsKel=['vor 1978','1979–94','1995–2009','ab 2010'];
-  var eraYearsKel=[1970,1990,2000,2015];
-  var eraUsKel=CONFIG.uKeller.map(function(x){return x[1];});
+  /* Reglerstufen kommen aus den CONFIG-Tabellen. Vorher standen Beschriftungen
+     und Jahre hier fest - nach der Umstellung auf die amtlichen Baualters-
+     klassen passten sie nicht mehr, und der Simulator startete mit anderen
+     U-Werten als die Kachel darueber (1900: 443 statt 536 kWh/m2a). */
+  var dachIstOgd = basis0.aOgd>0;
+  var erasWand = eraStufen(CONFIG.uWand);
+  var erasDach = eraStufen(CONFIG.uDach).map(function(x){
+    x.u = uDachSim(x.jahr, dachIstOgd); return x; });
+  var erasKel  = eraStufen(CONFIG.uKeller);
+  function spalte(eras, feld){ return eras.map(function(x){ return x[feld]; }); }
   var vgKeys=['einfach','kasten','zweifach_alt','iso_95','ws_2001','ws_2010','dreifach'];
   var vgLabels=['Einfach','Kasten','2-fach alt','2-fach 95+','2-fach WS 01+','2-fach WSV 10+','3-fach'];
   /* Luftdichtheit bewusst NICHT als Regler: Kaum ein Eigentuemer kennt die
      Luftwechselrate seines Hauses. Der Wert steckt weiterhin in der Rechnung,
      er wird aus dem Gebaeudezustand abgeleitet (CONFIG.luftwechsel). */
-  var dachIstOgd = basis0.aOgd>0;
 
   /* Startposition der Regler = Zustand aus dem Fragebogen:
      wir wählen die Baualtersklasse, deren U-Wert den Angaben am nächsten kommt. */
@@ -2304,18 +2462,23 @@ function buildSim(e0){
   SIM = {
     e0: e0,
     slider: {
-      wand:   nearestIdx(basis0.uWerte.wand, eraUsWand),
-      dach:   nearestIdx(basis0.uWerte.dachOgd, eraUsDach),
-      keller: nearestIdx(basis0.uWerte.keller, eraUsKel),
+      wand:   nearestIdx(basis0.uWerte.wand, spalte(erasWand,'u')),
+      dach:   nearestIdx(basis0.uWerte.dachOgd, spalte(erasDach,'u')),
+      keller: nearestIdx(basis0.uWerte.keller, spalte(erasKel,'u')),
       fenster:Math.max(0, vgKeys.indexOf(e0.verglasung))
     },
+    /* Solange ein Regler nicht bewegt wurde, rechnet der Simulator mit dem
+       Ist-U-Wert aus dem Fragebogen - nicht mit dem naechstliegenden
+       Tabellenwert. Nur so zeigt er anfangs dasselbe wie die Kachel. */
+    basis0: basis0,
+    bewegt: { wand:false, dach:false, keller:false },
     tg: { wand:false, dach:false, keller:false, fenster:false, abgleich:false, rohr:false },
     heiz: 'ist',
     rohrMoeglich: (!e0.rohrGedaemmt && e0.keller!=='nein' && e0.kellerBeheizt!=='ja'),
     defs: {
-      wand:{name:'Außenwand', labels:eraLabelsWand, years:eraYearsWand},
-      dach:{name: dachIstOgd?'Dach / oberste Geschossdecke':'Dach', labels:eraLabelsDach, years:eraYearsDach},
-      keller:{name:'Keller / Boden', labels:eraLabelsKel, years:eraYearsKel},
+      wand:{name:'Außenwand', labels:spalte(erasWand,'label'), years:spalte(erasWand,'jahr')},
+      dach:{name: dachIstOgd?'Dach / oberste Geschossdecke':'Dach', labels:spalte(erasDach,'label'), years:spalte(erasDach,'jahr')},
+      keller:{name:'Keller / Boden', labels:spalte(erasKel,'label'), years:spalte(erasKel,'jahr')},
       fenster:{name:'Fenster', labels:vgLabels, keys:vgKeys}
     },
     dachIstOgd: dachIstOgd,
@@ -2342,24 +2505,24 @@ function buildSim(e0){
     var d=SIM.defs[id];
     return '<div class="sim-card" id="simc_'+id+'">'+
       '<div class="sim-card-head" style="flex-wrap:wrap"><h3>'+d.name+(withToggle?'':infoIcon(id))+'</h3><span class="sim-kwh" id="simkwh_'+id+'"></span>'+
-      (withToggle&&diyLbl[id]?'<span class="tag-diy" style="padding:2px 8px;font-size:.62rem">'+diyLbl[id]+'</span>':'')+
-      (withToggle?'<span class="sw-mini">sanieren <span class="switch"><input type="checkbox" id="simtg_'+id+'"><i></i></span></span>':'')+
+      (withToggle&&diyLbl[id]?'<span class="tag-diy tag-klein">'+diyLbl[id]+'</span>':'')+
+      (withToggle?'<label class="sw-mini">sanieren <span class="switch"><input type="checkbox" id="simtg_'+id+'" aria-label="'+d.name+' sanieren"><i></i></span></label>':'')+
       '</div>'+
-      '<input type="range" id="simsl_'+id+'" min="0" max="'+(d.labels.length-1)+'" step="1" value="'+SIM.slider[id]+'">'+
+      '<input type="range" id="simsl_'+id+'" min="0" max="'+(d.labels.length-1)+'" step="1" value="'+SIM.slider[id]+'" aria-label="Zustand '+d.name+'">'+
       '<div class="sim-stop"><span id="simlb_'+id+'"></span><b id="simu_'+id+'"></b></div>'+
       (extra||'')+
     '</div>';
   }
   var heizBtns='<div class="sim-card"><div class="sim-card-head" style="flex-wrap:wrap"><h3>Heizung</h3><span class="sim-kwh" id="simkwh_heiz"></span>'+
     '<div class="sw-spalte">'+
-      '<span class="sw-mini">Hydraulischer Abgleich'+infoIcon('abgleich')+' <span class="switch"><input type="checkbox" id="simtg_abgleich"><i></i></span></span>'+
-      (SIM.rohrMoeglich?'<span class="sw-mini">Rohre dämmen <span class="tag-diy" style="padding:2px 8px;font-size:.62rem">selbst machbar</span> <span class="switch"><input type="checkbox" id="simtg_rohr"><i></i></span></span>':'')+
+      '<span class="sw-mini">Hydraulischer Abgleich'+infoIcon('abgleich')+' <span class="switch"><input type="checkbox" id="simtg_abgleich" aria-label="Hydraulischer Abgleich einplanen"><i></i></span></span>'+
+      (SIM.rohrMoeglich?'<span class="sw-mini">Rohre dämmen <span class="tag-diy tag-klein">selbst machbar</span> <span class="switch"><input type="checkbox" id="simtg_rohr" aria-label="Heizungsrohre dämmen"><i></i></span></span>':'')+
     '</div>'+
     '</div>'+
     '<div class="heiz-btns" id="simHeizBtns">'+
-    '<button type="button" data-h="ist" class="on">Ist belassen</button>'+
-    ((e0.heizungTyp!=='brennwert'&&e0.heizungTyp!=='wp'&&(e0.traeger==='gas'||e0.traeger==='oel'))?'<button type="button" data-h="brennwert">Brennwert</button>':'')+
-    (e0.heizungTyp!=='wp'?'<button type="button" data-h="wp">Wärmepumpe</button>':'')+
+    '<button type="button" data-h="ist" class="on" aria-pressed="true">Ist belassen</button>'+
+    ((e0.heizungTyp!=='brennwert'&&e0.heizungTyp!=='wp'&&(e0.traeger==='gas'||e0.traeger==='oel'))?'<button type="button" data-h="brennwert" aria-pressed="false">Brennwert</button>':'')+
+    (e0.heizungTyp!=='wp'?'<button type="button" data-h="wp" aria-pressed="false">Wärmepumpe</button>':'')+
     '</div>'+
     '<p class="sim-wp-hinweis" id="simWpHinweis">Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten – sie werden deshalb nicht zusätzlich berechnet.</p>'+
     '</div>';
@@ -2378,7 +2541,10 @@ function buildSim(e0){
 
   /* Ereignisse */
   ['wand','dach','keller','fenster'].forEach(function(id){
-    $('simsl_'+id).addEventListener('input', function(){ SIM.slider[id]=parseInt(this.value,10); updateSim(); trackEvent('sim_regler',id); });
+    $('simsl_'+id).addEventListener('input', function(){
+      SIM.slider[id]=parseInt(this.value,10);
+      if(id in SIM.bewegt) SIM.bewegt[id]=true;
+      updateSim(); trackEvent('sim_regler',id); });
   });
   ['wand','dach','keller','fenster'].forEach(function(id){
     var t=$('simtg_'+id); if(t) t.addEventListener('change', function(){ SIM.tg[id]=this.checked; updateSim(); trackEvent('sim_schalter',id); });
@@ -2389,8 +2555,8 @@ function buildSim(e0){
   $('simHeizBtns').querySelectorAll('button').forEach(function(b){
     b.addEventListener('click', function(){
       SIM.heiz=b.getAttribute('data-h');
-      $('simHeizBtns').querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
-      b.classList.add('on'); updateSim(); trackEvent('sim_heizung',SIM.heiz);
+      $('simHeizBtns').querySelectorAll('button').forEach(function(x){x.classList.remove('on'); x.setAttribute('aria-pressed','false');});
+      b.classList.add('on'); b.setAttribute('aria-pressed','true'); updateSim(); trackEvent('sim_heizung',SIM.heiz);
     });
   });
 
@@ -2404,27 +2570,31 @@ function buildSim(e0){
   $('simKpi').innerHTML =
     kpiSkel('wb','Wärmebedarf','kWh/a','var(--amber)') +
     kpiSkel('ee','Endenergie','kWh/a','var(--forest)') +
-    kpiSkel('hk','Heizkosten','€/a','#B3402E');
+    kpiSkel('hk','Heizkosten','€/a','var(--bad)');
 
   enableTilt($('simHaus'));
   updateSim();
 }
 
 function simEingaben(){
-  /* Reglerstellung -> Eingaben: jede Position entspricht einer Baualtersklasse */
-  var e = JSON.parse(JSON.stringify(SIM.e0)), s=SIM.slider, d=SIM.defs;
-  e.wandGedaemmt='ja'; e.wandDaemmJahr=d.wand.years[s.wand]; e.wandDaemmDicke=0;
-  e.dachGedaemmt='ja'; e.dachDaemmJahr=d.dach.years[s.dach]; e.dachDaemmDicke=0;
-  e._kellerEra = d.keller.years[s.keller];
-  e.verglasung = d.fenster.keys[s.fenster];
+  /* Fenster ueber den Schluessel, die opaken Bauteile ueber U-Werte in
+     simIstU() - dort entscheidet sich, ob der Regler schon bewegt wurde. */
+  var e = JSON.parse(JSON.stringify(SIM.e0));
+  e.verglasung = SIM.defs.fenster.keys[SIM.slider.fenster];
   return e;
+}
+function simIstU(){
+  var s=SIM.slider, d=SIM.defs, b=SIM.basis0.uWerte, bw=SIM.bewegt;
+  return {
+    wand: bw.wand ? uAusTabelle(CONFIG.uWand, d.wand.years[s.wand]) : b.wand,
+    dach: bw.dach ? uDachSim(d.dach.years[s.dach], SIM.dachIstOgd) : b.dachOgd,
+    kellerdecke: bw.keller ? uAusTabelle(CONFIG.uKeller, d.keller.years[s.keller]) : b.keller
+  };
 }
 
 function updateSim(){
   var e = simEingaben();
-  /* Keller-Ära direkt als U-Override abbilden */
-  var istU = {};
-  if(e._kellerEra) istU.kellerdecke = uAusTabelle(CONFIG.uKeller, e._kellerEra);
+  var istU = simIstU();
   var vor = berechne(e, {u:istU});
   var kal = kalibriere(e, vor);
   var k = kal.k;
@@ -2457,11 +2627,9 @@ function updateSim(){
 
   /* Kalibrierte Darstellung – dieselbe Basis wie Kacheln und Skala oben.
      kEff berücksichtigt den Rebound (nach Sanierung wird komfortabler geheizt). */
-  var ratio = vor.eEnd>0 ? nach.eEnd/vor.eEnd : 1;
-  var kEff = k + (1-k)*(1-ratio);
   var e0=SIM.e0, K=CONFIG.kosten;
-  var kostenVor = vor.eEnd*k*preisFuer(e0, vor.traeger);
-  var kostenNach = nach.eEnd*kEff*preisFuer(e0, nach.traeger);
+  var vg = kostenVergleich(e0, vor, nach, k);
+  var kEff = vg.kEff, kostenVor = vg.kostenVor, kostenNach = vg.kostenNach;
   var invest=0, foerd=0;
   /* maxBetrag: zusaetzliche absolute Obergrenze (Heizungsfoerderung) */
   function add(betrag, satz, deckel, maxBetrag){
@@ -2503,10 +2671,10 @@ function updateSim(){
   var popKlasse = SIM._klN!=null && SIM._klN!==klN;
   SIM._klN = klN;
   $('simChips').innerHTML =
-    '<span class="klasse-chip" style="background:'+CONFIG.klassenFarben[klV]+'">'+klV+'</span>'+
+    '<span class="klasse-chip" style=\"'+klasseStil(klV)+'\">'+klV+'</span>'+
     '<span class="arrow">→</span>'+
-    '<span class="klasse-chip'+(popKlasse?' pop':'')+'" style="background:'+CONFIG.klassenFarben[klN]+'">'+klN+'</span>'+
-    '<span style="font-size:.82rem;color:var(--muted);margin-left:2px">'+nf(kwVor)+' → '+nf(kwNach)+' kWh/m²a</span>'+
+    '<span class="klasse-chip'+(popKlasse?' pop':'')+'" style=\"'+klasseStil(klN)+'\">'+klN+'</span>'+
+    '<span style="font-size:.875rem;color:var(--muted);margin-left:2px">'+nf(kwVor)+' → '+nf(kwNach)+' kWh/m²a</span>'+
     '<span class="hint">berechneter Bedarf des Gebäudes – wie die Skala oben</span>';
 
   /* Haus: bei reinen Regler-Änderungen nur die Pfeile animieren (weich),
@@ -2566,6 +2734,7 @@ function updateSim(){
   function setCard(id, kwhBedarf, label, uTxt){
     $('simkwh_'+id).textContent = '≈ '+nf(kwhBedarf)+' kWh/a Verlust';
     $('simlb_'+id).textContent = label;
+    var sl = $('simsl_'+id); if(sl) sl.setAttribute('aria-valuetext', label+', '+uTxt);
     $('simu_'+id).textContent = uTxt;
   }
   setCard('wand', ht(nach,['wand','tuer'])*Gh*kEff, SIM.defs.wand.labels[SIM.slider.wand], 'U ≈ '+nf(nach.uWerte.wand,2)+(tg.wand?' → '+nf(Z.wand,2)+' saniert':''));
@@ -2598,7 +2767,7 @@ function updateSim(){
   animNum($('sum_foe'), Math.round(foerd));
   animNum($('sum_eig'), Math.round(invest-foerd));
   animNum($('sum_spa'), Math.round(ersparnis));
-  $('simNote').textContent = '*Hülle 15 % (Deckel 30.000 €), Wärmepumpe 30 % Grundförderung (mit Boni bis ca. 70 %). '+
+  $('simNote').textContent = '*'+foerderSatzText()+' '+
     'Kosten = Mitte der regionalen Spannen. Spez. Heizlast nach diesem Paket: '+nf(nach.spezHeizlast)+' W/m²'+
     (nach.spezHeizlast<70?' – niedrig genug für Niedertemperatur-Heizsysteme.':' – weitere Dämmung senkt sie zusätzlich.');
 }
@@ -2656,7 +2825,7 @@ function baueDruckbericht(){
   '</div>';
 
   var kern='<div class="db-kern">'+
-    '<div><b>Effizienzklasse (Bedarf)</b><span class="db-klasse" style="background:'+(CONFIG.klassenFarben[d.kl]||'#555')+'">'+d.kl+'</span> <small>'+nf(d.kwBedarf)+' kWh/m²a</small></div>'+
+    '<div><b>Effizienzklasse (Bedarf)</b><span class="db-klasse" style="'+klasseStil(d.kl)+'">'+d.kl+'</span> <small>'+nf(d.kwBedarf)+' kWh/m²a</small></div>'+
     '<div><b>Energiekosten</b><span>'+eur(d.kosten)+'</span> <small>pro Jahr</small></div>'+
     '<div><b>Heizlast</b><span>'+nf(d.basis.spezHeizlast)+'</span> <small>W/m²</small></div>'+
   '</div>';
@@ -2727,9 +2896,9 @@ function baueDruckbericht(){
     return '<div class="db-weg">'+
       '<h3>'+pk.name+'</h3><span class="db-weg-sub">'+(pk.sub||'')+'</span>'+
       '<div class="db-weg-klassen">'+
-        '<span class="db-klasse" style="background:'+(CONFIG.klassenFarben[d.kl]||'#555')+'">'+d.kl+'</span>'+
+        '<span class="db-klasse" style="'+klasseStil(d.kl)+'">'+d.kl+'</span>'+
         '<span>→</span>'+
-        '<span class="db-klasse" style="background:'+(CONFIG.klassenFarben[pk.klasseNeu]||'#555')+'">'+pk.klasseNeu+'</span>'+
+        '<span class="db-klasse" style="'+klasseStil(pk.klasseNeu)+'">'+pk.klasseNeu+'</span>'+
         '<span>'+nf(pk.kennwertNeu)+' kWh/m²a</span>'+
       '</div>'+
       '<div class="db-weg-kv">'+
@@ -2752,7 +2921,7 @@ function baueDruckbericht(){
       '<div class="db-bild">'+
         '<div>'+haus+'<p class="db-bildunter">Ihr Haus – Pfeildicke zeigt, wo die Wärme entweicht'+
           (gewaehlt.length?'; grün markiert ist, was Sie eingeplant haben':'')+'</p></div>'+
-        '<div class="db-skala"><b style="font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:#6F685C">Energieeffizienzklasse</b>'+skala+'</div>'+
+        '<div class="db-skala"><b style="font-size:.8125rem;letter-spacing:.07em;text-transform:uppercase;color:#6F685C">Energieeffizienzklasse</b>'+skala+'</div>'+
       '</div>'+
       '<p class="db-hinweis">'+($('kalibBox').textContent||'')+'</p></div>'+
     auswahl+
@@ -2892,12 +3061,25 @@ enableTilt(document.getElementById('wizardHaus'));
   renderStep();
   trackEvent('rechner_gestartet','direkt');
 })();
+/* Zurueck in den Fragebogen - die Angaben bleiben stehen. data-schritt
+   ist der Index oder die id eines Schritts (z. B. "verbrauch"). */
+function zuSchritt(ziel){
+  var i = isNaN(ziel) ? STEPS.map(function(st){return st.id;}).indexOf(ziel) : Number(ziel);
+  stepIdx = Math.max(0, i);
+  $('ergebnis').style.display='none'; $('wizardWrap').style.display='grid';
+  renderStep(); zumFragebogen();
+  $('stepTitle').focus({preventScroll:true});
+}
+document.addEventListener('click', function(ev){
+  var t = ev.target.closest && ev.target.closest('[data-schritt]');
+  if(t) zuSchritt(t.getAttribute('data-schritt'));
+});
 document.getElementById('prevBtn').addEventListener('click',function(){
-  if(stepIdx>0){ stepIdx--; renderStep(); zumFragebogen(); }
+  if(stepIdx>0){ stepIdx--; renderStep(); zumFragebogen(); $('stepTitle').focus({preventScroll:true}); }
 });
 document.getElementById('nextBtn').addEventListener('click',function(){
   if(!validateStep()) return;
-  if(stepIdx<STEPS.length-1){ stepIdx++; renderStep(); zumFragebogen(); trackEvent('rechner_schritt',String(stepIdx+1)); }
+  if(stepIdx<STEPS.length-1){ stepIdx++; renderStep(); zumFragebogen(); $('stepTitle').focus({preventScroll:true}); trackEvent('rechner_schritt',String(stepIdx+1)); }
   else zeigeErgebnis();
 });
 
@@ -2944,6 +3126,27 @@ document.getElementById('nextBtn').addEventListener('click',function(){
   var gesamt=kal.real*preisFuer(basis1965,'gas');
   var okSum = summe < gesamt;
   console.log((okSum?'✅ PASS':'❌ FAIL')+' – Einzelersparnisse ('+eur(summe)+') < Gesamtkosten ('+eur(gesamt)+')');
+  /* Reglerstufen des Simulators: jede Stufe muss in ihrer eigenen
+     Tabellenklasse liegen, sonst startet der Simulator mit anderen Werten
+     als die Kachel (so geschehen nach der U-Wert-Umstellung). */
+  var okStufen = ['uWand','uDach','uKeller'].every(function(key){
+    var st = eraStufen(CONFIG[key]);
+    return st.length===CONFIG[key].length && st.every(function(x){ return uAusTabelle(CONFIG[key], x.jahr)===x.u; });
+  });
+  console.log((okStufen?'✅ PASS':'❌ FAIL')+' – Simulator-Reglerstufen decken die U-Wert-Tabellen ab');
+  /* Unbewegter Simulator = Ist-Zustand des Fragebogens */
+  var b0 = berechne(basis1965);
+  var simStart = berechne(basis1965, {u:{wand:b0.uWerte.wand, dach:b0.uWerte.dachOgd, kellerdecke:b0.uWerte.keller}});
+  var okStart = Math.abs(simStart.kennwertBedarf - b0.kennwertBedarf) < 0.5;
+  console.log((okStart?'✅ PASS':'❌ FAIL')+' – Simulator startet beim Bedarf der Kachel ('+nf(simStart.kennwertBedarf)+' = '+nf(b0.kennwertBedarf)+' kWh/m²a)');
+  /* Pakete: hoechstens eine Heizung, Ersparnis nie ueber den Kosten */
+  var szTest = szenarien(basis1965, b, kal, mns);
+  var okPakete = szTest.every(function(x){
+    var heiz = x.ids.filter(function(id){ return id==='wp'||id==='brennwert'; }).length;
+    return heiz<=1 && x.ersparnis < gesamt;
+  });
+  console.log((okPakete?'✅ PASS':'❌ FAIL')+' – Pakete mit höchstens einer Heizung, Ersparnis unter den Heizkosten');
+  alle = alle && okStufen && okStart && okPakete;
   console.log(alle&&okSum ? '✅ SELBSTTEST BESTANDEN' : '❌ SELBSTTEST: Abweichungen – CONFIG prüfen');
 })();
 </script>
