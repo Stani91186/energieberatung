@@ -1529,7 +1529,12 @@ var KENNWERTE = {
   wbZuschlag:{ unsaniert:0.10, saniert:0.05, kurzverfahren:0.035, kategorieB:0.03, jeGaube:0.02, max:0.15 },
   klassen:[ ['A+',30],['A',50],['B',75],['C',100],['D',130],['E',160],['F',200],['G',250],['H',1e9] ],
   klassenFarben:{ 'A+':'#1E7A44','A':'#4C8C33','B':'#87A22B','C':'#B8A81F','D':'#C98A1E','E':'#C96F22','F':'#BC5524','G':'#AC3E26','H':'#983024' },
-  zielU:{ wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25, boden:0.25, fenster:0.95, tuer:1.3 }
+  zielU:{ wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25, boden:0.25, fenster:0.95, tuer:1.3 },
+  ehUref:{ wand:0.28, dach:0.20, kellerdecke:0.35, fenster:1.30, tuer:1.80 },
+  ehWbRef:0.05,
+  ehFp:{ gas:1.1, oel:1.1, strom:1.8, pellets:0.2, holz:0.2, fernwaerme:0.7 },
+  ehStufen:[ {name:'40', qp:40, ht:55}, {name:'55', qp:55, ht:70},
+             {name:'70', qp:70, ht:85}, {name:'85', qp:85, ht:100} ]
 };
 /* /GEMEINSAM:KENNWERTE */
 
@@ -5111,6 +5116,19 @@ function detailGeaendert(){
               'schließen einander aus (unbeheizt: OGD '+nf(kalt.ogd,0)+' m², kein Dach · '+
               'beheizt: Dach '+nf(warm.dach,0)+' m², keine OGD)');
   if(!entwederOder) ok=false;
+
+  /* Referenzgebaeude, Stufen und Primaerenergiefaktoren stehen auch im
+     Sanierungsrechner (Effizienzhaus-Orientierung). Beide muessen gleich
+     rechnen. */
+  var gleichRef = ['wand','dach','kellerdecke','fenster','tuer'].every(function(kk){
+      return UK.uRef[kk]===KENNWERTE.ehUref[kk]; }) && UK.dUwbRef===KENNWERTE.ehWbRef &&
+    UK.ehStufen.length===KENNWERTE.ehStufen.length &&
+    UK.ehStufen.every(function(st,i){ var o=KENNWERTE.ehStufen[i];
+      return st.name===o.name && st.qp===o.qp && st.ht===o.ht; }) &&
+    FP.gas===KENNWERTE.ehFp.gas && FP.oel===KENNWERTE.ehFp.oel &&
+    FP.strom===KENNWERTE.ehFp.strom && FP.holz===KENNWERTE.ehFp.holz;
+  console.log((gleichRef?'✅ PASS':'❌ FAIL')+' – Referenzgebäude, Stufen und Faktoren wie im Sanierungsrechner');
+  if(!gleichRef) ok=false;
 
   console.log(ok ? '✅ SELBSTTEST U-WERT-RECHNER BESTANDEN'
                  : '❌ SELBSTTEST U-WERT-RECHNER: Abweichungen – Rechenkern prüfen');

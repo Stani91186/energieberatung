@@ -316,6 +316,33 @@ Heizkostenrechnung). Seitdem gilt:
 - Selbsttest um drei Fälle ergänzt: Reglerstufen, Simulatorstart = Kachel,
   Pakete mit höchstens einer Heizung und Ersparnis unter den Heizkosten.
 
+### Effizienzhaus-Orientierung (seit 17.09.2026)
+
+Der Sanierungsrechner zeigt die KfW-Effizienzhausstufe – heute (vierte
+Kachel), je Paket und live im Simulator, dazu im Druckbericht.
+**Entscheidung des Betreibers:** als *Orientierung*, mit beiden Bedingungen.
+Die Seite sagt „voraussichtlich Effizienzhaus 70“, **nie „erreicht“**, und
+nennt dazu, welche Bedingung die Stufe begrenzt. Das ist die gelockerte Form
+der Ehrlichkeitsgrenze aus dem U-Wert-Rechner – sie gilt nur hier und nur mit
+dem Erklärtext über den Paketen (Nachweis nach DIN V 18599, vor dem Antrag).
+
+- `effizienzhaus(e, mods)` rechnet beide Bedingungen gegen `referenzHaus(e)`
+  – dieselbe Geometrie mit den Werten aus Anlage 1 (`ehUref`, `ehGref`,
+  `ehWbRef`) und Gas-Brennwert mit Solar-Warmwasser.
+- **H′T** ist nach den GModG-Regeln gerechnet. **Die Primärenergie ist eine
+  Schätzung** aus Endenergie × `ehFp`; sie kann im Nachweis eine Stufe anders
+  ausfallen. Liegt sie weniger als `ehKnapp` Punkte unter der Grenze, steht
+  „(knapp)“ dabei.
+- Ein Haus mit genau den Referenzwerten liegt bei 100 %/100 % – das ist
+  **keine** Stufe (Effizienzhaus 85 verlangt 85 % Primärenergie).
+- `ehUref`, `ehWbRef`, `ehFp`, `ehStufen` gehen über `KENNWERTE_KEYS` auch in
+  den U-Wert-Rechner. Dessen Selbsttest prüft, dass `UK` und `FP` dieselben
+  Zahlen tragen – wer eine Seite ändert, ändert beide.
+- `ehFp.fernwaerme` 0,7 ist der Wert für fossile Kraft-Wärme-Kopplung; der
+  echte Faktor hängt am Netz.
+- An die Datenbank gehen `effizienzhaus_heute` (Stufe, Hülle %, Primärenergie %
+  geschätzt) und im Simulatorteil `effizienzhaus_voraussichtlich`.
+
 ## U-Wert-Rechner
 
 `u-wert-rechner.html` ist der zweite Rechner und beantwortet eine andere Frage
@@ -698,12 +725,13 @@ Offen und klein: 1 × enger Innenabstand an `.problem-illu`.
 
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser, Plausibilität,
-Simulator-Reglerstufen, Simulatorstart und Pakete).
+Simulator-Reglerstufen, Simulatorstart, Pakete und Effizienzhaus).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
-`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (45 Fälle: Handrechnung,
+`✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (46 Fälle: Handrechnung,
 Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische
 Aufbauten, Grenzen und Ausgleich, Primärenergie, feste Werte, Wirkung,
-BEG-Anforderungswerte, Flächenmittel, Verglasungen, Wärmebrücken, Detailmodus).
+BEG-Anforderungswerte, Flächenmittel, Verglasungen, Wärmebrücken, Detailmodus,
+Abgleich von Referenzgebäude und Stufen mit dem Sanierungsrechner).
 Schlägt ein Fall fehl, wurde das Rechenmodell beschädigt – Änderung zurücknehmen
 oder CONFIG korrigieren. Zusätzlich: Seite bei 390 px Breite ohne horizontales
 Scrollen, Wizard einmal komplett durchklicken.

@@ -224,7 +224,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 /* ==== Ergebnis ==== */
 #ergebnis{display:none}
 .res-head{padding:46px 0 8px}
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:22px 0}
 .tile{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius);padding:20px 22px}
 .tile .t-label{font-size:.8125rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .tile .t-value{font-family:var(--font-serif);font-size:1.9rem;line-height:1.05;color:var(--forest)}
@@ -602,6 +602,23 @@ h2[tabindex="-1"]:focus:not(:focus-visible){outline:none}
 .lead-titel{font-size:1.35rem;margin-bottom:8px}
 .lead-text{font-size:.875rem;color:var(--ink-2);margin-bottom:16px}
 ::selection{background:var(--amber-soft);color:var(--ink)}
+
+/* Kleinschrift und Tiefstellung nie unter 12,5 px (DESIGN.md) */
+small{font-size:max(.8125rem,.83em)}
+sub{font-size:max(.75em,12.5px);line-height:0}
+
+/* ==== Effizienzhaus-Orientierung ==== */
+.szen-eh,.sim-eh{display:grid;gap:3px;background:var(--cream-2);border-radius:var(--radius-sm);
+  padding:10px 13px;margin:0 0 14px;font-size:.875rem;color:var(--ink-2);line-height:1.45}
+.szen-eh b,.sim-eh b{color:var(--ink);font-size:.9375rem}
+.szen-eh.hat-stufe{background:var(--forest-soft)}
+.szen-eh.hat-stufe b{color:var(--forest)}
+.sim-eh{margin:0 0 12px}
+.sim-eh:empty{display:none}
+.eh-erklaer{max-width:75ch}
+.textlink{color:var(--amber-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+#druckbericht .db-weg-eh{font-size:.75rem;color:var(--ink-2);margin:0 0 7px}
+#druckbericht .db-kern{grid-template-columns:repeat(4,1fr)}
 
 /* ==== Smartphone-Feinschliff ==== */
 @media (max-width:480px){
@@ -995,6 +1012,7 @@ h2[tabindex="-1"]:focus:not(:focus-visible){outline:none}
   <div class="sim-wrap">
     <div class="sim-visual">
       <div class="sim-chips" id="simChips"></div>
+      <div class="sim-eh" id="simEh" aria-live="polite"></div>
       <div class="sim-haus" id="simHaus"></div>
       <div class="sim-kpi" id="simKpi"></div>
       <details class="sim-det">
@@ -1034,6 +1052,12 @@ h2[tabindex="-1"]:focus:not(:focus-visible){outline:none}
   </p>
 
   <h2 class="section-h">Vier Wege im Vergleich</h2>
+  <p class="section-sub eh-erklaer"><b>Zur Effizienzhaus-Angabe:</b> Sie ist eine Orientierung. Die Hülle
+    (H′<sub>T</sub>) rechnet der Rechner nach den Regeln des Gebäudemodernisierungsgesetzes, die
+    Primärenergie nur vereinfacht gegen ein Referenzhaus. Welche Stufe gilt, entscheidet der Nachweis nach
+    DIN V 18599 durch eine Energieeffizienz-Expertin oder einen -Experten – und zwar <b>vor</b> dem
+    Förderantrag. Welche Dämmstärken für eine Stufe nötig sind, zeigt der
+    <a class="textlink" href="u-wert-rechner.html">U-Wert-Rechner</a>.</p>
   <p class="section-sub">Pakete werden nacheinander gerechnet (Hülle vor Heizung) – Einsparungen einzelner Maßnahmen dürfen nicht einfach addiert werden. Die Einsparung berücksichtigt, dass nach einer Sanierung meist etwas komfortabler geheizt wird (Rebound); die neue Klasse ist der berechnete Bedarf.</p>
   <div class="szen-grid" id="szenGrid"></div>
 
@@ -1321,6 +1345,22 @@ var CONFIG = {
      60 % unter dem Bedarf (Prebound). Mit 0,45 wurde das gekappt, und die
      Ersparnisse fielen rund 12 % zu hoch aus. */
   kalibMin:0.35, kalibMax:1.60,
+  /* EFFIZIENZHAUS-ORIENTIERUNG. Referenzgebaeude nach Anlage 1 GModG
+     (U-Werte, g-Wert, Waermebrueckenzuschlag), Primaerenergiefaktoren nach
+     Anlage 4, Stufen der KfW in Prozent des Referenzgebaeudes (qp = Primaer-
+     energie, ht = H'T). Der U-Wert-Rechner fuehrt dieselben Zahlen in UK und
+     FP; sein Selbsttest vergleicht sie mit diesen hier.
+     ehFp.fernwaerme haengt am Netz (0,0 bis ueber 1,0) - 0,7 ist der Wert
+     fuer Fernwaerme aus fossiler Kraft-Waerme-Kopplung.
+     ehKnapp: Liegt die geschaetzte Primaerenergie naeher als so viele
+     Prozentpunkte an der Grenze, heisst es "knapp". */
+  ehUref:{ wand:0.28, dach:0.20, kellerdecke:0.35, fenster:1.30, tuer:1.80 },
+  ehGref:0.60,
+  ehWbRef:0.05,
+  ehFp:{ gas:1.1, oel:1.1, strom:1.8, pellets:0.2, holz:0.2, fernwaerme:0.7 },
+  ehStufen:[ {name:'40', qp:40, ht:55}, {name:'55', qp:55, ht:70},
+             {name:'70', qp:70, ht:85}, {name:'85', qp:85, ht:100} ],
+  ehKnapp:5,
   klassen:[ ['A+',30],['A',50],['B',75],['C',100],['D',130],['E',160],['F',200],['G',250],['H',1e9] ],
   klassenFarben:{ 'A+':'#1E7A44','A':'#4C8C33','B':'#87A22B','C':'#B8A81F','D':'#C98A1E','E':'#C96F22','F':'#BC5524','G':'#AC3E26','H':'#983024' },
   co2:{ gas:0.201, oel:0.266, pellets:0.022, holz:0.022, strom:0.38, fernwaerme:0.15 },
@@ -1463,7 +1503,8 @@ function berechne(e, mods){
   Object.keys(teile).forEach(function(k){ var t=teile[k]; if(t.a>0){ aHuelle+=t.a; t.ht=t.fx*t.u*t.a; htBauteile+=t.ht; } else t.ht=0; });
 
   var saniert = uWand<=0.5 && uFenster<=1.4;
-  var dUwb = Math.min(CONFIG.wbZuschlag.max, (saniert?CONFIG.wbZuschlag.saniert:CONFIG.wbZuschlag.unsaniert) + e.gauben*CONFIG.wbZuschlag.jeGaube);
+  var dUwb = mods.dUwb!=null ? mods.dUwb :
+    Math.min(CONFIG.wbZuschlag.max, (saniert?CONFIG.wbZuschlag.saniert:CONFIG.wbZuschlag.unsaniert) + e.gauben*CONFIG.wbZuschlag.jeGaube);
   var htWB = dUwb * aHuelle;
   var HT = htBauteile + htWB;
 
@@ -1476,6 +1517,7 @@ function berechne(e, mods){
   var qVerlust = Gh * (HT + HV);
   var qi = CONFIG.interneGewinne * e.wohnflaeche * CONFIG.heiztage * 24 / 1000;
   var g = CONFIG.gFenster[e.verglasung]; if(mu.fenster!=null) g = CONFIG.gFenster.dreifach;
+  if(mods.g!=null) g = mods.g;
   var qs = g * CONFIG.solarFaktor * aFenster * CONFIG.solarStrahlung;
   /* Rollladen-Faktor (CONFIG.rollladenFaktor) nur bei dauerhaft geschlossenen
      Läden relevant – normale Nachtnutzung wirkt neutral, daher hier kein Abzug. */
@@ -1525,6 +1567,62 @@ function berechne(e, mods){
     kennwertBedarf:eEnd/e.wohnflaeche,
     uWerte:{wand:uWand,dachOgd:uDach,keller:uKeller,fenster:uFenster,tuer:uTuer}
   };
+}
+
+/* ===== Effizienzhaus-Orientierung =====
+   Zwei Bedingungen, beide in Prozent eines Referenzgebaeudes mit derselben
+   Geometrie: H'T (Transmission je m2 Huelle) und Primaerenergie QP.
+   H'T folgt den Regeln des GModG. QP ist eine SCHAETZUNG: Anlagentechnik und
+   Nutzung sind vereinfacht, der Nachweis nach DIN V 18599 kann eine Stufe
+   anders ausfallen. Deshalb sagt die Seite "voraussichtlich" und nie
+   "erreicht" - Entscheidung des Betreibers vom 17.09.2026.
+   Referenz nach Anlage 1: Gas-Brennwertkessel, Solaranlage fuer das
+   Warmwasser, gedaemmte Leitungen, Abluft ohne Waermerueckgewinnung. */
+function referenzHaus(e){
+  var r = JSON.parse(JSON.stringify(e));
+  r.traeger='gas'; r.heizungTyp='brennwert'; r.solarthermie=true;
+  r.rohrGedaemmt=true; r.lueftungWRG=false; r.fussbodenheizung=false;
+  r.verglasung='dreifach';          /* nur fuer die Luftwechselrate: kein Altfenster */
+  var R = CONFIG.ehUref;
+  return berechne(r, { u:{ wand:R.wand, dach:R.dach, kellerdecke:R.kellerdecke,
+    fenster:R.fenster, tuer:R.tuer }, g:CONFIG.ehGref, dUwb:CONFIG.ehWbRef });
+}
+function effizienzhaus(e, mods){
+  var ist = berechne(e, mods||{}), ref = referenzHaus(e);
+  var ht = (ist.HT/ist.aHuelle) / (ref.HT/ref.aHuelle) * 100;
+  var fp = CONFIG.ehFp[ist.traeger]!=null ? CONFIG.ehFp[ist.traeger] : CONFIG.ehFp.gas;
+  var qp = (ist.eEnd*fp) / (ref.eEnd*CONFIG.ehFp.gas) * 100;
+  var stufe=null, htSt=null, qpSt=null;
+  CONFIG.ehStufen.forEach(function(st){        /* von streng nach locker */
+    if(!htSt && ht<=st.ht) htSt=st;
+    if(!qpSt && qp<=st.qp) qpSt=st;
+    if(!stufe && ht<=st.ht && qp<=st.qp) stufe=st;
+  });
+  /* Welche Bedingung haelt die Stufe unten? Die mit der schwaecheren
+     eigenen Stufe - ohne Stufe die, die schon an 85 scheitert. */
+  var rang = function(st){ return st ? CONFIG.ehStufen.indexOf(st) : 99; };
+  var begrenzt = rang(htSt)>rang(qpSt) ? 'huelle' : (rang(qpSt)>rang(htSt) ? 'primaer' : 'beide');
+  return {
+    stufe: stufe ? stufe.name : null, ht:ht, qp:qp, begrenzt:begrenzt,
+    knapp: !!stufe && (stufe.qp-qp) < CONFIG.ehKnapp,
+    grenze: stufe || CONFIG.ehStufen[CONFIG.ehStufen.length-1]
+  };
+}
+function ehKurz(r){
+  return r.stufe ? 'Effizienzhaus '+r.stufe : 'keine Stufe';
+}
+function ehProzent(x){ return x>300 ? 'über 300 %' : nf(x)+' %'; }
+/* Die Primaerenergie ist geschaetzt - "ca." davor, ausser bei "ueber 300 %". */
+function ehQp(x){ return x>300 ? 'über 300 %' : 'ca. '+nf(x)+' %'; }
+function ehZeile(r){
+  var t = 'Hülle '+ehProzent(r.ht)+' · Primärenergie '+ehQp(r.qp)+' des Referenzhauses';
+  if(!r.stufe){
+    var g = r.grenze;
+    return t+'. Für Effizienzhaus '+g.name+': Hülle höchstens '+g.ht+' %, Primärenergie höchstens '+g.qp+' %.';
+  }
+  if(r.stufe===CONFIG.ehStufen[0].name) return t+'.';
+  return t+(r.begrenzt==='huelle' ? ' – die Hülle begrenzt die Stufe.' :
+           (r.begrenzt==='primaer' ? ' – die Heizung begrenzt die Stufe.' : '.'));
 }
 
 /* ===== Verbrauch, Kalibrierung (3.8), Preise ===== */
@@ -1682,7 +1780,7 @@ function szenarien(e, basis, kal, mnListe){
     /* Klasse nach Bedarf wie oben - ohne Kalibrierung am Verbrauch. */
     var kw = mod.kennwertBedarf;
     return { name:name, sub:sub, invest:invest, foerd:foerd, netto:invest-foerd,
-      ersparnis:Math.max(0,ersparnis), ids:investIds,
+      ersparnis:Math.max(0,ersparnis), ids:investIds, eh:effizienzhaus(e, mods),
       klasseNeu:klasseVon(kw), kennwertNeu:kw, spezHeizlast:mod.spezHeizlast };
   }
   var s=[];
@@ -2082,6 +2180,7 @@ function zeigeErgebnis(){
   var kwBedarf = basis.kennwertBedarf;
   var kl = klasseVon(kwBedarf);
   var klVerbrauch = klasseVon(kwReal);
+  var ehHeute = effizienzhaus(e);
   var mn = massnahmen(e, basis, kal);
   var sz = szenarien(e, basis, kal, mn);
   var kosten = kal.real * preisFuer(e, e.traeger);
@@ -2091,7 +2190,10 @@ function zeigeErgebnis(){
   $('resTiles').innerHTML =
     tile('Energieklasse (Bedarf)','<span class="klasse-chip" style=\"'+klasseStil(kl)+'\">'+kl+'</span> <span style="font-size:1.1rem;margin-left:8px">'+nf(kwBedarf)+' kWh/m²a</span>','wie im Bedarfsausweis · Ihr Verbrauch: '+nf(kwReal)+' kWh/m²a (Klasse '+klVerbrauch+')')+
     tile('Energiekosten pro Jahr', eur(kosten), nf(kal.real)+' kWh '+traegerName(e.traeger).replace('heizung',''))+
-    tile('CO₂-Ausstoß pro Jahr', nf(co2/1000,1)+' t', 'Emissionsfaktor '+traegerName(e.traeger));
+    tile('CO₂-Ausstoß pro Jahr', nf(co2/1000,1)+' t', 'Emissionsfaktor '+traegerName(e.traeger))+
+    tile('Effizienzhaus heute', ehHeute.stufe ? 'Stufe '+ehHeute.stufe : 'keine Stufe',
+      (ehHeute.stufe ? 'voraussichtlich · ' : '')+'Hülle '+ehProzent(ehHeute.ht)+', Primärenergie '+ehQp(ehHeute.qp)+
+      (ehHeute.stufe ? '' : ' – für Stufe '+ehHeute.grenze.name+' höchstens '+ehHeute.grenze.ht+' % und '+ehHeute.grenze.qp+' %'));
 
   function tile(l,v,s){ return '<div class="tile"><div class="t-label">'+l+'</div><div class="t-value">'+v+'</div><div class="t-sub">'+s+'</div></div>'; }
 
@@ -2151,6 +2253,8 @@ function zeigeErgebnis(){
     '<span class="arrow">→</span>'+
     '<span class="klasse-chip" style=\"'+klasseStil(s.klasseNeu)+'\">'+s.klasseNeu+'</span>'+
     '<span class="szen-wert">'+nf(s.kennwertNeu)+' kWh/m²a</span></div>'+
+    '<div class="szen-eh'+(s.eh.stufe?' hat-stufe':'')+'"><b>'+(s.eh.stufe ? 'voraussichtlich '+ehKurz(s.eh)+(s.eh.knapp?' (knapp)':'') : 'noch keine Effizienzhausstufe')+'</b>'+
+      '<span>'+ehZeile(s.eh)+'</span></div>'+
     '<div class="szen-mn">'+chips+'</div>'+
     '<div class="szen-kv">'+
     '<div><b>Investition</b>'+eur(s.invest)+'</div>'+
@@ -2172,7 +2276,7 @@ function zeigeErgebnis(){
   /* Ergebnis-Zusammenfassung für die Lead-Übermittlung */
   /* Vollstaendige Daten fuer den Druckbericht - bewusst getrennt vom
      schlanken LETZTES_ERGEBNIS, das an die Datenbank geht. */
-  BERICHT_DATEN = { e:e, kl:kl, kwBedarf:kwBedarf, kwReal:kwReal, kosten:kosten, kal:kal,
+  BERICHT_DATEN = { e:e, kl:kl, kwBedarf:kwBedarf, kwReal:kwReal, kosten:kosten, kal:kal, ehHeute:ehHeute,
                     basis:basis, mn:mn, sz:sz };
 
   LETZTES_ERGEBNIS = {
@@ -2183,6 +2287,8 @@ function zeigeErgebnis(){
     jahresverbrauch_kwh: Math.round(kal.real),
     energiekosten_jahr_eur: Math.round(kosten),
     spez_heizlast_w_m2: Math.round(basis.spezHeizlast),
+    effizienzhaus_heute: { stufe: ehHeute.stufe, huelle_prozent: Math.round(ehHeute.ht),
+                           primaerenergie_prozent_geschaetzt: Math.round(ehHeute.qp) },
     haus: {
       baujahr:e.baujahr, wohnflaeche_m2:e.wohnflaeche, haustyp:e.haustyp, region:e.region,
       traeger:e.traeger, heizung:e.heizungTyp, heizung_baujahr:e.heizungBaujahr
@@ -2624,6 +2730,7 @@ function updateSim(){
   if(tgEff.rohr) faktor*=(1-CONFIG.rohrEinsparung);
   if(faktor<1) mods.extraFaktor=faktor;
   var nach = berechne(e, mods);
+  var ehVor = effizienzhaus(e, {u:istU}), ehNach = effizienzhaus(e, mods);
 
   /* Kalibrierte Darstellung – dieselbe Basis wie Kacheln und Skala oben.
      kEff berücksichtigt den Rebound (nach Sanierung wird komfortabler geheizt). */
@@ -2690,7 +2797,11 @@ function updateSim(){
   };
   /* Stand des Simulators festhalten: Der Bericht soll zeigen, was der Kunde
      tatsaechlich angeklickt hat - vorher enthielt er nur die Erstberechnung. */
+  $('simEh').innerHTML =
+    '<b>Effizienzhaus nach dieser Auswahl: '+(ehNach.stufe ? 'voraussichtlich '+ehNach.stufe+(ehNach.knapp?' (knapp)':'') : 'noch keine Stufe')+'</b>'+
+    '<span>'+ehZeile(ehNach)+(ehVor.stufe!==ehNach.stufe ? ' Heute: '+ehKurz(ehVor)+'.' : '')+'</span>';
   SIM_BERICHT = {
+    ehNach: ehNach,
     tg: JSON.parse(JSON.stringify(tgEff)), heiz: SIM.heiz, shares: shares,
     wpDecktAb: wpGewaehlt && (tg.abgleich || tg.rohr),
     invest: invest, foerd: foerd, netto: Math.max(0, invest - foerd),
@@ -2748,6 +2859,7 @@ function updateSim(){
     LETZTES_ERGEBNIS.simulator = {
       eingeplant: Object.keys(tg).filter(function(kk){return tg[kk];}).concat(SIM.heiz!=='ist'?[SIM.heiz]:[]),
       klasse_nach_bedarf: klN,
+      effizienzhaus_voraussichtlich: ehNach.stufe,
       investition_eur: Math.round(invest),
       foerderung_eur: Math.round(foerd),
       ersparnis_jahr_eur: Math.round(ersparnis)
@@ -2828,6 +2940,7 @@ function baueDruckbericht(){
     '<div><b>Effizienzklasse (Bedarf)</b><span class="db-klasse" style="'+klasseStil(d.kl)+'">'+d.kl+'</span> <small>'+nf(d.kwBedarf)+' kWh/m²a</small></div>'+
     '<div><b>Energiekosten</b><span>'+eur(d.kosten)+'</span> <small>pro Jahr</small></div>'+
     '<div><b>Heizlast</b><span>'+nf(d.basis.spezHeizlast)+'</span> <small>W/m²</small></div>'+
+    '<div><b>Effizienzhaus heute</b><span>'+ehKurz(d.ehHeute)+'</span> <small>Hülle '+ehProzent(d.ehHeute.ht)+'</small></div>'+
   '</div>';
 
   var zeilen=d.mn.map(function(m){
@@ -2887,11 +3000,13 @@ function baueDruckbericht(){
       '</div>'+
       '<p class="db-gewaehlt"><b>Eingeplant:</b> '+gewaehlt.join(' · ')+'.<br>'+
       'Effizienzklasse <b>'+sb2.klVor+'</b> ('+nf(sb2.kwVor)+' kWh/m²a) → <b>'+sb2.klNach+'</b> ('+nf(sb2.kwNach)+' kWh/m²a). '+
-      'Energiekosten '+eur(sb2.kostenVor)+' → '+eur(sb2.kostenNach)+' pro Jahr.</p></div>';
+      'Energiekosten '+eur(sb2.kostenVor)+' → '+eur(sb2.kostenNach)+' pro Jahr. '+
+      (sb2.ehNach ? (sb2.ehNach.stufe ? 'Voraussichtlich <b>Effizienzhaus '+sb2.ehNach.stufe+'</b>.' : 'Noch keine Effizienzhausstufe.') : '')+
+      '</p></div>';
   }
 
   /* Vier Wege im Vergleich - als Karten, wie auf dem Bildschirm */
-  var wege=d.sz.map(function(pk){
+  var wege=d.sz.filter(function(pk){ return !pk.doppelt; }).map(function(pk){
     var chips=(pk.ids||[]).map(function(id){ return MN_NAMEN[id]||id; }).join(' · ');
     return '<div class="db-weg">'+
       '<h3>'+pk.name+'</h3><span class="db-weg-sub">'+(pk.sub||'')+'</span>'+
@@ -2901,6 +3016,7 @@ function baueDruckbericht(){
         '<span class="db-klasse" style="'+klasseStil(pk.klasseNeu)+'">'+pk.klasseNeu+'</span>'+
         '<span>'+nf(pk.kennwertNeu)+' kWh/m²a</span>'+
       '</div>'+
+      '<p class="db-weg-eh"><b>'+(pk.eh.stufe ? 'Voraussichtlich '+ehKurz(pk.eh) : 'Noch keine Effizienzhausstufe')+'</b> · '+ehZeile(pk.eh)+'</p>'+
       '<div class="db-weg-kv">'+
         '<div><b>Investition</b><span>'+eur(pk.invest)+'</span></div>'+
         '<div><b>Förderung*</b><span>'+eur(pk.foerd)+'</span></div>'+
@@ -3146,7 +3262,21 @@ document.getElementById('nextBtn').addEventListener('click',function(){
     return heiz<=1 && x.ersparnis < gesamt;
   });
   console.log((okPakete?'✅ PASS':'❌ FAIL')+' – Pakete mit höchstens einer Heizung, Ersparnis unter den Heizkosten');
-  alle = alle && okStufen && okStart && okPakete;
+  /* Effizienzhaus: Ein Haus mit genau den Referenzwerten steht bei 100 % -
+     das ist KEINE Stufe, Effizienzhaus 85 verlangt 85 % Primaerenergie.
+     Der unsanierte 1965er erreicht keine Stufe, die Vollsanierung mit
+     Waermepumpe mindestens Effizienzhaus 70. */
+  var refE = JSON.parse(JSON.stringify(basis1965));
+  Object.assign(refE,{traeger:'gas',heizungTyp:'brennwert',solarthermie:true,rohrGedaemmt:true,lueftungWRG:false,fussbodenheizung:false,verglasung:'dreifach'});
+  var R = CONFIG.ehUref;
+  var ehRef = effizienzhaus(refE, {u:{wand:R.wand,dach:R.dach,kellerdecke:R.kellerdecke,fenster:R.fenster,tuer:R.tuer}, g:CONFIG.ehGref, dUwb:CONFIG.ehWbRef});
+  var ehAlt = effizienzhaus(basis1965);
+  var ehVoll = effizienzhaus(basis1965, {u:{wand:0.20,dach:0.14,kellerdecke:0.25,fenster:0.95,tuer:1.3}, heizung:'wp'});
+  var okEh = Math.abs(ehRef.ht-100)<0.5 && Math.abs(ehRef.qp-100)<0.5 && ehRef.stufe===null &&
+             ehAlt.stufe===null && ehVoll.stufe!==null && Number(ehVoll.stufe)<=70;
+  console.log((okEh?'✅ PASS':'❌ FAIL')+' – Effizienzhaus: Referenz '+nf(ehRef.ht)+'/'+nf(ehRef.qp)+' % · 1965 unsaniert '+
+    nf(ehAlt.ht)+'/'+nf(ehAlt.qp)+' % ('+(ehAlt.stufe||'keine')+') · Vollsanierung mit WP '+nf(ehVoll.ht)+'/'+nf(ehVoll.qp)+' % ('+(ehVoll.stufe||'keine')+')');
+  alle = alle && okStufen && okStart && okPakete && okEh;
   console.log(alle&&okSum ? '✅ SELBSTTEST BESTANDEN' : '❌ SELBSTTEST: Abweichungen – CONFIG prüfen');
 })();
 </script>
