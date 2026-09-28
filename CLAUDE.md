@@ -576,7 +576,12 @@ Drei Punkte tragen den Abschnitt und dürfen nicht verkürzt werden:
 
 `fensterPreis` in `CONFIG` ist bewusst je **Rahmenmaterial** und nicht je
 Verglasung gegliedert: Den Preis macht der Rahmen, der Schritt von zwei auf
-drei Scheiben kostet heute fast nichts mehr. Spannen für 2026, eingebaut.
+drei Scheiben kostet heute fast nichts mehr. Spannen eingebaut, Stand
+09/2026 vom Betreiber: Kunststoff 350–800 €/m², die übrigen Materialien im
+selben Verhältnis. **Der Sanierungsrechner rechnet je Stück** (`fensterStk`,
+630–1.440 €) – das ist keine zweite Preisquelle, sondern
+`fensterPreis.kunststoff × fensterM2ProStk`. Sein Selbsttest hält beides
+zusammen; wer den Fensterpreis ändert, ändert beide Zeilen.
 
 Die Frage nach dem Ist-Zustand (`verglasung`) bekommt die neuen Sorten
 **nicht** – der Feuerzeugtest kann eine warme Kante nicht erkennen. Neu
@@ -816,8 +821,8 @@ Offen und klein: 1 × enger Innenabstand an `.problem-illu`.
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser, Plausibilität,
 Simulator-Reglerstufen, Simulatorstart, Pakete, Paketkosten, Wärmepumpe in
-Karte und Simulator, Wärmepumpenpreis nach Heizlast, Förderung, zwei
-Wohneinheiten und Effizienzhaus).
+Karte und Simulator, Fensterpreis, Wärmepumpenpreis nach Heizlast,
+Förderung, zwei Wohneinheiten und Effizienzhaus).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
 `✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (46 Fälle: Handrechnung,
 Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische
