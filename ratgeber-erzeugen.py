@@ -579,7 +579,7 @@ ARTIKEL = [
  # Gruengas-/Gruenheizoelquote nach § 42a ist bis 01.12.2026 angekuendigt -
  # diesen Artikel zuerst pruefen.
  "stand": "September 2026",
- "geaendert": "2026-09-17",
+ "geaendert": "2026-09-28",
  "seitentitel": "Heizung tauschen: Pflicht und Fristen nach dem GModG",
  "beschreibung": "Muss die alte Öl- oder Gasheizung raus? Was seit dem "
                  "Gebäudemodernisierungsgesetz gilt, was ab 2029 dazukommt und wann "
@@ -677,8 +677,11 @@ ARTIKEL = [
       <h2>Was der Austausch kostet – und was davon zurückkommt</h2>
       <p>
         Für eine Luft-Wasser-Wärmepumpe im Bestand sind je nach Gebäude und Aufwand
-        etwa 27.000 bis 40.000 Euro realistisch, inklusive Speicher, Anpassung der
-        Heizflächen und Inbetriebnahme. Davon geht die Förderung ab.
+        etwa 17.000 bis 34.000 Euro realistisch, inklusive Speicher, Anpassung der
+        Heizflächen und Inbetriebnahme. Den Unterschied macht vor allem die
+        benötigte Leistung: Ein gut gedämmtes Haus kommt mit einer kleineren und
+        spürbar günstigeren Anlage aus – noch ein Grund, die Hülle zuerst
+        anzugehen. Davon geht die Förderung ab.
       </p>
       <div class="rg-tabelle">
         <table>

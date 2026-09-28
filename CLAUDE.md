@@ -377,11 +377,16 @@ steckten darin, alle drei sind behoben – die Regeln gelten ab jetzt:
   ändert **nur** die Förderung, nie die Wärmerechnung – dafür zählen
   Wohnfläche und Maße. Das steht so im Erklärtext des Feldes, weil sonst
   jemand eine Doppelhaushälfte als zwei Wohneinheiten zählt.
-- **Die Investitionskosten kommen aus einer Quelle**: `investMitte(g, id)`.
-  Vorher stand derselbe Mittelwert an drei Stellen, und ein Paket übernahm
-  die *Wirkung* einer Maßnahme mit kleiner Ersparnis, aber nicht ihre
-  *Kosten* – die fiel nämlich aus `mnListe` heraus. Ein Selbsttest prüft
-  jetzt: Paketkosten = Summe der Einzelposten.
+- **Die Investitionskosten kommen aus einer Quelle**:
+  `investSpanneFuer(g, id, kw)`, Mittelwert über `investMitte()`. Vorher
+  stand derselbe Mittelwert an drei Stellen, und ein Paket übernahm die
+  *Wirkung* einer Maßnahme mit kleiner Ersparnis, aber nicht ihre *Kosten*
+  – die fiel nämlich aus `mnListe` heraus. `bewerte()` bekommt deshalb
+  **keine** Kostenspanne mehr übergeben, es fragt selbst. Ein Selbsttest
+  prüft: Paketkosten = Summe der Einzelposten.
+  **`g` ist immer der Zustand NACH der Maßnahme.** Für die Dämmung ist das
+  gleichgültig – Flächen sind Geometrie –, für die Wärmepumpe entscheidend:
+  siehe unten.
 - **`maxInvestFuer(bw, satz, deckel, maxBetrag)`** löst die Preisobergrenze
   für alle drei Bereiche (frei gefördert, am Deckel, am Höchstbetrag). Der
   Selbsttest prüft die Umkehrprobe: Eigenanteil an der Grenze = Barwert.
@@ -393,6 +398,26 @@ steckten darin, alle drei sind behoben – die Regeln gelten ab jetzt:
   Satz, warum, und der Hinweis, dass die Paketförderung kleiner ist als die
   Summe der Einzelkarten. Paketkarten mit ausgeschöpftem Deckel sagen das
   ebenfalls (`gedeckelt`). An die Datenbank geht `foerdersaetze`.
+
+### Der Wärmepumpenpreis hängt an der Heizlast (seit 28.09.2026)
+
+`CONFIG.kosten.wpGrund` + `wpProKw` × kW statt einer flachen Spanne für
+jedes Haus. Die flache Spanne (27.000–40.000 €) setzte im
+Vollsanierungspaket den Preis der großen Maschine an, obwohl die gedämmte
+Hülle nur noch ein Drittel der Heizlast übriglässt. Beim Beispielhaus:
+allein 28.356 € bei 16,6 kW, im Paket 4 noch 21.343 € bei 4,7 kW.
+
+**Die Zahlen stammen vom Betreiber (09/2026)**, nicht aus einer Tabelle:
+unsaniertes EFH mit 16 kW 22.000–34.000 €, gut gedämmtes Haus mit 5 kW
+17.000–26.000 €, jeweils eingebaut, mit Speicher, Hydraulik und Anpassung
+der Heizflächen. Daraus die lineare Verankerung – wer sie ändert, ändert
+beide Stützstellen zusammen und prüft den Text in
+`ratgeber-heizung-tauschen-pflicht` mit, der die Spanne nennt (Kommentar
+steht am CONFIG).
+
+Ein Selbsttest hält fest, dass die Anlage im Vollsanierungspaket mindestens
+15 % billiger ist als allein – sonst trägt die Aussage „erst dämmen, dann
+Heizung" die Zahlen nicht mehr.
 
 **Nebenbefund, mit derselben Ursache:** Die Arbeitszahl der Wärmepumpe
 hing an `saniert||mods.u`. Der Simulator übergibt **immer** ein u-Objekt
@@ -791,7 +816,8 @@ Offen und klein: 1 × enger Innenabstand an `.problem-illu`.
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser, Plausibilität,
 Simulator-Reglerstufen, Simulatorstart, Pakete, Paketkosten, Wärmepumpe in
-Karte und Simulator, Förderung, zwei Wohneinheiten und Effizienzhaus).
+Karte und Simulator, Wärmepumpenpreis nach Heizlast, Förderung, zwei
+Wohneinheiten und Effizienzhaus).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
 `✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (46 Fälle: Handrechnung,
 Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische

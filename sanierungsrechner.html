@@ -1402,7 +1402,18 @@ var CONFIG = {
   kosten:{ // €/m² bzw. pauschal [von, bis]
     wand:[130,250], dach:[70,120], ogd:[20,70], kellerdecke:[20,60],
     fensterStk:[500,1200], fensterM2ProStk:1.8, tuer:[2000,4500],
-    wp:[27000,40000], brennwert:[9000,15000],
+    /* Waermepumpe: Grundbetrag plus Betrag je kW Heizlast. Eine flache
+       Spanne fuer jedes Haus war falsch - nach einer Huellensanierung
+       braucht dasselbe Haus eine deutlich kleinere und billigere Anlage,
+       der Rechner setzte im Vollsanierungspaket trotzdem den Preis fuer
+       die grosse Maschine an. Verankert an den Angaben des Betreibers
+       (09/2026): unsaniertes EFH mit 16 kW 22.000-34.000 EUR, gut
+       gedaemmtes Haus mit 5 kW 17.000-26.000 EUR - jeweils eingebaut,
+       mit Speicher, Hydraulik und Anpassung der Heizflaechen.
+       Wer die Werte aendert, prueft den Artikel
+       ratgeber-heizung-tauschen-pflicht mit (nennt die Spanne im Text). */
+    wpGrund:[14700,22400], wpProKw:[460,725],
+    brennwert:[9000,15000],
     abgleich:[800,1800], rohr:[500,1500]
   },
   lebensdauer:{ wand:40, dach:35, ogd:40, kellerdecke:40, fenster:30, tuer:30, wp:20, brennwert:20, abgleich:15, rohr:30 },
@@ -1817,23 +1828,37 @@ function maxInvestFuer(bw, satz, deckel, maxBetrag){
 }
 /* Wie viele Fenster? Über die Fensterfläche geschätzt. */
 function fensterStueck(g){ return Math.max(4, Math.round(g.aFenster/CONFIG.kosten.fensterM2ProStk)); }
-/* Mittlere Investition je Maßnahme – EINE Quelle für Maßnahmenkarte, Paket
-   und Simulator. Vorher stand derselbe Mittelwert an drei Stellen, und
+/* Kostenspanne je Maßnahme – EINE Quelle für Maßnahmenkarte, Paket und
+   Simulator. Vorher stand derselbe Mittelwert an drei Stellen, und
    Maßnahmen mit kleiner Ersparnis fielen aus der Maßnahmenliste: Das Paket
-   übernahm dann ihre Wirkung, aber nicht ihre Kosten. */
-function investMitte(g, id){
+   übernahm dann ihre Wirkung, aber nicht ihre Kosten.
+
+   `g` ist der Zustand NACH der Maßnahme. Für die Dämmung ist das
+   gleichgültig – Flächen sind Geometrie und ändern sich nicht –, für die
+   Wärmepumpe ist es entscheidend: Ihr Preis hängt an der Heizlast, und
+   die sinkt mit jeder Dämmung. Mit `kw` lässt sich die Heizlast auch
+   direkt vorgeben (Selbsttest). */
+function investSpanneFuer(g, id, kw){
   var K = CONFIG.kosten;
-  if(id==='wand') return g.aWand*(K.wand[0]+K.wand[1])/2;
-  if(id==='dach') return g.aDach*(K.dach[0]+K.dach[1])/2;
-  if(id==='ogd') return g.aOgd*(K.ogd[0]+K.ogd[1])/2;
-  if(id==='kellerdecke') return g.aKellerdecke*(K.kellerdecke[0]+K.kellerdecke[1])/2;
-  if(id==='fenster') return fensterStueck(g)*(K.fensterStk[0]+K.fensterStk[1])/2;
-  if(id==='tuer') return (K.tuer[0]+K.tuer[1])/2;
-  if(id==='wp') return (K.wp[0]+K.wp[1])/2;
-  if(id==='brennwert') return (K.brennwert[0]+K.brennwert[1])/2;
-  if(id==='abgleich') return (K.abgleich[0]+K.abgleich[1])/2;
-  if(id==='rohr') return (K.rohr[0]+K.rohr[1])/2;
-  return 0;
+  function flaeche(a, sp){ return [a*sp[0], a*sp[1]]; }
+  if(id==='wand') return flaeche(g.aWand, K.wand);
+  if(id==='dach') return flaeche(g.aDach, K.dach);
+  if(id==='ogd') return flaeche(g.aOgd, K.ogd);
+  if(id==='kellerdecke') return flaeche(g.aKellerdecke, K.kellerdecke);
+  if(id==='fenster') return flaeche(fensterStueck(g), K.fensterStk);
+  if(id==='tuer') return K.tuer;
+  if(id==='wp'){
+    var last = kw!=null ? kw : (g.heizlast||0);
+    return [K.wpGrund[0]+K.wpProKw[0]*last, K.wpGrund[1]+K.wpProKw[1]*last];
+  }
+  if(id==='brennwert') return K.brennwert;
+  if(id==='abgleich') return K.abgleich;
+  if(id==='rohr') return K.rohr;
+  return [0,0];
+}
+function investMitte(g, id, kw){
+  var sp = investSpanneFuer(g, id, kw);
+  return (sp[0]+sp[1])/2;
 }
 
 /* Maßnahmenkatalog – angewandt als mods auf berechne() */
@@ -1844,13 +1869,15 @@ function massnahmen(e, basis, kal){
      Höchstbetrag ihres Topfes zur Verfügung. Im Paket weiter unten teilen
      sich die Hüllmaßnahmen einen Betrag, deshalb ist die Paketförderung
      kleiner als die Summe der Karten. */
-  function bewerte(id, name, mods, investSpanne, flaeche, leben, hinweis){
+  function bewerte(id, name, mods, leben, hinweis){
     var mod = berechne(e, mods);
     var vg = kostenVergleich(e, basis, mod, k);
     var ersparnis = vg.ersparnis;
     if(ersparnis < 15) return; // wirkungslos -> nicht anzeigen
-    var investVon = flaeche!=null ? investSpanne[0]*flaeche : investSpanne[0];
-    var investBis = flaeche!=null ? investSpanne[1]*flaeche : investSpanne[1];
+    /* Kosten aus dem Zustand NACH der Massnahme - bei der Waermepumpe
+       bestimmt er die Anlagengroesse. */
+    var sp = investSpanneFuer(mod, id);
+    var investVon = sp[0], investBis = sp[1];
     var invest = (investVon+investBis)/2;
     var w = topfWerte(e, MN_TOPF[id]||'keine');
     var foerd = foerderBetrag(invest, w.satz, w.deckel, w.max);
@@ -1866,29 +1893,27 @@ function massnahmen(e, basis, kal){
       ampel:ampel, leben:leben, hinweis:hinweis||'', mods:mods });
   }
 
-  var Z=CONFIG.zielU, K=CONFIG.kosten, L=CONFIG.lebensdauer;
+  var Z=CONFIG.zielU, L=CONFIG.lebensdauer;
   if(basis.uWerte.wand > Z.wand+0.05)
-    bewerte('wand','Fassadendämmung (WDVS 14–16 cm)', {u:{wand:Z.wand}}, K.wand, basis.aWand, L.wand);
+    bewerte('wand','Fassadendämmung (WDVS 14–16 cm)', {u:{wand:Z.wand}}, L.wand);
   if(basis.aDach>0 && basis.uWerte.dachOgd > Z.dach+0.05)
-    bewerte('dach','Dachdämmung (Zwischensparren)', {u:{dach:Z.dach}}, K.dach, basis.aDach, L.dach,
+    bewerte('dach','Dachdämmung (Zwischensparren)', {u:{dach:Z.dach}}, L.dach,
       'Von innen mit Klemmfilz zwischen den Sparren – für handwerklich Geübte in Eigenleistung machbar. Die Aufsparrendämmung (von außen, mit Neueindeckung) ist dagegen Sache des Dachdeckerbetriebs und lohnt vor allem, wenn das Dach ohnehin neu gedeckt wird.');
   if(basis.aOgd>0 && basis.uWerte.dachOgd > Z.ogd+0.05)
-    bewerte('ogd','Oberste Geschossdecke dämmen', {u:{dach:Z.ogd}}, K.ogd, basis.aOgd, L.ogd,'Wenige Euro pro m², große Wirkung – Dämmplatten oder -matten einfach auf der Decke auslegen.');
+    bewerte('ogd','Oberste Geschossdecke dämmen', {u:{dach:Z.ogd}}, L.ogd,'Wenige Euro pro m², große Wirkung – Dämmplatten oder -matten einfach auf der Decke auslegen.');
   if(basis.aKellerdecke>0 && basis.uWerte.keller > Z.kellerdecke+0.05)
-    bewerte('kellerdecke','Kellerdecke von unten dämmen', {u:{kellerdecke:Z.kellerdecke}}, K.kellerdecke, basis.aKellerdecke, L.kellerdecke);
-  if(basis.uWerte.fenster > 1.1){
-    var stk = Math.max(4, Math.round(basis.aFenster / K.fensterM2ProStk));
-    bewerte('fenster','Fenstertausch auf 3-fach ('+stk+' Stück)', {u:{fenster:Z.fenster}}, [K.fensterStk[0]*stk, K.fensterStk[1]*stk], null, L.fenster);
-  }
+    bewerte('kellerdecke','Kellerdecke von unten dämmen', {u:{kellerdecke:Z.kellerdecke}}, L.kellerdecke);
+  if(basis.uWerte.fenster > 1.1)
+    bewerte('fenster','Fenstertausch auf 3-fach ('+fensterStueck(basis)+' Stück)', {u:{fenster:Z.fenster}}, L.fenster);
   if(basis.uWerte.tuer > 1.6)
-    bewerte('tuer','Neue Haustür', {u:{tuer:Z.tuer}}, K.tuer, null, L.tuer);
+    bewerte('tuer','Neue Haustür', {u:{tuer:Z.tuer}}, L.tuer);
   if(e.heizungTyp!=='wp')
-    bewerte('wp','Wärmepumpe (Luft/Wasser) statt '+traegerName(e.traeger), {heizung:'wp'}, K.wp, null, L.wp, wpFoerderHinweis(e));
+    bewerte('wp','Wärmepumpe (Luft/Wasser) statt '+traegerName(e.traeger), {heizung:'wp'}, L.wp, wpFoerderHinweis(e));
   if((e.heizungTyp==='standard'||e.heizungTyp==='nt') && (e.traeger==='gas'||e.traeger==='oel'))
-    bewerte('brennwert','Brennwertkessel (Ersatz, ohne Förderung neuer Öl/Gas)', {heizung:'brennwert'}, K.brennwert, null, L.brennwert,'Neue reine Öl-/Gaskessel werden nicht mehr gefördert.');
-  bewerte('abgleich','Hydraulischer Abgleich + Hocheffizienzpumpe', {extraFaktor:1-CONFIG.abgleichEinsparung}, K.abgleich, null, L.abgleich);
+    bewerte('brennwert','Brennwertkessel (Ersatz, ohne Förderung neuer Öl/Gas)', {heizung:'brennwert'}, L.brennwert,'Neue reine Öl-/Gaskessel werden nicht mehr gefördert.');
+  bewerte('abgleich','Hydraulischer Abgleich + Hocheffizienzpumpe', {extraFaktor:1-CONFIG.abgleichEinsparung}, L.abgleich);
   if(!e.rohrGedaemmt && e.keller!=='nein' && e.kellerBeheizt!=='ja')
-    bewerte('rohr','Heizungsrohre im Keller dämmen', {extraFaktor:1-CONFIG.rohrEinsparung}, K.rohr, null, L.rohr,'Pflicht nach GModG bei zugänglichen Leitungen – und in Eigenleistung sehr günstig.');
+    bewerte('rohr','Heizungsrohre im Keller dämmen', {extraFaktor:1-CONFIG.rohrEinsparung}, L.rohr,'Pflicht nach GModG bei zugänglichen Leitungen – und in Eigenleistung sehr günstig.');
 
   out.sort(function(a,b){ return a.netto-b.netto; });   // kleinste Investition zuerst
   return out;
@@ -1954,13 +1979,14 @@ function szenarien(e, basis, kal, mnListe){
   }
   function paket(name, sub, mods, investIds){
     var mod = berechne(e, mods);
-    /* Kosten je Posten aus investMitte(), NICHT nur aus der Massnahmenliste:
-       Eine Massnahme mit sehr kleiner Ersparnis steht dort nicht, ihre
-       Wirkung steckt aber in mods - dann war das Paket billiger als der
-       Simulator mit derselben Auswahl. */
+    /* Kosten IMMER aus investSpanneFuer(mod, ...), nicht aus der
+       Massnahmenliste. Zwei Gruende: Eine Massnahme mit sehr kleiner
+       Ersparnis steht dort gar nicht, ihre Wirkung steckt aber in mods -
+       dann war das Paket billiger als der Simulator. Und die Waermepumpe
+       kostet im Paket weniger als allein, weil die gedaemmte Huelle die
+       Heizlast senkt. */
     var posten = investIds.map(function(id){
-      var m = mnListe.find(function(x){return x.id===id;});
-      return { id:id, betrag: m ? m.invest : investMitte(basis, id) };
+      return { id:id, betrag: investMitte(mod, id) };
     });
     var invest = posten.reduce(function(sum,p){ return sum+p.betrag; }, 0);
     var f = foerderung(e, posten);
@@ -1971,6 +1997,7 @@ function szenarien(e, basis, kal, mnListe){
     return { name:name, sub:sub, invest:invest, foerd:foerd, netto:invest-foerd,
       gedeckelt: !!(f.topf.huelle && f.topf.huelle.gedeckelt),
       ersparnis:Math.max(0,ersparnis), ids:investIds, eh:effizienzhaus(e, mods),
+      heizlast:mod.heizlast,
       klasseNeu:klasseVon(kw), kennwertNeu:kw, spezHeizlast:mod.spezHeizlast };
   }
   var s=[];
@@ -2951,7 +2978,7 @@ function updateSim(){
      gefoerdert. Die Kosten kommen aus investMitte() - derselben Quelle wie
      Massnahmenkarten und Pakete. */
   var posten=[];
-  function add(id){ posten.push({ id:id, betrag:investMitte(vor, id) }); }
+  function add(id){ posten.push({ id:id, betrag:investMitte(nach, id) }); }
   if(tg.wand) add('wand');
   if(tg.dach) add(SIM.dachIstOgd ? 'ogd' : 'dach');
   if(tg.keller) add('kellerdecke');
@@ -3474,10 +3501,19 @@ document.getElementById('nextBtn').addEventListener('click',function(){
      kleiner Ersparnis aus der Liste, muessen ihre Kosten trotzdem drin
      sein - sonst ist das Paket billiger als derselbe Stand im Simulator. */
   var okPaketKosten = szTest.every(function(x){
-    var soll = x.ids.reduce(function(sum,id){ return sum+investMitte(b, id); }, 0);
+    var soll = x.ids.reduce(function(sum,id){ return sum+investMitte(b, id, x.heizlast); }, 0);
     return Math.abs(x.invest - soll) < 1;
   });
   console.log((okPaketKosten?'✅ PASS':'❌ FAIL')+' – Paketkosten = Summe der Einzelposten');
+  /* Waermepumpe nach Heizlast: Im Vollsanierungspaket ist die Anlage
+     kleiner und damit spürbar billiger als allein im unsanierten Haus.
+     Sonst stimmt die Aussage „erst dämmen, dann Heizung“ nicht mehr. */
+  var wpAllein = investMitte(b, 'wp', b.heizlast);
+  var wpVoll = investMitte(b, 'wp', szTest[3].heizlast);
+  var okWpPreis = wpVoll < wpAllein * 0.85 &&
+                  investMitte(b,'wp',0) === (CONFIG.kosten.wpGrund[0]+CONFIG.kosten.wpGrund[1])/2;
+  console.log((okWpPreis?'✅ PASS':'❌ FAIL')+' – Wärmepumpe nach Heizlast: allein '+eur(wpAllein)+
+    ' bei '+nf(b.heizlast,1)+' kW · im Vollsanierungspaket '+eur(wpVoll)+' bei '+nf(szTest[3].heizlast,1)+' kW');
   /* Gleiche Auswahl, gleiche Zahl: Die Massnahmenkarte rechnet ohne
      u-Objekt, der Simulator immer mit einem (den Ist-Werten). Beides muss
      dieselbe Ersparnis ergeben - sonst steht die Waermepumpe zweimal
@@ -3535,7 +3571,7 @@ document.getElementById('nextBtn').addEventListener('click',function(){
              ehAlt.stufe===null && ehVoll.stufe!==null && Number(ehVoll.stufe)<=70;
   console.log((okEh?'✅ PASS':'❌ FAIL')+' – Effizienzhaus: Referenz '+nf(ehRef.ht)+'/'+nf(ehRef.qp)+' % · 1965 unsaniert '+
     nf(ehAlt.ht)+'/'+nf(ehAlt.qp)+' % ('+(ehAlt.stufe||'keine')+') · Vollsanierung mit WP '+nf(ehVoll.ht)+'/'+nf(ehVoll.qp)+' % ('+(ehVoll.stufe||'keine')+')');
-  alle = alle && okStufen && okStart && okPakete && okEh && okPaketKosten && okWp && okFoerd && okWE;
+  alle = alle && okStufen && okStart && okPakete && okEh && okPaketKosten && okWpPreis && okWp && okFoerd && okWE;
   console.log(alle&&okSum ? '✅ SELBSTTEST BESTANDEN' : '❌ SELBSTTEST: Abweichungen – CONFIG prüfen');
 })();
 </script>
