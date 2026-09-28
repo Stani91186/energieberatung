@@ -369,6 +369,14 @@ steckten darin, alle drei sind behoben – die Regeln gelten ab jetzt:
   werden im letzten Fragebogenschritt angekreuzt (`isfpVorhanden`,
   `einkommenBonus`, `effizienzBonus`), **Vorgabe ist überall aus** – das
   ist die vorsichtige Annahme.
+- **Der Höchstbetrag hängt an der Zahl der Wohneinheiten** (`wohneinheiten`,
+  letzter Fragebogenschritt, Vorgabe 1). Bei den Einzelmaßnahmen gilt er
+  schlicht je Wohneinheit (`foerderDeckelHuelleFuer`), beim Heizungstausch
+  ist er **gestaffelt** (`foerderDeckelHeizFuer`): 30.000 € für die erste,
+  15.000 € je weiterer bis zur sechsten, ab der siebten 8.000 €. Die Angabe
+  ändert **nur** die Förderung, nie die Wärmerechnung – dafür zählen
+  Wohnfläche und Maße. Das steht so im Erklärtext des Feldes, weil sonst
+  jemand eine Doppelhaushälfte als zwei Wohneinheiten zählt.
 - **Die Investitionskosten kommen aus einer Quelle**: `investMitte(g, id)`.
   Vorher stand derselbe Mittelwert an drei Stellen, und ein Paket übernahm
   die *Wirkung* einer Maßnahme mit kleiner Ersparnis, aber nicht ihre
@@ -395,7 +403,9 @@ Maßnahmenkarte 845 € und im Simulator 1.187 €. Kriterium ist jetzt allein
 beide Wege.
 
 Die Sätze stimmen jetzt mit dem Förderblock in `index.html` überein – wer
-einen ändert, ändert beide. Der Block dort trägt den `[PRÜFEN]`-Kommentar,
+einen ändert, ändert beide (die Staffelung des Heizungsdeckels steht dort
+in der Karte „Heizungstausch" und wandert über `ortsseiten-erzeugen.py` in
+die acht Ortsseiten). Der Block dort trägt den `[PRÜFEN]`-Kommentar,
 die Richtlinie ist vor dem Livegang gegenzulesen.
 
 ## U-Wert-Rechner
@@ -781,7 +791,7 @@ Offen und klein: 1 × enger Innenabstand an `.problem-illu`.
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser, Plausibilität,
 Simulator-Reglerstufen, Simulatorstart, Pakete, Paketkosten, Wärmepumpe in
-Karte und Simulator, Förderung und Effizienzhaus).
+Karte und Simulator, Förderung, zwei Wohneinheiten und Effizienzhaus).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
 `✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (46 Fälle: Handrechnung,
 Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische
