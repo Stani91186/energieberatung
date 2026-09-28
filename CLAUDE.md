@@ -343,6 +343,61 @@ dem Erklärtext über den Paketen (Nachweis nach DIN V 18599, vor dem Antrag).
 - An die Datenbank gehen `effizienzhaus_heute` (Stufe, Hülle %, Primärenergie %
   geschätzt) und im Simulatorteil `effizienzhaus_voraussichtlich`.
 
+### Förderung: zwei Töpfe, Sätze aus den Angaben (seit 28.09.2026)
+
+Der Betreiber hat Investitionskosten und Förderung beanstandet. Drei Fehler
+steckten darin, alle drei sind behoben – die Regeln gelten ab jetzt:
+
+- **Der Höchstbetrag gilt je TOPF, nicht je Maßnahme.** Gebäudehülle,
+  Anlagentechnik und Heizungsoptimierung teilen sich **einen** Betrag von
+  30.000 € je Wohneinheit und Kalenderjahr (mit iSFP 60.000 €), der
+  Heizungstausch hat seine eigenen 30.000 €. Vorher bekam jede Position
+  ihre eigenen 30.000 €: Beim Beispielhaus wurde „Gebäudehülle komplett"
+  mit 7.835 € statt 4.500 € gefördert. Gerechnet wird das in **einer**
+  Funktion – `foerderung(e, posten)` mit `posten = [{id, betrag}]` –, die
+  Maßnahmenkarten, Pakete und Simulator gemeinsam benutzen. `MN_TOPF`
+  ordnet jede Maßnahme einem Topf zu.
+- **Die Sätze hängen an den Angaben, nicht an einer festen Zahl.**
+  `foerderSatzHeiz(e)` = 30 % Grundförderung + 20 % Klimageschwindigkeits­-
+  bonus + 30 % Einkommensbonus + 5 % Effizienzbonus, gedeckelt bei 70 %
+  (= höchstens 21.000 €). Vorher standen dort feste 50 % und ein
+  Höchstbetrag von 22.400 €, den die Rechnung nie erreichen konnte.
+  Den **Klimageschwindigkeitsbonus leitet `klimaBonus(e)` her**: Öl und
+  Nachtspeicher in jedem Alter, Gas und Biomasse ab `klimaBonusAlter`
+  (20 Jahre), Fernwärme nie. `klimaGrund(e)` liefert den Klartext dazu –
+  der Satz allein hilft niemandem. iSFP-, Einkommens- und Effizienzbonus
+  werden im letzten Fragebogenschritt angekreuzt (`isfpVorhanden`,
+  `einkommenBonus`, `effizienzBonus`), **Vorgabe ist überall aus** – das
+  ist die vorsichtige Annahme.
+- **Die Investitionskosten kommen aus einer Quelle**: `investMitte(g, id)`.
+  Vorher stand derselbe Mittelwert an drei Stellen, und ein Paket übernahm
+  die *Wirkung* einer Maßnahme mit kleiner Ersparnis, aber nicht ihre
+  *Kosten* – die fiel nämlich aus `mnListe` heraus. Ein Selbsttest prüft
+  jetzt: Paketkosten = Summe der Einzelposten.
+- **`maxInvestFuer(bw, satz, deckel, maxBetrag)`** löst die Preisobergrenze
+  für alle drei Bereiche (frei gefördert, am Deckel, am Höchstbetrag). Der
+  Selbsttest prüft die Umkehrprobe: Eigenanteil an der Grenze = Barwert.
+- **Jede Stelle mit Fördersätzen liest sie aus CONFIG und für dieses Haus**
+  – `foerderSatzText(e)`, `wpFoerderHinweis(e)`, `foerderBoxText(e)`. Kein
+  Satz und kein Höchstbetrag darf noch einmal fest im Text stehen (auch
+  nicht im Druckbericht und nicht in der Paketbeschreibung).
+- Sichtbar wird das im Kasten `#foerderBox` unter den Maßnahmen: welcher
+  Satz, warum, und der Hinweis, dass die Paketförderung kleiner ist als die
+  Summe der Einzelkarten. Paketkarten mit ausgeschöpftem Deckel sagen das
+  ebenfalls (`gedeckelt`). An die Datenbank geht `foerdersaetze`.
+
+**Nebenbefund, mit derselben Ursache:** Die Arbeitszahl der Wärmepumpe
+hing an `saniert||mods.u`. Der Simulator übergibt **immer** ein u-Objekt
+(auch die unveränderten Ist-Werte) und rechnete deshalb selbst ohne jede
+Dämmung mit JAZ 3,4 statt 2,8 – dieselbe Wärmepumpe sparte auf der
+Maßnahmenkarte 845 € und im Simulator 1.187 €. Kriterium ist jetzt allein
+`saniert`, das die **wirksamen** U-Werte prüft. Ein Selbsttest vergleicht
+beide Wege.
+
+Die Sätze stimmen jetzt mit dem Förderblock in `index.html` überein – wer
+einen ändert, ändert beide. Der Block dort trägt den `[PRÜFEN]`-Kommentar,
+die Richtlinie ist vor dem Livegang gegenzulesen.
+
 ## U-Wert-Rechner
 
 `u-wert-rechner.html` ist der zweite Rechner und beantwortet eine andere Frage
@@ -725,7 +780,8 @@ Offen und klein: 1 × enger Innenabstand an `.problem-illu`.
 
 `sanierungsrechner.html` im Browser öffnen und die Konsole prüfen:
 Es muss `✅ SELBSTTEST BESTANDEN` erscheinen (4 Referenzhäuser, Plausibilität,
-Simulator-Reglerstufen, Simulatorstart, Pakete und Effizienzhaus).
+Simulator-Reglerstufen, Simulatorstart, Pakete, Paketkosten, Wärmepumpe in
+Karte und Simulator, Förderung und Effizienzhaus).
 Für `u-wert-rechner.html` gilt dasselbe: dort muss
 `✅ SELBSTTEST U-WERT-RECHNER BESTANDEN` erscheinen (46 Fälle: Handrechnung,
 Umkehrprobe, DIN-4108-3-Schwellen, H′T-Referenzhaus, Stufengrenzen, typische

@@ -357,7 +357,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 }
 .info-pop.show{visibility:visible;transition:opacity .25s var(--ease),transform .25s var(--ease),visibility 0s;opacity:1;transform:none;pointer-events:auto}
 .info-pop b{display:block;font-size:.875rem;margin-bottom:5px}
-.info-pop p{font-size:.8125rem;color:var(--ink-2);line-height:1.55}
+.info-pop p{font-size:.8125rem;color:var(--ink-2);line-height:1.55;white-space:pre-line}
 
 /* Verlust-Balken (eine Farbreihe = eine Aussage: Magnitude) */
 .bars{display:grid;gap:10px;margin-top:18px}
@@ -1045,6 +1045,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
     genau das mit den realistischen Kosten.
   </p>
   <div id="mnList"></div>
+  <div class="kalib" id="foerderBox"></div>
   <p class="footnote">
     Fördersätze Stand 07/2026 (<span id="foerderFuss">BEG Einzelmaßnahmen und Heizungstausch, siehe Annahmen unten</span>) – vor Antragstellung auf bafa.de / kfw.de
     prüfen. <b>Antrag immer vor Auftragsvergabe stellen.</b> Bei Ohnehin-Sanierungen (Dach muss sowieso neu)
@@ -1366,19 +1367,30 @@ var CONFIG = {
   co2:{ gas:0.201, oel:0.266, pellets:0.022, holz:0.022, strom:0.38, fernwaerme:0.15 },
   preise:{ gas:0.12, oel:0.11, pellets:0.07, holz:0.06, strom:0.32, wpStrom:0.26, fernwaerme:0.13 },
   preissteigerung:0.03, zins:0.03,
-  foerderHuelle:0.15, foerderHuelleISFP:0.20, foerderDeckelHuelle:30000,
-  /* HEIZUNGSFÖRDERUNG (BEG). Gerechnet wird der REGELFALL, nicht der
-     Mindestfall: 30 % Grundförderung + 20 % Klimageschwindigkeitsbonus für
-     den Austausch einer alten Öl- oder Gasheizung = 50 %. Bei 30.000 €
-     förderfähigen Höchstkosten sind das 15.000 €.
-     foerderWPMaxBetrag begrenzt den Betrag zusätzlich nach oben – dort greift
-     die Obergrenze, wenn Einkommens- und Effizienzbonus dazukommen.
-     Vorher stand hier 0.30, also der Fall ohne jeden Bonus – der kommt in der
-     Praxis am seltensten vor und hat die Förderung deutlich zu klein gezeigt. */
-  foerderWP:0.50,
-  foerderWPMaxBetrag:22400,
-  foerderWPHinweis:'Gerechnet mit 50 % (Grundförderung 30 % + Klimageschwindigkeitsbonus 20 % beim Austausch einer alten Öl- oder Gasheizung). Mit Einkommens- und Effizienzbonus sind bis zu 22.400 € möglich.',
-  foerderDeckelWP:30000,
+  /* FÖRDERUNG – zwei getrennte Töpfe mit je eigenem Höchstbetrag.
+     1) Einzelmaßnahmen (BAFA, BEG EM): Gebäudehülle, Anlagentechnik und
+        Heizungsoptimierung teilen sich EINEN Höchstbetrag von 30.000 € je
+        Wohneinheit und Kalenderjahr, mit individuellem Sanierungsfahrplan
+        60.000 €. Satz 15 %, mit iSFP 20 %.
+        Der Deckel galt hier früher je Maßnahme: Fassade, Dach und Fenster
+        bekamen jeweils eigene 30.000 €, ein Hüllenpaket über 50.000 € wurde
+        dadurch rund 70 % zu hoch gefördert.
+     2) Heizungstausch (KfW): eigene 30.000 €, unabhängig von Topf 1.
+        30 % Grundförderung, dazu Klimageschwindigkeitsbonus 20 %,
+        Einkommensbonus 30 % und Effizienzbonus 5 % – zusammen höchstens
+        70 %, also nie mehr als 21.000 €. Hier standen vorher feste 50 %
+        und ein Höchstbetrag von 22.400 €, den die Rechnung nie erreichen
+        konnte (50 % von 30.000 € sind 15.000 €).
+     WELCHE Sätze gelten, entscheiden jetzt die Angaben: Der
+     Klimageschwindigkeitsbonus hängt an der Heizung, die herauskommt
+     (Öl und Nachtspeicher in jedem Alter, Gas und Biomasse ab 20 Jahren),
+     iSFP-, Einkommens- und Effizienzbonus werden im Fragebogen angekreuzt. */
+  foerderHuelle:0.15, foerderHuelleISFP:0.20,
+  foerderDeckelHuelle:30000, foerderDeckelHuelleISFP:60000,
+  foerderHeizBasis:0.30, foerderBonusKlima:0.20,
+  foerderBonusEinkommen:0.30, foerderBonusEffizienz:0.05,
+  foerderHeizMax:0.70, foerderDeckelHeiz:30000,
+  klimaBonusAlter:20,
   /* Zielwerte der BEG-Einzelmassnahme. Werden ueber GEMEINSAM:KENNWERTE
      auch vom U-Wert-Rechner gelesen - dort steht keine zweite Kopie. */
   zielU:{ wand:0.20, dach:0.14, ogd:0.14, kellerdecke:0.25, boden:0.25, fenster:0.95, tuer:1.3 },
@@ -1541,7 +1553,14 @@ function berechne(e, mods){
   var eEnd, jaz=null, etaA=null;
   var fbh = mods.fbh!=null ? mods.fbh : e.fussbodenheizung;
   if(heizungTyp==='wp'){
-    jaz = fbh ? CONFIG.jazWP.fbh : (saniert||mods.u ? CONFIG.jazWP.hk_saniert : CONFIG.jazWP.hk_unsaniert);
+    /* Die Arbeitszahl haengt an der noetigen Vorlauftemperatur, also am
+       tatsaechlichen Daemmstand - NICHT daran, ob ueberhaupt U-Werte
+       uebergeben wurden. Der Simulator uebergibt immer ein u-Objekt (auch
+       die unveraenderten Ist-Werte) und rechnete deshalb selbst ohne jede
+       Daemmung mit JAZ 3,4: Dieselbe Waermepumpe sparte auf der
+       Massnahmenkarte 845 EUR und im Simulator 1.187 EUR. `saniert` prueft
+       die WIRKSAMEN U-Werte und ist damit das richtige Kriterium. */
+    jaz = fbh ? CONFIG.jazWP.fbh : (saniert ? CONFIG.jazWP.hk_saniert : CONFIG.jazWP.hk_unsaniert);
     eEnd = qHeiz*verteil/jaz + qWW/CONFIG.jazWP.ww;
   } else {
     var etaMap = { standard:CONFIG.etaAnlage.standard, nt:CONFIG.etaAnlage.nt,
@@ -1680,18 +1699,134 @@ var MN_NAMEN = { wand:'Fassade dämmen', dach:'Dach dämmen', ogd:'Oberste Gesch
    (Zwischensparren-Klemmfilz); Aufsparrendämmung von außen ist Dachdecker-Sache. */
 var MN_DIY = { ogd:true, kellerdecke:true, rohr:true, dach:'innen' };
 
+/* Welcher Fördertopf zahlt? 'huelle' = BEG Einzelmaßnahme (BAFA),
+   'heiz' = Heizungsförderung (KfW), 'keine' = nicht förderfähig. */
+var MN_TOPF = { wand:'huelle', dach:'huelle', ogd:'huelle', kellerdecke:'huelle',
+  fenster:'huelle', tuer:'huelle', abgleich:'huelle', rohr:'huelle',
+  wp:'heiz', brennwert:'keine' };
+
+/* ===========================================================================
+   FÖRDERUNG – EINE Rechnung für Maßnahmenkarten, Pakete und Simulator.
+   Zwei Töpfe mit je eigenem Höchstbetrag (siehe CONFIG), und die Sätze
+   hängen an den Angaben des Kunden, nicht an einer festen Zahl.
+   ======================================================================== */
+function foerderSatzHuelle(e){ return e.isfpVorhanden ? CONFIG.foerderHuelleISFP : CONFIG.foerderHuelle; }
+function foerderDeckelHuelleFuer(e){ return e.isfpVorhanden ? CONFIG.foerderDeckelHuelleISFP : CONFIG.foerderDeckelHuelle; }
+
+/* Klimageschwindigkeitsbonus: Er hängt an der Heizung, die HERAUSKOMMT.
+   Öl-, Kohle- und Nachtspeicherheizungen zählen in jedem Alter,
+   Gas-Zentralheizungen und Biomasse erst ab 20 Jahren. Fernwärme und eine
+   junge Gasheizung bekommen ihn nicht – deshalb zeigt der Rechner je nach
+   Angabe 30 % oder 50 %. */
+function heizungAlter(e){ return (new Date()).getFullYear() - (e.heizungBaujahr||0); }
+function klimaBonus(e){
+  if(e.heizungTyp==='nachtspeicher') return true;
+  if(e.traeger==='oel') return true;
+  if(e.traeger==='gas'||e.traeger==='pellets'||e.traeger==='holz')
+    return heizungAlter(e) >= CONFIG.klimaBonusAlter;
+  return false;
+}
+/* Klartext für die Begründung – der Satz allein hilft niemandem weiter. */
+function klimaGrund(e){
+  var j = e.heizungBaujahr ? ' von '+e.heizungBaujahr : '';
+  if(e.heizungTyp==='nachtspeicher') return 'Nachtspeicherheizung – zählt in jedem Alter';
+  if(e.traeger==='oel') return 'Ölheizung – zählt in jedem Alter';
+  if(e.traeger==='gas'||e.traeger==='pellets'||e.traeger==='holz'){
+    var was = e.traeger==='gas' ? 'Gasheizung' : 'Biomasseheizung';
+    return heizungAlter(e)>=CONFIG.klimaBonusAlter
+      ? was+j+', also mindestens '+CONFIG.klimaBonusAlter+' Jahre alt'
+      : was+j+' – der Bonus verlangt mindestens '+CONFIG.klimaBonusAlter+' Jahre';
+  }
+  if(e.traeger==='fernwaerme') return 'Fernwärme gehört nicht zu den Anlagen, für die es den Bonus gibt';
+  return 'Ihre jetzige Heizung gehört nicht zu den Anlagen, für die es den Bonus gibt';
+}
+function foerderSatzHeiz(e){
+  var satz = CONFIG.foerderHeizBasis;
+  if(klimaBonus(e)) satz += CONFIG.foerderBonusKlima;
+  if(e.einkommenBonus) satz += CONFIG.foerderBonusEinkommen;
+  if(e.effizienzBonus) satz += CONFIG.foerderBonusEffizienz;
+  return Math.min(satz, CONFIG.foerderHeizMax);
+}
+function foerderTeile(e){
+  var t = [nf(CONFIG.foerderHeizBasis*100)+' % Grundförderung'];
+  if(klimaBonus(e)) t.push(nf(CONFIG.foerderBonusKlima*100)+' % Klimageschwindigkeitsbonus');
+  if(e.einkommenBonus) t.push(nf(CONFIG.foerderBonusEinkommen*100)+' % Einkommensbonus');
+  if(e.effizienzBonus) t.push(nf(CONFIG.foerderBonusEffizienz*100)+' % Effizienzbonus');
+  return t;
+}
+/* Satz, Deckel und absoluter Höchstbetrag eines Topfes. */
+function topfWerte(e, topf){
+  if(topf==='huelle') return { satz:foerderSatzHuelle(e), deckel:foerderDeckelHuelleFuer(e), max:0 };
+  if(topf==='heiz')   return { satz:foerderSatzHeiz(e), deckel:CONFIG.foerderDeckelHeiz,
+                               max:CONFIG.foerderHeizMax*CONFIG.foerderDeckelHeiz };
+  return { satz:0, deckel:0, max:0 };
+}
+/* Satz auf die förderfähigen Kosten, gedeckelt – und optional zusätzlich
+   durch einen absoluten Höchstbetrag begrenzt. */
+function foerderBetrag(invest, satz, deckel, maxBetrag){
+  var f = satz * Math.min(invest, deckel);
+  return maxBetrag ? Math.min(f, maxBetrag) : f;
+}
+/* Förderung für eine Liste von Posten [{id, betrag}]. Der Deckel gilt JE
+   TOPF, nicht je Maßnahme: Fassade, Dach und Fenster im selben Kalenderjahr
+   teilen sich die 30.000 €. Zur Anzeige wird der Betrag anteilig auf die
+   Posten zurückverteilt. */
+function foerderung(e, posten){
+  var summen={}, topfInfo={}, jePosten={}, gesamt=0;
+  posten.forEach(function(p){ var t=MN_TOPF[p.id]||'keine'; summen[t]=(summen[t]||0)+p.betrag; });
+  Object.keys(summen).forEach(function(t){
+    var w = topfWerte(e, t), f = foerderBetrag(summen[t], w.satz, w.deckel, w.max);
+    topfInfo[t] = { kosten:summen[t], foerd:f, satz:w.satz, deckel:w.deckel,
+                    gedeckelt: summen[t] > w.deckel && w.satz > 0 };
+    gesamt += f;
+  });
+  posten.forEach(function(p){
+    var i = topfInfo[MN_TOPF[p.id]||'keine'];
+    jePosten[p.id] = (jePosten[p.id]||0) + (i.kosten>0 ? i.foerd*p.betrag/i.kosten : 0);
+  });
+  return { gesamt:gesamt, jePosten:jePosten, topf:topfInfo };
+}
+/* Bis zu welchem Preis trägt sich eine Maßnahme noch? Gesucht ist der
+   Eigenanteil = Barwert. Unterhalb der Sättigung wird jeder Euro gefördert
+   (invest = bw/(1−satz)), darüber bleibt die Förderung konstant
+   (invest = bw + Höchstförderung). Sättigung ist der kleinere der beiden
+   Deckel – ohne diese Fallunterscheidung lag die Grenze deutlich zu hoch. */
+function maxInvestFuer(bw, satz, deckel, maxBetrag){
+  if(satz<=0) return bw;
+  var saett = maxBetrag ? Math.min(deckel, maxBetrag/satz) : deckel;
+  var frei = bw/(1-satz);
+  return frei<=saett ? frei : bw + foerderBetrag(saett, satz, deckel, maxBetrag);
+}
+/* Wie viele Fenster? Über die Fensterfläche geschätzt. */
+function fensterStueck(g){ return Math.max(4, Math.round(g.aFenster/CONFIG.kosten.fensterM2ProStk)); }
+/* Mittlere Investition je Maßnahme – EINE Quelle für Maßnahmenkarte, Paket
+   und Simulator. Vorher stand derselbe Mittelwert an drei Stellen, und
+   Maßnahmen mit kleiner Ersparnis fielen aus der Maßnahmenliste: Das Paket
+   übernahm dann ihre Wirkung, aber nicht ihre Kosten. */
+function investMitte(g, id){
+  var K = CONFIG.kosten;
+  if(id==='wand') return g.aWand*(K.wand[0]+K.wand[1])/2;
+  if(id==='dach') return g.aDach*(K.dach[0]+K.dach[1])/2;
+  if(id==='ogd') return g.aOgd*(K.ogd[0]+K.ogd[1])/2;
+  if(id==='kellerdecke') return g.aKellerdecke*(K.kellerdecke[0]+K.kellerdecke[1])/2;
+  if(id==='fenster') return fensterStueck(g)*(K.fensterStk[0]+K.fensterStk[1])/2;
+  if(id==='tuer') return (K.tuer[0]+K.tuer[1])/2;
+  if(id==='wp') return (K.wp[0]+K.wp[1])/2;
+  if(id==='brennwert') return (K.brennwert[0]+K.brennwert[1])/2;
+  if(id==='abgleich') return (K.abgleich[0]+K.abgleich[1])/2;
+  if(id==='rohr') return (K.rohr[0]+K.rohr[1])/2;
+  return 0;
+}
+
 /* Maßnahmenkatalog – angewandt als mods auf berechne() */
 function massnahmen(e, basis, kal){
   var k = kal.k, out=[];
 
-  /* Förderbetrag: Satz auf die förderfähigen Kosten, gedeckelt – und optional
-     zusätzlich als absoluter Höchstbetrag begrenzt (Heizungsförderung). */
-  function foerderBetrag(invest, satz, deckel, maxBetrag){
-    var f = satz * Math.min(invest, deckel);
-    return maxBetrag ? Math.min(f, maxBetrag) : f;
-  }
-
-  function bewerte(id, name, mods, investSpanne, flaeche, leben, foerderSatz, deckel, hinweis, maxBetrag){
+  /* Jede Karte zeigt die Maßnahme EINZELN – dort steht ihr der volle
+     Höchstbetrag ihres Topfes zur Verfügung. Im Paket weiter unten teilen
+     sich die Hüllmaßnahmen einen Betrag, deshalb ist die Paketförderung
+     kleiner als die Summe der Karten. */
+  function bewerte(id, name, mods, investSpanne, flaeche, leben, hinweis){
     var mod = berechne(e, mods);
     var vg = kostenVergleich(e, basis, mod, k);
     var ersparnis = vg.ersparnis;
@@ -1699,61 +1834,83 @@ function massnahmen(e, basis, kal){
     var investVon = flaeche!=null ? investSpanne[0]*flaeche : investSpanne[0];
     var investBis = flaeche!=null ? investSpanne[1]*flaeche : investSpanne[1];
     var invest = (investVon+investBis)/2;
-    var foerd = foerderBetrag(invest, foerderSatz, deckel, maxBetrag);
+    var w = topfWerte(e, MN_TOPF[id]||'keine');
+    var foerd = foerderBetrag(invest, w.satz, w.deckel, w.max);
     var netto = invest - foerd;
     var bw = barwert(ersparnis, leben);
-    /* Obergrenze: bis zu welchem Preis traegt sich die Massnahme noch?
-       Gesucht ist der Eigenanteil = Barwert, also
-           invest - satz * min(invest, deckel) = bw
-       Unterhalb des Deckels wird jeder Euro gefoerdert -> invest = bw/(1-satz).
-       Oberhalb ist die Foerderung konstant satz*deckel -> invest = bw + satz*deckel.
-       Ohne diese Fallunterscheidung wurde die Grenze deutlich zu hoch
-       angesetzt (Waermepumpe: 44.236 statt 39.965 EUR). */
-    var maxInvest = bw / (1-foerderSatz);
-    if(maxInvest > deckel) maxInvest = bw + foerderBetrag(deckel, foerderSatz, deckel, maxBetrag);
+    var maxInvest = maxInvestFuer(bw, w.satz, w.deckel, w.max);
     var ampel = invest < 0.7*maxInvest ? 'ok' : (invest <= 1.1*maxInvest ? 'warn' : 'bad');
     out.push({ id:id, name:name, ersparnis:ersparnis,
       ersparnisKwh:vg.kwhVor-vg.kwhNach,
       investVon:investVon, investBis:investBis, invest:invest,
-      foerd:foerd, netto:netto, amort:netto/ersparnis, maxInvest:maxInvest, bw:bw,
+      foerd:foerd, satz:w.satz, netto:netto, amort:netto/ersparnis, maxInvest:maxInvest, bw:bw,
       diy: !!MN_DIY[id],
       ampel:ampel, leben:leben, hinweis:hinweis||'', mods:mods });
   }
 
   var Z=CONFIG.zielU, K=CONFIG.kosten, L=CONFIG.lebensdauer;
   if(basis.uWerte.wand > Z.wand+0.05)
-    bewerte('wand','Fassadendämmung (WDVS 14–16 cm)', {u:{wand:Z.wand}}, K.wand, basis.aWand, L.wand, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
+    bewerte('wand','Fassadendämmung (WDVS 14–16 cm)', {u:{wand:Z.wand}}, K.wand, basis.aWand, L.wand);
   if(basis.aDach>0 && basis.uWerte.dachOgd > Z.dach+0.05)
-    bewerte('dach','Dachdämmung (Zwischensparren)', {u:{dach:Z.dach}}, K.dach, basis.aDach, L.dach, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle,
+    bewerte('dach','Dachdämmung (Zwischensparren)', {u:{dach:Z.dach}}, K.dach, basis.aDach, L.dach,
       'Von innen mit Klemmfilz zwischen den Sparren – für handwerklich Geübte in Eigenleistung machbar. Die Aufsparrendämmung (von außen, mit Neueindeckung) ist dagegen Sache des Dachdeckerbetriebs und lohnt vor allem, wenn das Dach ohnehin neu gedeckt wird.');
   if(basis.aOgd>0 && basis.uWerte.dachOgd > Z.ogd+0.05)
-    bewerte('ogd','Oberste Geschossdecke dämmen', {u:{dach:Z.ogd}}, K.ogd, basis.aOgd, L.ogd, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle,'Wenige Euro pro m², große Wirkung – Dämmplatten oder -matten einfach auf der Decke auslegen.');
+    bewerte('ogd','Oberste Geschossdecke dämmen', {u:{dach:Z.ogd}}, K.ogd, basis.aOgd, L.ogd,'Wenige Euro pro m², große Wirkung – Dämmplatten oder -matten einfach auf der Decke auslegen.');
   if(basis.aKellerdecke>0 && basis.uWerte.keller > Z.kellerdecke+0.05)
-    bewerte('kellerdecke','Kellerdecke von unten dämmen', {u:{kellerdecke:Z.kellerdecke}}, K.kellerdecke, basis.aKellerdecke, L.kellerdecke, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
+    bewerte('kellerdecke','Kellerdecke von unten dämmen', {u:{kellerdecke:Z.kellerdecke}}, K.kellerdecke, basis.aKellerdecke, L.kellerdecke);
   if(basis.uWerte.fenster > 1.1){
     var stk = Math.max(4, Math.round(basis.aFenster / K.fensterM2ProStk));
-    bewerte('fenster','Fenstertausch auf 3-fach ('+stk+' Stück)', {u:{fenster:Z.fenster}}, [K.fensterStk[0]*stk, K.fensterStk[1]*stk], null, L.fenster, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
+    bewerte('fenster','Fenstertausch auf 3-fach ('+stk+' Stück)', {u:{fenster:Z.fenster}}, [K.fensterStk[0]*stk, K.fensterStk[1]*stk], null, L.fenster);
   }
   if(basis.uWerte.tuer > 1.6)
-    bewerte('tuer','Neue Haustür', {u:{tuer:Z.tuer}}, K.tuer, null, L.tuer, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
+    bewerte('tuer','Neue Haustür', {u:{tuer:Z.tuer}}, K.tuer, null, L.tuer);
   if(e.heizungTyp!=='wp')
-    bewerte('wp','Wärmepumpe (Luft/Wasser) statt '+traegerName(e.traeger), {heizung:'wp'}, K.wp, null, L.wp, CONFIG.foerderWP, CONFIG.foerderDeckelWP, CONFIG.foerderWPHinweis, CONFIG.foerderWPMaxBetrag);
+    bewerte('wp','Wärmepumpe (Luft/Wasser) statt '+traegerName(e.traeger), {heizung:'wp'}, K.wp, null, L.wp, wpFoerderHinweis(e));
   if((e.heizungTyp==='standard'||e.heizungTyp==='nt') && (e.traeger==='gas'||e.traeger==='oel'))
-    bewerte('brennwert','Brennwertkessel (Ersatz, ohne Förderung neuer Öl/Gas)', {heizung:'brennwert'}, K.brennwert, null, L.brennwert, 0, 1,'Neue reine Öl-/Gaskessel werden nicht mehr gefördert.');
-  bewerte('abgleich','Hydraulischer Abgleich + Hocheffizienzpumpe', {extraFaktor:1-CONFIG.abgleichEinsparung}, K.abgleich, null, L.abgleich, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
+    bewerte('brennwert','Brennwertkessel (Ersatz, ohne Förderung neuer Öl/Gas)', {heizung:'brennwert'}, K.brennwert, null, L.brennwert,'Neue reine Öl-/Gaskessel werden nicht mehr gefördert.');
+  bewerte('abgleich','Hydraulischer Abgleich + Hocheffizienzpumpe', {extraFaktor:1-CONFIG.abgleichEinsparung}, K.abgleich, null, L.abgleich);
   if(!e.rohrGedaemmt && e.keller!=='nein' && e.kellerBeheizt!=='ja')
-    bewerte('rohr','Heizungsrohre im Keller dämmen', {extraFaktor:1-CONFIG.rohrEinsparung}, K.rohr, null, L.rohr, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle,'Pflicht nach GModG bei zugänglichen Leitungen – und in Eigenleistung sehr günstig.');
+    bewerte('rohr','Heizungsrohre im Keller dämmen', {extraFaktor:1-CONFIG.rohrEinsparung}, K.rohr, null, L.rohr,'Pflicht nach GModG bei zugänglichen Leitungen – und in Eigenleistung sehr günstig.');
 
   out.sort(function(a,b){ return a.netto-b.netto; });   // kleinste Investition zuerst
   return out;
 }
-/* Foerdersaetze im Text immer aus CONFIG - vorher nannten drei Stellen
-   30 % fuer die Heizung, gerechnet wurde mit foerderWP. */
-function foerderSatzText(){
+/* Fördersätze im Text immer aus CONFIG und immer für DIESES Haus – vorher
+   nannten drei Stellen feste Prozentzahlen, gerechnet wurde mit anderen. */
+function foerderSatzText(e){
+  e = e || eingaben;
   var pz = function(x){ return nf(x*100)+' %'; };
-  return 'Gerechnet mit: Gebäudehülle '+pz(CONFIG.foerderHuelle)+' (Deckel '+eur(CONFIG.foerderDeckelHuelle)+
-    ', mit iSFP '+pz(CONFIG.foerderHuelleISFP)+'), Heizungstausch '+pz(CONFIG.foerderWP)+
-    ' (höchstens '+eur(CONFIG.foerderWPMaxBetrag)+').';
+  var sz = foerderSatzHeiz(e);
+  return 'Gerechnet mit: Hülle, Anlagentechnik und Heizungsoptimierung '+pz(foerderSatzHuelle(e))+
+    ' auf zusammen höchstens '+eur(foerderDeckelHuelleFuer(e))+' je Wohneinheit und Kalenderjahr; '+
+    'Heizungstausch '+pz(sz)+' auf höchstens '+eur(CONFIG.foerderDeckelHeiz)+', also bis zu '+
+    eur(sz*CONFIG.foerderDeckelHeiz)+'.';
+}
+/* Hinweis auf der Wärmepumpen-Karte: Woraus der Satz entsteht. */
+function wpFoerderHinweis(e){
+  return 'Förderung '+nf(foerderSatzHeiz(e)*100)+' % ('+foerderTeile(e).join(' + ')+
+    (klimaBonus(e) ? '' : '; kein Klimageschwindigkeitsbonus: '+klimaGrund(e))+
+    '), förderfähig sind höchstens '+eur(CONFIG.foerderDeckelHeiz)+'. '+
+    'Der Antrag muss vor der Beauftragung gestellt sein.';
+}
+/* Sichtbare Erklärung unter den Maßnahmen: welcher Satz, warum, und was der
+   gemeinsame Höchstbetrag für ein Paket bedeutet. */
+function foerderBoxText(e){
+  var pz = function(x){ return nf(x*100)+' %'; };
+  var offen = [];
+  if(!e.isfpVorhanden) offen.push('Sanierungsfahrplan (Hülle '+pz(CONFIG.foerderHuelleISFP)+' auf '+eur(CONFIG.foerderDeckelHuelleISFP)+')');
+  if(!e.einkommenBonus) offen.push('Einkommensbonus ('+pz(CONFIG.foerderBonusEinkommen)+')');
+  if(!e.effizienzBonus) offen.push('Effizienzbonus ('+pz(CONFIG.foerderBonusEffizienz)+')');
+  return '<b>Heizungstausch '+pz(foerderSatzHeiz(e))+':</b> '+foerderTeile(e).join(' + ')+
+      (klimaBonus(e) ? ' – '+klimaGrund(e) : '. Kein Klimageschwindigkeitsbonus: '+klimaGrund(e))+
+      '. Förderfähig sind höchstens '+eur(CONFIG.foerderDeckelHeiz)+', und mehr als '+pz(CONFIG.foerderHeizMax)+
+      ' gibt es nie – der Zuschuss endet bei '+eur(CONFIG.foerderHeizMax*CONFIG.foerderDeckelHeiz)+'.<br>'+
+    '<b>Hülle, Anlagentechnik und Heizungsoptimierung '+pz(foerderSatzHuelle(e))+':</b> Diese Maßnahmen teilen sich '+
+      '<b>einen</b> Höchstbetrag von '+eur(foerderDeckelHuelleFuer(e))+' je Wohneinheit und Kalenderjahr. '+
+      'In den Paketen unten ist die Förderung deshalb kleiner als die Summe der Einzelkarten – '+
+      'über zwei Kalenderjahre verteilt gibt es den Betrag dagegen zweimal.'+
+    (offen.length ? '<br>Nicht angekreuzt und deshalb nicht eingerechnet: '+offen.join(' · ')+
+      '. <button type="button" class="textknopf" data-schritt="annahmen">Förderangaben ändern</button>' : '');
 }
 function traegerName(t){ return {gas:'Gasheizung',oel:'Ölheizung',strom:'Stromheizung',pellets:'Pelletheizung',holz:'Holzheizung',fernwaerme:'Fernwärme'}[t]||t; }
 
@@ -1771,15 +1928,22 @@ function szenarien(e, basis, kal, mnListe){
   }
   function paket(name, sub, mods, investIds){
     var mod = berechne(e, mods);
-    var invest=0, foerd=0;
-    investIds.forEach(function(id){
+    /* Kosten je Posten aus investMitte(), NICHT nur aus der Massnahmenliste:
+       Eine Massnahme mit sehr kleiner Ersparnis steht dort nicht, ihre
+       Wirkung steckt aber in mods - dann war das Paket billiger als der
+       Simulator mit derselben Auswahl. */
+    var posten = investIds.map(function(id){
       var m = mnListe.find(function(x){return x.id===id;});
-      if(m){ invest+=m.invest; foerd+=m.foerd; }
+      return { id:id, betrag: m ? m.invest : investMitte(basis, id) };
     });
+    var invest = posten.reduce(function(sum,p){ return sum+p.betrag; }, 0);
+    var f = foerderung(e, posten);
+    var foerd = f.gesamt;
     var ersparnis = kostenVergleich(e, basis, mod, k).ersparnis;
     /* Klasse nach Bedarf wie oben - ohne Kalibrierung am Verbrauch. */
     var kw = mod.kennwertBedarf;
     return { name:name, sub:sub, invest:invest, foerd:foerd, netto:invest-foerd,
+      gedeckelt: !!(f.topf.huelle && f.topf.huelle.gedeckelt),
       ersparnis:Math.max(0,ersparnis), ids:investIds, eh:effizienzhaus(e, mods),
       klasseNeu:klasseVon(kw), kennwertNeu:kw, spezHeizlast:mod.spezHeizlast };
   }
@@ -1828,7 +1992,7 @@ function szenarien(e, basis, kal, mnListe){
      machte das Paket doppelt guenstig. */
   var vollMods={u:huelleMods(true), heizung:'wp'};
   var vollIds=Object.keys(vollMods.u).map(function(kk){return kk==='dach'&&basis.aOgd>0?'ogd':kk;}).concat(['wp']);
-  s.push(paket('4 · Vollsanierung','Komplettpaket auf Effizienzhaus-Niveau: Hülle plus moderne Heiztechnik. Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten. Am besten über einige Jahre gestaffelt und mit individuellem Sanierungsfahrplan geplant (bringt +5 Prozentpunkte Förderung).', vollMods, vollIds));
+  s.push(paket('4 · Vollsanierung','Komplettpaket auf Effizienzhaus-Niveau: Hülle plus moderne Heiztechnik. Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten. Am besten über einige Jahre gestaffelt und mit individuellem Sanierungsfahrplan geplant – der hebt die Förderung der Hülle auf '+nf(CONFIG.foerderHuelleISFP*100)+' % und den Höchstbetrag auf '+eur(CONFIG.foerderDeckelHuelleISFP)+'.', vollMods, vollIds));
   var klHeute = klasseVon(basis.kennwertBedarf), voll = s[3];
   if(voll.klasseNeu!==klHeute) voll.name += ' (von '+klHeute+' auf '+voll.klasseNeu+')';
   /* Zwei Pakete mit denselben Massnahmen zeigen wir nur einmal. */
@@ -1948,12 +2112,19 @@ var STEPS = [
    {id:'verbrauch',l:'Jahresverbrauch',type:'number',min:1,max:200000,def:null,
     hint:'Bei Öl, Pellets oder Holz der Mittelwert der letzten Jahre.'}
  ]},
- { t:'Preise & Annahmen', s:'Vorbelegt mit typischen Werten – gern anpassen.', f:[
+ { id:'annahmen', t:'Preise & Förderung', s:'Vorbelegt mit typischen Werten – gern anpassen. Die letzte Frage entscheidet mit, wie hoch der Zuschuss ausfällt.', f:[
    {id:'arbeitspreis',l:'Ihr Energiepreis (€/kWh)',type:'number',min:0.02,max:1,def:0.12,step:.01,
     info:'Der Arbeitspreis je Kilowattstunde aus Ihrer Jahresabrechnung (ohne Grundpreis). Zur Orientierung: Erdgas liegt meist um 0,10–0,14 €/kWh, Heizöl um 0,10–0,12 €/kWh, Strom um 0,28–0,36 €/kWh.'},
    {id:'strompreisWP',l:'Strompreis für Wärmepumpe (€/kWh)',type:'number',min:0.1,max:1,def:0.26,step:.01},
    {id:'steigerung',l:'Energiepreissteigerung (% pro Jahr)',type:'number',min:0,max:8,def:3,step:.5},
-   {id:'zins',l:'Kalkulationszins (%)',type:'number',min:0,max:6,def:3,step:.5}
+   {id:'zins',l:'Kalkulationszins (%)',type:'number',min:0,max:6,def:3,step:.5},
+   /* Diese drei Boni entscheiden ueber mehrere tausend Euro. Der
+      Klimageschwindigkeitsbonus steht NICHT hier - er ergibt sich aus
+      Energietraeger, Heizungstyp und Baujahr der alten Heizung. */
+   {id:'foerderBoni',l:'Förderung: Trifft etwas davon auf Sie zu?',type:'multi',
+    opts:[['isfpVorhanden','Sanierungsfahrplan (iSFP)'],['einkommenBonus','Einkommen bis 40.000 €'],['effizienzBonus','Erd-Wärmepumpe oder R290']],def:[],
+    hint:'Nichts angekreuzt? Dann rechnen wir mit der Grundförderung – das ist die vorsichtige Annahme.',
+    info:'Drei Boni, jeder an Bedingungen geknüpft:\n\n• Sanierungsfahrplan (iSFP): Liegt ein individueller Sanierungsfahrplan vor und stammt die Maßnahme daraus, steigt die Förderung der Gebäudehülle von 15 auf 20 % und der Höchstbetrag von 30.000 auf 60.000 € je Wohneinheit und Jahr. Für den Heizungstausch gilt er nicht.\n\n• Einkommensbonus: 30 Prozentpunkte mehr auf den Heizungstausch, wenn Sie das Haus selbst bewohnen und das zu versteuernde Haushaltseinkommen 40.000 € im Jahr nicht übersteigt. Nachgewiesen wird er mit den Steuerbescheiden.\n\n• Effizienzbonus: 5 Prozentpunkte mehr, wenn die Wärmepumpe Erdreich, Grundwasser oder Abwasser als Quelle nutzt oder mit einem natürlichen Kältemittel arbeitet (etwa Propan R290).\n\nBeim Heizungstausch sind zusammen höchstens 70 % möglich.'}
  ]}
 ];
 
@@ -2234,7 +2405,7 @@ function zeigeErgebnis(){
       '<div class="mn-grid">'+
       kv('Spart pro Jahr', eur(m.ersparnis)+'<small style="color:var(--muted)"> · '+nf(m.ersparnisKwh)+' kWh</small>')+
       kv('Kosten (Spanne)', eur(m.investVon)+' – '+eur(m.investBis))+
-      kv('Förderung*', eur(m.foerd))+
+      kv('Förderung*', m.foerd>0 ? eur(m.foerd)+'<small style="color:var(--muted)"> · '+nf(m.satz*100)+' %</small>' : 'nicht förderfähig')+
       kv('Spart über Lebensdauer ('+m.leben+' J.)', '≈ '+eur(m.bw))+
       '</div>'+(m.hinweis?'<p class="mn-note">'+m.hinweis+'</p>':'')+
     '</div>';
@@ -2261,7 +2432,9 @@ function zeigeErgebnis(){
     '<div><b>Förderung*</b>'+eur(s.foerd)+'</div>'+
     '<div><b>Eigenanteil</b>'+eur(s.netto)+'</div>'+
     '<div><b>Spart pro Jahr</b>'+eur(s.ersparnis)+'</div>'+
-    '</div></div>';
+    '</div>'+
+    (s.gedeckelt?'<p class="mn-note">Der Höchstbetrag von '+eur(foerderDeckelHuelleFuer(e))+' für Hülle und Technik ist mit diesem Paket ausgeschöpft. Über zwei Kalenderjahre verteilt gibt es ihn zweimal.</p>':'')+
+    '</div>';
   }).join('');
 
   /* Annahmen */
@@ -2270,8 +2443,9 @@ function zeigeErgebnis(){
   rows+='<tr><td>Wärmebrücken (ΔU '+nf(basis.dUwb,2)+')</td><td>'+nf(basis.aHuelle,1)+' m²</td><td></td><td>'+nf(basis.htWB)+' W/K</td></tr>';
   rows+='<tr><td>Lüftung (n = '+nf(basis.n,2)+'/h)</td><td></td><td></td><td>'+nf(basis.HV)+' W/K</td></tr>';
   $('annahmen').innerHTML='<p>Vereinfachtes Hüllflächenverfahren mit Heizperiodenbilanz, kalibriert am realen Verbrauch (Faktor k = '+nf(kal.k,2)+'). Heizwärmebedarf: '+nf(basis.qHeiz)+' kWh/a · Warmwasser: '+nf(basis.qWW)+' kWh/a · Endenergie (Bedarf): '+nf(basis.eEnd)+' kWh/a'+(basis.jaz?' · JAZ '+nf(basis.jaz,1):' · Anlagen-Nutzungsgrad '+nf(basis.etaA,2))+'.</p><table>'+rows+'</table>'+
-  '<p class="annahme-fuss">*'+foerderSatzText()+' Ohne Gewähr – vor Auftrag prüfen.</p>';
-  $('foerderFuss').textContent = foerderSatzText();
+  '<p class="annahme-fuss">*'+foerderSatzText(e)+' Ohne Gewähr – vor Auftrag prüfen.</p>';
+  $('foerderFuss').textContent = foerderSatzText(e);
+  $('foerderBox').innerHTML = foerderBoxText(e);
 
   /* Ergebnis-Zusammenfassung für die Lead-Übermittlung */
   /* Vollstaendige Daten fuer den Druckbericht - bewusst getrennt vom
@@ -2287,6 +2461,9 @@ function zeigeErgebnis(){
     jahresverbrauch_kwh: Math.round(kal.real),
     energiekosten_jahr_eur: Math.round(kosten),
     spez_heizlast_w_m2: Math.round(basis.spezHeizlast),
+    foerdersaetze: { huelle: foerderSatzHuelle(e), heizung: foerderSatzHeiz(e),
+                     klimageschwindigkeitsbonus: klimaBonus(e), isfp: !!e.isfpVorhanden,
+                     einkommensbonus: !!e.einkommenBonus, effizienzbonus: !!e.effizienzBonus },
     effizienzhaus_heute: { stufe: ehHeute.stufe, huelle_prozent: Math.round(ehHeute.ht),
                            primaerenergie_prozent_geschaetzt: Math.round(ehHeute.qp) },
     haus: {
@@ -2734,27 +2911,26 @@ function updateSim(){
 
   /* Kalibrierte Darstellung – dieselbe Basis wie Kacheln und Skala oben.
      kEff berücksichtigt den Rebound (nach Sanierung wird komfortabler geheizt). */
-  var e0=SIM.e0, K=CONFIG.kosten;
+  var e0=SIM.e0;
   var vg = kostenVergleich(e0, vor, nach, k);
   var kEff = vg.kEff, kostenVor = vg.kostenVor, kostenNach = vg.kostenNach;
-  var invest=0, foerd=0;
-  /* maxBetrag: zusaetzliche absolute Obergrenze (Heizungsfoerderung) */
-  function add(betrag, satz, deckel, maxBetrag){
-    invest += betrag;
-    var f = satz * Math.min(betrag, deckel);
-    foerd += maxBetrag ? Math.min(f, maxBetrag) : f;
-  }
-  if(tg.wand) add(vor.aWand*(K.wand[0]+K.wand[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
-  if(tg.dach){
-    if(SIM.dachIstOgd) add(vor.aOgd*(K.ogd[0]+K.ogd[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
-    else add(vor.aDach*(K.dach[0]+K.dach[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
-  }
-  if(tg.keller) add(vor.aKellerdecke*(K.kellerdecke[0]+K.kellerdecke[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
-  if(tg.fenster){ var stk=Math.max(4,Math.round(vor.aFenster/K.fensterM2ProStk)); add(stk*(K.fensterStk[0]+K.fensterStk[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle); }
-  if(SIM.heiz==='wp') add((K.wp[0]+K.wp[1])/2, CONFIG.foerderWP, CONFIG.foerderDeckelWP, CONFIG.foerderWPMaxBetrag);
-  if(SIM.heiz==='brennwert') add((K.brennwert[0]+K.brennwert[1])/2, 0, 1);
-  if(tgEff.abgleich) add((K.abgleich[0]+K.abgleich[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
-  if(tgEff.rohr) add((K.rohr[0]+K.rohr[1])/2, CONFIG.foerderHuelle, CONFIG.foerderDeckelHuelle);
+  /* Erst alle Posten sammeln, dann EINMAL foerdern lassen: Der Hoechstbetrag
+     gilt je Topf und nicht je Massnahme. Vorher bekam jede Position ihre
+     eigenen 30.000 EUR, und ein Huellenpaket wurde dadurch deutlich zu hoch
+     gefoerdert. Die Kosten kommen aus investMitte() - derselben Quelle wie
+     Massnahmenkarten und Pakete. */
+  var posten=[];
+  function add(id){ posten.push({ id:id, betrag:investMitte(vor, id) }); }
+  if(tg.wand) add('wand');
+  if(tg.dach) add(SIM.dachIstOgd ? 'ogd' : 'dach');
+  if(tg.keller) add('kellerdecke');
+  if(tg.fenster) add('fenster');
+  if(SIM.heiz==='wp') add('wp');
+  if(SIM.heiz==='brennwert') add('brennwert');
+  if(tgEff.abgleich) add('abgleich');
+  if(tgEff.rohr) add('rohr');
+  var invest = posten.reduce(function(sum,p){ return sum+p.betrag; }, 0);
+  var foerd = foerderung(e, posten).gesamt;
   var ersparnis = Math.max(0, kostenVor-kostenNach);
 
   /* Schalter sperren, die die Waermepumpe schon mitbringt - mit sichtbarer
@@ -2879,7 +3055,7 @@ function updateSim(){
   animNum($('sum_foe'), Math.round(foerd));
   animNum($('sum_eig'), Math.round(invest-foerd));
   animNum($('sum_spa'), Math.round(ersparnis));
-  $('simNote').textContent = '*'+foerderSatzText()+' '+
+  $('simNote').textContent = '*'+foerderSatzText(e)+' '+
     'Kosten = Mitte der regionalen Spannen. Spez. Heizlast nach diesem Paket: '+nf(nach.spezHeizlast)+' W/m²'+
     (nach.spezHeizlast<70?' – niedrig genug für Niedertemperatur-Heizsysteme.':' – weitere Dämmung senkt sie zusätzlich.');
 }
@@ -3048,7 +3224,7 @@ function baueDruckbericht(){
       '<div class="db-wege">'+wege+'</div></div>'+
     '<div class="db-fuss">'+
       '<p><b>Wie es weitergeht:</b> Im kostenlosen Erstgespräch klären wir, welcher Schritt bei Ihrem Haus der erste sein sollte – 0152 24290826, EBA Energieberater Albdonau, Griesweg 20, 89160 Dornstadt.</p>'+
-      '<p style="margin-top:6px">Orientierungsrechnung auf Basis statistischer Kennwerte und Ihrer Angaben – ersetzt keine Energieberatung und keinen Energieausweis. Kosten sind regionale Spannen, keine Angebote. *Förderung: Hülle 15 % (mit iSFP 20 %), Heizungstausch 30–70 % – Sätze vor Auftrag prüfen, Stand Juli 2026.</p>'+
+      '<p style="margin-top:6px">Orientierungsrechnung auf Basis statistischer Kennwerte und Ihrer Angaben – ersetzt keine Energieberatung und keinen Energieausweis. Kosten sind regionale Spannen, keine Angebote. *'+foerderSatzText(e)+' Sätze vor Auftrag prüfen, Stand Juli 2026.</p>'+
     '</div>';
   return true;
 }
@@ -3262,6 +3438,46 @@ document.getElementById('nextBtn').addEventListener('click',function(){
     return heiz<=1 && x.ersparnis < gesamt;
   });
   console.log((okPakete?'✅ PASS':'❌ FAIL')+' – Pakete mit höchstens einer Heizung, Ersparnis unter den Heizkosten');
+  /* Paketkosten = Summe der Einzelposten. Faellt eine Massnahme wegen
+     kleiner Ersparnis aus der Liste, muessen ihre Kosten trotzdem drin
+     sein - sonst ist das Paket billiger als derselbe Stand im Simulator. */
+  var okPaketKosten = szTest.every(function(x){
+    var soll = x.ids.reduce(function(sum,id){ return sum+investMitte(b, id); }, 0);
+    return Math.abs(x.invest - soll) < 1;
+  });
+  console.log((okPaketKosten?'✅ PASS':'❌ FAIL')+' – Paketkosten = Summe der Einzelposten');
+  /* Gleiche Auswahl, gleiche Zahl: Die Massnahmenkarte rechnet ohne
+     u-Objekt, der Simulator immer mit einem (den Ist-Werten). Beides muss
+     dieselbe Ersparnis ergeben - sonst steht die Waermepumpe zweimal
+     verschieden auf der Seite. */
+  var istU0 = { wand:b.uWerte.wand, dach:b.uWerte.dachOgd, kellerdecke:b.uWerte.keller };
+  var wpKarte = mns.filter(function(m){ return m.id==='wp'; })[0];
+  var wpSim = kostenVergleich(basis1965, berechne(basis1965,{u:istU0}),
+                              berechne(basis1965,{u:istU0,heizung:'wp'}), kal.k).ersparnis;
+  var okWp = !!wpKarte && Math.abs(wpKarte.ersparnis - wpSim) < 1;
+  console.log((okWp?'✅ PASS':'❌ FAIL')+' – Wärmepumpe: Maßnahmenkarte '+eur(wpKarte?wpKarte.ersparnis:0)+' = Simulator '+eur(wpSim));
+  /* Foerderung: Deckel gilt je Topf, Satz kommt aus den Angaben, und mehr
+     als die Prozentgrenze ist beim Heizungstausch nie drin. */
+  var tHuelle = foerderung(basis1965, [{id:'wand',betrag:40000},{id:'fenster',betrag:20000}]);
+  var gasNeu = JSON.parse(JSON.stringify(basis1965)); gasNeu.heizungBaujahr=(new Date()).getFullYear()-5;
+  var bonusAlle = JSON.parse(JSON.stringify(basis1965)); bonusAlle.einkommenBonus=true; bonusAlle.effizienzBonus=true;
+  var fWpAlt = foerderung(basis1965, [{id:'wp',betrag:33500}]).gesamt;
+  var fWpNeu = foerderung(gasNeu, [{id:'wp',betrag:33500}]).gesamt;
+  var fWpMax = foerderung(bonusAlle, [{id:'wp',betrag:33500}]).gesamt;
+  var twH = topfWerte(basis1965,'heiz');
+  /* Die Preisobergrenze muss in allen drei Bereichen genau den Barwert als
+     Eigenanteil lassen - frei gefoerdert, am Deckel und am Hoechstbetrag. */
+  var okGrenze = [3000,12000,40000].every(function(bwT){
+    var mi = maxInvestFuer(bwT, twH.satz, twH.deckel, twH.max);
+    return Math.abs((mi - foerderBetrag(mi, twH.satz, twH.deckel, twH.max)) - bwT) < 1;
+  });
+  var D = CONFIG.foerderDeckelHeiz;
+  var okFoerd = Math.abs(tHuelle.gesamt - CONFIG.foerderHuelle*CONFIG.foerderDeckelHuelle) < 1 &&
+                Math.abs(fWpAlt - (CONFIG.foerderHeizBasis+CONFIG.foerderBonusKlima)*D) < 1 &&
+                Math.abs(fWpNeu - CONFIG.foerderHeizBasis*D) < 1 &&
+                Math.abs(fWpMax - CONFIG.foerderHeizMax*D) < 1 && okGrenze;
+  console.log((okFoerd?'✅ PASS':'❌ FAIL')+' – Förderung: 60.000 € Hülle → '+eur(tHuelle.gesamt)+
+    ' · WP bei alter Gasheizung '+eur(fWpAlt)+' · bei junger '+eur(fWpNeu)+' · mit allen Boni '+eur(fWpMax));
   /* Effizienzhaus: Ein Haus mit genau den Referenzwerten steht bei 100 % -
      das ist KEINE Stufe, Effizienzhaus 85 verlangt 85 % Primaerenergie.
      Der unsanierte 1965er erreicht keine Stufe, die Vollsanierung mit
@@ -3276,7 +3492,7 @@ document.getElementById('nextBtn').addEventListener('click',function(){
              ehAlt.stufe===null && ehVoll.stufe!==null && Number(ehVoll.stufe)<=70;
   console.log((okEh?'✅ PASS':'❌ FAIL')+' – Effizienzhaus: Referenz '+nf(ehRef.ht)+'/'+nf(ehRef.qp)+' % · 1965 unsaniert '+
     nf(ehAlt.ht)+'/'+nf(ehAlt.qp)+' % ('+(ehAlt.stufe||'keine')+') · Vollsanierung mit WP '+nf(ehVoll.ht)+'/'+nf(ehVoll.qp)+' % ('+(ehVoll.stufe||'keine')+')');
-  alle = alle && okStufen && okStart && okPakete && okEh;
+  alle = alle && okStufen && okStart && okPakete && okEh && okPaketKosten && okWp && okFoerd;
   console.log(alle&&okSum ? '✅ SELBSTTEST BESTANDEN' : '❌ SELBSTTEST: Abweichungen – CONFIG prüfen');
 })();
 </script>
