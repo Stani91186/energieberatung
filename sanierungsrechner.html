@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  SANIERUNGSRECHNER – eigenständige Seite im Design der Hauptwebsite
+  SANIERUNGSRECHNER, eigenständige Seite im Design der Hauptwebsite
   ----------------------------------------------------------------------------
   • Alle Kennwerte (U-Werte, Kosten, Fördersätze, Preise) stehen im CONFIG-
-    Objekt am Anfang des <script>-Blocks – dort aktualisieren, nicht im Code.
+    Objekt am Anfang des <script>-Blocks, dort aktualisieren, nicht im Code.
   • Der Rechner liefert eine ORIENTIERUNG, keine Energieberatung. Disclaimer
-    ist fest eingebaut (rechtlich wichtig – nicht entfernen).
-  • Selbsttest: Browser-Konsole öffnen – 4 Referenzhäuser werden geprüft.
+    ist fest eingebaut (rechtlich wichtig, nicht entfernen).
+  • Selbsttest: Browser-Konsole öffnen. 4 Referenzhäuser werden geprüft.
   • Verlinkung: Hauptseite = index.html (Logo & CTA-Buttons).
   ============================================================================
 -->
@@ -60,7 +60,7 @@
   --kopf:        116px;   /* Kopfzeile oben, mit grossem Logo */
   --kopf-klein:  80px;    /* nach dem Scrollen */
   --maxw:980px;--ease:cubic-bezier(.22,.61,.36,1);
-  /* Status (Ampel) – nur hierfür reserviert */
+  /* Status (Ampel), nur hierfür reserviert */
   /* --ok und --bad je eine Stufe dunkler: die Ampel-Beschriftungen lagen
      bei 4,32:1 und damit knapp unter dem AA-Minimum von 4,5:1. */
   --ok:#2A6E3E;--ok-soft:#E3F0E7;--warn:#B98514;--warn-soft:#F8EFD8;--bad:#A03928;--bad-soft:#F6E3DF;
@@ -752,7 +752,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
 .nav a[aria-current="page"]::after{width:100%}
 .mobile-nav a[aria-current="page"]{color:var(--amber-deep);font-weight:600}
 .header-cta{display:flex;align-items:center;gap:14px}
-/* Direktwahl im Header – für die Zielgruppe der schnellste Weg zum Kontakt */
+/* Direktwahl im Header, für die Zielgruppe der schnellste Weg zum Kontakt */
 .header-phone{
   display:inline-flex;align-items:center;gap:8px;
   font-size:.93rem;font-weight:600;color:var(--ink);
@@ -761,7 +761,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
 }
 .header-phone:hover{border-color:var(--amber);background:var(--white)}
 .header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
-/* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
+/* Kurzfassung der Knopfbeschriftung. Wird erst bei knappem Platz eingeblendet */
 .cta-kurz{display:none}
 .burger{display:none;width:42px;height:42px;border-radius:var(--radius-sm);border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
@@ -788,7 +788,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
 /* ===========================================================================
    5b. LOGO-BAND (Qualifikationen & Programme)
    Typografische Platzhalter-Kacheln. Offizielle Logos erst einsetzen, wenn
-   die Nutzung erlaubt ist – Anleitung im HTML-Kommentar bei der Sektion.
+   die Nutzung erlaubt ist, Anleitung im HTML-Kommentar bei der Sektion.
    ======================================================================== */
 .logo-band{background:var(--white);border-bottom:1px solid var(--line-soft);padding:34px 0 26px}
 /* ===========================================================================
@@ -813,7 +813,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
 .footer-bottom nav{display:flex;gap:22px;flex-wrap:wrap}
 /* ===========================================================================
    14b. MOBILE AKTIONSLEISTE
-   Unter 760px blendet die Seite den Header-CTA aus – ohne diese Leiste gäbe es
+   Unter 760px blendet die Seite den Header-CTA aus, ohne diese Leiste gäbe es
    auf dem Handy gar keinen sichtbaren Kontaktweg mehr.
    ======================================================================== */
 .mobile-bar{
@@ -884,7 +884,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
 <header class="site-header" id="header">
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
-      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau, Beraten. Planen. Fördern.">
     </a>
 
     <nav class="nav" aria-label="Hauptnavigation">
@@ -978,10 +978,10 @@ sub{font-size:max(.75em,12.5px);line-height:0}
   <!-- Rechtlicher Hinweis: laut Projektregel nie entfernen. Steht jetzt
        unter dem Fragebogen statt daneben, damit die erste Frage oben steht. -->
   <aside class="disclaimer" style="max-width:none;margin:0 0 34px">
-    <b>Wichtig:</b> Dieser Rechner liefert eine <b>Orientierung</b> – keine Energieberatung und keinen
+    <b>Wichtig:</b> Dieser Rechner liefert eine <b>Orientierung</b>, keine Energieberatung und keinen
     Energieausweis. Die Werte beruhen auf statistischen Kennwerten und Annahmen. Für Förderanträge und
     verbindliche Aussagen ist ein eingetragener Energie-Effizienz-Experte (dena-Expertenliste) erforderlich.
-    Fördersätze und Preise ändern sich – Stand der hinterlegten Werte: Juli 2026.
+    Fördersätze und Preise ändern sich, Stand der hinterlegten Werte: Juli 2026.
   </aside>
 </section>
 
@@ -998,15 +998,15 @@ sub{font-size:max(.75em,12.5px);line-height:0}
 
   <div class="band-card">
     <h2 class="band-titel">Energieeffizienzklasse</h2>
-    <p class="section-sub">Skala nach Gebäudemodernisierungsgesetz (bis Juli 2026 GEG), Kennwert in kWh je m² Wohnfläche und Jahr – berechneter Endenergiebedarf des Gebäudes, wie im Bedarfsausweis.</p>
+    <p class="section-sub">Skala nach Gebäudemodernisierungsgesetz (bis Juli 2026 GEG), Kennwert in kWh je m² Wohnfläche und Jahr, berechneter Endenergiebedarf des Gebäudes, wie im Bedarfsausweis.</p>
     <div class="band" id="band"></div>
     <div class="kalib" id="kalibBox"></div>
   </div>
 
-  <h2 class="section-h">Wo die Wärme verloren geht – und was dagegen hilft</h2>
+  <h2 class="section-h">Wo die Wärme verloren geht, und was dagegen hilft</h2>
   <p class="section-sub">
     Die Pfeile am Haus zeigen die Wärmeverluste (Dicke = Anteil).
-    <b>Regler</b> = Zustand des Bauteils, <b>Schalter</b> = Maßnahme auf Förder-Niveau einplanen –
+    <b>Regler</b> = Zustand des Bauteils, <b>Schalter</b> = Maßnahme auf Förder-Niveau einplanen.
     Haus, Klasse und Kosten rechnen live mit.
   </p>
   <div class="sim-wrap">
@@ -1031,7 +1031,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
           Bericht als PDF speichern
         </button>
-        <span>Kostenlos – Ihre Angaben, Ihr Ergebnis und alle Ersparnisse als Dokument.</span>
+        <span>Kostenlos, Ihre Angaben, Ihr Ergebnis und alle Ersparnisse als Dokument.</span>
       </div>
     </div>
   </div>
@@ -1041,29 +1041,29 @@ sub{font-size:max(.75em,12.5px);line-height:0}
     Jede Maßnahme einzeln gegen den Ist-Zustand gerechnet, sortiert von der kleinsten zur größten Investition.
     <b>„Spart über Lebensdauer"</b> ist der heutige Wert aller künftigen Energie-Einsparungen
     (eine Dämmung hält 30–40 Jahre, Energie wird jedes Jahr ca. 3 % teurer). Deshalb kann eine
-    Maßnahme für 2.000 € über ihr Leben 20.000 € und mehr einsparen – die Ampel vergleicht
+    Maßnahme für 2.000 € über ihr Leben 20.000 € und mehr einsparen, die Ampel vergleicht
     genau das mit den realistischen Kosten.
   </p>
   <div id="mnList"></div>
   <div class="kalib" id="foerderBox"></div>
   <p class="footnote">
-    Fördersätze Stand 07/2026 (<span id="foerderFuss">BEG Einzelmaßnahmen und Heizungstausch, siehe Annahmen unten</span>) – vor Antragstellung auf bafa.de / kfw.de
+    Fördersätze Stand 07/2026 (<span id="foerderFuss">BEG Einzelmaßnahmen und Heizungstausch, siehe Annahmen unten</span>), vor Antragstellung auf bafa.de / kfw.de
     prüfen. <b>Antrag immer vor Auftragsvergabe stellen.</b> Bei Ohnehin-Sanierungen (Dach muss sowieso neu)
-    zählt nur der Dämm-<em>Mehrpreis</em> – dann rechnet sich fast jede Maßnahme.
+    zählt nur der Dämm-<em>Mehrpreis</em>. Dann rechnet sich fast jede Maßnahme.
   </p>
 
   <h2 class="section-h">Vier Wege im Vergleich</h2>
   <p class="section-sub eh-erklaer"><b>Zur Effizienzhaus-Angabe:</b> Sie ist eine Orientierung. Die Hülle
     (H′<sub>T</sub>) rechnet der Rechner nach den Regeln des Gebäudemodernisierungsgesetzes, die
     Primärenergie nur vereinfacht gegen ein Referenzhaus. Welche Stufe gilt, entscheidet der Nachweis nach
-    DIN V 18599 durch eine Energieeffizienz-Expertin oder einen -Experten – und zwar <b>vor</b> dem
+    DIN V 18599 durch eine Energieeffizienz-Expertin oder einen -Experten, und zwar <b>vor</b> dem
     Förderantrag. Welche Dämmstärken für eine Stufe nötig sind, zeigt der
     <a class="textlink" href="u-wert-rechner.html">U-Wert-Rechner</a>.</p>
-  <p class="section-sub">Pakete werden nacheinander gerechnet (Hülle vor Heizung) – Einsparungen einzelner Maßnahmen dürfen nicht einfach addiert werden. Die Einsparung berücksichtigt, dass nach einer Sanierung meist etwas komfortabler geheizt wird (Rebound); die neue Klasse ist der berechnete Bedarf.</p>
+  <p class="section-sub">Pakete werden nacheinander gerechnet (Hülle vor Heizung). Einsparungen einzelner Maßnahmen dürfen nicht einfach addiert werden. Die Einsparung berücksichtigt, dass nach einer Sanierung meist etwas komfortabler geheizt wird (Rebound); die neue Klasse ist der berechnete Bedarf.</p>
   <div class="szen-grid" id="szenGrid"></div>
 
   <details class="annahmen">
-    <summary>So wurde gerechnet – alle Annahmen einsehen</summary>
+    <summary>So wurde gerechnet, alle Annahmen einsehen</summary>
     <div class="annahmen-body" id="annahmen"></div>
   </details>
 
@@ -1071,7 +1071,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
     <div>
       <h2>Aus Orientierung einen Plan machen?</h2>
       <p>
-        Der Rechner zeigt die Richtung – ein individueller Sanierungsfahrplan macht daraus belastbare
+        Der Rechner zeigt die Richtung. Ein individueller Sanierungsfahrplan macht daraus belastbare
         Zahlen für Ihr konkretes Haus, inklusive Förderanträgen. Die Beratung selbst wird mit 50 % bezuschusst.
       </p>
     </div>
@@ -1079,16 +1079,16 @@ sub{font-size:max(.75em,12.5px);line-height:0}
   </div>
 
   <p class="disclaimer no-print abstand-50">
-    <b>Hinweis:</b> Orientierungsrechnung auf Basis statistischer Kennwerte – ersetzt keine Energieberatung
+    <b>Hinweis:</b> Orientierungsrechnung auf Basis statistischer Kennwerte, ersetzt keine Energieberatung
     und keinen Energieausweis. Alle Kosten sind regionale Spannen, keine Angebote.
   </p>
   <div class="no-print bericht-reihe">
     <button class="btn btn-primary" id="berichtBtn">Bericht als PDF speichern</button>
-    <span class="bericht-notiz">Kostenlos – Sie erhalten den vollständigen Bericht, wir melden uns bei Rückfragen persönlich.</span>
+    <span class="bericht-notiz">Kostenlos. Sie erhalten den vollständigen Bericht, wir melden uns bei Rückfragen persönlich.</span>
   </div>
 </section>
 
-<!-- Erklärtext, aufklappbar. Steht bewusst als statisches HTML im Dokument –
+<!-- Erklärtext, aufklappbar. Steht bewusst als statisches HTML im Dokument,
      so liest Google ihn auch ohne JavaScript und auch im zugeklappten Zustand.
      ACHTUNG: margin muss "auto" links/rechts behalten, sonst zieht der Block
      nach links, waehrend alles darueber mittig steht. -->
@@ -1107,7 +1107,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
       Der Rechner ermittelt aus Ihren Angaben die <b>Hüllflächen</b> Ihres Hauses (Wand, Dach,
       Fenster, Kellerdecke), schätzt die <b>U-Werte nach Baujahr</b> und berechnet daraus den
       Heizwärmebedarf nach dem vereinfachten Hüllflächenverfahren mit Heizperiodenbilanz.
-      Anschließend wird das Ergebnis am <b>tatsächlichen Verbrauch kalibriert</b> – so bleiben
+      Anschließend wird das Ergebnis am <b>tatsächlichen Verbrauch kalibriert</b>. So bleiben
       die Euro-Beträge realistisch, statt theoretische Maximalwerte zu versprechen.
     </p>
     <p>
@@ -1116,13 +1116,13 @@ sub{font-size:max(.75em,12.5px);line-height:0}
       jede Sanierungsmaßnahme die realistische Kostenspanne, die aktuelle <b>BEG-Förderung</b>
       (15 % Zuschuss für Maßnahmen an der Gebäudehülle, mit individuellem Sanierungsfahrplan mehr,
       Heizungsförderung über die KfW) und die Ersparnis über die Lebensdauer. Maßnahmen, die sich
-      in Eigenleistung umsetzen lassen – Kellerdecke, oberste Geschossdecke, Rohrdämmung –, sind
+      in Eigenleistung umsetzen lassen. Kellerdecke, oberste Geschossdecke, Rohrdämmung –, sind
       gekennzeichnet.
     </p>
     <p>
       Der Rechner ersetzt keine Energieberatung: Für Förderanträge und verbindliche Aussagen ist
       ein in der dena-Expertenliste eingetragener Energie-Effizienz-Experte erforderlich. Genau
-      dabei unterstützen wir Sie – vom individuellen Sanierungsfahrplan bis zum Förderantrag.
+      dabei unterstützen wir Sie, vom individuellen Sanierungsfahrplan bis zum Förderantrag.
       <a href="index.html#kontakt">Kostenloses Erstgespräch vereinbaren →</a>
     </p>
   </div>
@@ -1140,13 +1140,13 @@ sub{font-size:max(.75em,12.5px);line-height:0}
   <div class="modal">
     <button type="button" class="pop-x" id="leadClose" aria-label="Schließen">×</button>
     <span class="eyebrow">Ihr Sanierungsbericht</span>
-    <h2 id="leadTitle" class="lead-titel">Ihr Bericht – wie erreichen wir Sie bei Rückfragen?</h2>
+    <h2 id="leadTitle" class="lead-titel">Ihr Bericht. Wie erreichen wir Sie bei Rückfragen?</h2>
     <p class="lead-text">
-      Nach dem Absenden öffnet sich der Druckdialog – dort „Als PDF speichern" wählen.
+      Nach dem Absenden öffnet sich der Druckdialog, dort „Als PDF speichern" wählen.
       Ihr Rechner-Ergebnis wird mit übermittelt, damit wir bei Rückfragen direkt an Ihrem konkreten Haus weiterdenken können.
     </p>
     <div class="lead-demo" id="leadDemo" style="display:none">
-      <b>Hinweis für den Betreiber:</b> Es ist keine Datenbank hinterlegt – Anfragen werden aktuell
+      <b>Hinweis für den Betreiber:</b> Es ist keine Datenbank hinterlegt. Anfragen werden aktuell
       nicht gespeichert. Im Quelltext <code>SUPABASE_URL</code> und <code>SUPABASE_KEY</code> eintragen.
     </div>
     <form id="leadForm" novalidate>
@@ -1168,7 +1168,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
         <span>Ich wünsche ein <b>kostenloses Erstgespräch</b> zu meinem Ergebnis.</span></label>
       <div class="step-error" id="leadError"></div>
       <button type="submit" class="btn btn-primary" id="leadSubmit" style="width:100%;margin-top:14px">Bericht herunterladen</button>
-      <p style="font-size:.8125rem;color:var(--muted);text-align:center;margin-top:10px">Keine Werbung, kein Newsletter – nur der Bericht und ggf. eine persönliche Rückmeldung.</p>
+      <p style="font-size:.8125rem;color:var(--muted);text-align:center;margin-top:10px">Keine Werbung, kein Newsletter, nur der Bericht und ggf. eine persönliche Rückmeldung.</p>
     </form>
   </div>
 </div>
@@ -1186,7 +1186,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau, Beraten. Planen. Fördern.">
     </a>
         <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision, mit Blick auf das, was sich rechnet.</p>
         <a href="index.html#kontakt" class="btn btn-amber btn-sm">Gratis Erstgespräch</a>
@@ -1277,7 +1277,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
    zweite Kopie - zwei Handler am selben Knopf schalteten das Menue auf
    und im selben Klick wieder zu. */
 /* ===========================================================================
-   CONFIG – ALLE Kennwerte. Herkunft: Baujahrestabellen (U-Werte), GEG-Klassen,
+   CONFIG: ALLE Kennwerte. Herkunft: Baujahrestabellen (U-Werte), GEG-Klassen,
    BEG/KfW-Fördersätze Stand 07/2026, Kostenspannen aus Sanierungsübersichten.
    Werte hier pflegen, Rechenlogik unten nicht anfassen.
    ======================================================================== */
@@ -1367,7 +1367,7 @@ var CONFIG = {
   co2:{ gas:0.201, oel:0.266, pellets:0.022, holz:0.022, strom:0.38, fernwaerme:0.15 },
   preise:{ gas:0.12, oel:0.11, pellets:0.07, holz:0.06, strom:0.32, wpStrom:0.26, fernwaerme:0.13 },
   preissteigerung:0.03, zins:0.03,
-  /* FÖRDERUNG – zwei getrennte Töpfe mit je eigenem Höchstbetrag.
+  /* FÖRDERUNG, zwei getrennte Töpfe mit je eigenem Höchstbetrag.
      1) Einzelmaßnahmen (BAFA, BEG EM): Gebäudehülle, Anlagentechnik und
         Heizungsoptimierung teilen sich EINEN Höchstbetrag von 30.000 € je
         Wohneinheit und Kalenderjahr, mit individuellem Sanierungsfahrplan
@@ -1377,7 +1377,7 @@ var CONFIG = {
         dadurch rund 70 % zu hoch gefördert.
      2) Heizungstausch (KfW): eigene 30.000 €, unabhängig von Topf 1.
         30 % Grundförderung, dazu Klimageschwindigkeitsbonus 20 %,
-        Einkommensbonus 30 % und Effizienzbonus 5 % – zusammen höchstens
+        Einkommensbonus 30 % und Effizienzbonus 5 %, zusammen höchstens
         70 %, also nie mehr als 21.000 €. Hier standen vorher feste 50 %
         und ein Höchstbetrag von 22.400 €, den die Rechnung nie erreichen
         konnte (50 % von 30.000 € sind 15.000 €).
@@ -1555,7 +1555,7 @@ function berechne(e, mods){
   if(mods.g!=null) g = mods.g;
   var qs = g * CONFIG.solarFaktor * aFenster * CONFIG.solarStrahlung;
   /* Rollladen-Faktor (CONFIG.rollladenFaktor) nur bei dauerhaft geschlossenen
-     Läden relevant – normale Nachtnutzung wirkt neutral, daher hier kein Abzug. */
+     Läden relevant. Normale Nachtnutzung wirkt neutral, daher hier kein Abzug. */
   var gamma = (qi+qs)/qVerlust;
   var eta = gamma>=1 ? 5/6 : (1-Math.pow(gamma,5))/(1-Math.pow(gamma,6));
   var qHeiz = Math.max(qVerlust - eta*(qi+qs), CONFIG.minHeizbedarf*e.wohnflaeche);
@@ -1663,8 +1663,8 @@ function ehZeile(r){
     return t+'. Für Effizienzhaus '+g.name+': Hülle höchstens '+g.ht+' %, Primärenergie höchstens '+g.qp+' %.';
   }
   if(r.stufe===CONFIG.ehStufen[0].name) return t+'.';
-  return t+(r.begrenzt==='huelle' ? ' – die Hülle begrenzt die Stufe.' :
-           (r.begrenzt==='primaer' ? ' – die Heizung begrenzt die Stufe.' : '.'));
+  return t+(r.begrenzt==='huelle' ? ', die Hülle begrenzt die Stufe.' :
+           (r.begrenzt==='primaer' ? ', die Heizung begrenzt die Stufe.' : '.'));
 }
 
 /* ===== Verbrauch, Kalibrierung (3.8), Preise ===== */
@@ -1729,7 +1729,7 @@ var MN_TOPF = { wand:'huelle', dach:'huelle', ogd:'huelle', kellerdecke:'huelle'
   wp:'heiz', brennwert:'keine' };
 
 /* ===========================================================================
-   FÖRDERUNG – EINE Rechnung für Maßnahmenkarten, Pakete und Simulator.
+   FÖRDERUNG, EINE Rechnung für Maßnahmenkarten, Pakete und Simulator.
    Zwei Töpfe mit je eigenem Höchstbetrag (siehe CONFIG), und die Sätze
    hängen an den Angaben des Kunden, nicht an einer festen Zahl.
    ======================================================================== */
@@ -1752,7 +1752,7 @@ function foerderDeckelHeizFuer(e){
 /* Klimageschwindigkeitsbonus: Er hängt an der Heizung, die HERAUSKOMMT.
    Öl-, Kohle- und Nachtspeicherheizungen zählen in jedem Alter,
    Gas-Zentralheizungen und Biomasse erst ab 20 Jahren. Fernwärme und eine
-   junge Gasheizung bekommen ihn nicht – deshalb zeigt der Rechner je nach
+   junge Gasheizung bekommen ihn nicht. Deshalb zeigt der Rechner je nach
    Angabe 30 % oder 50 %. */
 function heizungAlter(e){ return (new Date()).getFullYear() - (e.heizungBaujahr||0); }
 function klimaBonus(e){
@@ -1762,16 +1762,16 @@ function klimaBonus(e){
     return heizungAlter(e) >= CONFIG.klimaBonusAlter;
   return false;
 }
-/* Klartext für die Begründung – der Satz allein hilft niemandem weiter. */
+/* Klartext für die Begründung. Der Satz allein hilft niemandem weiter. */
 function klimaGrund(e){
   var j = e.heizungBaujahr ? ' von '+e.heizungBaujahr : '';
-  if(e.heizungTyp==='nachtspeicher') return 'Nachtspeicherheizung – zählt in jedem Alter';
-  if(e.traeger==='oel') return 'Ölheizung – zählt in jedem Alter';
+  if(e.heizungTyp==='nachtspeicher') return 'Nachtspeicherheizung. Zählt in jedem Alter';
+  if(e.traeger==='oel') return 'Ölheizung. Zählt in jedem Alter';
   if(e.traeger==='gas'||e.traeger==='pellets'||e.traeger==='holz'){
     var was = e.traeger==='gas' ? 'Gasheizung' : 'Biomasseheizung';
     return heizungAlter(e)>=CONFIG.klimaBonusAlter
       ? was+j+', also mindestens '+CONFIG.klimaBonusAlter+' Jahre alt'
-      : was+j+' – der Bonus verlangt mindestens '+CONFIG.klimaBonusAlter+' Jahre';
+      : was+j+'. Der Bonus verlangt mindestens '+CONFIG.klimaBonusAlter+' Jahre';
   }
   if(e.traeger==='fernwaerme') return 'Fernwärme gehört nicht zu den Anlagen, für die es den Bonus gibt';
   return 'Ihre jetzige Heizung gehört nicht zu den Anlagen, für die es den Bonus gibt';
@@ -1797,7 +1797,7 @@ function topfWerte(e, topf){
     return { satz:foerderSatzHeiz(e), deckel:dh, max:CONFIG.foerderHeizMax*dh }; }
   return { satz:0, deckel:0, max:0 };
 }
-/* Satz auf die förderfähigen Kosten, gedeckelt – und optional zusätzlich
+/* Satz auf die förderfähigen Kosten, gedeckelt, und optional zusätzlich
    durch einen absoluten Höchstbetrag begrenzt. */
 function foerderBetrag(invest, satz, deckel, maxBetrag){
   var f = satz * Math.min(invest, deckel);
@@ -1826,7 +1826,7 @@ function foerderung(e, posten){
    Eigenanteil = Barwert. Unterhalb der Sättigung wird jeder Euro gefördert
    (invest = bw/(1−satz)), darüber bleibt die Förderung konstant
    (invest = bw + Höchstförderung). Sättigung ist der kleinere der beiden
-   Deckel – ohne diese Fallunterscheidung lag die Grenze deutlich zu hoch. */
+   Deckel, ohne diese Fallunterscheidung lag die Grenze deutlich zu hoch. */
 function maxInvestFuer(bw, satz, deckel, maxBetrag){
   if(satz<=0) return bw;
   var saett = maxBetrag ? Math.min(deckel, maxBetrag/satz) : deckel;
@@ -1835,13 +1835,13 @@ function maxInvestFuer(bw, satz, deckel, maxBetrag){
 }
 /* Wie viele Fenster? Über die Fensterfläche geschätzt. */
 function fensterStueck(g){ return Math.max(4, Math.round(g.aFenster/CONFIG.kosten.fensterM2ProStk)); }
-/* Kostenspanne je Maßnahme – EINE Quelle für Maßnahmenkarte, Paket und
+/* Kostenspanne je Maßnahme, EINE Quelle für Maßnahmenkarte, Paket und
    Simulator. Vorher stand derselbe Mittelwert an drei Stellen, und
    Maßnahmen mit kleiner Ersparnis fielen aus der Maßnahmenliste: Das Paket
    übernahm dann ihre Wirkung, aber nicht ihre Kosten.
 
    `g` ist der Zustand NACH der Maßnahme. Für die Dämmung ist das
-   gleichgültig – Flächen sind Geometrie und ändern sich nicht –, für die
+   gleichgültig. Flächen sind Geometrie und ändern sich nicht –, für die
    Wärmepumpe ist es entscheidend: Ihr Preis hängt an der Heizlast, und
    die sinkt mit jeder Dämmung. Mit `kw` lässt sich die Heizlast auch
    direkt vorgeben (Selbsttest). */
@@ -1868,11 +1868,11 @@ function investMitte(g, id, kw){
   return (sp[0]+sp[1])/2;
 }
 
-/* Maßnahmenkatalog – angewandt als mods auf berechne() */
+/* Maßnahmenkatalog, angewandt als mods auf berechne() */
 function massnahmen(e, basis, kal){
   var k = kal.k, out=[];
 
-  /* Jede Karte zeigt die Maßnahme EINZELN – dort steht ihr der volle
+  /* Jede Karte zeigt die Maßnahme EINZELN. Dort steht ihr der volle
      Höchstbetrag ihres Topfes zur Verfügung. Im Paket weiter unten teilen
      sich die Hüllmaßnahmen einen Betrag, deshalb ist die Paketförderung
      kleiner als die Summe der Karten. */
@@ -1905,9 +1905,9 @@ function massnahmen(e, basis, kal){
     bewerte('wand','Fassadendämmung (WDVS 14–16 cm)', {u:{wand:Z.wand}}, L.wand);
   if(basis.aDach>0 && basis.uWerte.dachOgd > Z.dach+0.05)
     bewerte('dach','Dachdämmung (Zwischensparren)', {u:{dach:Z.dach}}, L.dach,
-      'Von innen mit Klemmfilz zwischen den Sparren – für handwerklich Geübte in Eigenleistung machbar. Die Aufsparrendämmung (von außen, mit Neueindeckung) ist dagegen Sache des Dachdeckerbetriebs und lohnt vor allem, wenn das Dach ohnehin neu gedeckt wird.');
+      'Von innen mit Klemmfilz zwischen den Sparren. Für handwerklich Geübte in Eigenleistung machbar. Die Aufsparrendämmung (von außen, mit Neueindeckung) ist dagegen Sache des Dachdeckerbetriebs und lohnt vor allem, wenn das Dach ohnehin neu gedeckt wird.');
   if(basis.aOgd>0 && basis.uWerte.dachOgd > Z.ogd+0.05)
-    bewerte('ogd','Oberste Geschossdecke dämmen', {u:{dach:Z.ogd}}, L.ogd,'Wenige Euro pro m², große Wirkung – Dämmplatten oder -matten einfach auf der Decke auslegen.');
+    bewerte('ogd','Oberste Geschossdecke dämmen', {u:{dach:Z.ogd}}, L.ogd,'Wenige Euro pro m², große Wirkung, Dämmplatten oder -matten einfach auf der Decke auslegen.');
   if(basis.aKellerdecke>0 && basis.uWerte.keller > Z.kellerdecke+0.05)
     bewerte('kellerdecke','Kellerdecke von unten dämmen', {u:{kellerdecke:Z.kellerdecke}}, L.kellerdecke);
   if(basis.uWerte.fenster > 1.1)
@@ -1925,7 +1925,7 @@ function massnahmen(e, basis, kal){
   out.sort(function(a,b){ return a.netto-b.netto; });   // kleinste Investition zuerst
   return out;
 }
-/* Fördersätze im Text immer aus CONFIG und immer für DIESES Haus – vorher
+/* Fördersätze im Text immer aus CONFIG und immer für DIESES Haus, vorher
    nannten drei Stellen feste Prozentzahlen, gerechnet wurde mit anderen. */
 function foerderSatzText(e){
   e = e || eingaben;
@@ -1957,22 +1957,22 @@ function foerderBoxText(e){
   if(!e.einkommenBonus) offen.push('Einkommensbonus ('+pz(CONFIG.foerderBonusEinkommen)+')');
   if(!e.effizienzBonus) offen.push('Effizienzbonus ('+pz(CONFIG.foerderBonusEffizienz)+')');
   return '<b>Heizungstausch '+pz(foerderSatzHeiz(e))+':</b> '+foerderTeile(e).join(' + ')+
-      (klimaBonus(e) ? ' – '+klimaGrund(e) : '. Kein Klimageschwindigkeitsbonus: '+klimaGrund(e))+
+      (klimaBonus(e) ? ', '+klimaGrund(e) : '. Kein Klimageschwindigkeitsbonus: '+klimaGrund(e))+
       '. Förderfähig sind höchstens '+eur(foerderDeckelHeizFuer(e))+
       (wohneinheiten(e)>1 ? ' ('+eur(CONFIG.foerderDeckelHeiz)+' für die erste Wohneinheit, '+
         eur(CONFIG.foerderDeckelHeizWeitere)+' je weiterer bis zur sechsten)' : '')+
       ', und mehr als '+pz(CONFIG.foerderHeizMax)+
-      ' gibt es nie – der Zuschuss endet bei '+eur(CONFIG.foerderHeizMax*foerderDeckelHeizFuer(e))+'.<br>'+
+      ' gibt es nie. Der Zuschuss endet bei '+eur(CONFIG.foerderHeizMax*foerderDeckelHeizFuer(e))+'.<br>'+
     '<b>Hülle, Anlagentechnik und Heizungsoptimierung '+pz(foerderSatzHuelle(e))+':</b> Diese Maßnahmen teilen sich '+
       '<b>einen</b> Höchstbetrag von '+eur(foerderDeckelHuelleFuer(e))+weZusatz(e)+'. '+
-      'In den Paketen unten ist die Förderung deshalb kleiner als die Summe der Einzelkarten – '+
+      'In den Paketen unten ist die Förderung deshalb kleiner als die Summe der Einzelkarten, '+
       'über zwei Kalenderjahre verteilt gibt es den Betrag dagegen zweimal.'+
     (offen.length ? '<br>Nicht angekreuzt und deshalb nicht eingerechnet: '+offen.join(' · ')+
       '. <button type="button" class="textknopf" data-schritt="annahmen">Förderangaben ändern</button>' : '');
 }
 function traegerName(t){ return {gas:'Gasheizung',oel:'Ölheizung',strom:'Stromheizung',pellets:'Pelletheizung',holz:'Holzheizung',fernwaerme:'Fernwärme'}[t]||t; }
 
-/* ===== Szenarien (3.13) – nacheinander gerechnet ===== */
+/* ===== Szenarien (3.13), nacheinander gerechnet ===== */
 function szenarien(e, basis, kal, mnListe){
   var k=kal.k, Z=CONFIG.zielU;
   function huelleMods(voll){
@@ -2041,18 +2041,18 @@ function szenarien(e, basis, kal, mnListe){
     if(m.mods.extraFaktor) gruenMods.extraFaktor*=m.mods.extraFaktor;
     if(m.mods.heizung) gruenMods.heizung=m.mods.heizung;
   });
-  s.push(paket('2 · Wirtschaftliches Optimum','Nur Maßnahmen mit grüner Ampel – jede verdient über ihre Lebensdauer mehr, als sie kostet.', gruenMods, gruenIds));
+  s.push(paket('2 · Wirtschaftliches Optimum','Nur Maßnahmen mit grüner Ampel. Jede verdient über ihre Lebensdauer mehr, als sie kostet.', gruenMods, gruenIds));
 
   var huelleAllMods={u:huelleMods(true), extraFaktor:1-CONFIG.abgleichEinsparung};
   var huelleAllIds=Object.keys(huelleAllMods.u).map(function(kk){return kk==='dach'&&basis.aOgd>0?'ogd':kk;}).concat(['abgleich']);
-  s.push(paket('3 · Gebäudehülle komplett','Alle Dämm-Maßnahmen plus hydraulischer Abgleich – die Heizung bleibt. Senkt Verbrauch und Heizlast deutlich und hält für später alle Heizungs-Optionen offen.', huelleAllMods, huelleAllIds));
+  s.push(paket('3 · Gebäudehülle komplett','Alle Dämm-Maßnahmen plus hydraulischer Abgleich. Die Heizung bleibt. Senkt Verbrauch und Heizlast deutlich und hält für später alle Heizungs-Optionen offen.', huelleAllMods, huelleAllIds));
 
   /* Abgleich hier NICHT extra: Die Waermepumpe bringt ihn im Angebot mit.
      Frueher stand er zusaetzlich in den Kosten und im Einsparfaktor - das
      machte das Paket doppelt guenstig. */
   var vollMods={u:huelleMods(true), heizung:'wp'};
   var vollIds=Object.keys(vollMods.u).map(function(kk){return kk==='dach'&&basis.aOgd>0?'ogd':kk;}).concat(['wp']);
-  s.push(paket('4 · Vollsanierung','Komplettpaket auf Effizienzhaus-Niveau: Hülle plus moderne Heiztechnik. Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten. Am besten über einige Jahre gestaffelt und mit individuellem Sanierungsfahrplan geplant – der hebt die Förderung der Hülle auf '+nf(CONFIG.foerderHuelleISFP*100)+' % und den Höchstbetrag auf '+eur(CONFIG.foerderDeckelHuelleISFP)+'.', vollMods, vollIds));
+  s.push(paket('4 · Vollsanierung','Komplettpaket auf Effizienzhaus-Niveau: Hülle plus moderne Heiztechnik. Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten. Am besten über einige Jahre gestaffelt und mit individuellem Sanierungsfahrplan geplant, der hebt die Förderung der Hülle auf '+nf(CONFIG.foerderHuelleISFP*100)+' % und den Höchstbetrag auf '+eur(CONFIG.foerderDeckelHuelleISFP)+'.', vollMods, vollIds));
   var klHeute = klasseVon(basis.kennwertBedarf), voll = s[3];
   if(voll.klasseNeu!==klHeute) voll.name += ' (von '+klHeute+' auf '+voll.klasseNeu+')';
   /* Zwei Pakete mit denselben Massnahmen zeigen wir nur einmal. */
@@ -2066,7 +2066,7 @@ function szenarien(e, basis, kal, mnListe){
 }
 
 /* ===========================================================================
-   WIZARD – Schema, Renderer, Validierung
+   WIZARD: Schema, Renderer, Validierung
    ======================================================================== */
 var eingaben = {};   // Zustand NUR in dieser Variable (kein localStorage)
 
@@ -2125,9 +2125,9 @@ var STEPS = [
  { t:'Hausart', s:'Die Bauform bestimmt, wie viel Außenfläche Wärme verliert.', f:[
    {id:'haustyp',l:'Haustyp',type:'seg',icons:true,opts:[['frei','Freistehend'],['dhh','Doppelhaushälfte'],['reihenmitte','Reihenmittelhaus'],['reihenend','Reihenendhaus']],def:'frei'},
    {id:'geschosse',l:'Anzahl Vollgeschosse',type:'number',min:1,max:7,def:2,
-    info:'Vollgeschosse sind die Etagen mit voller Raumhöhe – typischerweise Erdgeschoss und Obergeschoss. Keller und Dachgeschoss zählen hier nicht mit, die fragen wir in eigenen Schritten ab.'}
+    info:'Vollgeschosse sind die Etagen mit voller Raumhöhe. Typischerweise Erdgeschoss und Obergeschoss. Keller und Dachgeschoss zählen hier nicht mit, die fragen wir in eigenen Schritten ab.'}
  ]},
- { t:'Wände & Maße', s:'Außenmaße grob genügen – lieber schätzen als abbrechen.', f:[
+ { t:'Wände & Maße', s:'Außenmaße grob genügen, lieber schätzen als abbrechen.', f:[
    {id:'laengeA',l:'Außenmaß Länge A (m)',type:'number',min:4,max:40,def:10,step:.1},
    {id:'breiteB',l:'Außenmaß Breite B (m)',type:'number',min:4,max:30,def:8,step:.1},
    {id:'wohnflaeche',l:'Beheizte Wohnfläche (m²)',type:'number',min:40,max:600,def:140},
@@ -2160,19 +2160,19 @@ var STEPS = [
    {id:'heizungBaujahr',l:'Baujahr der Heizung',type:'number',min:1900,max:2026,def:1998},
    {id:'wwNiveau',l:'Warmwasser-Verbrauch',type:'seg',icons:true,opts:[['niedrig','Niedrig'],['normal','Normal'],['hoch','Hoch']],def:'normal'},
    {id:'zirkulation',l:'Zirkulationsleitung vorhanden?',type:'seg',opts:[['nein','Nein / unbekannt'],['ja','Ja']],def:'nein',
-    info:'Eine Zirkulationsleitung hält warmes Wasser ständig in den Rohren im Umlauf, damit es am Hahn sofort warm kommt – ohne langes Laufenlassen. Komfortabel, kostet aber Energie: Das Wasser kühlt unterwegs ab und wird laufend nachgeheizt, oft mehrere hundert Kilowattstunden pro Jahr. So erkennen Sie sie: Am Warmwasserspeicher sitzt eine kleine zusätzliche Pumpe (Zirkulationspumpe), und auch im entferntesten Bad kommt fast sofort warmes Wasser. Die meisten Ein- und Zweifamilienhäuser ohne diese Pumpe wählen „Nein". Spartipp: Zeitschaltuhr für die Pumpe.'},
+    info:'Eine Zirkulationsleitung hält warmes Wasser ständig in den Rohren im Umlauf, damit es am Hahn sofort warm kommt. Ohne langes Laufenlassen. Komfortabel, kostet aber Energie: Das Wasser kühlt unterwegs ab und wird laufend nachgeheizt, oft mehrere hundert Kilowattstunden pro Jahr. So erkennen Sie sie: Am Warmwasserspeicher sitzt eine kleine zusätzliche Pumpe (Zirkulationspumpe), und auch im entferntesten Bad kommt fast sofort warmes Wasser. Die meisten Ein- und Zweifamilienhäuser ohne diese Pumpe wählen „Nein". Spartipp: Zeitschaltuhr für die Pumpe.'},
    {id:'extras',l:'Besonderheiten',type:'multi',opts:[['solarthermie','Solarthermie'],['fussbodenheizung','Fußbodenheizung'],['lueftungWRG','Lüftung mit Wärmerückgewinnung'],['rohrGedaemmt','Heizungsrohre bereits gedämmt']],def:[]}
  ]},
  /* Eigener Schritt: Vorher stand der Verbrauch zwischen sieben anderen
     Feldern, am Handy zwei Bildschirme lang, und die Fehlermeldung darunter
     lag ausser Sicht. Die Einheit kommt zuerst und bietet nur an, was zum
     Energietraeger passt. */
- { id:'verbrauch', t:'Ihr Verbrauch', s:'Der Jahresverbrauch macht die Rechnung realistisch – den Wert finden Sie auf der Heizkostenabrechnung.', f:[
+ { id:'verbrauch', t:'Ihr Verbrauch', s:'Der Jahresverbrauch macht die Rechnung realistisch. Den Wert finden Sie auf der Heizkostenabrechnung.', f:[
    {id:'einheit',l:'Einheit auf Ihrer Abrechnung',type:'seg',opts:[['kwh','kWh'],['m3','m³ (Gas)'],['l','Liter (Öl)'],['kg','kg (Pellets)'],['srm','Schüttraummeter'],['fm','Festmeter']],def:'kwh'},
    {id:'verbrauch',l:'Jahresverbrauch',type:'number',min:1,max:200000,def:null,
     hint:'Bei Öl, Pellets oder Holz der Mittelwert der letzten Jahre.'}
  ]},
- { id:'annahmen', t:'Preise & Förderung', s:'Vorbelegt mit typischen Werten – gern anpassen. Die letzte Frage entscheidet mit, wie hoch der Zuschuss ausfällt.', f:[
+ { id:'annahmen', t:'Preise & Förderung', s:'Vorbelegt mit typischen Werten. Gern anpassen. Die letzte Frage entscheidet mit, wie hoch der Zuschuss ausfällt.', f:[
    {id:'arbeitspreis',l:'Ihr Energiepreis (€/kWh)',type:'number',min:0.02,max:1,def:0.12,step:.01,
     info:'Der Arbeitspreis je Kilowattstunde aus Ihrer Jahresabrechnung (ohne Grundpreis). Zur Orientierung: Erdgas liegt meist um 0,10–0,14 €/kWh, Heizöl um 0,10–0,12 €/kWh, Strom um 0,28–0,36 €/kWh.'},
    {id:'strompreisWP',l:'Strompreis für Wärmepumpe (€/kWh)',type:'number',min:0.1,max:1,def:0.26,step:.01},
@@ -2181,13 +2181,13 @@ var STEPS = [
    /* Aendert die Waermerechnung NICHT - nur die Foerderhoechstbetraege. */
    {id:'wohneinheiten',l:'Wohneinheiten im Gebäude',type:'number',min:1,max:20,def:1,
     hint:'Nur für die Förder-Höchstbeträge. Doppelhaushälfte und Reihenhaus sind je eine Wohneinheit.',
-    info:'Die Förderung ist je Wohneinheit gedeckelt, deshalb die Frage. Bei den Einzelmaßnahmen (Hülle, Anlagentechnik, Heizungsoptimierung) gilt der Höchstbetrag schlicht je Wohneinheit. Beim Heizungstausch ist er gestaffelt: 30.000 € für die erste Wohneinheit, 15.000 € je weiterer bis zur sechsten, ab der siebten 8.000 €.\n\nAls Wohneinheit zählt eine abgeschlossene Wohnung mit eigener Küche und eigenem Bad. Eine Doppelhaushälfte oder ein Reihenhaus ist je eine Wohneinheit – die Nachbarn zählen nicht mit. Eine Einliegerwohnung zählt mit, ein ausgebautes Dachgeschoss ohne eigene Küche nicht.\n\nAuf die Wärmerechnung hat die Angabe keinen Einfluss: Dafür zählen Wohnfläche und Maße des Gebäudes.'},
+    info:'Die Förderung ist je Wohneinheit gedeckelt, deshalb die Frage. Bei den Einzelmaßnahmen (Hülle, Anlagentechnik, Heizungsoptimierung) gilt der Höchstbetrag schlicht je Wohneinheit. Beim Heizungstausch ist er gestaffelt: 30.000 € für die erste Wohneinheit, 15.000 € je weiterer bis zur sechsten, ab der siebten 8.000 €.\n\nAls Wohneinheit zählt eine abgeschlossene Wohnung mit eigener Küche und eigenem Bad. Eine Doppelhaushälfte oder ein Reihenhaus ist je eine Wohneinheit. Die Nachbarn zählen nicht mit. Eine Einliegerwohnung zählt mit, ein ausgebautes Dachgeschoss ohne eigene Küche nicht.\n\nAuf die Wärmerechnung hat die Angabe keinen Einfluss: Dafür zählen Wohnfläche und Maße des Gebäudes.'},
    /* Diese drei Boni entscheiden ueber mehrere tausend Euro. Der
       Klimageschwindigkeitsbonus steht NICHT hier - er ergibt sich aus
       Energietraeger, Heizungstyp und Baujahr der alten Heizung. */
    {id:'foerderBoni',l:'Förderung: Trifft etwas davon auf Sie zu?',type:'multi',
     opts:[['isfpVorhanden','Sanierungsfahrplan (iSFP)'],['einkommenBonus','Einkommen bis 40.000 €'],['effizienzBonus','Erd-Wärmepumpe oder R290']],def:[],
-    hint:'Nichts angekreuzt? Dann rechnen wir mit der Grundförderung – das ist die vorsichtige Annahme.',
+    hint:'Nichts angekreuzt? Dann rechnen wir mit der Grundförderung. Das ist die vorsichtige Annahme.',
     info:'Drei Boni, jeder an Bedingungen geknüpft:\n\n• Sanierungsfahrplan (iSFP): Liegt ein individueller Sanierungsfahrplan vor und stammt die Maßnahme daraus, steigt die Förderung der Gebäudehülle von 15 auf 20 % und der Höchstbetrag von 30.000 auf 60.000 € je Wohneinheit und Jahr. Für den Heizungstausch gilt er nicht.\n\n• Einkommensbonus: 30 Prozentpunkte mehr auf den Heizungstausch, wenn Sie das Haus selbst bewohnen und das zu versteuernde Haushaltseinkommen 40.000 € im Jahr nicht übersteigt. Nachgewiesen wird er mit den Steuerbescheiden.\n\n• Effizienzbonus: 5 Prozentpunkte mehr, wenn die Wärmepumpe Erdreich, Grundwasser oder Abwasser als Quelle nutzt oder mit einem natürlichen Kältemittel arbeitet (etwa Propan R290).\n\nBeim Heizungstausch sind zusammen höchstens 70 % möglich.'}
  ]}
 ];
@@ -2386,7 +2386,7 @@ function validateStep(){
   });
   if(st.id==='verbrauch'){
     var erlaubt=EINHEITEN[eingaben.traeger]||['kwh'];
-    if(erlaubt.indexOf(eingaben.einheit)<0) fehler.push('Einheit passt nicht zum Energieträger '+traegerName(eingaben.traeger)+' – erlaubt: '+erlaubt.join(', ')+'.');
+    if(erlaubt.indexOf(eingaben.einheit)<0) fehler.push('Einheit passt nicht zum Energieträger '+traegerName(eingaben.traeger)+', erlaubt: '+erlaubt.join(', ')+'.');
   }
   if(fehler.length){
     var el=$('stepError'); el.innerHTML=fehler.join('<br>'); el.classList.add('show');
@@ -2428,7 +2428,7 @@ function zeigeErgebnis(){
     tile('CO₂-Ausstoß pro Jahr', nf(co2/1000,1)+' t', 'Emissionsfaktor '+traegerName(e.traeger))+
     tile('Effizienzhaus heute', ehHeute.stufe ? 'Stufe '+ehHeute.stufe : 'keine Stufe',
       (ehHeute.stufe ? 'voraussichtlich · ' : '')+'Hülle '+ehProzent(ehHeute.ht)+', Primärenergie '+ehQp(ehHeute.qp)+
-      (ehHeute.stufe ? '' : ' – für Stufe '+ehHeute.grenze.name+' höchstens '+ehHeute.grenze.ht+' % und '+ehHeute.grenze.qp+' %'));
+      (ehHeute.stufe ? '' : ', für Stufe '+ehHeute.grenze.name+' höchstens '+ehHeute.grenze.ht+' % und '+ehHeute.grenze.qp+' %'));
 
   function tile(l,v,s){ return '<div class="tile"><div class="t-label">'+l+'</div><div class="t-value">'+v+'</div><div class="t-sub">'+s+'</div></div>'; }
 
@@ -2442,11 +2442,11 @@ function zeigeErgebnis(){
     kt='<b>Bitte kurz prüfen:</b> Ihr angegebener Verbrauch weicht ungewöhnlich stark vom rechnerischen Bedarf ab (Faktor '+nf(kal.kRoh,2)+'). Oft steckt eine andere Einheit oder ein halbes Jahr dahinter. Die Rechnung nutzt vorerst den begrenzten Faktor '+nf(kal.k,2)+'. '+
        '<button type="button" class="textknopf" data-schritt="verbrauch">Verbrauch prüfen</button>';
   } else if(pct>5){
-    kt='Ihr realer Verbrauch liegt <b>'+pct+' % unter dem berechneten Bedarf</b> ('+nf(basis.eEnd)+' kWh/a). Das ist typisch für ältere und teilsanierte Häuser: kühlere Räume, ungenutzte Zimmer, Nachtabsenkung (<em>Prebound-Effekt</em>). Einsparungen rechnen wir deshalb auf Ihren <b>realen</b> Verbrauch – nicht auf den theoretischen.';
+    kt='Ihr realer Verbrauch liegt <b>'+pct+' % unter dem berechneten Bedarf</b> ('+nf(basis.eEnd)+' kWh/a). Das ist typisch für ältere und teilsanierte Häuser: kühlere Räume, ungenutzte Zimmer, Nachtabsenkung (<em>Prebound-Effekt</em>). Einsparungen rechnen wir deshalb auf Ihren <b>realen</b> Verbrauch, nicht auf den theoretischen.';
   } else if(pct<-5){
-    kt='Ihr Verbrauch liegt <b>'+(-pct)+' % über dem berechneten Bedarf</b> – z. B. durch hohe Raumtemperaturen oder Warmwasserkomfort (<em>Rebound</em>). Die Einsparungen sind auf Ihren realen Verbrauch kalibriert.';
+    kt='Ihr Verbrauch liegt <b>'+(-pct)+' % über dem berechneten Bedarf</b>. Z. B. durch hohe Raumtemperaturen oder Warmwasserkomfort (<em>Rebound</em>). Die Einsparungen sind auf Ihren realen Verbrauch kalibriert.';
   } else {
-    kt='Ihr realer Verbrauch passt gut zum berechneten Bedarf ('+nf(basis.eEnd)+' kWh/a) – die Rechnung ist damit gut kalibriert.';
+    kt='Ihr realer Verbrauch passt gut zum berechneten Bedarf ('+nf(basis.eEnd)+' kWh/a). Die Rechnung ist damit gut kalibriert.';
   }
   /* Einordnung fuer den Normalfall Altbau - ein rotes H ist dort kein
      Eingabefehler. */
@@ -2468,7 +2468,7 @@ function zeigeErgebnis(){
       '<span class="ampel '+m.ampel+'"><i></i>'+ampelText[m.ampel]+'</span></div>'+
       '<div class="mn-grid">'+
       kv('Spart pro Jahr', eur(m.ersparnis)+'<small style="color:var(--muted)"> · '+nf(m.ersparnisKwh)+' kWh</small>')+
-      kv('Kosten (Spanne)', eur(m.investVon)+' – '+eur(m.investBis))+
+      kv('Kosten (Spanne)', eur(m.investVon)+', '+eur(m.investBis))+
       kv('Förderung*', m.foerd>0 ? eur(m.foerd)+'<small style="color:var(--muted)"> · '+nf(m.satz*100)+' %</small>' : 'nicht förderfähig')+
       kv('Spart über Lebensdauer ('+m.leben+' J.)', '≈ '+eur(m.bw))+
       '</div>'+(m.hinweis?'<p class="mn-note">'+m.hinweis+'</p>':'')+
@@ -2507,7 +2507,7 @@ function zeigeErgebnis(){
   rows+='<tr><td>Wärmebrücken (ΔU '+nf(basis.dUwb,2)+')</td><td>'+nf(basis.aHuelle,1)+' m²</td><td></td><td>'+nf(basis.htWB)+' W/K</td></tr>';
   rows+='<tr><td>Lüftung (n = '+nf(basis.n,2)+'/h)</td><td></td><td></td><td>'+nf(basis.HV)+' W/K</td></tr>';
   $('annahmen').innerHTML='<p>Vereinfachtes Hüllflächenverfahren mit Heizperiodenbilanz, kalibriert am realen Verbrauch (Faktor k = '+nf(kal.k,2)+'). Heizwärmebedarf: '+nf(basis.qHeiz)+' kWh/a · Warmwasser: '+nf(basis.qWW)+' kWh/a · Endenergie (Bedarf): '+nf(basis.eEnd)+' kWh/a'+(basis.jaz?' · JAZ '+nf(basis.jaz,1):' · Anlagen-Nutzungsgrad '+nf(basis.etaA,2))+'.</p><table>'+rows+'</table>'+
-  '<p class="annahme-fuss">*'+foerderSatzText(e)+' Ohne Gewähr – vor Auftrag prüfen.</p>';
+  '<p class="annahme-fuss">*'+foerderSatzText(e)+' Ohne Gewähr, vor Auftrag prüfen.</p>';
   $('foerderFuss').textContent = foerderSatzText(e);
   $('foerderBox').innerHTML = foerderBoxText(e);
 
@@ -2592,7 +2592,7 @@ function renderBars(e, basis, kal){
 }
 
 /* ===========================================================================
-   INTERAKTIVER SIMULATOR – Regler je Bauteil, Schalter je Maßnahme, live.
+   INTERAKTIVER SIMULATOR: Regler je Bauteil, Schalter je Maßnahme, live.
    Regler verändern die IST-Annahme (Baualtersklasse des Bauteils),
    Schalter planen die Sanierung auf Förder-Niveau (Ziel-U aus CONFIG) ein.
    ======================================================================== */
@@ -2630,7 +2630,7 @@ function enableTilt(container){
   });
 }
 
-/* Isometrisches 3D-Haus – identische Geometrie und Farben wie die Startseite.
+/* Isometrisches 3D-Haus, identische Geometrie und Farben wie die Startseite.
    sh  = Verlustanteile für die Pfeile (0…1), san = sanierte Bauteile (grün),
    opt = { marker:'L'|'S', panels:bool, wp:bool, caption:'…' } */
 function isoHausSvg(sh, san, opt){
@@ -2841,8 +2841,8 @@ function buildSim(e0){
   /* Erklärungen zu den Begriffen im Simulator. Werden nach dem Einfügen der
      Karten über bindInfo an die (i)-Symbole gehängt. */
   var SIM_INFOS = {
-    keller: { t:'Warum hier kein Schalter?', x:'Bei einem beheizten Keller oder einem Haus ohne Keller verläuft die Wärmegrenze nicht an der Kellerdecke, sondern an der Bodenplatte unter dem Haus. Die lässt sich nachträglich praktisch nicht dämmen – dafür müsste der komplette Fußboden heraus. Deshalb gibt es hier keine Sanierungsmaßnahme. Der Regler zeigt Ihnen trotzdem, wie viel Wärme über den Boden verloren geht.' },
-    abgleich: { t:'Hydraulischer Abgleich', x:'Dabei wird eingestellt, wie viel Heizwasser jeder einzelne Heizkörper bekommt. Ohne Abgleich bekommen die Heizkörper nahe der Heizung zu viel und die entfernten zu wenig – man dreht die Heizung höher, damit auch das letzte Zimmer warm wird. Nach dem Abgleich reicht eine niedrigere Vorlauftemperatur. Kostet vergleichsweise wenig, spart dauerhaft, und ist bei geförderten Sanierungen sowie beim Einbau einer Wärmepumpe ohnehin vorgeschrieben.' }
+    keller: { t:'Warum hier kein Schalter?', x:'Bei einem beheizten Keller oder einem Haus ohne Keller verläuft die Wärmegrenze nicht an der Kellerdecke, sondern an der Bodenplatte unter dem Haus. Die lässt sich nachträglich praktisch nicht dämmen. Dafür müsste der komplette Fußboden heraus. Deshalb gibt es hier keine Sanierungsmaßnahme. Der Regler zeigt Ihnen trotzdem, wie viel Wärme über den Boden verloren geht.' },
+    abgleich: { t:'Hydraulischer Abgleich', x:'Dabei wird eingestellt, wie viel Heizwasser jeder einzelne Heizkörper bekommt. Ohne Abgleich bekommen die Heizkörper nahe der Heizung zu viel und die entfernten zu wenig. Man dreht die Heizung höher, damit auch das letzte Zimmer warm wird. Nach dem Abgleich reicht eine niedrigere Vorlauftemperatur. Kostet vergleichsweise wenig, spart dauerhaft, und ist bei geförderten Sanierungen sowie beim Einbau einer Wärmepumpe ohnehin vorgeschrieben.' }
   };
   function infoIcon(id){
     if(!SIM_INFOS[id]) return '';
@@ -2872,13 +2872,13 @@ function buildSim(e0){
     ((e0.heizungTyp!=='brennwert'&&e0.heizungTyp!=='wp'&&(e0.traeger==='gas'||e0.traeger==='oel'))?'<button type="button" data-h="brennwert" aria-pressed="false">Brennwert</button>':'')+
     (e0.heizungTyp!=='wp'?'<button type="button" data-h="wp" aria-pressed="false">Wärmepumpe</button>':'')+
     '</div>'+
-    '<p class="sim-wp-hinweis" id="simWpHinweis">Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten – sie werden deshalb nicht zusätzlich berechnet.</p>'+
+    '<p class="sim-wp-hinweis" id="simWpHinweis">Hydraulischer Abgleich und Rohrdämmung sind im Wärmepumpen-Angebot enthalten. Sie werden deshalb nicht zusätzlich berechnet.</p>'+
     '</div>';
   $('simCards').innerHTML =
     card('wand', true) + card('dach', true) +
     (SIM.kellerToggle
       ? card('keller', true)
-      : card('keller', false, '<p class="sim-hinweis">Hier ist die Bodenplatte die Wärmegrenze – sie lässt sich nachträglich nicht dämmen. Deshalb kein Sanieren-Schalter.</p>')) +
+      : card('keller', false, '<p class="sim-hinweis">Hier ist die Bodenplatte die Wärmegrenze. Sie lässt sich nachträglich nicht dämmen. Deshalb kein Sanieren-Schalter.</p>')) +
     card('fenster', true) + heizBtns;
 
   /* Erklärungen an die (i)-Symbole hängen */
@@ -2908,7 +2908,7 @@ function buildSim(e0){
     });
   });
 
-  /* KPI-Gerüst einmalig aufbauen – Werte werden dann nur noch animiert */
+  /* KPI-Gerüst einmalig aufbauen. Werte werden dann nur noch animiert */
   function kpiSkel(id,label,unit,farbe){
     return '<div class="kpi"><b>'+label+'</b>'+
       '<div class="kpi-vals"><span id="kv_'+id+'_v"></span><span class="to">→</span><span class="nach" id="kv_'+id+'_n"></span><small>'+unit+'</small></div>'+
@@ -2974,7 +2974,7 @@ function updateSim(){
   var nach = berechne(e, mods);
   var ehVor = effizienzhaus(e, {u:istU}), ehNach = effizienzhaus(e, mods);
 
-  /* Kalibrierte Darstellung – dieselbe Basis wie Kacheln und Skala oben.
+  /* Kalibrierte Darstellung, dieselbe Basis wie Kacheln und Skala oben.
      kEff berücksichtigt den Rebound (nach Sanierung wird komfortabler geheizt). */
   var e0=SIM.e0;
   var vg = kostenVergleich(e0, vor, nach, k);
@@ -3006,7 +3006,7 @@ function updateSim(){
     box.disabled = wpGewaehlt;
     if(zeile){
       zeile.classList.toggle('sw-enthalten', wpGewaehlt);
-      zeile.title = wpGewaehlt ? 'Im Wärmepumpen-Angebot enthalten – wird nicht zusätzlich berechnet' : '';
+      zeile.title = wpGewaehlt ? 'Im Wärmepumpen-Angebot enthalten. Wird nicht zusätzlich berechnet' : '';
     }
   });
   var hinweisWp=$('simWpHinweis');
@@ -3023,7 +3023,7 @@ function updateSim(){
     '<span class="arrow">→</span>'+
     '<span class="klasse-chip'+(popKlasse?' pop':'')+'" style=\"'+klasseStil(klN)+'\">'+klN+'</span>'+
     '<span style="font-size:.875rem;color:var(--muted);margin-left:2px">'+nf(kwVor)+' → '+nf(kwNach)+' kWh/m²a</span>'+
-    '<span class="hint">berechneter Bedarf des Gebäudes – wie die Skala oben</span>';
+    '<span class="hint">berechneter Bedarf des Gebäudes, wie die Skala oben</span>';
 
   /* Haus: bei reinen Regler-Änderungen nur die Pfeile animieren (weich),
      bei Schalter-/Heizungswechsel das Haus neu zeichnen (Farben ändern sich) */
@@ -3075,11 +3075,11 @@ function updateSim(){
     $('ks_'+id).textContent = sub;
   }
   setKpi('wb', vor.qHeiz*k, nach.qHeiz*kEff,
-    'Wärme, die Ihre Räume brauchen – kalibriert auf Ihr reales Heizverhalten.');
+    'Wärme, die Ihre Räume brauchen, kalibriert auf Ihr reales Heizverhalten.');
   setKpi('ee', vor.eEnd*k, nach.eEnd*kEff,
-    'Was Sie einkaufen – inkl. Warmwasser sowie Kessel- und Rohrverlusten. Kennwert '+nf(kwVor)+' → '+nf(kwNach)+' kWh/(m²·a) · Wohnfläche '+nf(SIM.e0.wohnflaeche)+' m²');
+    'Was Sie einkaufen, inkl. Warmwasser sowie Kessel- und Rohrverlusten. Kennwert '+nf(kwVor)+' → '+nf(kwNach)+' kWh/(m²·a) · Wohnfläche '+nf(SIM.e0.wohnflaeche)+' m²');
   setKpi('hk', kostenVor, kostenNach,
-    'Endenergie × Ihr Energiepreis (Kalibrierfaktor k = '+nf(k,2)+')'+(kal.gekappt?' – k wurde gekappt: bitte Einheit und Zeitraum der Verbrauchsangabe prüfen.':'.'));
+    'Endenergie × Ihr Energiepreis (Kalibrierfaktor k = '+nf(k,2)+')'+(kal.gekappt?'. K wurde gekappt: bitte Einheit und Zeitraum der Verbrauchsangabe prüfen.':'.'));
 
   /* Karten-Beschriftungen */
   var Gh=CONFIG.heizgradstunden[SIM.e0.region];
@@ -3122,10 +3122,10 @@ function updateSim(){
   animNum($('sum_spa'), Math.round(ersparnis));
   $('simNote').textContent = '*'+foerderSatzText(e)+' '+
     'Kosten = Mitte der regionalen Spannen. Spez. Heizlast nach diesem Paket: '+nf(nach.spezHeizlast)+' W/m²'+
-    (nach.spezHeizlast<70?' – niedrig genug für Niedertemperatur-Heizsysteme.':' – weitere Dämmung senkt sie zusätzlich.');
+    (nach.spezHeizlast<70?' (niedrig genug für Niedertemperatur-Heizsysteme.':') weitere Dämmung senkt sie zusätzlich.');
 }
 
-/* ===== Tracking (nur wenn Analytics eingebunden ist – wie Hauptseite) ===== */
+/* ===== Tracking (nur wenn Analytics eingebunden ist, wie Hauptseite) ===== */
 function trackEvent(name,label){
   try{
     if(window.plausible) window.plausible(name,{props:{label:label||''}});
@@ -3141,7 +3141,7 @@ function trackEvent(name,label){
    "energieberatung-website", Region eu-central-1 / Frankfurt).
    Ansehen im Dashboard: Table Editor -> Tabelle "leads".
 
-   Der Schlüssel unten steht bewusst im Quelltext – das ist bei Supabase so
+   Der Schlüssel unten steht bewusst im Quelltext. Das ist bei Supabase so
    vorgesehen und ungefährlich. Die Datenbank erlaubt damit AUSSCHLIESSLICH
    das Anlegen neuer Zeilen. Lesen, Ändern und Löschen sind auf Datenbank-
    ebene gesperrt (Row Level Security + entzogene Rechte). Wer den Schlüssel
@@ -3158,7 +3158,7 @@ var BERICHT_DATEN = null;
 var SIM_BERICHT = null;   /* was der Kunde im Simulator eingestellt hat */
 
 /* Ergebnis nur mitschicken, wenn es in die Spalte passt (Grenze: 20.000
-   Zeichen). Sonst wuerde die Datenbank den kompletten Datensatz abweisen –
+   Zeichen). Sonst wuerde die Datenbank den kompletten Datensatz abweisen,
    und damit ginge die Anfrage selbst verloren, nicht nur das Ergebnis. */
 function baueDruckbericht(){
   if(!BERICHT_DATEN) return false;
@@ -3187,7 +3187,7 @@ function baueDruckbericht(){
 
   var zeilen=d.mn.map(function(m){
     return '<tr><td>'+m.name+(m.diy?' <small>(Eigenleistung möglich)</small>':'')+'</td>'+
-      '<td class="db-zahl">'+eur(m.investVon)+' – '+eur(m.investBis)+'</td>'+
+      '<td class="db-zahl">'+eur(m.investVon)+', '+eur(m.investBis)+'</td>'+
       '<td class="db-zahl">'+eur(m.foerd)+'</td>'+
       '<td class="db-zahl"><b>'+eur(m.ersparnis)+'</b></td>'+
       '<td class="db-zahl">≈ '+eur(m.bw)+'</td>'+
@@ -3277,7 +3277,7 @@ function baueDruckbericht(){
     '<div class="db-block"><h2>Ihre Angaben</h2>'+angaben+'</div>'+
     '<div class="db-block"><h2>Ihr Ergebnis</h2>'+kern+
       '<div class="db-bild">'+
-        '<div>'+haus+'<p class="db-bildunter">Ihr Haus – Pfeildicke zeigt, wo die Wärme entweicht'+
+        '<div>'+haus+'<p class="db-bildunter">Ihr Haus. Pfeildicke zeigt, wo die Wärme entweicht'+
           (gewaehlt.length?'; grün markiert ist, was Sie eingeplant haben':'')+'</p></div>'+
         '<div class="db-skala"><b style="font-size:.8125rem;letter-spacing:.07em;text-transform:uppercase;color:#6F685C">Energieeffizienzklasse</b>'+skala+'</div>'+
       '</div>'+
@@ -3289,8 +3289,8 @@ function baueDruckbericht(){
     '<div class="db-block"><h2>Vier Wege im Vergleich</h2>'+
       '<div class="db-wege">'+wege+'</div></div>'+
     '<div class="db-fuss">'+
-      '<p><b>Wie es weitergeht:</b> Im kostenlosen Erstgespräch klären wir, welcher Schritt bei Ihrem Haus der erste sein sollte – 0152 24290826, EBA Energieberater Albdonau, Griesweg 20, 89160 Dornstadt.</p>'+
-      '<p style="margin-top:6px">Orientierungsrechnung auf Basis statistischer Kennwerte und Ihrer Angaben – ersetzt keine Energieberatung und keinen Energieausweis. Kosten sind regionale Spannen, keine Angebote. *'+foerderSatzText(e)+' Sätze vor Auftrag prüfen, Stand Juli 2026.</p>'+
+      '<p><b>Wie es weitergeht:</b> Im kostenlosen Erstgespräch klären wir, welcher Schritt bei Ihrem Haus der erste sein sollte: 0152 24290826, EBA Energieberater Albdonau, Griesweg 20, 89160 Dornstadt.</p>'+
+      '<p style="margin-top:6px">Orientierungsrechnung auf Basis statistischer Kennwerte und Ihrer Angaben. Ersetzt keine Energieberatung und keinen Energieausweis. Kosten sind regionale Spannen, keine Angebote. *'+foerderSatzText(e)+' Sätze vor Auftrag prüfen, Stand Juli 2026.</p>'+
     '</div>';
   return true;
 }
@@ -3334,13 +3334,13 @@ function ergebnisFuerDb(){
     var fehler=[];
     if(!name) fehler.push('Bitte Namen angeben.');
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) fehler.push('Bitte gültige E-Mail-Adresse angeben.');
-    if(!$('lead-consent').checked) fehler.push('Bitte der Speicherung zustimmen – ohne sie dürfen wir den Bericht nicht zuordnen.');
+    if(!$('lead-consent').checked) fehler.push('Bitte der Speicherung zustimmen. Ohne sie dürfen wir den Bericht nicht zuordnen.');
     var err=$('leadError');
     if(fehler.length){ err.innerHTML=fehler.join('<br>'); err.classList.add('show'); return; }
     err.classList.remove('show');
 
     /* Honigtopf: nur Bots füllen dieses Feld aus. Dann Bericht öffnen,
-       aber nichts speichern – ohne dem Bot zu verraten, woran es lag. */
+       aber nichts speichern, ohne dem Bot zu verraten, woran es lag. */
     var hp = $('lead-website');
     var art = $('lead-beratung').checked ? 'mit-beratungswunsch' : 'nur-bericht';
     if(hp && hp.value !== ''){ fertig(art); return; }
@@ -3350,7 +3350,7 @@ function ergebnisFuerDb(){
       quelle:'sanierungsrechner',
       name:name, email:mail, telefon:$('lead-tel').value.trim() || null,
       nachricht: wunsch ? 'Erstgespräch gewünscht' : 'Nur Bericht angefordert',
-      /* Das komplette Rechner-Ergebnis als JSON – damit im Gespräch direkt
+      /* Das komplette Rechner-Ergebnis als JSON, damit im Gespräch direkt
          am konkreten Haus weitergedacht werden kann.
          Die Datenbank begrenzt dieses Feld auf 20.000 Zeichen. Lieber das
          Ergebnis weglassen als die ganze Anfrage zu verlieren: Name, E-Mail
@@ -3367,14 +3367,14 @@ function ergebnisFuerDb(){
         'apikey': SUPABASE_KEY,
         'Authorization': 'Bearer ' + SUPABASE_KEY,
         /* return=minimal ist wichtig: sonst versucht Supabase, die neue Zeile
-           zurückzugeben – und das wäre ein Lesezugriff, der zu Recht scheitert. */
+           zurückzugeben, und das wäre ein Lesezugriff, der zu Recht scheitert. */
         'Prefer':'return=minimal'
       },
       body:JSON.stringify(payload) })
     .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); btn.disabled=false; btn.textContent='Bericht herunterladen'; fertig(art); })
     .catch(function(){
       btn.disabled=false; btn.textContent='Erneut senden';
-      err.innerHTML='Übermittlung fehlgeschlagen – bitte erneut versuchen. '+
+      err.innerHTML='Übermittlung fehlgeschlagen, bitte erneut versuchen. '+
         '<a href="#" id="leadSkip" style="text-decoration:underline">Bericht trotzdem öffnen</a>';
       err.classList.add('show');
       document.getElementById('leadSkip').addEventListener('click', function(e2){ e2.preventDefault(); fertig('versand-fehlgeschlagen'); });
@@ -3442,7 +3442,7 @@ document.getElementById('nextBtn').addEventListener('click',function(){
 });
 
 /* ===========================================================================
-   SELBSTTEST – 4 Referenzhäuser (Konsole). Bei FAIL: CONFIG prüfen.
+   SELBSTTEST, 4 Referenzhäuser (Konsole). Bei FAIL: CONFIG prüfen.
    ======================================================================== */
 (function selbsttest(){
   function fall(name, e, checks){
@@ -3451,7 +3451,7 @@ document.getElementById('nextBtn').addEventListener('click',function(){
     if(checks.kw && (kw<checks.kw[0]||kw>checks.kw[1])){ok=false;msg.push('Bedarf '+nf(kw)+' außerhalb '+checks.kw.join('–'));}
     if(checks.hl && (hl<checks.hl[0]||hl>checks.hl[1])){ok=false;msg.push('Heizlast '+nf(hl)+' außerhalb '+checks.hl.join('–'));}
     if(checks.k){ var kal=kalibriere(e,r); if(kal.k<checks.k[0]||kal.k>checks.k[1]){ok=false;msg.push('k='+nf(kal.k,2)+' außerhalb '+checks.k.join('–'));} }
-    console.log((ok?'✅ PASS':'❌ FAIL')+' – '+name+' | Bedarf '+nf(kw)+' kWh/m²a · Heizlast '+nf(hl)+' W/m²'+(msg.length?' | '+msg.join('; '):''));
+    console.log((ok?'✅ PASS':'❌ FAIL')+', '+name+' | Bedarf '+nf(kw)+' kWh/m²a · Heizlast '+nf(hl)+' W/m²'+(msg.length?' | '+msg.join('; '):''));
     return ok;
   }
   var basis1965 = JSON.parse(JSON.stringify(BEISPIEL)); basis1965.verbrauch=24000; basis1965.zirkulation='nein';
@@ -3468,14 +3468,14 @@ document.getElementById('nextBtn').addEventListener('click',function(){
   var waermeKw=(rNeu.qHeiz)/neu.wohnflaeche;
   var stromKw=rNeu.kennwertBedarf;
   var okNeu = waermeKw>=25&&waermeKw<=45 && stromKw>=8&&stromKw<=18 && rNeu.spezHeizlast>=25&&rNeu.spezHeizlast<=40;
-  console.log((okNeu?'✅ PASS':'❌ FAIL')+' – EFH 2018 GEG-Neubau mit WP | Wärme '+nf(waermeKw)+' kWh/m²a · Strom '+nf(stromKw)+' kWh/m²a · Heizlast '+nf(rNeu.spezHeizlast)+' W/m²');
+  console.log((okNeu?'✅ PASS':'❌ FAIL')+', EFH 2018 GEG-Neubau mit WP | Wärme '+nf(waermeKw)+' kWh/m²a · Strom '+nf(stromKw)+' kWh/m²a · Heizlast '+nf(rNeu.spezHeizlast)+' W/m²');
   alle = okNeu && alle;
 
   var voll=JSON.parse(JSON.stringify(basis1965));
   var rVoll=berechne(voll,{u:{wand:0.20,dach:0.14,kellerdecke:0.25,fenster:0.95,tuer:1.3},heizung:'wp',fbh:false});
   var wKw=rVoll.qHeiz/voll.wohnflaeche;
   var okVoll = wKw>=30&&wKw<=50 && rVoll.spezHeizlast>=25&&rVoll.spezHeizlast<=40;
-  console.log((okVoll?'✅ PASS':'❌ FAIL')+' – EFH 1965 nach Vollsanierung + WP | Wärme '+nf(wKw)+' kWh/m²a · Heizlast '+nf(rVoll.spezHeizlast)+' W/m²');
+  console.log((okVoll?'✅ PASS':'❌ FAIL')+', EFH 1965 nach Vollsanierung + WP | Wärme '+nf(wKw)+' kWh/m²a · Heizlast '+nf(rVoll.spezHeizlast)+' W/m²');
   alle = okVoll && alle;
 
   // Plausibilität: Summe Einzelmaßnahmen <= Gesamtkosten
@@ -3483,7 +3483,7 @@ document.getElementById('nextBtn').addEventListener('click',function(){
   var summe=mns.filter(function(m){return m.id!=='wp'&&m.id!=='brennwert';}).reduce(function(s,m){return s+m.ersparnis;},0);
   var gesamt=kal.real*preisFuer(basis1965,'gas');
   var okSum = summe < gesamt;
-  console.log((okSum?'✅ PASS':'❌ FAIL')+' – Einzelersparnisse ('+eur(summe)+') < Gesamtkosten ('+eur(gesamt)+')');
+  console.log((okSum?'✅ PASS':'❌ FAIL')+', Einzelersparnisse ('+eur(summe)+') < Gesamtkosten ('+eur(gesamt)+')');
   /* Reglerstufen des Simulators: jede Stufe muss in ihrer eigenen
      Tabellenklasse liegen, sonst startet der Simulator mit anderen Werten
      als die Kachel (so geschehen nach der U-Wert-Umstellung). */
@@ -3491,19 +3491,19 @@ document.getElementById('nextBtn').addEventListener('click',function(){
     var st = eraStufen(CONFIG[key]);
     return st.length===CONFIG[key].length && st.every(function(x){ return uAusTabelle(CONFIG[key], x.jahr)===x.u; });
   });
-  console.log((okStufen?'✅ PASS':'❌ FAIL')+' – Simulator-Reglerstufen decken die U-Wert-Tabellen ab');
+  console.log((okStufen?'✅ PASS':'❌ FAIL')+'. Simulator-Reglerstufen decken die U-Wert-Tabellen ab');
   /* Unbewegter Simulator = Ist-Zustand des Fragebogens */
   var b0 = berechne(basis1965);
   var simStart = berechne(basis1965, {u:{wand:b0.uWerte.wand, dach:b0.uWerte.dachOgd, kellerdecke:b0.uWerte.keller}});
   var okStart = Math.abs(simStart.kennwertBedarf - b0.kennwertBedarf) < 0.5;
-  console.log((okStart?'✅ PASS':'❌ FAIL')+' – Simulator startet beim Bedarf der Kachel ('+nf(simStart.kennwertBedarf)+' = '+nf(b0.kennwertBedarf)+' kWh/m²a)');
+  console.log((okStart?'✅ PASS':'❌ FAIL')+', Simulator startet beim Bedarf der Kachel ('+nf(simStart.kennwertBedarf)+' = '+nf(b0.kennwertBedarf)+' kWh/m²a)');
   /* Pakete: hoechstens eine Heizung, Ersparnis nie ueber den Kosten */
   var szTest = szenarien(basis1965, b, kal, mns);
   var okPakete = szTest.every(function(x){
     var heiz = x.ids.filter(function(id){ return id==='wp'||id==='brennwert'; }).length;
     return heiz<=1 && x.ersparnis < gesamt;
   });
-  console.log((okPakete?'✅ PASS':'❌ FAIL')+' – Pakete mit höchstens einer Heizung, Ersparnis unter den Heizkosten');
+  console.log((okPakete?'✅ PASS':'❌ FAIL')+', Pakete mit höchstens einer Heizung, Ersparnis unter den Heizkosten');
   /* Paketkosten = Summe der Einzelposten. Faellt eine Massnahme wegen
      kleiner Ersparnis aus der Liste, muessen ihre Kosten trotzdem drin
      sein - sonst ist das Paket billiger als derselbe Stand im Simulator. */
@@ -3511,13 +3511,13 @@ document.getElementById('nextBtn').addEventListener('click',function(){
     var soll = x.ids.reduce(function(sum,id){ return sum+investMitte(b, id, x.heizlast); }, 0);
     return Math.abs(x.invest - soll) < 1;
   });
-  console.log((okPaketKosten?'✅ PASS':'❌ FAIL')+' – Paketkosten = Summe der Einzelposten');
+  console.log((okPaketKosten?'✅ PASS':'❌ FAIL')+', Paketkosten = Summe der Einzelposten');
   /* Fensterpreis: Der Stueckpreis des Sanierungsrechners und die
      m2-Tabelle, die der U-Wert-Rechner liest, muessen dasselbe sagen. */
   var FP = CONFIG.fensterPreis.kunststoff, FS = CONFIG.kosten.fensterStk;
   var okFenster = Math.abs(FP[0]*CONFIG.kosten.fensterM2ProStk - FS[0]) < 1 &&
                   Math.abs(FP[1]*CONFIG.kosten.fensterM2ProStk - FS[1]) < 1;
-  console.log((okFenster?'✅ PASS':'❌ FAIL')+' – Fensterpreis: '+FP.join('–')+' €/m² × '+
+  console.log((okFenster?'✅ PASS':'❌ FAIL')+', Fensterpreis: '+FP.join('–')+' €/m² × '+
     nf(CONFIG.kosten.fensterM2ProStk,1)+' m² = '+nf(FS[0])+'–'+eur(FS[1])+' je Stück');
   /* Waermepumpe nach Heizlast: Im Vollsanierungspaket ist die Anlage
      kleiner und damit spürbar billiger als allein im unsanierten Haus.
@@ -3526,7 +3526,7 @@ document.getElementById('nextBtn').addEventListener('click',function(){
   var wpVoll = investMitte(b, 'wp', szTest[3].heizlast);
   var okWpPreis = wpVoll < wpAllein * 0.85 &&
                   investMitte(b,'wp',0) === (CONFIG.kosten.wpGrund[0]+CONFIG.kosten.wpGrund[1])/2;
-  console.log((okWpPreis?'✅ PASS':'❌ FAIL')+' – Wärmepumpe nach Heizlast: allein '+eur(wpAllein)+
+  console.log((okWpPreis?'✅ PASS':'❌ FAIL')+', Wärmepumpe nach Heizlast: allein '+eur(wpAllein)+
     ' bei '+nf(b.heizlast,1)+' kW · im Vollsanierungspaket '+eur(wpVoll)+' bei '+nf(szTest[3].heizlast,1)+' kW');
   /* Gleiche Auswahl, gleiche Zahl: Die Massnahmenkarte rechnet ohne
      u-Objekt, der Simulator immer mit einem (den Ist-Werten). Beides muss
@@ -3537,7 +3537,7 @@ document.getElementById('nextBtn').addEventListener('click',function(){
   var wpSim = kostenVergleich(basis1965, berechne(basis1965,{u:istU0}),
                               berechne(basis1965,{u:istU0,heizung:'wp'}), kal.k).ersparnis;
   var okWp = !!wpKarte && Math.abs(wpKarte.ersparnis - wpSim) < 1;
-  console.log((okWp?'✅ PASS':'❌ FAIL')+' – Wärmepumpe: Maßnahmenkarte '+eur(wpKarte?wpKarte.ersparnis:0)+' = Simulator '+eur(wpSim));
+  console.log((okWp?'✅ PASS':'❌ FAIL')+', Wärmepumpe: Maßnahmenkarte '+eur(wpKarte?wpKarte.ersparnis:0)+' = Simulator '+eur(wpSim));
   /* Foerderung: Deckel gilt je Topf, Satz kommt aus den Angaben, und mehr
      als die Prozentgrenze ist beim Heizungstausch nie drin. */
   var tHuelle = foerderung(basis1965, [{id:'wand',betrag:40000},{id:'fenster',betrag:20000}]);
@@ -3558,7 +3558,7 @@ document.getElementById('nextBtn').addEventListener('click',function(){
                 Math.abs(fWpAlt - (CONFIG.foerderHeizBasis+CONFIG.foerderBonusKlima)*D) < 1 &&
                 Math.abs(fWpNeu - CONFIG.foerderHeizBasis*D) < 1 &&
                 Math.abs(fWpMax - CONFIG.foerderHeizMax*D) < 1 && okGrenze;
-  console.log((okFoerd?'✅ PASS':'❌ FAIL')+' – Förderung: 60.000 € Hülle → '+eur(tHuelle.gesamt)+
+  console.log((okFoerd?'✅ PASS':'❌ FAIL')+', Förderung: 60.000 € Hülle → '+eur(tHuelle.gesamt)+
     ' · WP bei alter Gasheizung '+eur(fWpAlt)+' · bei junger '+eur(fWpNeu)+' · mit allen Boni '+eur(fWpMax));
   /* Zwei Wohneinheiten: Huelle schlicht doppelt, Heizung gestaffelt
      (30.000 fuer die erste, 15.000 fuer die zweite). */
@@ -3569,7 +3569,7 @@ document.getElementById('nextBtn').addEventListener('click',function(){
              Math.abs(fW2 - (CONFIG.foerderHeizBasis+CONFIG.foerderBonusKlima)*
                             (CONFIG.foerderDeckelHeiz+CONFIG.foerderDeckelHeizWeitere)) < 1 &&
              foerderDeckelHeizFuer({wohneinheiten:7}) === CONFIG.foerderDeckelHeiz+5*CONFIG.foerderDeckelHeizWeitere+CONFIG.foerderDeckelHeizAb7;
-  console.log((okWE?'✅ PASS':'❌ FAIL')+' – Zwei Wohneinheiten: Hülle '+eur(fH2)+' · Wärmepumpe '+eur(fW2)+
+  console.log((okWE?'✅ PASS':'❌ FAIL')+', Zwei Wohneinheiten: Hülle '+eur(fH2)+' · Wärmepumpe '+eur(fW2)+
     ' (Deckel '+eur(foerderDeckelHeizFuer(zweiWE))+')');
   /* Effizienzhaus: Ein Haus mit genau den Referenzwerten steht bei 100 % -
      das ist KEINE Stufe, Effizienzhaus 85 verlangt 85 % Primaerenergie.
@@ -3583,10 +3583,10 @@ document.getElementById('nextBtn').addEventListener('click',function(){
   var ehVoll = effizienzhaus(basis1965, {u:{wand:0.20,dach:0.14,kellerdecke:0.25,fenster:0.95,tuer:1.3}, heizung:'wp'});
   var okEh = Math.abs(ehRef.ht-100)<0.5 && Math.abs(ehRef.qp-100)<0.5 && ehRef.stufe===null &&
              ehAlt.stufe===null && ehVoll.stufe!==null && Number(ehVoll.stufe)<=70;
-  console.log((okEh?'✅ PASS':'❌ FAIL')+' – Effizienzhaus: Referenz '+nf(ehRef.ht)+'/'+nf(ehRef.qp)+' % · 1965 unsaniert '+
+  console.log((okEh?'✅ PASS':'❌ FAIL')+', Effizienzhaus: Referenz '+nf(ehRef.ht)+'/'+nf(ehRef.qp)+' % · 1965 unsaniert '+
     nf(ehAlt.ht)+'/'+nf(ehAlt.qp)+' % ('+(ehAlt.stufe||'keine')+') · Vollsanierung mit WP '+nf(ehVoll.ht)+'/'+nf(ehVoll.qp)+' % ('+(ehVoll.stufe||'keine')+')');
   alle = alle && okStufen && okStart && okPakete && okEh && okPaketKosten && okWpPreis && okFenster && okWp && okFoerd && okWE;
-  console.log(alle&&okSum ? '✅ SELBSTTEST BESTANDEN' : '❌ SELBSTTEST: Abweichungen – CONFIG prüfen');
+  console.log(alle&&okSum ? '✅ SELBSTTEST BESTANDEN' : '❌ SELBSTTEST: Abweichungen, CONFIG prüfen');
 })();
 </script>
 <!-- GEMEINSAM:JS -->

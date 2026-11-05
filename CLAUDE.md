@@ -745,52 +745,38 @@ eine Zahl davonläuft. Nach größeren Textänderungen laufen lassen und die
 Basiswerte nachziehen. Ein `ARTIKEL`-Entwurf gehört vorher einmal durch
 `no-ai-slop` im Detect-Modus.
 
-**Gedankenstriche: Es kommt auf die Bauart an** (korrigiert 05.11.2026).
-Erst hieß es hier, die 504 Striche seien eine Entscheidung des Betreibers
-und nicht zu prüfen. Das war zu bequem – der Betreiber hat zu Recht
-widersprochen. Es gibt zwei Bauarten, und nur eine ist richtig:
+**Keine Gedankenstriche im Fließtext** (Entscheidung des Betreibers,
+05.11.2026). Ich hatte zweimal dagegengehalten: Einschub und Nachtrag
+sind korrektes Deutsch. Der Betreiber hat beides verworfen – kein Mensch
+schreibe so. Das ist seine Seite und seine Stimme, also gilt es.
 
-- **Einschub, bleibt:** Zwei Striche umschließen den Einschub.
-  „Flächenheizungen – Boden, Wand, Klimadecke – kommen mit 35 °C aus."
-  Das ist korrekte deutsche Typografie.
-- **Apposition und eigener Hauptsatz, bleiben:** Nach dem Strich folgt ein
-  eigenes Subjekt. „Die häufigste Frage im Erstgespräch – und die, bei der
-  am meisten Geld auf dem Spiel steht."
-- **Überschriften, bleiben:** „Was er kostet – und was er bringt" ist eine
-  idiomatische deutsche Schlagzeile.
-- **Krückstock, muss weg:** Ein einzelner Strich vor „und", „oder" oder
-  „aber", und danach folgt **kein neues Subjekt** – der Satzteil hängt am
-  selben Verb. Dann ersetzt der Strich ein Komma und macht sich wichtig:
-  „kostet schnell fünfstellig – und verbaut Fördermöglichkeiten" wird
-  „kostet schnell fünfstellig und verbaut Fördermöglichkeiten". Vor
-  „aber" steht dabei immer ein Komma.
+**497 Striche sind ersetzt**, jeder durch das Zeichen, das an seiner
+Stelle richtig ist:
 
-18 solche Krückstöcke waren drin und sind raus (Startseite, beide Rechner,
-Fahrplan, Energieausweis-Seite, beide Generatoren). `slop-messen.py` zählt
-den Rest mit und meldet, wenn die Zahl wieder steigt.
-
-**Vollständig geprüft am 05.11.2026**, nachdem der Betreiber danach gefragt
-hat – die erste Durchsicht war nämlich nicht vollständig:
-
-| | |
+| vorher | nachher |
 |---|---|
-| Seiten | alle 28, seitdem inklusive `404.html` |
-| Sätze mit **zwei** Strichen (Einschub) | 31, bleiben |
-| Sätze mit **einem** Strich | 418 |
-| davon vor und/oder/aber (erste Durchsicht) | 48 geprüft, 18 geändert |
-| davon vor anderen Wörtern | 370, **in der ersten Runde übersehen** |
+| Einschub „A – x, y – B" | Klammer: „A (x, y) B" |
+| Aufzählung „derselbe – Aufnahme, Berechnung, Gespräch" | Doppelpunkt |
+| eigener Satz danach | Punkt, danach groß weiter |
+| Nachtrag ohne Verb | Komma |
+| vor und/oder/aber | Komma, bei „und" oft ganz weg |
 
-Die 370 sind nachgeprüft: 188 haben nach dem Strich ein eigenes finites
-Verb, die übrigen 103 wurden einzeln gelesen. Sie sind **Nachtrag,
-Apposition oder Listeneinleitung** („Der Ablauf ist überall derselbe –
-Aufnahme vor Ort, Berechnung, schriftlicher Fahrplan"), und das ist die
-Hauptaufgabe des deutschen Gedankenstrichs. Dort wird nichts geändert.
-Der Krückstock ist allein der Strich **vor einer Konjunktion** ohne
-nachfolgendes Subjekt.
+**Drei Ausnahmen, die bleiben müssen:**
 
-Nebenbefund derselben Durchsicht: elf **Bis-Striche mit Leerzeichen**
-(„30 – 70 %", „1.300 – 2.100 €"). Der Bis-Strich steht nach Duden ohne
-Leerzeichen und ist korrigiert.
+- **Platzhalter.** `<h2 id="schrittTitel">–</h2>` und was `nf()` ohne Zahl
+  liefert, heißt „noch kein Wert". Das sind 7 Stück, kein Fließtext.
+- **Bis-Striche zwischen Zahlen** („14–16 cm", „800–1.800 €"). Das ist
+  ein anderes Zeichen mit anderer Aufgabe. Ohne Leerzeichen setzen.
+- **Trenner in `<title>` und `og:title`.** Reine Technik.
+
+Stand danach: 7 statt 504, also 0,2 statt 15,9 je 1.000 Wörter.
+`slop-messen.py` führt 0,2 als Basis – **jeder neue Strich im Fließtext
+fällt damit sofort auf.** Wer Text schreibt, nimmt Komma, Punkt,
+Doppelpunkt oder Klammer.
+
+Drei Stellen hat die maschinelle Ersetzung falsch getroffen und sie sind
+von Hand korrigiert (Satzfragmente wie „In Etappen, die zu Ihrem Budget
+passen."). Wer so etwas noch findet: Es war eine Ersetzung, kein Vorsatz.
 
 Drei Regeln, die über den Skill hinausgehen und hier gelten:
 

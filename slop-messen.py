@@ -29,14 +29,16 @@ if hasattr(sys.stdout, "reconfigure"):
 BASIS = {
     "floskeln": 4,          # Summe aller Treffer aus FLOSKELN
     "binaer": 15,           # "nicht X, sondern Y" und "kein X, sondern Y"
-    "strich_je_1000": 14.8,  # Gedankenstriche je 1.000 Woerter
-    "krueckstock": 48        # Strich vor und/oder/aber ohne zweiten Strich
+    "strich_je_1000": 0.2,   # Gedankenstriche je 1.000 Woerter
+    "krueckstock": 0         # Strich vor und/oder/aber ohne zweiten Strich
 }
-# Die 48 sind am 05.11.2026 einzeln gelesen worden: Ueberschriften
-# ("Ausweis da - und jetzt?") oder echte Hauptsaetze mit eigenem Subjekt
-# ("... erhalten Sie Ihren Fahrplan - und wir gehen ihn gemeinsam durch").
-# Dort ist der Strich richtig. Steigt die Zahl, ist neuer Krueckstock dazu-
-# gekommen - dann die neuen Stellen pruefen, nicht die alten.
+# Entscheidung des Betreibers vom 05.11.2026: KEINE Gedankenstriche im
+# Fliesstext, auch nicht die grammatisch korrekten. 497 Striche sind
+# ersetzt worden - Einschub wurde Klammer, Aufzaehlung Doppelpunkt,
+# eigener Satz Punkt, Nachtrag Komma. Die verbliebenen 7 sind KEINE
+# Gedankenstriche, sondern Platzhalter fuer "noch kein Wert" in den
+# Rechnern (<h2>-</h2>, nf() ohne Zahl). Bis-Striche zwischen Zahlen
+# ("14-16 cm") sind ebenfalls keine und bleiben.
 
 # --------------------------------------------------------------- Floskeln
 # Deutsche Entsprechung zu den Wortlisten des Skills. Keine davon ist fuer

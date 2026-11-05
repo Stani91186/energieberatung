@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  RATGEBER – ERZEUGT, NICHT VON HAND BEARBEITEN!
+  RATGEBER, ERZEUGT, NICHT VON HAND BEARBEITEN!
   Änderungen in ratgeber-erzeugen.py vornehmen und das Skript erneut laufen
   lassen, sonst sind sie beim nächsten Durchlauf wieder weg.
   ============================================================================
@@ -29,7 +29,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <style>
 /* ===========================================================================
-   0. SCHRIFTEN – lokal gehostet, damit keine Verbindung zu Google entsteht.
+   0. SCHRIFTEN, lokal gehostet, damit keine Verbindung zu Google entsteht.
       Beides sind Variable Fonts: eine Datei deckt 400–700 komplett ab.
       Wenn die Dateien fehlen, greift der System-Fallback weiter unten.
    ======================================================================== */
@@ -44,7 +44,7 @@
 
 
 /* ===========================================================================
-   1. DESIGN TOKENS – hier die Farben ändern
+   1. DESIGN TOKENS, hier die Farben ändern
    ======================================================================== */
 :root{
   /* Helle, warme Basis */
@@ -60,7 +60,7 @@
      von 4,5:1. Die Farbe wird für Kleinschrift (0,72–0,83rem) verwendet. */
   --muted:        #6F685C;
 
-  /* Schriftstapel – der Fallback greift, wenn fonts/ fehlt */
+  /* Schriftstapel. Der Fallback greift, wenn fonts/ fehlt */
   --font-sans:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
   --font-serif:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
 
@@ -68,12 +68,12 @@
   --line:         #E7DFD1;
   --line-soft:    #F0E9DC;
 
-  /* Akzent 1 – warmes Amber (Fuchs) */
+  /* Akzent 1, warmes Amber (Fuchs) */
   --amber:        #C07A2E;
   --amber-deep:   #9C5F1E;
   --amber-soft:   #F7E9D5;
 
-  /* Akzent 2 – ruhiges Waldgrün (Eule) */
+  /* Akzent 2, ruhiges Waldgrün (Eule) */
   --forest:       #2E4A3C;
   --forest-soft:  #E4EDE7;
 
@@ -273,7 +273,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .mobile-nav a[aria-current="page"]{color:var(--amber-deep);font-weight:600}
 
 .header-cta{display:flex;align-items:center;gap:14px}
-/* Direktwahl im Header – für die Zielgruppe der schnellste Weg zum Kontakt */
+/* Direktwahl im Header, für die Zielgruppe der schnellste Weg zum Kontakt */
 .header-phone{
   display:inline-flex;align-items:center;gap:8px;
   font-size:.93rem;font-weight:600;color:var(--ink);
@@ -282,7 +282,7 @@ html.js .reveal.in{opacity:1;transform:none}
 }
 .header-phone:hover{border-color:var(--amber);background:var(--white)}
 .header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
-/* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
+/* Kurzfassung der Knopfbeschriftung. Wird erst bei knappem Platz eingeblendet */
 .cta-kurz{display:none}
 .burger{display:none;width:42px;height:42px;border-radius:var(--radius-sm);border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
@@ -331,7 +331,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .trust-item svg{width:16px;height:16px;stroke:var(--forest);flex:none}
 
 /* ---------------------------------------------------------------------------
-   HERO-ILLUSTRATION – Gebäudeschnitt mit Dämmebenen und Wärmepumpe
+   HERO-ILLUSTRATION, Gebäudeschnitt mit Dämmebenen und Wärmepumpe
    Alle Strichstärken und Farben laufen über die Klassen .il-*
 ------------------------------------------------------------------------- */
 .hero-visual{position:relative}
@@ -399,7 +399,7 @@ html.js .reveal.in{opacity:1;transform:none}
   .il-tag{animation:none;opacity:1}
 }
 
-/* Auf schmalen Displays sind SVG-Beschriftungen zu klein – dafür eine Legende */
+/* Auf schmalen Displays sind SVG-Beschriftungen zu klein, dafür eine Legende */
 .illu-legend{display:none;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
 .illu-legend li{
   display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:500;color:var(--ink-2);
@@ -435,7 +435,7 @@ html.js .reveal.in{opacity:1;transform:none}
 /* ===========================================================================
    5b. LOGO-BAND (Qualifikationen & Programme)
    Typografische Platzhalter-Kacheln. Offizielle Logos erst einsetzen, wenn
-   die Nutzung erlaubt ist – Anleitung im HTML-Kommentar bei der Sektion.
+   die Nutzung erlaubt ist, Anleitung im HTML-Kommentar bei der Sektion.
    ======================================================================== */
 .logo-band{background:var(--white);border-bottom:1px solid var(--line-soft);padding:34px 0 26px}
 .band-label{
@@ -569,7 +569,7 @@ html.js .reveal.in{opacity:1;transform:none}
 /* Vorschau: Energieklassen-Skala */
 .rechner-vorschau{background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius);padding:22px 24px 26px}
 .rechner-vorschau svg{width:100%;height:auto}
-/* Haus oben, darunter die Skala – durch eine feine Linie getrennt */
+/* Haus oben, darunter die Skala, durch eine feine Linie getrennt */
 .vorschau-haus{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
 .rechner-vorschau figcaption{margin-top:14px;font-size:.8125rem;color:var(--muted);text-align:center}
 
@@ -610,7 +610,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .stats-inner{position:relative;z-index:2}
 .stats h2{color:#FBF8F2;max-width:22ch;margin-bottom:14px}
 .stats-lead{font-size:1.02rem;color:rgba(244,239,230,.86);max-width:60ch;margin-bottom:40px}
-/* .55 ergab nur 3,85:1 auf dem dunklen Grün – zu wenig für WCAG AA */
+/* .55 ergab nur 3,85:1 auf dem dunklen Grün, zu wenig für WCAG AA */
 .stats-note{margin-top:34px;font-size:.78rem;color:rgba(244,239,230,.78)}
 
 /* ===========================================================================
@@ -871,7 +871,7 @@ html.js .reveal.in{opacity:1;transform:none}
 
 /* ===========================================================================
    14b. MOBILE AKTIONSLEISTE
-   Unter 760px blendet die Seite den Header-CTA aus – ohne diese Leiste gäbe es
+   Unter 760px blendet die Seite den Header-CTA aus, ohne diese Leiste gäbe es
    auf dem Handy gar keinen sichtbaren Kontaktweg mehr.
    ======================================================================== */
 .mobile-bar{
@@ -887,10 +887,10 @@ html.js .reveal.in{opacity:1;transform:none}
 .mobile-bar .btn svg{width:16px;height:16px}
 
 /* ===========================================================================
-   14c. FORMULAR – Validierung & Spamschutz
+   14c. FORMULAR, Validierung & Spamschutz
    ======================================================================== */
 /* Honigtopf: für Menschen unsichtbar, Bots füllen ihn aus.
-   Bewusst kein display:none – manche Bots ignorieren solche Felder. */
+   Bewusst kein display:none, manche Bots ignorieren solche Felder. */
 .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
 .field.invalid input,.field.invalid select,.field.invalid textarea{
@@ -972,10 +972,10 @@ html.js .reveal.in{opacity:1;transform:none}
    HEADER-STUFEN
    Der Header hat drei Dinge nebeneinander: Logo, Menü, Kontaktknöpfe. Zusammen
    brauchen sie in voller Größe rund 1.110 px. Statt sie umbrechen zu lassen,
-   wird in drei Stufen Platz gespart – zuletzt übernimmt das Burger-Menü.
+   wird in drei Stufen Platz gespart, zuletzt übernimmt das Burger-Menü.
 ------------------------------------------------------------------------- */
 
-/* Stufe 1: Die Telefonnummer weicht – sie steht weiterhin in der Kontaktsektion
+/* Stufe 1: Die Telefonnummer weicht. Sie steht weiterhin in der Kontaktsektion
    und auf dem Handy in der festen Leiste unten. */
 @media (max-width:1200px){
   .header-phone{display:none}
@@ -991,7 +991,7 @@ html.js .reveal.in{opacity:1;transform:none}
   .cta-kurz{display:inline}
 }
 
-/* Stufe 3: Jetzt reicht auch das nicht mehr – Burger-Menü und die feste
+/* Stufe 3: Jetzt reicht auch das nicht mehr, Burger-Menü und die feste
    Aktionsleiste unten übernehmen. */
 @media (max-width:880px){
   body{padding-bottom:78px} /* Platz für die fixe Aktionsleiste */
@@ -1121,7 +1121,7 @@ main .cta-band{margin-bottom:50px}
 <header class="site-header" id="header">
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
-      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau, Beraten. Planen. Fördern.">
     </a>
 
     <nav class="nav" aria-label="Hauptnavigation">
@@ -1233,7 +1233,7 @@ main .cta-band{margin-bottom:50px}
           "name": "Lohnt sich eine Fassadendämmung?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Am ehesten dann, wenn die Fassade ohnehin erneuert werden muss – dann fallen Gerüst und Putz sowieso an und nur die Differenz zählt. Als reine Energiemaßnahme amortisiert sie sich bei einem Einfamilienhaus meist langsamer als Dach-, Geschossdecken- oder Kellerdeckendämmung."
+            "text": "Am ehesten dann, wenn die Fassade ohnehin erneuert werden muss. Dann fallen Gerüst und Putz sowieso an und nur die Differenz zählt. Als reine Energiemaßnahme amortisiert sie sich bei einem Einfamilienhaus meist langsamer als Dach-, Geschossdecken- oder Kellerdeckendämmung."
           }
         },
         {
@@ -1241,7 +1241,7 @@ main .cta-band{margin-bottom:50px}
           "name": "Kann man eine Fassade ohne Gerüst dämmen?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Bei zweischaligem Mauerwerk ja: Die Kerndämmung wird über Bohrlöcher in die Hohlschicht eingeblasen, meist an einem Tag und ohne Gerüst. Voraussetzung ist eine ausreichend breite, trockene und zusammenhängende Hohlschicht – das prüft eine Kamerauntersuchung vorab."
+            "text": "Bei zweischaligem Mauerwerk ja: Die Kerndämmung wird über Bohrlöcher in die Hohlschicht eingeblasen, meist an einem Tag und ohne Gerüst. Voraussetzung ist eine ausreichend breite, trockene und zusammenhängende Hohlschicht. Das prüft eine Kamerauntersuchung vorab."
           }
         }
       ]
@@ -1263,7 +1263,7 @@ main .cta-band{margin-bottom:50px}
     <header class="wrap rg-kopf">
       <span class="eyebrow">Dämmung</span>
       <h1>Fassade dämmen: Kosten und Verfahren</h1>
-      <p class="lead">Die teuerste Einzelmaßnahme an der Gebäudehülle – und die, bei der der Zeitpunkt über die Wirtschaftlichkeit entscheidet. Zahlen, Verfahren, Fallstricke.</p>
+      <p class="lead">Die teuerste Einzelmaßnahme an der Gebäudehülle, und die, bei der der Zeitpunkt über die Wirtschaftlichkeit entscheidet. Zahlen, Verfahren, Fallstricke.</p>
       <div class="rg-meta">
         <span>Lesezeit ca. 7 Minuten</span>
         <span>Stand: August 2026</span>
@@ -1282,7 +1282,7 @@ main .cta-band{margin-bottom:50px}
 <p>
         Die Außenwand ist meist die größte zusammenhängende Fläche eines Hauses und je
         nach Baujahr für 20 bis 30 Prozent des Wärmeverlusts verantwortlich. Sie ist
-        damit ein naheliegendes Ziel – und zugleich die Maßnahme, bei der am meisten
+        damit ein naheliegendes Ziel, und zugleich die Maßnahme, bei der am meisten
         Geld falsch eingesetzt wird. Nicht weil Dämmung nicht wirkt, sondern weil der
         Zeitpunkt selten stimmt.
       </p>
@@ -1326,7 +1326,7 @@ main .cta-band{margin-bottom:50px}
         Der Unterschied zwischen Zeile eins und Zeile zwei ist der wichtigste Satz
         dieses Beitrags: <strong>Wenn Ihr Haus eine Hohlschicht hat, kostet die Dämmung
         einen Bruchteil.</strong> Zweischaliges Mauerwerk war vor allem im Norden
-        verbreitet, kommt aber auch hier vor – erkennbar an der Mauerwerksdicke an
+        verbreitet, kommt aber auch hier vor, erkennbar an der Mauerwerksdicke an
         Fenster- und Türlaibungen. Eine Kamerauntersuchung durch eine kleine Bohrung
         klärt es zweifelsfrei.
       </p>
@@ -1338,7 +1338,7 @@ main .cta-band{margin-bottom:50px}
         stecken vier Posten, die den Preis auseinandertreiben:
       </p>
       <ul>
-        <li><strong>Gerüst.</strong> Fällt unabhängig von der Dämmstärke an – deshalb
+        <li><strong>Gerüst.</strong> Fällt unabhängig von der Dämmstärke an, deshalb
         ist die Kombination mit Fenstertausch oder Dachüberstand so viel günstiger als
         zwei getrennte Baustellen.</li>
         <li><strong>Anschlussdetails.</strong> Fensterlaibungen, Rollladenkästen,
@@ -1351,8 +1351,8 @@ main .cta-band{margin-bottom:50px}
       </ul>
       <p>
         Welche Dämmstärke Ihre Wand für einen bestimmten U-Wert braucht, rechnet der
-        <a href="u-wert-rechner.html">U-Wert-Rechner</a> Schicht für Schicht aus –
-        auch für den Fall, dass nur Innendämmung möglich ist.
+        <a href="u-wert-rechner.html">U-Wert-Rechner</a> Schicht für Schicht aus.
+        Auch für den Fall, dass nur Innendämmung möglich ist.
         Was das an Ihrem Haus bedeutet, hängt an der tatsächlichen Wandfläche und dem
         heutigen Zustand. Der <a href="sanierungsrechner.html">Sanierungsrechner</a>
         rechnet die Einsparung gegen diese Spanne und zeigt, wie viel die Maßnahme bei
@@ -1361,7 +1361,7 @@ main .cta-band{margin-bottom:50px}
 
       <h2>Wann sich die Fassade zuerst lohnt</h2>
       <p>
-        In der Reihenfolge der Maßnahmen steht die Außenwand selten ganz vorn – oberste
+        In der Reihenfolge der Maßnahmen steht die Außenwand selten ganz vorn, oberste
         Geschossdecke und Kellerdecke sind pro eingesetztem Euro fast immer wirksamer.
         Es gibt aber klare Ausnahmen:
       </p>
@@ -1373,7 +1373,7 @@ main .cta-band{margin-bottom:50px}
         1950er bis 1970er Jahre verliert so viel Wärme, dass sich die Maßnahme auch
         einzeln trägt.</li>
         <li><strong>Eine Wärmepumpe ist geplant.</strong> Die gedämmte Wand senkt die
-        nötige Vorlauftemperatur – die Anlage fällt kleiner aus und läuft effizienter.
+        nötige Vorlauftemperatur. Die Anlage fällt kleiner aus und läuft effizienter.
         Näheres im Beitrag
         <a href="ratgeber-waermepumpe-altbau.html">Wärmepumpe im Altbau</a>.</li>
       </ol>
@@ -1393,7 +1393,7 @@ main .cta-band{margin-bottom:50px}
         steht, kosten diese Arbeiten nur noch einen Bruchteil:
       </p>
       <ul>
-        <li>Fenstertausch samt Einbau in die Dämmebene – wärmebrückenfrei geht das
+        <li>Fenstertausch samt Einbau in die Dämmebene. Wärmebrückenfrei geht das
         später nicht mehr.</li>
         <li>Rollladenkästen dämmen oder ersetzen.</li>
         <li>Dachüberstand und Ortgang anpassen.</li>
@@ -1409,14 +1409,14 @@ main .cta-band{margin-bottom:50px}
         Der verbreitetste Einwand gegen Dämmung ist auch der am leichtesten zu
         entkräftende. Eine Wand tauscht praktisch keine Luft aus; der Luftwechsel läuft
         über Fenster und Undichtigkeiten. Was sich ändert, ist die Temperatur der
-        Innenoberfläche – und die wird durch Dämmung <strong>höher</strong>. Warme
+        Innenoberfläche, und die wird durch Dämmung <strong>höher</strong>. Warme
         Oberflächen sind der beste Schutz gegen Schimmel, nicht sein Auslöser.
       </p>
       <p>
         Ein reales Risiko gibt es trotzdem: Wenn gleichzeitig die Fenster getauscht
         werden, verschwinden die alten Undichtigkeiten, über die bisher unbemerkt
         gelüftet wurde. Die Feuchte sucht sich dann die kälteste verbliebene Stelle. Die
-        Antwort darauf ist bewusstes Lüften oder eine Lüftungsanlage – nicht der
+        Antwort darauf ist bewusstes Lüften oder eine Lüftungsanlage, nicht der
         Verzicht auf die Dämmung.
       </p>
       <p>
@@ -1430,9 +1430,9 @@ main .cta-band{margin-bottom:50px}
       <h3>Was kostet es, eine Fassade zu dämmen?</h3>
       <p>Ein Wärmedämmverbundsystem kostet einschließlich Gerüst und Putz überschlägig 130 bis 250 € je Quadratmeter Wandfläche; bei einem Einfamilienhaus sind das grob 20.000 bis 37.000 €. Hat die Wand eine Hohlschicht, ist eine Einblasdämmung für etwa 25 bis 60 € je Quadratmeter möglich.</p>
       <h3>Lohnt sich eine Fassadendämmung?</h3>
-      <p>Am ehesten dann, wenn die Fassade ohnehin erneuert werden muss – dann fallen Gerüst und Putz sowieso an und nur die Differenz zählt. Als reine Energiemaßnahme amortisiert sie sich bei einem Einfamilienhaus meist langsamer als Dach-, Geschossdecken- oder Kellerdeckendämmung.</p>
+      <p>Am ehesten dann, wenn die Fassade ohnehin erneuert werden muss. Dann fallen Gerüst und Putz sowieso an und nur die Differenz zählt. Als reine Energiemaßnahme amortisiert sie sich bei einem Einfamilienhaus meist langsamer als Dach-, Geschossdecken- oder Kellerdeckendämmung.</p>
       <h3>Kann man eine Fassade ohne Gerüst dämmen?</h3>
-      <p>Bei zweischaligem Mauerwerk ja: Die Kerndämmung wird über Bohrlöcher in die Hohlschicht eingeblasen, meist an einem Tag und ohne Gerüst. Voraussetzung ist eine ausreichend breite, trockene und zusammenhängende Hohlschicht – das prüft eine Kamerauntersuchung vorab.</p>
+      <p>Bei zweischaligem Mauerwerk ja: Die Kerndämmung wird über Bohrlöcher in die Hohlschicht eingeblasen, meist an einem Tag und ohne Gerüst. Voraussetzung ist eine ausreichend breite, trockene und zusammenhängende Hohlschicht. Das prüft eine Kamerauntersuchung vorab.</p>
 
         <p class="rg-hinweis">
           Dieser Beitrag gibt einen allgemeinen Überblick und ersetzt keine
@@ -1444,7 +1444,7 @@ main .cta-band{margin-bottom:50px}
     <div class="rg-karte">
       <h3>Erst rechnen, dann sanieren</h3>
       <p>Der Sanierungsrechner zeigt in wenigen Minuten, welche Maßnahme sich bei
-         Ihrem Haus zuerst lohnt – kostenlos und ohne Anmeldung.</p>
+         Ihrem Haus zuerst lohnt, kostenlos und ohne Anmeldung.</p>
       <a href="sanierungsrechner.html" class="btn btn-amber btn-sm">Zum Sanierungsrechner</a>
     </div>
     <div class="rg-karte rg-karte-kontakt">
@@ -1488,7 +1488,7 @@ main .cta-band{margin-bottom:50px}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau, Beraten. Planen. Fördern.">
     </a>
         <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision, mit Blick auf das, was sich rechnet.</p>
         <a href="index.html#kontakt" class="btn btn-amber btn-sm">Gratis Erstgespräch</a>

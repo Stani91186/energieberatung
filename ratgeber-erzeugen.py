@@ -240,7 +240,7 @@ def kopf(titel, beschreibung, datei, aktiv_ratgeber=True, bild=None):
     return f"""<!DOCTYPE html>
 <!--
   ============================================================================
-  RATGEBER – ERZEUGT, NICHT VON HAND BEARBEITEN!
+  RATGEBER, ERZEUGT, NICHT VON HAND BEARBEITEN!
   Änderungen in ratgeber-erzeugen.py vornehmen und das Skript erneut laufen
   lassen, sonst sind sie beim nächsten Durchlauf wieder weg.
   ============================================================================
@@ -350,7 +350,7 @@ ARTIKEL = [
  "seitentitel": "Was kostet eine Energieberatung? Preise und Förderung",
  "beschreibung": "Was eine Energieberatung für ein Einfamilienhaus kostet, wie viel die "
                  "BAFA davon übernimmt und woran Sie ein unseriöses Angebot erkennen.",
- "anriss": "Die häufigste Frage im ersten Telefonat – und die, auf die viele Anbieter "
+ "anriss": "Die häufigste Frage im ersten Telefonat, und die, auf die viele Anbieter "
            "keine klare Antwort geben. Hier stehen die Zahlen, bevor Sie anrufen.",
  "dauer": "6 Minuten",
  "inhalt": """
@@ -358,14 +358,14 @@ ARTIKEL = [
         Wer nach den Kosten einer Energieberatung sucht, findet meist Spannen von
         „500 bis 2.500 €“ und danach ein Kontaktformular. Das hilft niemandem bei der
         Entscheidung. Für ein normales Ein- oder Zweifamilienhaus lässt sich der Preis
-        vor dem ersten Termin benennen – und genau so handhaben wir es.
+        vor dem ersten Termin benennen, und genau so handhaben wir es.
       </p>
 
       <div class="rg-kasten">
         <b>Das Wichtigste in einem Satz</b>
         Ein individueller Sanierungsfahrplan kostet bei uns ab {{PREIS_ISFP}} €
         inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 Prozent, höchstens
-        {{PREIS_FOERDER}} € – Ihr Eigenanteil liegt damit ab {{PREIS_EIGEN}} €, sofern
+        {{PREIS_FOERDER}} €. Ihr Eigenanteil liegt damit ab {{PREIS_EIGEN}} €, sofern
         der Zuschuss bewilligt wird.
       </div>
 
@@ -430,7 +430,7 @@ ARTIKEL = [
         das Honorar:
       </p>
       <ul>
-        <li><strong>Honorar ab {{PREIS_ISFP}} €</strong> inklusive Umsatzsteuer – ein
+        <li><strong>Honorar ab {{PREIS_ISFP}} €</strong> inklusive Umsatzsteuer, ein
         Festpreis, den Sie vor der Beauftragung schriftlich bekommen.</li>
         <li><strong>Abzüglich bis zu {{PREIS_FOERDER}} € Zuschuss</strong> vom BAFA:
         50 Prozent der förderfähigen Kosten, gedeckelt auf diesen Betrag.</li>
@@ -439,7 +439,7 @@ ARTIKEL = [
       </ul>
       <p>
         Den Antrag bereiten wir vor; gestellt wird er von Ihnen als Eigentümer. Das ist
-        keine Schikane, sondern Vorgabe des Förderprogramms – Antragsteller und
+        keine Schikane, sondern Vorgabe des Förderprogramms, Antragsteller und
         Zuschussempfänger müssen dieselbe Person sein.
       </p>
 
@@ -467,7 +467,7 @@ ARTIKEL = [
         Wir liegen damit am unteren Rand der marktüblichen Spanne. Das hat einen
         einfachen Grund und keinen Haken: Ein Einzelbüro ohne Vertrieb, ohne
         Franchise-Gebühr und ohne Provisionen hat eine andere Kostenstruktur als eine
-        bundesweite Plattform. Wo Ihr Gebäude mehr Aufwand macht – viele Wohneinheiten,
+        bundesweite Plattform. Wo Ihr Gebäude mehr Aufwand macht, viele Wohneinheiten,
         fehlende Unterlagen, Denkmalschutz –, sagen wir das vorher und nennen einen
         entsprechend höheren Festpreis.
       </p>
@@ -475,7 +475,7 @@ ARTIKEL = [
       <div class="rg-warnung">
         <b>Reihenfolge beachten:</b> Der Förderantrag muss gestellt sein, bevor der
         Beratungsvertrag geschlossen wird. Das ist derselbe Fehler, der später bei
-        Handwerkeraufträgen die meisten Zuschüsse kostet – nur eine Stufe früher.
+        Handwerkeraufträgen die meisten Zuschüsse kostet, nur eine Stufe früher.
       </div>
 
       <h2>Warum es keinen Pauschalpreis für jedes Haus gibt</h2>
@@ -508,7 +508,7 @@ ARTIKEL = [
         <li><strong>Der iSFP-Bonus.</strong> Wer den Fahrplan hat, bekommt für jede
         spätere Maßnahme an der Gebäudehülle 5 Prozentpunkte mehr Förderung, und die
         förderfähigen Kosten verdoppeln sich. Bei einer Fassadendämmung über 40.000 €
-        sind das rund 2.000 € zusätzlich – mehr, als der Fahrplan gekostet hat.</li>
+        sind das rund 2.000 € zusätzlich. Mehr, als der Fahrplan gekostet hat.</li>
         <li><strong>Die Reihenfolge.</strong> Wer die Heizung vor der Dämmung erneuert,
         kauft in aller Regel eine zu große Anlage. Die Differenz liegt oft im
         vierstelligen Bereich, und sie fällt bei jedem Betriebsjahr erneut an.</li>
@@ -526,7 +526,7 @@ ARTIKEL = [
       <h2>Vorsicht bei „kostenloser Energieberatung“</h2>
       <p>
         Beratung ist Arbeitszeit. Wenn sie nichts kostet, wird sie an anderer Stelle
-        bezahlt – meistens durch das Produkt, das am Ende empfohlen wird. Drei Fragen
+        bezahlt. Meistens durch das Produkt, das am Ende empfohlen wird. Drei Fragen
         klären das schnell:
       </p>
       <ul>
@@ -539,7 +539,7 @@ ARTIKEL = [
         kommt?</li>
       </ul>
       <p>
-        Kostenlos ist bei uns das Erstgespräch – weil es kurz ist und weil es beiden
+        Kostenlos ist bei uns das Erstgespräch. Weil es kurz ist und weil es beiden
         Seiten die Fehlbeauftragung erspart. Alles, was danach kommt, hat einen Preis,
         den Sie vorher kennen. Die Konditionen im Überblick stehen unter
         <a href="index.html#preise">Preise</a>, die Leistungsbeschreibung auf der Seite
@@ -562,7 +562,7 @@ ARTIKEL = [
    ("Lohnt sich eine Energieberatung bei einem kleinen Haus?",
     "Häufig gerade dann. Je kleiner das Budget, desto teurer ist eine falsch gewählte "
     "erste Maßnahme. Ob sich der Aufwand bei Ihrem Gebäude rechnet, lässt sich im "
-    "kostenlosen Erstgespräch in etwa 20 Minuten klären – wenn nicht, sagen wir das."),
+    "kostenlosen Erstgespräch in etwa 20 Minuten klären. Wenn nicht, sagen wir das."),
  ],
 },
 {
@@ -584,7 +584,7 @@ ARTIKEL = [
  "beschreibung": "Muss die alte Öl- oder Gasheizung raus? Was seit dem "
                  "Gebäudemodernisierungsgesetz gilt, was ab 2029 dazukommt und wann "
                  "Sie nichts tun müssen.",
- "anriss": "Die verbreitetste Sorge unter Eigentümern – und seit Juli 2026 noch "
+ "anriss": "Die verbreitetste Sorge unter Eigentümern, und seit Juli 2026 noch "
            "seltener begründet. Was das neue Gesetz verlangt, was weggefallen ist und "
            "wann ein Austausch trotzdem sinnvoll ist.",
  "dauer": "7 Minuten",
@@ -592,7 +592,7 @@ ARTIKEL = [
       <p>
         Kaum ein Thema verunsichert Eigentümer so sehr. Die Kurzfassung vorweg:
         <strong>Eine funktionierende Heizung dürfen Sie weiter betreiben und
-        reparieren.</strong> Niemand kommt und lässt sie ausbauen – seit dem
+        reparieren.</strong> Niemand kommt und lässt sie ausbauen, seit dem
         29. Juli 2026 auch dann nicht, wenn der Kessel älter als 30 Jahre ist.
       </p>
 
@@ -639,12 +639,12 @@ ARTIKEL = [
         Räumen innerhalb von zwei Jahren nach dem Eigentümerwechsel gedämmt
         werden.</li>
         <li><strong>Die Heizung fällt endgültig aus.</strong> Welche Technik Sie dann
-        wählen, schreibt das Gesetz nicht mehr vor – eine neue Gas- oder Ölheizung
+        wählen, schreibt das Gesetz nicht mehr vor, eine neue Gas- oder Ölheizung
         fällt aber unter Punkt 1.</li>
       </ol>
       <p>
         Wer sein Ein- oder Zweifamilienhaus schon seit Februar 2002 selbst bewohnt,
-        ist von der Nachrüstpflicht für die Leitungen ausgenommen – sie trifft erst
+        ist von der Nachrüstpflicht für die Leitungen ausgenommen. Sie trifft erst
         den nächsten Eigentümer. Genau deshalb lohnt der Blick auf den Einzelfall
         statt auf die Schlagzeile.
       </p>
@@ -662,7 +662,7 @@ ARTIKEL = [
       <p>
         In der Praxis ist nicht das Gesetz der Grund für einen Austausch, sondern die
         Rechnung. Ein 25 Jahre alter Standardkessel arbeitet mit einem Wirkungsgrad,
-        der deutlich unter dem heute Möglichen liegt. Das kostet jedes Jahr Geld –
+        der deutlich unter dem heute Möglichen liegt. Das kostet jedes Jahr Geld,
         unabhängig davon, ob jemand den Austausch verlangt.
       </p>
       <p>
@@ -674,13 +674,13 @@ ARTIKEL = [
         sanieren?</a>
       </p>
 
-      <h2>Was der Austausch kostet – und was davon zurückkommt</h2>
+      <h2>Was der Austausch kostet, und was davon zurückkommt</h2>
       <p>
         Für eine Luft-Wasser-Wärmepumpe im Bestand sind je nach Gebäude und Aufwand
         etwa 17.000 bis 34.000 Euro realistisch, inklusive Speicher, Anpassung der
         Heizflächen und Inbetriebnahme. Den Unterschied macht vor allem die
         benötigte Leistung: Ein gut gedämmtes Haus kommt mit einer kleineren und
-        spürbar günstigeren Anlage aus – noch ein Grund, die Hülle zuerst
+        spürbar günstigeren Anlage aus, noch ein Grund, die Hülle zuerst
         anzugehen. Davon geht die Förderung ab.
       </p>
       <div class="rg-tabelle">
@@ -696,8 +696,8 @@ ARTIKEL = [
       </div>
       <p>
         Die Boni sind kombinierbar, der Gesamtsatz ist aber nach oben gedeckelt, und
-        auch die förderfähigen Kosten sind begrenzt. Im Regelfall – Austausch einer
-        alten Öl- oder Gasheizung im selbst bewohnten Haus – landet man bei rund
+        auch die förderfähigen Kosten sind begrenzt. Im Regelfall, Austausch einer
+        alten Öl- oder Gasheizung im selbst bewohnten Haus, landet man bei rund
         50 %. Rechnen Sie Ihren Fall im
         <a href="sanierungsrechner.html">Sanierungsrechner</a> durch, dort sind die
         aktuellen Sätze und Deckel hinterlegt.
@@ -707,7 +707,7 @@ ARTIKEL = [
       <ul>
         <li>Keine Panikentscheidung, solange die Anlage läuft</li>
         <li>Bei einer neuen Gas- oder Ölheizung den Pflichtanteil ab 2029 von Anfang an in die Kostenrechnung aufnehmen</li>
-        <li>Vor dem Heizungstausch die Gebäudehülle prüfen – sonst wird die neue Anlage zu groß</li>
+        <li>Vor dem Heizungstausch die Gebäudehülle prüfen. Sonst wird die neue Anlage zu groß</li>
         <li>Den Förderantrag stellen, <strong>bevor</strong> der Handwerkerauftrag vergeben wird</li>
         <li>Bei sehr alten Kesseln das Ausfallrisiko einkalkulieren: Wer erst im Januar sucht, entscheidet unter Druck und zahlt drauf</li>
       </ul>
@@ -746,7 +746,7 @@ ARTIKEL = [
  "beschreibung": "Braucht eine Wärmepumpe Fußbodenheizung und gedämmte Wände? Der "
                  "Praxistest, den Sie in einer Heizperiode selbst machen können.",
  "anriss": "„Im Altbau geht das nicht“ ist genauso falsch wie „geht überall“. "
-           "Es hängt an einer einzigen Zahl – und die können Sie an Ihrer eigenen "
+           "Es hängt an einer einzigen Zahl, und die können Sie an Ihrer eigenen "
            "Heizung ablesen.",
  "dauer": "7 Minuten",
  "inhalt": """
@@ -754,7 +754,7 @@ ARTIKEL = [
         Zu kaum einer Frage kursieren so viele pauschale Antworten. Die einen sagen,
         eine Wärmepumpe brauche zwingend Fußbodenheizung und gedämmte Wände. Die
         anderen behaupten, sie laufe in jedem Gebäude. Beides ist falsch. Ob es
-        funktioniert, entscheidet <strong>eine</strong> Größe – und die lässt sich in
+        funktioniert, entscheidet <strong>eine</strong> Größe, und die lässt sich in
         Ihrem Haus messen, statt sie zu vermuten.
       </p>
 
@@ -762,7 +762,7 @@ ARTIKEL = [
         <b>Das Wichtigste in einem Satz</b>
         Nicht das Baujahr entscheidet, sondern die Vorlauftemperatur: Kommt Ihr Haus am
         kältesten Tag mit etwa 50 bis 55 Grad aus, ist eine Wärmepumpe technisch
-        unproblematisch – ganz gleich, ob 1968 oder 2008 gebaut.
+        unproblematisch, ganz gleich, ob 1968 oder 2008 gebaut.
       </div>
 
       <h2>Die eine Zahl, auf die es ankommt</h2>
@@ -776,7 +776,7 @@ ARTIKEL = [
         Zwischen 55 und 35 Grad liegen damit rund 50 Prozent Unterschied im
         Stromverbrauch. Das ist der ganze Grund, warum bei Wärmepumpen ständig von
         Fußbodenheizung die Rede ist: Sie arbeitet mit niedriger Temperatur. Sie ist
-        aber nur ein Weg dorthin – nicht der einzige.
+        aber nur ein Weg dorthin, nicht der einzige.
       </p>
 
       <h2>Der Test, den Sie selbst machen können</h2>
@@ -785,7 +785,7 @@ ARTIKEL = [
         und etwas Geduld:
       </p>
       <ol>
-        <li>Warten Sie eine Frostperiode ab – idealerweise unter minus fünf Grad.</li>
+        <li>Warten Sie eine Frostperiode ab, idealerweise unter minus fünf Grad.</li>
         <li>Stellen Sie die Heizkurve Ihres Kessels so ein, dass die Vorlauftemperatur
         <strong>55 Grad nicht überschreitet</strong>. Die Einstellung finden Sie am
         Regler der Heizung; ein Heizungsbauer macht das in fünf Minuten.</li>
@@ -794,14 +794,14 @@ ARTIKEL = [
       </ol>
       <p>
         Wird es überall behaglich, kann eine Wärmepumpe Ihr Haus heizen. Bleibt genau
-        ein Raum kühl, ist meist dieser eine Heizkörper zu klein – ein Austausch kostet
+        ein Raum kühl, ist meist dieser eine Heizkörper zu klein. Ein Austausch kostet
         einige Hundert Euro und nicht die Sanierung des ganzen Hauses. Bleiben mehrere
         Räume kalt, sollten Dämmung und Heizflächen vor der Heizung an die Reihe kommen.
       </p>
 
       <div class="rg-warnung">
         <b>Wichtig:</b> Der Test taugt nur bei echter Kälte. Bei zehn Grad
-        Außentemperatur schafft praktisch jedes Haus niedrige Vorlauftemperaturen – das
+        Außentemperatur schafft praktisch jedes Haus niedrige Vorlauftemperaturen, das
         beweist nichts über den Januar.
       </div>
 
@@ -813,7 +813,7 @@ ARTIKEL = [
       </p>
       <ul>
         <li><strong>Alte Gussheizkörper sind oft ein Vorteil.</strong> Sie wurden großzügig
-        ausgelegt und haben viel Oberfläche – genau das, was eine niedrige
+        ausgelegt und haben viel Oberfläche, genau das, was eine niedrige
         Vorlauftemperatur braucht.</li>
         <li><strong>Ein größerer Heizkörper im kritischen Raum</strong> kostet einige
         Hundert Euro. Eine Fassadendämmung, die dieselbe Absenkung bringt, kostet ein
@@ -824,7 +824,7 @@ ARTIKEL = [
       </ul>
       <p>
         Beim Einbau einer Wärmepumpe liefert der Heizungsbetrieb den hydraulischen
-        Abgleich in aller Regel mit – er ist Voraussetzung für die Förderung. Als
+        Abgleich in aller Regel mit. Er ist Voraussetzung für die Förderung. Als
         <a href="hydraulischer-abgleich-ulm.html">eigene Maßnahme</a> lohnt er sich
         vorher trotzdem, weil er sofort wirkt und die spätere Anlage kleiner ausfallen
         lässt.
@@ -856,29 +856,29 @@ ARTIKEL = [
         eigenen Verbrauchswerten gegenüber. Welche Zuschüsse es für den Heizungstausch
         gibt, steht im Beitrag
         <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a> und im
-        <a href="index.html#foerderung">Förderabschnitt</a> – dort gepflegt, damit es
+        <a href="index.html#foerderung">Förderabschnitt</a>, dort gepflegt, damit es
         nicht an drei Stellen unterschiedlich steht.
       </p>
 
       <h2>Wann eine Wärmepumpe die falsche Antwort ist</h2>
       <p>
-        Es gibt Häuser, bei denen wir davon abraten – zumindest vorerst:
+        Es gibt Häuser, bei denen wir davon abraten, zumindest vorerst:
       </p>
       <ul>
         <li><strong>Ungedämmtes Mauerwerk mit kleinen Heizkörpern</strong>, das im Test
         selbst bei 65 Grad nicht warm wird. Hier zuerst die Hülle.</li>
         <li><strong>Sehr hohe Warmwasseranforderung</strong> bei gleichzeitig schlechter
-        Gebäudehülle – die Anlage läuft dann dauerhaft im ungünstigen Bereich.</li>
+        Gebäudehülle, die Anlage läuft dann dauerhaft im ungünstigen Bereich.</li>
         <li><strong>Kein Platz für das Außengerät</strong> in ausreichendem Abstand zum
         Nachbarn. Der Schallschutz ist im Reihenhausgebiet ein echtes Thema, kein
         Nebenaspekt.</li>
         <li><strong>Anstehende Fassadensanierung.</strong> Wer ohnehin in zwei Jahren
-        dämmt, sollte die Wärmepumpe danach auslegen – sonst kauft er sie eine Nummer
+        dämmt, sollte die Wärmepumpe danach auslegen, sonst kauft er sie eine Nummer
         zu groß und zahlt das zwanzig Jahre lang mit.</li>
       </ul>
       <p>
         Der letzte Punkt ist der häufigste. Deshalb steht in unseren Fahrplänen die
-        Reihenfolge vor der Technik – warum, steht im Beitrag
+        Reihenfolge vor der Technik. Warum, steht im Beitrag
         <a href="ratgeber-reihenfolge-sanierung.html">In welcher Reihenfolge
         sanieren?</a>.
       </p>
@@ -893,7 +893,7 @@ ARTIKEL = [
    ("Braucht eine Wärmepumpe zwingend eine Fußbodenheizung?",
     "Nein. Die Fußbodenheizung ist nur ein Weg zu niedriger Vorlauftemperatur. "
     "Ausreichend große Heizkörper und ein hydraulischer Abgleich erreichen häufig "
-    "dasselbe – zu deutlich geringeren Kosten als eine Fußbodenheizung im Bestand."),
+    "dasselbe, zu deutlich geringeren Kosten als eine Fußbodenheizung im Bestand."),
    ("Muss ich vor der Wärmepumpe erst dämmen?",
     "Nicht grundsätzlich. Nötig ist es dann, wenn das Haus die Räume bei abgesenkter "
     "Vorlauftemperatur nicht mehr warm bekommt. Sinnvoll ist die Reihenfolge außerdem, "
@@ -910,14 +910,14 @@ ARTIKEL = [
  "titel": "In welcher Reihenfolge sanieren?",
  "seitentitel": "Sanierung: die richtige Reihenfolge spart fünfstellig",
  "beschreibung": "Dach, Fenster, Fassade oder Heizung zuerst? Warum die Reihenfolge über "
-                 "die Wirtschaftlichkeit entscheidet – und welche Regel fast immer gilt.",
+                 "die Wirtschaftlichkeit entscheidet, und welche Regel fast immer gilt.",
  "anriss": "Die falsche Reihenfolge kostet schnell fünfstellig und verbaut "
            "Fördermöglichkeiten. Die Regel dahinter ist einfacher, als die meisten "
            "denken.",
  "dauer": "6 Minuten",
  "inhalt": """
       <p>
-        Die häufigste Frage im Erstgespräch – und die, bei der am meisten Geld auf dem
+        Die häufigste Frage im Erstgespräch, und die, bei der am meisten Geld auf dem
         Spiel steht. Denn nicht die Auswahl der Maßnahmen entscheidet über die
         Wirtschaftlichkeit, sondern ihre Abfolge.
       </p>
@@ -931,7 +931,7 @@ ARTIKEL = [
 
       <h2>Warum die Heizung meist zuletzt kommt</h2>
       <p>
-        Eine Heizung wird auf die <strong>Heizlast</strong> ausgelegt – auf die
+        Eine Heizung wird auf die <strong>Heizlast</strong> ausgelegt, auf die
         Leistung, die das Gebäude am kältesten Tag braucht. Dämmen Sie danach Dach und
         Fassade, sinkt diese Last erheblich. Die Anlage ist dann zu groß, taktet
         häufiger, verschleißt schneller und arbeitet mit schlechterer
@@ -939,8 +939,8 @@ ARTIKEL = [
       </p>
       <p>
         Bei einer Wärmepumpe wiegt das doppelt: Sie lebt von niedrigen
-        Vorlauftemperaturen. Ein ungedämmtes Haus braucht hohe Vorlauftemperaturen –
-        genau die, bei denen eine Wärmepumpe ineffizient wird. Erst die Dämmung macht
+        Vorlauftemperaturen. Ein ungedämmtes Haus braucht hohe Vorlauftemperaturen.
+        Genau die, bei denen eine Wärmepumpe ineffizient wird. Erst die Dämmung macht
         sie wirtschaftlich.
       </p>
 
@@ -950,7 +950,7 @@ ARTIKEL = [
         Heizungspumpe, Rohrdämmung im Keller. Amortisation oft unter drei Jahren.</li>
         <li><strong>Oberste Geschossdecke und Kellerdecke:</strong> die günstigsten
         Dämmmaßnahmen überhaupt, häufig in Eigenleistung machbar.</li>
-        <li><strong>Dach:</strong> ohnehin fällig, wenn die Eindeckung erneuert wird –
+        <li><strong>Dach:</strong> ohnehin fällig, wenn die Eindeckung erneuert wird,
         dann die Dämmung gleich mitmachen.</li>
         <li><strong>Fassade:</strong> die größte Einzelfläche, entsprechend hoher
         Effekt, aber auch die teuerste Maßnahme.</li>
@@ -963,16 +963,16 @@ ARTIKEL = [
       <div class="rg-warnung">
         <b>Die wichtigste Ausnahme:</b> Wenn die Heizung ausfällt, können Sie nicht
         erst drei Jahre lang dämmen. Dann gilt: die Anlage bewusst auf den
-        <em>künftigen</em> Zustand auslegen, nicht auf den heutigen – und die
+        <em>künftigen</em> Zustand auslegen, nicht auf den heutigen, und die
         geplanten Dämmmaßnahmen in der Berechnung vorwegnehmen.
       </div>
 
-      <h2>Fenster ohne Dämmung – ein teurer Klassiker</h2>
+      <h2>Fenster ohne Dämmung, ein teurer Klassiker</h2>
       <p>
         Neue Fenster in eine ungedämmte Wand einzubauen, führt regelmäßig zu
         Problemen. Das Fenster ist danach das dichteste Bauteil im Haus, die Wand
         bleibt die kälteste Fläche. Feuchtigkeit, die vorher durch undichte Fenster
-        entwich, schlägt sich anschließend an der Wand nieder. Schimmel ist die Folge –
+        entwich, schlägt sich anschließend an der Wand nieder. Schimmel ist die Folge,
         nicht wegen der Fenster, sondern wegen der Reihenfolge.
       </p>
       <p>
@@ -991,7 +991,7 @@ ARTIKEL = [
       </p>
       <p>
         Einen ersten Eindruck bekommen Sie kostenlos im
-        <a href="sanierungsrechner.html">Sanierungsrechner</a> – er sortiert die
+        <a href="sanierungsrechner.html">Sanierungsrechner</a>, er sortiert die
         Maßnahmen nach Wirtschaftlichkeit und zeigt, was jede davon maximal kosten
         darf, damit sie sich noch rechnet.
       </p>
@@ -1016,8 +1016,8 @@ ARTIKEL = [
  "titel": "Förderung oder Steuerermäßigung?",
  "seitentitel": "Förderung oder §35c EStG: Was lohnt sich mehr?",
  "beschreibung": "Zuschuss beantragen oder Sanierungskosten absetzen? Beides zusammen geht "
-                 "nicht. Wie Sie den günstigeren Weg erkennen – mit Rechenbeispiel.",
- "anriss": "Zuschuss oder Steuerermäßigung – beides zusammen ist ausgeschlossen. Die "
+                 "nicht. Wie Sie den günstigeren Weg erkennen, mit Rechenbeispiel.",
+ "anriss": "Zuschuss oder Steuerermäßigung. Beides zusammen ist ausgeschlossen. Die "
            "Entscheidung fällt vor dem ersten Auftrag und lässt sich später nicht "
            "mehr korrigieren.",
  "dauer": "5 Minuten",
@@ -1025,8 +1025,8 @@ ARTIKEL = [
       <p>
         Für energetische Sanierungen am selbst genutzten Wohneigentum gibt es zwei
         Wege: den Zuschuss über BAFA und KfW oder die Steuerermäßigung nach §35c
-        Einkommensteuergesetz. <strong>Sie müssen sich für einen entscheiden</strong> –
-        eine Kombination für dieselbe Maßnahme ist ausgeschlossen.
+        Einkommensteuergesetz. <strong>Sie müssen sich für einen entscheiden</strong>.
+        Eine Kombination für dieselbe Maßnahme ist ausgeschlossen.
       </p>
 
       <div class="rg-warnung">
@@ -1055,7 +1055,7 @@ ARTIKEL = [
         weit über 20 % liegen. Hier ist der Zuschuss praktisch immer überlegen.</li>
         <li>Wenn ein <strong>Sanierungsfahrplan</strong> vorliegt: Er hebt den Satz für
         Hüllmaßnahmen und ist selbst förderfähig.</li>
-        <li>Wenn Sie das Geld <strong>zeitnah</strong> brauchen – der Zuschuss kommt
+        <li>Wenn Sie das Geld <strong>zeitnah</strong> brauchen. Der Zuschuss kommt
         nach Abschluss der Maßnahme, die Steuerermäßigung verteilt sich über drei
         Jahre.</li>
       </ul>
@@ -1065,7 +1065,7 @@ ARTIKEL = [
         <li>Bei <strong>hoher Steuerlast</strong> und Maßnahmen, die nur den
         Grundsatz von 15 % bekämen</li>
         <li>Wenn die <strong>technischen Mindestanforderungen</strong> der Förderung
-        nicht erreichbar sind – etwa weil der Denkmalschutz die nötige Dämmstärke
+        nicht erreichbar sind, etwa weil der Denkmalschutz die nötige Dämmstärke
         nicht zulässt</li>
         <li>Wenn der <strong>Antragszeitpunkt verpasst</strong> wurde: Dann ist die
         Steuerermäßigung oft das, was übrig bleibt</li>
@@ -1083,7 +1083,7 @@ ARTIKEL = [
       <p>
         Die Entscheidung wird oft erst getroffen, wenn die Handwerker schon da waren.
         Dann ist sie keine mehr. Wer den Zuschussweg offenhalten will, muss den Antrag
-        vor der Auftragsvergabe stellen – und dafür braucht es einen eingetragenen
+        vor der Auftragsvergabe stellen, und dafür braucht es einen eingetragenen
         Energie-Effizienz-Experten.
       </p>
       <p>
@@ -1121,7 +1121,7 @@ ARTIKEL = [
  "seitentitel": "Fassade dämmen: Kosten, Verfahren und Förderung",
  "beschreibung": "Was eine Fassadendämmung kostet, welche drei Verfahren es gibt und "
                  "wann sich die Außenwand zuerst lohnt und wann eben nicht.",
- "anriss": "Die teuerste Einzelmaßnahme an der Gebäudehülle – und die, bei der der "
+ "anriss": "Die teuerste Einzelmaßnahme an der Gebäudehülle, und die, bei der der "
            "Zeitpunkt über die Wirtschaftlichkeit entscheidet. Zahlen, Verfahren, "
            "Fallstricke.",
  "dauer": "7 Minuten",
@@ -1129,7 +1129,7 @@ ARTIKEL = [
       <p>
         Die Außenwand ist meist die größte zusammenhängende Fläche eines Hauses und je
         nach Baujahr für 20 bis 30 Prozent des Wärmeverlusts verantwortlich. Sie ist
-        damit ein naheliegendes Ziel – und zugleich die Maßnahme, bei der am meisten
+        damit ein naheliegendes Ziel, und zugleich die Maßnahme, bei der am meisten
         Geld falsch eingesetzt wird. Nicht weil Dämmung nicht wirkt, sondern weil der
         Zeitpunkt selten stimmt.
       </p>
@@ -1173,7 +1173,7 @@ ARTIKEL = [
         Der Unterschied zwischen Zeile eins und Zeile zwei ist der wichtigste Satz
         dieses Beitrags: <strong>Wenn Ihr Haus eine Hohlschicht hat, kostet die Dämmung
         einen Bruchteil.</strong> Zweischaliges Mauerwerk war vor allem im Norden
-        verbreitet, kommt aber auch hier vor – erkennbar an der Mauerwerksdicke an
+        verbreitet, kommt aber auch hier vor, erkennbar an der Mauerwerksdicke an
         Fenster- und Türlaibungen. Eine Kamerauntersuchung durch eine kleine Bohrung
         klärt es zweifelsfrei.
       </p>
@@ -1185,7 +1185,7 @@ ARTIKEL = [
         stecken vier Posten, die den Preis auseinandertreiben:
       </p>
       <ul>
-        <li><strong>Gerüst.</strong> Fällt unabhängig von der Dämmstärke an – deshalb
+        <li><strong>Gerüst.</strong> Fällt unabhängig von der Dämmstärke an, deshalb
         ist die Kombination mit Fenstertausch oder Dachüberstand so viel günstiger als
         zwei getrennte Baustellen.</li>
         <li><strong>Anschlussdetails.</strong> Fensterlaibungen, Rollladenkästen,
@@ -1198,8 +1198,8 @@ ARTIKEL = [
       </ul>
       <p>
         Welche Dämmstärke Ihre Wand für einen bestimmten U-Wert braucht, rechnet der
-        <a href="u-wert-rechner.html">U-Wert-Rechner</a> Schicht für Schicht aus –
-        auch für den Fall, dass nur Innendämmung möglich ist.
+        <a href="u-wert-rechner.html">U-Wert-Rechner</a> Schicht für Schicht aus.
+        Auch für den Fall, dass nur Innendämmung möglich ist.
         Was das an Ihrem Haus bedeutet, hängt an der tatsächlichen Wandfläche und dem
         heutigen Zustand. Der <a href="sanierungsrechner.html">Sanierungsrechner</a>
         rechnet die Einsparung gegen diese Spanne und zeigt, wie viel die Maßnahme bei
@@ -1208,7 +1208,7 @@ ARTIKEL = [
 
       <h2>Wann sich die Fassade zuerst lohnt</h2>
       <p>
-        In der Reihenfolge der Maßnahmen steht die Außenwand selten ganz vorn – oberste
+        In der Reihenfolge der Maßnahmen steht die Außenwand selten ganz vorn, oberste
         Geschossdecke und Kellerdecke sind pro eingesetztem Euro fast immer wirksamer.
         Es gibt aber klare Ausnahmen:
       </p>
@@ -1220,7 +1220,7 @@ ARTIKEL = [
         1950er bis 1970er Jahre verliert so viel Wärme, dass sich die Maßnahme auch
         einzeln trägt.</li>
         <li><strong>Eine Wärmepumpe ist geplant.</strong> Die gedämmte Wand senkt die
-        nötige Vorlauftemperatur – die Anlage fällt kleiner aus und läuft effizienter.
+        nötige Vorlauftemperatur. Die Anlage fällt kleiner aus und läuft effizienter.
         Näheres im Beitrag
         <a href="ratgeber-waermepumpe-altbau.html">Wärmepumpe im Altbau</a>.</li>
       </ol>
@@ -1240,7 +1240,7 @@ ARTIKEL = [
         steht, kosten diese Arbeiten nur noch einen Bruchteil:
       </p>
       <ul>
-        <li>Fenstertausch samt Einbau in die Dämmebene – wärmebrückenfrei geht das
+        <li>Fenstertausch samt Einbau in die Dämmebene. Wärmebrückenfrei geht das
         später nicht mehr.</li>
         <li>Rollladenkästen dämmen oder ersetzen.</li>
         <li>Dachüberstand und Ortgang anpassen.</li>
@@ -1256,14 +1256,14 @@ ARTIKEL = [
         Der verbreitetste Einwand gegen Dämmung ist auch der am leichtesten zu
         entkräftende. Eine Wand tauscht praktisch keine Luft aus; der Luftwechsel läuft
         über Fenster und Undichtigkeiten. Was sich ändert, ist die Temperatur der
-        Innenoberfläche – und die wird durch Dämmung <strong>höher</strong>. Warme
+        Innenoberfläche, und die wird durch Dämmung <strong>höher</strong>. Warme
         Oberflächen sind der beste Schutz gegen Schimmel, nicht sein Auslöser.
       </p>
       <p>
         Ein reales Risiko gibt es trotzdem: Wenn gleichzeitig die Fenster getauscht
         werden, verschwinden die alten Undichtigkeiten, über die bisher unbemerkt
         gelüftet wurde. Die Feuchte sucht sich dann die kälteste verbliebene Stelle. Die
-        Antwort darauf ist bewusstes Lüften oder eine Lüftungsanlage – nicht der
+        Antwort darauf ist bewusstes Lüften oder eine Lüftungsanlage, nicht der
         Verzicht auf die Dämmung.
       </p>
       <p>
@@ -1280,14 +1280,14 @@ ARTIKEL = [
     "20.000 bis 37.000 €. Hat die Wand eine Hohlschicht, ist eine Einblasdämmung für "
     "etwa 25 bis 60 € je Quadratmeter möglich."),
    ("Lohnt sich eine Fassadendämmung?",
-    "Am ehesten dann, wenn die Fassade ohnehin erneuert werden muss – dann fallen "
+    "Am ehesten dann, wenn die Fassade ohnehin erneuert werden muss. Dann fallen "
     "Gerüst und Putz sowieso an und nur die Differenz zählt. Als reine Energiemaßnahme "
     "amortisiert sie sich bei einem Einfamilienhaus meist langsamer als Dach-, "
     "Geschossdecken- oder Kellerdeckendämmung."),
    ("Kann man eine Fassade ohne Gerüst dämmen?",
     "Bei zweischaligem Mauerwerk ja: Die Kerndämmung wird über Bohrlöcher in die "
     "Hohlschicht eingeblasen, meist an einem Tag und ohne Gerüst. Voraussetzung ist "
-    "eine ausreichend breite, trockene und zusammenhängende Hohlschicht – das prüft "
+    "eine ausreichend breite, trockene und zusammenhängende Hohlschicht. Das prüft "
     "eine Kamerauntersuchung vorab."),
  ],
 },
@@ -1300,7 +1300,7 @@ ARTIKEL = [
  "titel": "Kellerdecke dämmen: der günstigste Einstieg",
  "seitentitel": "Kellerdecke dämmen: Kosten, Ablauf, Eigenleistung",
  "beschreibung": "Die günstigste Dämmmaßnahme überhaupt: Kosten, Amortisation und was Sie "
-                 "am Wochenende selbst machen können – mit Hinweis zur Förderung.",
+                 "am Wochenende selbst machen können, mit Hinweis zur Förderung.",
  "anriss": "Überschaubare Materialkosten, ein Wochenende Arbeit, spürbar wärmere Böden "
            "im Erdgeschoss. Warum diese Maßnahme fast immer der richtige erste Schritt "
            "ist.",
@@ -1323,7 +1323,7 @@ ARTIKEL = [
       <p>
         Je nach Dämmstoff und Stärke rechnet man mit etwa 20 bis 60 Euro pro
         Quadratmeter, wenn ein Betrieb beauftragt wird. In Eigenleistung bleibt davon
-        nur der Materialpreis übrig – bei einer typischen Kellerdecke von 80
+        nur der Materialpreis übrig, bei einer typischen Kellerdecke von 80
         Quadratmetern liegt der häufig im niedrigen vierstelligen Bereich.
       </p>
       <p>
@@ -1338,7 +1338,7 @@ ARTIKEL = [
         <li><strong>Höhe prüfen.</strong> Nach der Dämmung sinkt die lichte Höhe im
         Keller. Türen, Rohre und Kabeltrassen müssen weiterhin passen.</li>
         <li><strong>Untergrund prüfen.</strong> Die Decke muss trocken und tragfähig
-        sein. Feuchte Stellen zuerst klären – Dämmung auf feuchtem Untergrund macht
+        sein. Feuchte Stellen zuerst klären. Dämmung auf feuchtem Untergrund macht
         das Problem größer, nicht kleiner.</li>
         <li><strong>Dämmplatten ankleben oder dübeln.</strong> Bei glatter Betondecke
         ist das reine Fleißarbeit.</li>
@@ -1352,14 +1352,14 @@ ARTIKEL = [
         bestimmter U-Wert erreicht wird und die Ausführung bestätigt wird. Material in
         Eigenleistung ist grundsätzlich förderfähig, die fachliche Bestätigung braucht
         es trotzdem. Wer ohne Förderung arbeitet, ist an diese Vorgaben nicht gebunden
-        – dann zählt nur die Bauphysik.
+       . Dann zählt nur die Bauphysik.
       </div>
 
       <h2>Wo es Grenzen gibt</h2>
       <ul>
         <li><strong>Beheizter Keller:</strong> Dann ist die Kellerdecke keine
         Außenfläche und die Maßnahme bringt nichts. Die Wärmegrenze liegt in dem Fall
-        an der Bodenplatte – und die lässt sich nachträglich praktisch nicht
+        an der Bodenplatte, und die lässt sich nachträglich praktisch nicht
         dämmen.</li>
         <li><strong>Gewölbekeller:</strong> Bei alten, gemauerten Gewölben ist die
         Sache bauphysikalisch heikler. Hier vorher fragen.</li>
@@ -1378,7 +1378,7 @@ ARTIKEL = [
       </p>
       <p>
         Ob es bei Ihrem Haus passt und was es konkret bringt, zeigt der
-        <a href="sanierungsrechner.html">Sanierungsrechner</a> – Maßnahmen, die sich
+        <a href="sanierungsrechner.html">Sanierungsrechner</a>, Maßnahmen, die sich
         für Eigenleistung eignen, sind dort gekennzeichnet.
       </p>
  """,
@@ -1387,7 +1387,7 @@ ARTIKEL = [
     "Bei Vergabe an einen Betrieb etwa 20 bis 60 Euro pro Quadratmeter je nach "
     "Dämmstoff und Stärke. In Eigenleistung fallen nur die Materialkosten an."),
    ("Kann man die Kellerdecke selbst dämmen?",
-    "Bei einer glatten, trockenen Betondecke ja – die Platten werden geklebt oder "
+    "Bei einer glatten, trockenen Betondecke ja. Die Platten werden geklebt oder "
     "gedübelt. Wichtig sind die lichte Höhe, ein trockener Untergrund und saubere "
     "Anschlüsse an Rändern und Durchdringungen."),
  ],
@@ -1402,14 +1402,14 @@ ARTIKEL = [
  "seitentitel": "Energieausweis: Bedarf oder Verbrauch? Der Unterschied",
  "beschreibung": "Bedarfsausweis oder Verbrauchsausweis: Was der Unterschied bedeutet, "
                  "wann Sie wählen dürfen und wann Sie einen Ausweis brauchen.",
- "anriss": "Zwei Dokumente mit demselben Namen, die völlig Verschiedenes aussagen – "
+ "anriss": "Zwei Dokumente mit demselben Namen, die völlig Verschiedenes aussagen, "
            "und der billigere ist oft der, der Ihnen schadet.",
  "dauer": "6 Minuten",
  "inhalt": """
       <p>
         Beim Verkauf oder bei der Vermietung braucht es einen Energieausweis. Was viele
         erst beim Angebot merken: Es gibt ihn in zwei Varianten, sie kosten
-        unterschiedlich viel – und sie sagen nicht dasselbe aus. Der Unterschied ist
+        unterschiedlich viel, und sie sagen nicht dasselbe aus. Der Unterschied ist
         keine Formalie. Er entscheidet darüber, welche Zahl später in Ihrem Inserat
         steht.
       </p>
@@ -1417,7 +1417,7 @@ ARTIKEL = [
       <div class="rg-kasten">
         <b>Das Wichtigste in einem Satz</b>
         Der Verbrauchsausweis misst, wie die bisherigen Bewohner geheizt haben. Der
-        Bedarfsausweis berechnet, was das Gebäude selbst braucht – unabhängig davon,
+        Bedarfsausweis berechnet, was das Gebäude selbst braucht, unabhängig davon,
         wer darin wohnt.
       </div>
 
@@ -1433,13 +1433,13 @@ ARTIKEL = [
                 <td>Berechnung aus Bauteilen, Dämmung und Anlagentechnik</td></tr>
             <tr><td>Beeinflusst durch</td>
                 <td>Heizverhalten, Leerstand, milde Winter</td>
-                <td>nichts davon – gerechnet wird mit Normklima und Normnutzung</td></tr>
+                <td>nichts davon. Gerechnet wird mit Normklima und Normnutzung</td></tr>
             <tr><td>Aufwand</td>
                 <td>gering, meist ohne Ortstermin</td>
                 <td>Aufnahme des Gebäudes, deutlich aufwendiger</td></tr>
             <tr><td>Aussagekraft für Sanierung</td>
                 <td>gering</td>
-                <td>hoch – zeigt, wo die Verluste sitzen</td></tr>
+                <td>hoch. Zeigt, wo die Verluste sitzen</td></tr>
           </tbody>
         </table>
       </div>
@@ -1448,7 +1448,7 @@ ARTIKEL = [
         Pflicht. Nur beantworten sie eben verschiedene Fragen.
       </p>
 
-      <h2>Wann Sie wählen dürfen – und wann nicht</h2>
+      <h2>Wann Sie wählen dürfen, und wann nicht</h2>
       <p>
         Das Gebäudemodernisierungsgesetz (bis Juli 2026: Gebäudeenergiegesetz)
         lässt die freie Wahl nicht immer zu. Der
@@ -1463,7 +1463,7 @@ ARTIKEL = [
       </ul>
       <p>
         Genau das trifft auf einen großen Teil der Bestandshäuser im Alb-Donau-Kreis zu.
-        Wurde nachträglich gedämmt, kann wieder gewählt werden – der Nachweis darüber
+        Wurde nachträglich gedämmt, kann wieder gewählt werden, der Nachweis darüber
         liegt beim Eigentümer. In allen anderen Fällen, also bei Neubauten, größeren
         Wohngebäuden und ausreichend gedämmten Altbauten, steht die Wahl frei.
       </p>
@@ -1481,7 +1481,7 @@ ARTIKEL = [
       </p>
       <ul>
         <li><strong>Ein älteres Ehepaar</strong> heizt zwei von sieben Räumen und hält
-        18 Grad. Der Ausweis weist einen guten Kennwert aus – das Haus ist deswegen
+        18 Grad. Der Ausweis weist einen guten Kennwert aus. Das Haus ist deswegen
         nicht gut gedämmt.</li>
         <li><strong>Eine Familie mit drei Kindern</strong> heizt alles auf 22 Grad. Der
         Kennwert ist schlecht, obwohl es dasselbe Gebäude ist.</li>
@@ -1491,11 +1491,11 @@ ARTIKEL = [
       <p>
         Für Käufer ist das die entscheidende Schwäche: Der günstige Kennwert im Exposé
         sagt nichts darüber, was <em>sie</em> später zahlen werden. Wer kauft, sollte
-        deshalb im Zweifel nach dem Bedarfsausweis fragen – und wer verkauft und ein
+        deshalb im Zweifel nach dem Bedarfsausweis fragen, und wer verkauft und ein
         gut saniertes Haus hat, fährt mit ihm oft besser.
       </p>
 
-      <h2>Wann Sie einen brauchen – und was ohne passiert</h2>
+      <h2>Wann Sie einen brauchen, und was ohne passiert</h2>
       <p>
         Ein Energieausweis ist fällig bei Verkauf, Vermietung, Verpachtung und Leasing.
         Drei Pflichten hängen daran:
@@ -1510,13 +1510,13 @@ ARTIKEL = [
       <p>
         Wer diese Pflichten verletzt, begeht eine Ordnungswidrigkeit; das Gesetz sieht
         dafür Bußgelder bis zu 10.000 € vor. In der Praxis häufiger als das Bußgeld ist
-        der Ärger im Kaufvertrag – ein fehlender oder falscher Ausweis liefert dem
+        der Ärger im Kaufvertrag, ein fehlender oder falscher Ausweis liefert dem
         Käufer ein Argument in der Preisverhandlung.
       </p>
       <p>
         Für ein Bestandsgebäude im Alb-Donau-Kreis stellen wir beide Varianten aus:
         den Verbrauchsausweis ab {{PREIS_AUSWEIS_V}} €, den Bedarfsausweis ab
-        {{PREIS_AUSWEIS_B}} € – Endpreise inklusive Umsatzsteuer, Details auf der
+        {{PREIS_AUSWEIS_B}} €, Endpreise inklusive Umsatzsteuer, Details auf der
         Seite <a href="energieausweis-ulm.html">Energieausweis</a>. Was die übrigen
         Leistungen kosten, steht im Beitrag
         <a href="ratgeber-energieberatung-kosten.html">Was kostet eine
@@ -1526,8 +1526,8 @@ ARTIKEL = [
       <h2>Was der Energieausweis nicht ist</h2>
       <p>
         Er ist ein Etikett, kein Plan. Der Ausweis enthält zwar
-        Modernisierungsempfehlungen, aber die sind standardisiert und nicht gerechnet –
-        sie nennen keine Kosten, keine Reihenfolge und keine Wirtschaftlichkeit. Wer
+        Modernisierungsempfehlungen, aber die sind standardisiert und nicht gerechnet.
+        Sie nennen keine Kosten, keine Reihenfolge und keine Wirtschaftlichkeit. Wer
         wissen will, welche Maßnahme sich am eigenen Haus zuerst lohnt, braucht den
         <a href="sanierungsfahrplan.html">individuellen Sanierungsfahrplan</a>. Nur der
         ist auch die Grundlage für den iSFP-Bonus bei späteren Maßnahmen.
@@ -1535,12 +1535,12 @@ ARTIKEL = [
       <p>
         Eine erste Einordnung, in welcher Klasse Ihr Haus überhaupt steht, liefert der
         <a href="sanierungsrechner.html">Sanierungsrechner</a> in wenigen Minuten. Er
-        ist eine Orientierung und ersetzt keinen Energieausweis – ausstellen darf den
+        ist eine Orientierung und ersetzt keinen Energieausweis. Ausstellen darf den
         nur, wer nach dem Gebäudemodernisierungsgesetz dazu berechtigt ist.
       </p>
  """,
  "faq": [
-   ("Bedarfsausweis oder Verbrauchsausweis – was ist besser?",
+   ("Bedarfsausweis oder Verbrauchsausweis. Was ist besser?",
     "Das kommt auf den Zweck an. Der Bedarfsausweis bewertet das Gebäude unabhängig vom "
     "Heizverhalten der Bewohner und ist damit für Kaufinteressenten und als Grundlage "
     "einer Sanierung aussagekräftiger. Der Verbrauchsausweis ist günstiger und schneller, "
@@ -1572,7 +1572,7 @@ ARTIKEL = [
  "dauer": "6 Minuten",
  "inhalt": """
       <p>
-        Zwischen Ulm und Laichingen liegen keine 30 Kilometer – energetisch sind es
+        Zwischen Ulm und Laichingen liegen keine 30 Kilometer. Energetisch sind es
         zwei verschiedene Welten. Die Albhochfläche liegt rund 250 Meter höher, die
         Heizperiode ist länger, die Normaußentemperatur niedriger. Wer das ignoriert,
         rechnet sein Gebäude systematisch zu gut.
@@ -1581,20 +1581,20 @@ ARTIKEL = [
       <div class="rg-kasten">
         <b>Der Kern in einem Satz</b>
         Dasselbe Haus braucht auf der Alb spürbar mehr Heizenergie als im Donautal. Wer
-        Kennwerte überträgt, unterschätzt Heizlast und Verbrauch – und dimensioniert
+        Kennwerte überträgt, unterschätzt Heizlast und Verbrauch, und dimensioniert
         die Anlage zu klein.
       </div>
 
       <h2>Was die Höhenlage konkret bedeutet</h2>
       <p>
         Für die Auslegung einer Heizung zählt die
-        <strong>Normaußentemperatur</strong> – der kälteste anzunehmende Wert am
+        <strong>Normaußentemperatur</strong>, der kälteste anzunehmende Wert am
         Standort. Auf der Albhochfläche liegt sie deutlich unter der von Ulm. Dazu
         kommt die längere Heizperiode: Es wird früher geheizt und später aufgehört.
       </p>
       <p>
         Für die Praxis heißt das: Eine Wärmepumpe, die im Donautal für ein
-        vergleichbares Haus reicht, kann auf der Alb an ihre Grenze kommen – besonders,
+        vergleichbares Haus reicht, kann auf der Alb an ihre Grenze kommen, besonders,
         wenn sie ohne nennenswerten Heizstabbetrieb auskommen soll. Die Berechnung muss
         die tatsächliche Lage abbilden, nicht einen Durchschnittswert für
         Baden-Württemberg.
@@ -1617,7 +1617,7 @@ ARTIKEL = [
       <h2>Bausubstanz: früh gedämmt, heute überholt</h2>
       <p>
         Weil das Klima rauer ist, wurde auf der Alb vielerorts früher gedämmt als im
-        Umland. Das ist zunächst gut – führt aber zu einem verbreiteten
+        Umland. Das ist zunächst gut. Führt aber zu einem verbreiteten
         Missverständnis: Viele Eigentümer halten ein Bauteil für erledigt, weil es „ja
         gedämmt ist“.
       </p>
@@ -1633,7 +1633,7 @@ ARTIKEL = [
       <ul>
         <li>Die Heizlast am tatsächlichen Standort rechnen, nicht mit einem Regionaldurchschnitt</li>
         <li>Bei Erdwärme zuerst die Genehmigungsfrage klären</li>
-        <li>Vorhandene Altdämmungen messen statt annehmen – oft lohnt die Aufdopplung</li>
+        <li>Vorhandene Altdämmungen messen statt annehmen. Oft lohnt die Aufdopplung</li>
         <li>Luftdichtheit ernst nehmen: In exponierter Lage kostet jede Undichtigkeit mehr als im windgeschützten Tal</li>
       </ul>
 
@@ -1727,7 +1727,7 @@ def seitenspalte(aktuell):
     <div class="rg-karte">
       <h3>Erst rechnen, dann sanieren</h3>
       <p>Der Sanierungsrechner zeigt in wenigen Minuten, welche Maßnahme sich bei
-         Ihrem Haus zuerst lohnt – kostenlos und ohne Anmeldung.</p>
+         Ihrem Haus zuerst lohnt, kostenlos und ohne Anmeldung.</p>
       <a href="sanierungsrechner.html" class="btn btn-amber btn-sm">Zum Sanierungsrechner</a>
     </div>
     <div class="rg-karte rg-karte-kontakt">
@@ -1850,7 +1850,7 @@ def artikel_seite(a):
 
 def uebersicht():
     beschreibung = ("Verständliche Antworten zu Heizungstausch, Sanierungsreihenfolge, "
-                    "Förderung und Dämmung – von einem Energieberater aus dem "
+                    "Förderung und Dämmung, von einem Energieberater aus dem "
                     "Alb-Donau-Kreis.")
     graph = [{
         "@type": "CollectionPage",
@@ -1894,7 +1894,7 @@ def uebersicht():
     <span class="eyebrow">Ratgeber</span>
     <h1>Sanieren verstehen, bevor Sie investieren</h1>
     <p class="lead">
-      Die Fragen, die uns im Erstgespräch am häufigsten gestellt werden – hier
+      Die Fragen, die uns im Erstgespräch am häufigsten gestellt werden, hier
       ausführlich beantwortet. Ohne Verkaufsabsicht, ohne Vorliebe für ein bestimmtes
       Gewerk.
     </p>
@@ -1920,7 +1920,7 @@ def uebersicht():
       <p>
         Genauso wichtig ist der Zeitpunkt: <strong>Fördermittel müssen beantragt sein,
         bevor der Handwerkerauftrag vergeben wird.</strong> Wer erst beauftragt und
-        dann den Antrag stellt, verliert den Zuschuss endgültig – das ist der
+        dann den Antrag stellt, verliert den Zuschuss endgültig. Das ist der
         häufigste und teuerste Fehler, den wir in der Beratung sehen.
       </p>
 
@@ -1928,14 +1928,14 @@ def uebersicht():
       <p>
         Wir schreiben für Eigentümerinnen und Eigentümer von Ein- und
         Zweifamilienhäusern im Alb-Donau-Kreis und rund um Ulm, die vor einer
-        Entscheidung stehen: Heizung erneuern, dämmen, Fenster tauschen – oder erst
+        Entscheidung stehen: Heizung erneuern, dämmen, Fenster tauschen, oder erst
         einmal rechnen. Die Beiträge nehmen niemandem die Entscheidung ab, aber sie
         machen die Grundlagen klar, auf denen sie getroffen wird.
       </p>
       <p>
         Jeder Beitrag nennt Größenordnungen statt Versprechen. Was Ihr Gebäude
         tatsächlich verbraucht und einspart, hängt von Baujahr, Bauweise, Lage und
-        Nutzung ab – eine erste Einschätzung liefert der
+        Nutzung ab, eine erste Einschätzung liefert der
         <a href="sanierungsrechner.html">Sanierungsrechner</a>, belastbare Zahlen der
         <a href="sanierungsfahrplan.html">individuelle Sanierungsfahrplan</a>.
       </p>
@@ -1943,7 +1943,7 @@ def uebersicht():
       <h2>Was hier bewusst nicht steht</h2>
       <p>
         Keine Produktempfehlungen und keine Herstellernamen. Wir verkaufen weder
-        Heizungen noch Dämmstoffe und bekommen keine Provisionen – deshalb steht in
+        Heizungen noch Dämmstoffe und bekommen keine Provisionen. Deshalb steht in
         diesen Texten, was sich rechnet, und nicht, was sich verkaufen lässt. Wo
         Fördersätze oder gesetzliche Vorgaben genannt werden, gilt der Stand zum
         Zeitpunkt der Veröffentlichung; maßgeblich sind immer die Richtlinien, die bei

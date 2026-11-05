@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  RATGEBER – ERZEUGT, NICHT VON HAND BEARBEITEN!
+  RATGEBER, ERZEUGT, NICHT VON HAND BEARBEITEN!
   Änderungen in ratgeber-erzeugen.py vornehmen und das Skript erneut laufen
   lassen, sonst sind sie beim nächsten Durchlauf wieder weg.
   ============================================================================
@@ -29,7 +29,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <style>
 /* ===========================================================================
-   0. SCHRIFTEN – lokal gehostet, damit keine Verbindung zu Google entsteht.
+   0. SCHRIFTEN, lokal gehostet, damit keine Verbindung zu Google entsteht.
       Beides sind Variable Fonts: eine Datei deckt 400–700 komplett ab.
       Wenn die Dateien fehlen, greift der System-Fallback weiter unten.
    ======================================================================== */
@@ -44,7 +44,7 @@
 
 
 /* ===========================================================================
-   1. DESIGN TOKENS – hier die Farben ändern
+   1. DESIGN TOKENS, hier die Farben ändern
    ======================================================================== */
 :root{
   /* Helle, warme Basis */
@@ -60,7 +60,7 @@
      von 4,5:1. Die Farbe wird für Kleinschrift (0,72–0,83rem) verwendet. */
   --muted:        #6F685C;
 
-  /* Schriftstapel – der Fallback greift, wenn fonts/ fehlt */
+  /* Schriftstapel. Der Fallback greift, wenn fonts/ fehlt */
   --font-sans:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
   --font-serif:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
 
@@ -68,12 +68,12 @@
   --line:         #E7DFD1;
   --line-soft:    #F0E9DC;
 
-  /* Akzent 1 – warmes Amber (Fuchs) */
+  /* Akzent 1, warmes Amber (Fuchs) */
   --amber:        #C07A2E;
   --amber-deep:   #9C5F1E;
   --amber-soft:   #F7E9D5;
 
-  /* Akzent 2 – ruhiges Waldgrün (Eule) */
+  /* Akzent 2, ruhiges Waldgrün (Eule) */
   --forest:       #2E4A3C;
   --forest-soft:  #E4EDE7;
 
@@ -273,7 +273,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .mobile-nav a[aria-current="page"]{color:var(--amber-deep);font-weight:600}
 
 .header-cta{display:flex;align-items:center;gap:14px}
-/* Direktwahl im Header – für die Zielgruppe der schnellste Weg zum Kontakt */
+/* Direktwahl im Header, für die Zielgruppe der schnellste Weg zum Kontakt */
 .header-phone{
   display:inline-flex;align-items:center;gap:8px;
   font-size:.93rem;font-weight:600;color:var(--ink);
@@ -282,7 +282,7 @@ html.js .reveal.in{opacity:1;transform:none}
 }
 .header-phone:hover{border-color:var(--amber);background:var(--white)}
 .header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
-/* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
+/* Kurzfassung der Knopfbeschriftung. Wird erst bei knappem Platz eingeblendet */
 .cta-kurz{display:none}
 .burger{display:none;width:42px;height:42px;border-radius:var(--radius-sm);border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
@@ -331,7 +331,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .trust-item svg{width:16px;height:16px;stroke:var(--forest);flex:none}
 
 /* ---------------------------------------------------------------------------
-   HERO-ILLUSTRATION – Gebäudeschnitt mit Dämmebenen und Wärmepumpe
+   HERO-ILLUSTRATION, Gebäudeschnitt mit Dämmebenen und Wärmepumpe
    Alle Strichstärken und Farben laufen über die Klassen .il-*
 ------------------------------------------------------------------------- */
 .hero-visual{position:relative}
@@ -399,7 +399,7 @@ html.js .reveal.in{opacity:1;transform:none}
   .il-tag{animation:none;opacity:1}
 }
 
-/* Auf schmalen Displays sind SVG-Beschriftungen zu klein – dafür eine Legende */
+/* Auf schmalen Displays sind SVG-Beschriftungen zu klein, dafür eine Legende */
 .illu-legend{display:none;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
 .illu-legend li{
   display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:500;color:var(--ink-2);
@@ -435,7 +435,7 @@ html.js .reveal.in{opacity:1;transform:none}
 /* ===========================================================================
    5b. LOGO-BAND (Qualifikationen & Programme)
    Typografische Platzhalter-Kacheln. Offizielle Logos erst einsetzen, wenn
-   die Nutzung erlaubt ist – Anleitung im HTML-Kommentar bei der Sektion.
+   die Nutzung erlaubt ist, Anleitung im HTML-Kommentar bei der Sektion.
    ======================================================================== */
 .logo-band{background:var(--white);border-bottom:1px solid var(--line-soft);padding:34px 0 26px}
 .band-label{
@@ -569,7 +569,7 @@ html.js .reveal.in{opacity:1;transform:none}
 /* Vorschau: Energieklassen-Skala */
 .rechner-vorschau{background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius);padding:22px 24px 26px}
 .rechner-vorschau svg{width:100%;height:auto}
-/* Haus oben, darunter die Skala – durch eine feine Linie getrennt */
+/* Haus oben, darunter die Skala, durch eine feine Linie getrennt */
 .vorschau-haus{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
 .rechner-vorschau figcaption{margin-top:14px;font-size:.8125rem;color:var(--muted);text-align:center}
 
@@ -610,7 +610,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .stats-inner{position:relative;z-index:2}
 .stats h2{color:#FBF8F2;max-width:22ch;margin-bottom:14px}
 .stats-lead{font-size:1.02rem;color:rgba(244,239,230,.86);max-width:60ch;margin-bottom:40px}
-/* .55 ergab nur 3,85:1 auf dem dunklen Grün – zu wenig für WCAG AA */
+/* .55 ergab nur 3,85:1 auf dem dunklen Grün, zu wenig für WCAG AA */
 .stats-note{margin-top:34px;font-size:.78rem;color:rgba(244,239,230,.78)}
 
 /* ===========================================================================
@@ -871,7 +871,7 @@ html.js .reveal.in{opacity:1;transform:none}
 
 /* ===========================================================================
    14b. MOBILE AKTIONSLEISTE
-   Unter 760px blendet die Seite den Header-CTA aus – ohne diese Leiste gäbe es
+   Unter 760px blendet die Seite den Header-CTA aus, ohne diese Leiste gäbe es
    auf dem Handy gar keinen sichtbaren Kontaktweg mehr.
    ======================================================================== */
 .mobile-bar{
@@ -887,10 +887,10 @@ html.js .reveal.in{opacity:1;transform:none}
 .mobile-bar .btn svg{width:16px;height:16px}
 
 /* ===========================================================================
-   14c. FORMULAR – Validierung & Spamschutz
+   14c. FORMULAR, Validierung & Spamschutz
    ======================================================================== */
 /* Honigtopf: für Menschen unsichtbar, Bots füllen ihn aus.
-   Bewusst kein display:none – manche Bots ignorieren solche Felder. */
+   Bewusst kein display:none, manche Bots ignorieren solche Felder. */
 .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
 .field.invalid input,.field.invalid select,.field.invalid textarea{
@@ -972,10 +972,10 @@ html.js .reveal.in{opacity:1;transform:none}
    HEADER-STUFEN
    Der Header hat drei Dinge nebeneinander: Logo, Menü, Kontaktknöpfe. Zusammen
    brauchen sie in voller Größe rund 1.110 px. Statt sie umbrechen zu lassen,
-   wird in drei Stufen Platz gespart – zuletzt übernimmt das Burger-Menü.
+   wird in drei Stufen Platz gespart, zuletzt übernimmt das Burger-Menü.
 ------------------------------------------------------------------------- */
 
-/* Stufe 1: Die Telefonnummer weicht – sie steht weiterhin in der Kontaktsektion
+/* Stufe 1: Die Telefonnummer weicht. Sie steht weiterhin in der Kontaktsektion
    und auf dem Handy in der festen Leiste unten. */
 @media (max-width:1200px){
   .header-phone{display:none}
@@ -991,7 +991,7 @@ html.js .reveal.in{opacity:1;transform:none}
   .cta-kurz{display:inline}
 }
 
-/* Stufe 3: Jetzt reicht auch das nicht mehr – Burger-Menü und die feste
+/* Stufe 3: Jetzt reicht auch das nicht mehr, Burger-Menü und die feste
    Aktionsleiste unten übernehmen. */
 @media (max-width:880px){
   body{padding-bottom:78px} /* Platz für die fixe Aktionsleiste */
@@ -1121,7 +1121,7 @@ main .cta-band{margin-bottom:50px}
 <header class="site-header" id="header">
   <div class="wrap header-inner">
     <a href="index.html" class="logo">
-      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau, Beraten. Planen. Fördern.">
     </a>
 
     <nav class="nav" aria-label="Hauptnavigation">
@@ -1233,7 +1233,7 @@ main .cta-band{margin-bottom:50px}
           "name": "Braucht eine Wärmepumpe zwingend eine Fußbodenheizung?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Nein. Die Fußbodenheizung ist nur ein Weg zu niedriger Vorlauftemperatur. Ausreichend große Heizkörper und ein hydraulischer Abgleich erreichen häufig dasselbe – zu deutlich geringeren Kosten als eine Fußbodenheizung im Bestand."
+            "text": "Nein. Die Fußbodenheizung ist nur ein Weg zu niedriger Vorlauftemperatur. Ausreichend große Heizkörper und ein hydraulischer Abgleich erreichen häufig dasselbe, zu deutlich geringeren Kosten als eine Fußbodenheizung im Bestand."
           }
         },
         {
@@ -1263,7 +1263,7 @@ main .cta-band{margin-bottom:50px}
     <header class="wrap rg-kopf">
       <span class="eyebrow">Heizung</span>
       <h1>Wärmepumpe im Altbau: funktioniert das?</h1>
-      <p class="lead">„Im Altbau geht das nicht“ ist genauso falsch wie „geht überall“. Es hängt an einer einzigen Zahl – und die können Sie an Ihrer eigenen Heizung ablesen.</p>
+      <p class="lead">„Im Altbau geht das nicht“ ist genauso falsch wie „geht überall“. Es hängt an einer einzigen Zahl, und die können Sie an Ihrer eigenen Heizung ablesen.</p>
       <div class="rg-meta">
         <span>Lesezeit ca. 7 Minuten</span>
         <span>Stand: August 2026</span>
@@ -1283,7 +1283,7 @@ main .cta-band{margin-bottom:50px}
         Zu kaum einer Frage kursieren so viele pauschale Antworten. Die einen sagen,
         eine Wärmepumpe brauche zwingend Fußbodenheizung und gedämmte Wände. Die
         anderen behaupten, sie laufe in jedem Gebäude. Beides ist falsch. Ob es
-        funktioniert, entscheidet <strong>eine</strong> Größe – und die lässt sich in
+        funktioniert, entscheidet <strong>eine</strong> Größe, und die lässt sich in
         Ihrem Haus messen, statt sie zu vermuten.
       </p>
 
@@ -1291,7 +1291,7 @@ main .cta-band{margin-bottom:50px}
         <b>Das Wichtigste in einem Satz</b>
         Nicht das Baujahr entscheidet, sondern die Vorlauftemperatur: Kommt Ihr Haus am
         kältesten Tag mit etwa 50 bis 55 Grad aus, ist eine Wärmepumpe technisch
-        unproblematisch – ganz gleich, ob 1968 oder 2008 gebaut.
+        unproblematisch, ganz gleich, ob 1968 oder 2008 gebaut.
       </div>
 
       <h2>Die eine Zahl, auf die es ankommt</h2>
@@ -1305,7 +1305,7 @@ main .cta-band{margin-bottom:50px}
         Zwischen 55 und 35 Grad liegen damit rund 50 Prozent Unterschied im
         Stromverbrauch. Das ist der ganze Grund, warum bei Wärmepumpen ständig von
         Fußbodenheizung die Rede ist: Sie arbeitet mit niedriger Temperatur. Sie ist
-        aber nur ein Weg dorthin – nicht der einzige.
+        aber nur ein Weg dorthin, nicht der einzige.
       </p>
 
       <h2>Der Test, den Sie selbst machen können</h2>
@@ -1314,7 +1314,7 @@ main .cta-band{margin-bottom:50px}
         und etwas Geduld:
       </p>
       <ol>
-        <li>Warten Sie eine Frostperiode ab – idealerweise unter minus fünf Grad.</li>
+        <li>Warten Sie eine Frostperiode ab, idealerweise unter minus fünf Grad.</li>
         <li>Stellen Sie die Heizkurve Ihres Kessels so ein, dass die Vorlauftemperatur
         <strong>55 Grad nicht überschreitet</strong>. Die Einstellung finden Sie am
         Regler der Heizung; ein Heizungsbauer macht das in fünf Minuten.</li>
@@ -1323,14 +1323,14 @@ main .cta-band{margin-bottom:50px}
       </ol>
       <p>
         Wird es überall behaglich, kann eine Wärmepumpe Ihr Haus heizen. Bleibt genau
-        ein Raum kühl, ist meist dieser eine Heizkörper zu klein – ein Austausch kostet
+        ein Raum kühl, ist meist dieser eine Heizkörper zu klein. Ein Austausch kostet
         einige Hundert Euro und nicht die Sanierung des ganzen Hauses. Bleiben mehrere
         Räume kalt, sollten Dämmung und Heizflächen vor der Heizung an die Reihe kommen.
       </p>
 
       <div class="rg-warnung">
         <b>Wichtig:</b> Der Test taugt nur bei echter Kälte. Bei zehn Grad
-        Außentemperatur schafft praktisch jedes Haus niedrige Vorlauftemperaturen – das
+        Außentemperatur schafft praktisch jedes Haus niedrige Vorlauftemperaturen, das
         beweist nichts über den Januar.
       </div>
 
@@ -1342,7 +1342,7 @@ main .cta-band{margin-bottom:50px}
       </p>
       <ul>
         <li><strong>Alte Gussheizkörper sind oft ein Vorteil.</strong> Sie wurden großzügig
-        ausgelegt und haben viel Oberfläche – genau das, was eine niedrige
+        ausgelegt und haben viel Oberfläche, genau das, was eine niedrige
         Vorlauftemperatur braucht.</li>
         <li><strong>Ein größerer Heizkörper im kritischen Raum</strong> kostet einige
         Hundert Euro. Eine Fassadendämmung, die dieselbe Absenkung bringt, kostet ein
@@ -1353,7 +1353,7 @@ main .cta-band{margin-bottom:50px}
       </ul>
       <p>
         Beim Einbau einer Wärmepumpe liefert der Heizungsbetrieb den hydraulischen
-        Abgleich in aller Regel mit – er ist Voraussetzung für die Förderung. Als
+        Abgleich in aller Regel mit. Er ist Voraussetzung für die Förderung. Als
         <a href="hydraulischer-abgleich-ulm.html">eigene Maßnahme</a> lohnt er sich
         vorher trotzdem, weil er sofort wirkt und die spätere Anlage kleiner ausfallen
         lässt.
@@ -1385,29 +1385,29 @@ main .cta-band{margin-bottom:50px}
         eigenen Verbrauchswerten gegenüber. Welche Zuschüsse es für den Heizungstausch
         gibt, steht im Beitrag
         <a href="ratgeber-heizung-tauschen-pflicht.html">Heizung tauschen</a> und im
-        <a href="index.html#foerderung">Förderabschnitt</a> – dort gepflegt, damit es
+        <a href="index.html#foerderung">Förderabschnitt</a>, dort gepflegt, damit es
         nicht an drei Stellen unterschiedlich steht.
       </p>
 
       <h2>Wann eine Wärmepumpe die falsche Antwort ist</h2>
       <p>
-        Es gibt Häuser, bei denen wir davon abraten – zumindest vorerst:
+        Es gibt Häuser, bei denen wir davon abraten, zumindest vorerst:
       </p>
       <ul>
         <li><strong>Ungedämmtes Mauerwerk mit kleinen Heizkörpern</strong>, das im Test
         selbst bei 65 Grad nicht warm wird. Hier zuerst die Hülle.</li>
         <li><strong>Sehr hohe Warmwasseranforderung</strong> bei gleichzeitig schlechter
-        Gebäudehülle – die Anlage läuft dann dauerhaft im ungünstigen Bereich.</li>
+        Gebäudehülle, die Anlage läuft dann dauerhaft im ungünstigen Bereich.</li>
         <li><strong>Kein Platz für das Außengerät</strong> in ausreichendem Abstand zum
         Nachbarn. Der Schallschutz ist im Reihenhausgebiet ein echtes Thema, kein
         Nebenaspekt.</li>
         <li><strong>Anstehende Fassadensanierung.</strong> Wer ohnehin in zwei Jahren
-        dämmt, sollte die Wärmepumpe danach auslegen – sonst kauft er sie eine Nummer
+        dämmt, sollte die Wärmepumpe danach auslegen, sonst kauft er sie eine Nummer
         zu groß und zahlt das zwanzig Jahre lang mit.</li>
       </ul>
       <p>
         Der letzte Punkt ist der häufigste. Deshalb steht in unseren Fahrplänen die
-        Reihenfolge vor der Technik – warum, steht im Beitrag
+        Reihenfolge vor der Technik. Warum, steht im Beitrag
         <a href="ratgeber-reihenfolge-sanierung.html">In welcher Reihenfolge
         sanieren?</a>.
       </p>
@@ -1416,7 +1416,7 @@ main .cta-band{margin-bottom:50px}
       <h3>Funktioniert eine Wärmepumpe im Altbau?</h3>
       <p>Ja, wenn das Gebäude am kältesten Tag mit etwa 50 bis 55 Grad Vorlauftemperatur auskommt. Das Baujahr allein sagt darüber wenig aus: Viele Altbauten haben großzügig ausgelegte Heizkörper und schaffen das, während manches Haus aus den 1990er Jahren mit knapp bemessenen Flächen scheitert. Prüfen lässt sich das an der eigenen Heizung, indem die Heizkurve testweise abgesenkt wird.</p>
       <h3>Braucht eine Wärmepumpe zwingend eine Fußbodenheizung?</h3>
-      <p>Nein. Die Fußbodenheizung ist nur ein Weg zu niedriger Vorlauftemperatur. Ausreichend große Heizkörper und ein hydraulischer Abgleich erreichen häufig dasselbe – zu deutlich geringeren Kosten als eine Fußbodenheizung im Bestand.</p>
+      <p>Nein. Die Fußbodenheizung ist nur ein Weg zu niedriger Vorlauftemperatur. Ausreichend große Heizkörper und ein hydraulischer Abgleich erreichen häufig dasselbe, zu deutlich geringeren Kosten als eine Fußbodenheizung im Bestand.</p>
       <h3>Muss ich vor der Wärmepumpe erst dämmen?</h3>
       <p>Nicht grundsätzlich. Nötig ist es dann, wenn das Haus die Räume bei abgesenkter Vorlauftemperatur nicht mehr warm bekommt. Sinnvoll ist die Reihenfolge außerdem, wenn eine Dämmung ohnehin ansteht: Nach der Dämmung fällt die Anlage kleiner und damit günstiger aus.</p>
 
@@ -1430,7 +1430,7 @@ main .cta-band{margin-bottom:50px}
     <div class="rg-karte">
       <h3>Erst rechnen, dann sanieren</h3>
       <p>Der Sanierungsrechner zeigt in wenigen Minuten, welche Maßnahme sich bei
-         Ihrem Haus zuerst lohnt – kostenlos und ohne Anmeldung.</p>
+         Ihrem Haus zuerst lohnt, kostenlos und ohne Anmeldung.</p>
       <a href="sanierungsrechner.html" class="btn btn-amber btn-sm">Zum Sanierungsrechner</a>
     </div>
     <div class="rg-karte rg-karte-kontakt">
@@ -1474,7 +1474,7 @@ main .cta-band{margin-bottom:50px}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau, Beraten. Planen. Fördern.">
     </a>
         <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision, mit Blick auf das, was sich rechnet.</p>
         <a href="index.html#kontakt" class="btn btn-amber btn-sm">Gratis Erstgespräch</a>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  ENERGIEBERATUNG STANISLAW TSUKERMAN – Startseite
+  ENERGIEBERATUNG STANISLAW TSUKERMAN, Startseite
   ----------------------------------------------------------------------------
   Dateien dieses Projekts:
     index.html            diese Seite
@@ -17,15 +17,15 @@
   Dashboard unter Table Editor -> Tabelle "leads".
 
   ############################################################################
-  #  VOR DEM LIVEGANG – offene Punkte. Alles hier steht noch in [Klammern]:  #
+  #  VOR DEM LIVEGANG. Offene Punkte. Alles hier steht noch in [Klammern]:  #
   ############################################################################
 
    1. E-MAIL-ADRESSE   → im Impressum gesetzlich Pflicht. Suchen nach
-                         [kontakt@ihre-domain.de] – kommt an 5 Stellen vor.
+                         [kontakt@ihre-domain.de]. Kommt an 5 Stellen vor.
    2. (erledigt)       → Domain energieberater-albdonau.de ist eingetragen.
    3. USt-IdNr         → impressum.html, Abschnitt Umsatzsteuer
    4. HOSTING-ANBIETER → in datenschutz.html, Abschnitt 3 eintragen.
-                         (Bei GitHub Pages: GitHub Inc. – Text steht dort.)
+                         (Bei GitHub Pages: GitHub Inc. Text steht dort.)
    5. PORTRAITFOTO     → Sektion "Über mich", ersetzt den grauen Platzhalter.
                          Wichtigster Vertrauensfaktor der ganzen Seite.
    6. KUNDENSTIMMEN    → aktuell Platzhalter. Entweder echte Zitate einsetzen
@@ -74,7 +74,7 @@
 <link rel="preload" href="fonts/roboto-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* ===========================================================================
-   0. SCHRIFTEN – lokal gehostet, damit keine Verbindung zu Google entsteht.
+   0. SCHRIFTEN, lokal gehostet, damit keine Verbindung zu Google entsteht.
       Beides sind Variable Fonts: eine Datei deckt 400–700 komplett ab.
       Wenn die Dateien fehlen, greift der System-Fallback weiter unten.
    ======================================================================== */
@@ -89,7 +89,7 @@
 
 
 /* ===========================================================================
-   1. DESIGN TOKENS – hier die Farben ändern
+   1. DESIGN TOKENS, hier die Farben ändern
    ======================================================================== */
 :root{
   /* Helle, warme Basis */
@@ -105,7 +105,7 @@
      von 4,5:1. Die Farbe wird für Kleinschrift (0,72–0,83rem) verwendet. */
   --muted:        #6F685C;
 
-  /* Schriftstapel – der Fallback greift, wenn fonts/ fehlt */
+  /* Schriftstapel. Der Fallback greift, wenn fonts/ fehlt */
   --font-sans:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
   --font-serif:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
 
@@ -113,12 +113,12 @@
   --line:         #E7DFD1;
   --line-soft:    #F0E9DC;
 
-  /* Akzent 1 – warmes Amber (Fuchs) */
+  /* Akzent 1, warmes Amber (Fuchs) */
   --amber:        #C07A2E;
   --amber-deep:   #9C5F1E;
   --amber-soft:   #F7E9D5;
 
-  /* Akzent 2 – ruhiges Waldgrün (Eule) */
+  /* Akzent 2, ruhiges Waldgrün (Eule) */
   --forest:       #2E4A3C;
   --forest-soft:  #E4EDE7;
 
@@ -318,7 +318,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .mobile-nav a[aria-current="page"]{color:var(--amber-deep);font-weight:600}
 
 .header-cta{display:flex;align-items:center;gap:14px}
-/* Direktwahl im Header – für die Zielgruppe der schnellste Weg zum Kontakt */
+/* Direktwahl im Header, für die Zielgruppe der schnellste Weg zum Kontakt */
 .header-phone{
   display:inline-flex;align-items:center;gap:8px;
   font-size:.93rem;font-weight:600;color:var(--ink);
@@ -327,7 +327,7 @@ html.js .reveal.in{opacity:1;transform:none}
 }
 .header-phone:hover{border-color:var(--amber);background:var(--white)}
 .header-phone svg{width:16px;height:16px;stroke:var(--amber-deep);fill:none;stroke-width:1.9;flex:none}
-/* Kurzfassung der Knopfbeschriftung – wird erst bei knappem Platz eingeblendet */
+/* Kurzfassung der Knopfbeschriftung. Wird erst bei knappem Platz eingeblendet */
 .cta-kurz{display:none}
 .burger{display:none;width:42px;height:42px;border-radius:var(--radius-sm);border:1px solid var(--line);place-items:center;background:var(--white)}
 .burger span{display:block;width:17px;height:1.6px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
@@ -376,7 +376,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .trust-item svg{width:16px;height:16px;stroke:var(--forest);flex:none}
 
 /* ---------------------------------------------------------------------------
-   HERO-ILLUSTRATION – Gebäudeschnitt mit Dämmebenen und Wärmepumpe
+   HERO-ILLUSTRATION, Gebäudeschnitt mit Dämmebenen und Wärmepumpe
    Alle Strichstärken und Farben laufen über die Klassen .il-*
 ------------------------------------------------------------------------- */
 .hero-visual{position:relative}
@@ -444,7 +444,7 @@ html.js .reveal.in{opacity:1;transform:none}
   .il-tag{animation:none;opacity:1}
 }
 
-/* Auf schmalen Displays sind SVG-Beschriftungen zu klein – dafür eine Legende */
+/* Auf schmalen Displays sind SVG-Beschriftungen zu klein, dafür eine Legende */
 .illu-legend{display:none;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
 .illu-legend li{
   display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:500;color:var(--ink-2);
@@ -480,7 +480,7 @@ html.js .reveal.in{opacity:1;transform:none}
 /* ===========================================================================
    5b. LOGO-BAND (Qualifikationen & Programme)
    Typografische Platzhalter-Kacheln. Offizielle Logos erst einsetzen, wenn
-   die Nutzung erlaubt ist – Anleitung im HTML-Kommentar bei der Sektion.
+   die Nutzung erlaubt ist, Anleitung im HTML-Kommentar bei der Sektion.
    ======================================================================== */
 .logo-band{background:var(--white);border-bottom:1px solid var(--line-soft);padding:34px 0 26px}
 .band-label{
@@ -614,7 +614,7 @@ html.js .reveal.in{opacity:1;transform:none}
 /* Vorschau: Energieklassen-Skala */
 .rechner-vorschau{background:var(--cream);border:1px solid var(--line-soft);border-radius:var(--radius);padding:22px 24px 26px}
 .rechner-vorschau svg{width:100%;height:auto}
-/* Haus oben, darunter die Skala – durch eine feine Linie getrennt */
+/* Haus oben, darunter die Skala, durch eine feine Linie getrennt */
 .vorschau-haus{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
 .rechner-vorschau figcaption{margin-top:14px;font-size:.8125rem;color:var(--muted);text-align:center}
 
@@ -655,7 +655,7 @@ html.js .reveal.in{opacity:1;transform:none}
 .stats-inner{position:relative;z-index:2}
 .stats h2{color:#FBF8F2;max-width:22ch;margin-bottom:14px}
 .stats-lead{font-size:1.02rem;color:rgba(244,239,230,.86);max-width:60ch;margin-bottom:40px}
-/* .55 ergab nur 3,85:1 auf dem dunklen Grün – zu wenig für WCAG AA */
+/* .55 ergab nur 3,85:1 auf dem dunklen Grün, zu wenig für WCAG AA */
 .stats-note{margin-top:34px;font-size:.78rem;color:rgba(244,239,230,.78)}
 
 /* ===========================================================================
@@ -916,7 +916,7 @@ html.js .reveal.in{opacity:1;transform:none}
 
 /* ===========================================================================
    14b. MOBILE AKTIONSLEISTE
-   Unter 760px blendet die Seite den Header-CTA aus – ohne diese Leiste gäbe es
+   Unter 760px blendet die Seite den Header-CTA aus, ohne diese Leiste gäbe es
    auf dem Handy gar keinen sichtbaren Kontaktweg mehr.
    ======================================================================== */
 .mobile-bar{
@@ -932,10 +932,10 @@ html.js .reveal.in{opacity:1;transform:none}
 .mobile-bar .btn svg{width:16px;height:16px}
 
 /* ===========================================================================
-   14c. FORMULAR – Validierung & Spamschutz
+   14c. FORMULAR, Validierung & Spamschutz
    ======================================================================== */
 /* Honigtopf: für Menschen unsichtbar, Bots füllen ihn aus.
-   Bewusst kein display:none – manche Bots ignorieren solche Felder. */
+   Bewusst kein display:none, manche Bots ignorieren solche Felder. */
 .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
 .field.invalid input,.field.invalid select,.field.invalid textarea{
@@ -1017,10 +1017,10 @@ html.js .reveal.in{opacity:1;transform:none}
    HEADER-STUFEN
    Der Header hat drei Dinge nebeneinander: Logo, Menü, Kontaktknöpfe. Zusammen
    brauchen sie in voller Größe rund 1.110 px. Statt sie umbrechen zu lassen,
-   wird in drei Stufen Platz gespart – zuletzt übernimmt das Burger-Menü.
+   wird in drei Stufen Platz gespart, zuletzt übernimmt das Burger-Menü.
 ------------------------------------------------------------------------- */
 
-/* Stufe 1: Die Telefonnummer weicht – sie steht weiterhin in der Kontaktsektion
+/* Stufe 1: Die Telefonnummer weicht. Sie steht weiterhin in der Kontaktsektion
    und auf dem Handy in der festen Leiste unten. */
 @media (max-width:1200px){
   .header-phone{display:none}
@@ -1036,7 +1036,7 @@ html.js .reveal.in{opacity:1;transform:none}
   .cta-kurz{display:inline}
 }
 
-/* Stufe 3: Jetzt reicht auch das nicht mehr – Burger-Menü und die feste
+/* Stufe 3: Jetzt reicht auch das nicht mehr, Burger-Menü und die feste
    Aktionsleiste unten übernehmen. */
 @media (max-width:880px){
   body{padding-bottom:78px} /* Platz für die fixe Aktionsleiste */
@@ -1152,7 +1152,7 @@ html.js .reveal.in{opacity:1;transform:none}
 </script>
 
 <!-- Strukturierte Daten: häufige Fragen (muss inhaltlich zur sichtbaren
-     FAQ-Sektion passen – bei Textänderungen dort auch hier anpassen). -->
+     FAQ-Sektion passen, bei Textänderungen dort auch hier anpassen). -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1161,17 +1161,17 @@ html.js .reveal.in{opacity:1;transform:none}
     {
       "@type": "Question",
       "name": "Was kostet eine Energieberatung?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Für ein Ein- oder Zweifamilienhaus beginnt der individuelle Sanierungsfahrplan bei 1.350 € inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 %, höchstens 650 € – der Eigenanteil liegt damit ab 700 €, sofern der Zuschuss bewilligt wird. Sie erhalten vorab ein Festpreisangebot." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Für ein Ein- oder Zweifamilienhaus beginnt der individuelle Sanierungsfahrplan bei 1.350 € inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 %, höchstens 650 €. Der Eigenanteil liegt damit ab 700 €, sofern der Zuschuss bewilligt wird. Sie erhalten vorab ein Festpreisangebot." }
     },
     {
       "@type": "Question",
       "name": "Wird die Energieberatung gefördert?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Ja. Die Bundesförderung für Energieberatung für Wohngebäude übernimmt 50 % des förderfähigen Honorars – bis 650 € bei Ein- und Zweifamilienhäusern, bis 850 € ab drei Wohneinheiten. Wohnungseigentümergemeinschaften erhalten einmalig 250 € zusätzlich." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Ja. Die Bundesförderung für Energieberatung für Wohngebäude übernimmt 50 % des förderfähigen Honorars. Bis 650 € bei Ein- und Zweifamilienhäusern, bis 850 € ab drei Wohneinheiten. Wohnungseigentümergemeinschaften erhalten einmalig 250 € zusätzlich." }
     },
     {
       "@type": "Question",
       "name": "Muss ich meine Öl- oder Gasheizung jetzt austauschen?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden – seit dem 29. Juli 2026 auch ohne Altersgrenze, die frühere Austauschpflicht nach 30 Jahren ist gestrichen. Das Gebäudeenergiegesetz heißt seitdem Gebäudemodernisierungsgesetz, die 65-Prozent-Regel entfällt. Wer eine neue Gas- oder Ölheizung einbaut, muss ab 2029 einen steigenden Anteil klimafreundlicher Brennstoffe sicherstellen. Deshalb gilt: keine Panikentscheidung, sondern rechnen." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden. Seit dem 29. Juli 2026 auch ohne Altersgrenze, die frühere Austauschpflicht nach 30 Jahren ist gestrichen. Das Gebäudeenergiegesetz heißt seitdem Gebäudemodernisierungsgesetz, die 65-Prozent-Regel entfällt. Wer eine neue Gas- oder Ölheizung einbaut, muss ab 2029 einen steigenden Anteil klimafreundlicher Brennstoffe sicherstellen. Deshalb gilt: keine Panikentscheidung, sondern rechnen." }
     },
     {
       "@type": "Question",
@@ -1185,7 +1185,7 @@ html.js .reveal.in{opacity:1;transform:none}
     },
     {
       "@type": "Question",
-      "name": "Ich habe schon ein Handwerker-Angebot – lohnt sich eine Beratung noch?",
+      "name": "Ich habe schon ein Handwerker-Angebot. Lohnt sich eine Beratung noch?",
       "acceptedAnswer": { "@type": "Answer", "text": "Oft gerade dann. Eine Zweitmeinung klärt, ob die Anlage richtig dimensioniert ist, ob die Reihenfolge stimmt und ob durch den Antragszeitpunkt Förderung verloren geht." }
     }
   ]
@@ -1201,7 +1201,7 @@ html.js .reveal.in{opacity:1;transform:none}
 <header class="site-header" id="header">
   <div class="wrap header-inner">
     <a href="#top" class="logo">
-      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau, Beraten. Planen. Fördern.">
     </a>
 
     <nav class="nav" aria-label="Hauptnavigation">
@@ -1505,8 +1505,8 @@ html.js .reveal.in{opacity:1;transform:none}
       <span class="eyebrow">Energieberater in Dornstadt bei Ulm</span>
       <h1>Erst <span class="accent">rechnen.</span> Dann sanieren.<span class="h1-zusatz">Energieberatung für Ulm und den Alb-Donau-Kreis</span></h1>
       <p class="hero-sub">
-        <strong>Energieberatung für Ulm und den Alb-Donau-Kreis.</strong> Sanieren ist teuer –
-        falsch sanieren ist teurer. Wir rechnen Ihnen vor, welche Maßnahmen sich bei
+        <strong>Energieberatung für Ulm und den Alb-Donau-Kreis.</strong> Sanieren ist teuer.
+        Falsch sanieren ist teurer. Wir rechnen Ihnen vor, welche Maßnahmen sich bei
         <em>Ihrem</em> Gebäude wirklich lohnen, in welcher Reihenfolge sie sinnvoll sind und
         welche Fördermittel Sie dafür bekommen. Produktneutral, ohne Provision.
       </p>
@@ -1544,7 +1544,7 @@ html.js .reveal.in{opacity:1;transform:none}
 
     <div class="hero-visual">
       <div class="hero-illu">
-        <svg viewBox="0 50 680 520" role="img" aria-label="Isometrische Illustration eines Wohnhauses mit Solarmodulen auf dem Dach und Wärmepumpe neben dem Haus – die vier Stellschrauben Dach, Fassade, Fenster und Heizung sind markiert">
+        <svg viewBox="0 50 680 520" role="img" aria-label="Isometrische Illustration eines Wohnhauses mit Solarmodulen auf dem Dach und Wärmepumpe neben dem Haus. Die vier Stellschrauben Dach, Fassade, Fenster und Heizung sind markiert">
 
           <!-- Sonne -->
           <g class="il-spin-slow">
@@ -1562,7 +1562,7 @@ html.js .reveal.in{opacity:1;transform:none}
           <use href="#isoHouse"/>
 
           <!-- Wärmepumpe (isometrischer Block mit rotierendem Lüfter) -->
-          <g class="hotspot" data-key="heizung" tabindex="0" role="button" aria-label="Wärmepumpe – Einsparpotenzial anzeigen" transform="translate(0,16)">
+          <g class="hotspot" data-key="heizung" tabindex="0" role="button" aria-label="Wärmepumpe, Einsparpotenzial anzeigen" transform="translate(0,16)">
             <polygon points="465.9,437 518.3,467.5 465.9,498 413.5,467.5" fill="rgba(60,46,28,.12)" filter="url(#fBlur)"/>
             <!-- Gehaeuse in lackiertem Blech statt weisser Flaeche -->
             <polygon points="465.9,398 513.5,425.5 465.9,453 418.25,425.5" fill="url(#gBlech)" stroke="#3A3128" stroke-width="1.15" stroke-linejoin="round"/>
@@ -1605,20 +1605,20 @@ html.js .reveal.in{opacity:1;transform:none}
           </g>
 
           <!-- Unsichtbare Klick-/Hover-Flächen auf den Bauteilen -->
-          <g class="hotspot" data-key="dach" tabindex="0" role="button" aria-label="Dach – Einsparpotenzial anzeigen">
+          <g class="hotspot" data-key="dach" tabindex="0" role="button" aria-label="Dach, Einsparpotenzial anzeigen">
             <polygon class="hitshape" points="188.8,280 362,380 422.6,285 249.4,185"/>
             <polygon class="hitshape" points="310,210 483.2,310 422.6,285 249.4,185"/>
           </g>
-          <g class="hotspot" data-key="fassade" tabindex="0" role="button" aria-label="Fassade – Einsparpotenzial anzeigen">
+          <g class="hotspot" data-key="fassade" tabindex="0" role="button" aria-label="Fassade, Einsparpotenzial anzeigen">
             <polygon class="hitshape" points="188.8,390 362,490 362,380 188.8,280"/>
             <polygon class="hitshape" points="483.2,420 362,490 362,380 483.2,310"/>
             <polygon class="hitshape" points="362,380 483.2,310 422.6,285"/>
           </g>
-          <g class="hotspot" data-key="kellerdecke" tabindex="0" role="button" aria-label="Kellerdecke – Einsparpotenzial anzeigen">
+          <g class="hotspot" data-key="kellerdecke" tabindex="0" role="button" aria-label="Kellerdecke, Einsparpotenzial anzeigen">
             <polygon class="hitshape" points="188.8,390 362,490 362,506 188.8,406"/>
             <polygon class="hitshape" points="483.2,420 362,490 362,506 483.2,436"/>
           </g>
-          <g class="hotspot" data-key="fenster" tabindex="0" role="button" aria-label="Fenster – Einsparpotenzial anzeigen">
+          <g class="hotspot" data-key="fenster" tabindex="0" role="button" aria-label="Fenster, Einsparpotenzial anzeigen">
             <g transform="matrix(0.866,0.5,0,-1,188.8,390)">
               <rect class="hitshape" x="22" y="36" width="52" height="50"/>
               <rect class="hitshape" x="92" y="40" width="44" height="46"/>
@@ -1673,7 +1673,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <ul class="illu-legend">
           <li data-key="dach" tabindex="0" role="button"><i></i>Dach</li><li data-key="fassade" tabindex="0" role="button"><i></i>Fassade</li><li data-key="fenster" tabindex="0" role="button"><i></i>Fenster</li><li data-key="kellerdecke" tabindex="0" role="button"><i></i>Kellerdecke</li><li data-key="heizung" tabindex="0" role="button"><i></i>Heizung</li>
         </ul>
-        <p class="illu-caption">Tippen oder klicken Sie Dach, Fassade, Fenster, Kellerdecke oder Wärmepumpe an – dahinter steckt das jeweilige Einsparpotenzial.</p>
+        <p class="illu-caption">Tippen oder klicken Sie Dach, Fassade, Fenster, Kellerdecke oder Wärmepumpe an, dahinter steckt das jeweilige Einsparpotenzial.</p>
 
         <!-- Popup mit Einsparwerten (wird per JavaScript gefüllt und positioniert).
              "inert" statt nur aria-hidden: sonst steckt der Schließen-Button in
@@ -1685,7 +1685,7 @@ html.js .reveal.in{opacity:1;transform:none}
           </div>
           <div class="pop-num" id="popNum"></div>
           <p class="pop-text" id="popText"></p>
-          <p class="pop-foot">Richtwerte (co2online, Verbraucherzentrale, ADAC) – was Ihr Haus wirklich spart, zeigt erst die Berechnung.</p>
+          <p class="pop-foot">Richtwerte (co2online, Verbraucherzentrale, ADAC). Was Ihr Haus wirklich spart, zeigt erst die Berechnung.</p>
         </div>
       </div>
     </div>
@@ -1694,9 +1694,9 @@ html.js .reveal.in{opacity:1;transform:none}
 </section>
 
 <!--
-  LOGO-BAND – WICHTIG ZU DEN OFFIZIELLEN LOGOS:
+  LOGO-BAND, WICHTIG ZU DEN OFFIZIELLEN LOGOS:
   • Das EEE-Siegel ("Energieeffizienz-Experte") stellt die dena nach der
-    Eintragung in die Expertenliste bereit – erst dann verwenden.
+    Eintragung in die Expertenliste bereit, erst dann verwenden.
   • BAFA- und KfW-LOGOS sind geschützt (Bundesbehörde/Förderbank) und dürfen
     nicht ohne Genehmigung eingebunden werden. Die Namen in Textform zur
     Beschreibung der Förderprogramme zu nennen ist unproblematisch.
@@ -1760,7 +1760,7 @@ html.js .reveal.in{opacity:1;transform:none}
     <div class="section-head reveal">
       <span class="eyebrow">Ausgangslage</span>
       <h2>Drei Fragen, die fast jeden Eigentümer beschäftigen.</h2>
-      <p class="lead">Und die man nur beantworten kann, wenn jemand das Gebäude tatsächlich gesehen und gerechnet hat – nicht mit einer Faustformel aus dem Internet.</p>
+      <p class="lead">Und die man nur beantworten kann, wenn jemand das Gebäude tatsächlich gesehen und gerechnet hat, nicht mit einer Faustformel aus dem Internet.</p>
     </div>
 
     <div class="problem-grid">
@@ -1786,7 +1786,7 @@ html.js .reveal.in{opacity:1;transform:none}
           <p>Dach, Fenster, Fassade oder doch zuerst die Heizung? Die falsche Reihenfolge kostet schnell fünfstellig und verbaut Fördermöglichkeiten für später.</p>
           <div class="problem-answer">
             <b>Unsere Antwort</b>
-            Ein individueller Sanierungsfahrplan mit Kosten, Einsparung und Amortisation je Maßnahme – in der richtigen Reihenfolge.
+            Ein individueller Sanierungsfahrplan mit Kosten, Einsparung und Amortisation je Maßnahme, in der richtigen Reihenfolge.
           </div>
         </div>
       </article>
@@ -1810,7 +1810,7 @@ html.js .reveal.in{opacity:1;transform:none}
         </div>
         <div class="problem-body">
           <span class="problem-num">02</span>
-          <h3>„Welche Förderung bekomme ich – und wie komme ich an sie heran?“</h3>
+          <h3>„Welche Förderung bekomme ich, und wie komme ich an sie heran?“</h3>
           <p>BEG, BAFA, KfW, Landesprogramme, Boni: Die Töpfe ändern sich laufend, die Anträge müssen <em>vor</em> Auftragsvergabe raus. Ein Formfehler kostet den kompletten Zuschuss.</p>
           <div class="problem-answer">
             <b>Unsere Antwort</b>
@@ -1857,8 +1857,8 @@ html.js .reveal.in{opacity:1;transform:none}
         </div>
         <div class="problem-body">
           <span class="problem-num">03</span>
-          <h3>„Muss ich meine Heizung tauschen – und wann?“</h3>
-          <p>Die Regeln sind neu: Seit dem 29. Juli 2026 heißt das Gebäudeenergiegesetz Gebäudemodernisierungsgesetz, die 65-Prozent-Regel ist gestrichen – und für neue Gas- und Ölheizungen kommt ab 2029 eine eigene Pflicht dazu. Wer mit dem Wissen von 2025 entscheidet, entscheidet auf Basis von gestern.</p>
+          <h3>„Muss ich meine Heizung tauschen, und wann?“</h3>
+          <p>Die Regeln sind neu: Seit dem 29. Juli 2026 heißt das Gebäudeenergiegesetz Gebäudemodernisierungsgesetz, die 65-Prozent-Regel ist gestrichen, und für neue Gas- und Ölheizungen kommt ab 2029 eine eigene Pflicht dazu. Wer mit dem Wissen von 2025 entscheidet, entscheidet auf Basis von gestern.</p>
           <div class="problem-answer">
             <b>Unsere Antwort</b>
             Eine nüchterne Einordnung, was für Ihr Gebäude jetzt gilt, was ab 2029 dazukommt und welche Entscheidung auch dann noch richtig ist.
@@ -1904,7 +1904,7 @@ html.js .reveal.in{opacity:1;transform:none}
             <h3><a href="sanierungsfahrplan.html">Individueller Sanierungsfahrplan (iSFP)</a></h3>
           </div>
         </div>
-        <p>Ihr Gebäude Schritt für Schritt zum Effizienzhaus – in Etappen, die zu Ihrem Budget passen. Wer den Fahrplan hat, bekommt auf spätere Einzelmaßnahmen 5 Prozentpunkte zusätzliche Förderung.</p>
+        <p>Ihr Gebäude Schritt für Schritt zum Effizienzhaus, in Etappen, die zu Ihrem Budget passen. Wer den Fahrplan hat, bekommt auf spätere Einzelmaßnahmen 5 Prozentpunkte zusätzliche Förderung.</p>
         <ul>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Vor-Ort-Aufnahme, Bauteilcheck und Verbrauchsanalyse</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Maßnahmenpakete mit Kosten, Einsparung und Amortisation</li>
@@ -1981,7 +1981,7 @@ html.js .reveal.in{opacity:1;transform:none}
     <div class="cta-band reveal">
       <div class="cta-band-text">
         <b>Nicht sicher, welcher Baustein passt?</b>
-        <span>Das klären wir gemeinsam – kostenlos und ohne dass Sie sich zu etwas verpflichten.</span>
+        <span>Das klären wir gemeinsam, kostenlos und ohne dass Sie sich zu etwas verpflichten.</span>
       </div>
       <div class="cta-band-knoepfe">
         <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
@@ -2001,14 +2001,14 @@ html.js .reveal.in{opacity:1;transform:none}
         <h2>Rechnen Sie selbst, bevor wir sprechen.</h2>
         <p class="lead">
           Der Sanierungsrechner zeigt Ihnen in etwa zehn Minuten, wo Ihr Gebäude energetisch
-          steht und was die einzelnen Maßnahmen bringen würden – mit Kostenspanne, Ersparnis
+          steht und was die einzelnen Maßnahmen bringen würden, mit Kostenspanne, Ersparnis
           und der Frage, was sie überhaupt kosten dürfen, damit sie sich rechnen.
         </p>
 
         <ul class="rechner-punkte">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Energieklasse und Wärmeverluste Ihres Hauses</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Je Maßnahme: Kosten, Förderung und Ersparnis</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Eigenleistung gekennzeichnet – was Sie selbst machen können</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Eigenleistung gekennzeichnet. Was Sie selbst machen können</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icCheck"/></svg> Ergebnis als Bericht zum Ausdrucken oder Speichern</li>
         </ul>
 
@@ -2024,16 +2024,16 @@ html.js .reveal.in{opacity:1;transform:none}
 
         <div class="info-panel" id="rechnerInfo" hidden>
           <p><b>Was der Rechner macht:</b> Sie beantworten Schritt für Schritt Fragen zu Ihrem
-          Gebäude – Baujahr, Größe, Fenster, Dämmung, Heizung, Verbrauch. Daraus berechnet er
+          Gebäude: Baujahr, Größe, Fenster, Dämmung, Heizung, Verbrauch. Daraus berechnet er
           Ihre Energieklasse, zeigt, wo die Wärme verloren geht, und rechnet jede
           Sanierungsmaßnahme einzeln durch.</p>
           <p><b>Wie lange es dauert:</b> Etwa zehn Minuten. Je genauer Ihre Angaben, desto
-          belastbarer das Ergebnis – Schätzwerte reichen aber für eine erste Einordnung.</p>
+          belastbarer das Ergebnis. Schätzwerte reichen aber für eine erste Einordnung.</p>
           <p><b>Ihre Daten:</b> Solange Sie nur rechnen, bleibt alles in Ihrem Browser. Es wird
           nichts übertragen und nichts gespeichert. Erst wenn Sie am Ende den Bericht anfordern
           und Ihre Kontaktdaten eintragen, kommt etwas bei uns an.</p>
           <p><b>Was er nicht ist:</b> Eine Energieberatung im Rechtssinn. Für Förderanträge
-          braucht es einen eingetragenen Energie-Effizienz-Experten – der Rechner gibt Ihnen
+          braucht es einen eingetragenen Energie-Effizienz-Experten. Der Rechner gibt Ihnen
           die Orientierung, mit der Sie ins Gespräch gehen können.</p>
         </div>
       </div>
@@ -2075,7 +2075,7 @@ html.js .reveal.in{opacity:1;transform:none}
             <text x="104" y="164">Keller &amp; Lüftung</text>
           </g>
         </svg>
-        <figcaption>Beispielausgabe – Ihre Werte errechnet der Rechner aus Ihren Angaben.</figcaption>
+        <figcaption>Beispielausgabe, Ihre Werte errechnet der Rechner aus Ihren Angaben.</figcaption>
       </figure>
 
     </div>
@@ -2112,7 +2112,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <div class="step-dot"></div>
         <span class="num">Schritt 03</span>
         <h3>Bericht &amp; Fahrplan</h3>
-        <p>Innerhalb von rund drei Wochen erhalten Sie Ihren Sanierungsfahrplan – und wir gehen ihn gemeinsam durch, Seite für Seite.</p>
+        <p>Innerhalb von rund drei Wochen erhalten Sie Ihren Sanierungsfahrplan, und wir gehen ihn gemeinsam durch, Seite für Seite.</p>
       </div>
 
       <div class="step reveal">
@@ -2199,7 +2199,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <div class="preis-info">
           <b>Was den Preis bestimmt</b>
           Größe und Zustand des Gebäudes, Zahl der Wohneinheiten, wie vollständig die Unterlagen
-          sind und ob Denkmalschutz im Spiel ist. Sie bekommen vorab ein Festpreisangebot – erst
+          sind und ob Denkmalschutz im Spiel ist. Sie bekommen vorab ein Festpreisangebot, erst
           danach entscheiden Sie.
         </div>
         <div class="preis-info" style="background:var(--amber-soft);color:#6B5638">
@@ -2242,7 +2242,7 @@ html.js .reveal.in{opacity:1;transform:none}
     <p class="preis-fuss">
       Alle genannten Beträge sind Startpreise für ein Ein- oder Zweifamilienhaus und
       Endpreise inklusive Umsatzsteuer. Mehr Wohneinheiten, fehlende Unterlagen oder
-      Denkmalschutz erhöhen den Aufwand – Sie bekommen in jedem Fall vorab ein
+      Denkmalschutz erhöhen den Aufwand. Sie bekommen in jedem Fall vorab ein
       Festpreisangebot. Fördersätze geben den Stand August 2026 wieder; maßgeblich sind
       die bei Antragstellung geltenden Richtlinien des BAFA.
     </p>
@@ -2258,7 +2258,7 @@ html.js .reveal.in{opacity:1;transform:none}
       <div class="stats-inner">
         <h2>Förderung für Sanierung und Heizung: was aktuell möglich ist.</h2>
         <p class="stats-lead">
-          Nicht nur die Heizung: Fast alles rund um die Sanierung ist förderfähig – von der
+          Nicht nur die Heizung: Fast alles rund um die Sanierung ist förderfähig, von der
           Dämmung über die Heizungsoptimierung bis zur Baubegleitung. Entscheidend ist, beim
           richtigen Träger und vor der Auftragsvergabe zu beantragen.
         </p>
@@ -2278,7 +2278,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <h3>Gebäudehülle</h3>
         <p class="foerder-satz">15 % <em>· mit Sanierungsfahrplan 20 %</em></p>
         <p>Dämmung von Dach, Außenwand, Kellerdecke und oberster Geschossdecke, Fenster, Außentüren, sommerlicher Wärmeschutz.</p>
-        <p class="foerder-deckel">Förderfähig bis 30.000 € je Wohneinheit und Jahr – mit Sanierungsfahrplan bis 60.000 €.</p>
+        <p class="foerder-deckel">Förderfähig bis 30.000 € je Wohneinheit und Jahr, mit Sanierungsfahrplan bis 60.000 €.</p>
       </article>
 
       <article class="foerder-karte reveal">
@@ -2294,7 +2294,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <h3>Heizungsoptimierung &amp; Anlagentechnik</h3>
         <p class="foerder-satz">15 % <em>· mit Sanierungsfahrplan 20 %</em></p>
         <p>Hydraulischer Abgleich, Pumpentausch, Dämmung der Rohrleitungen, Lüftungsanlagen mit Wärmerückgewinnung, digitale Regelungstechnik.</p>
-        <p class="foerder-deckel">Oft der günstigste Hebel überhaupt – kleine Investition, sofortige Wirkung.</p>
+        <p class="foerder-deckel">Oft der günstigste Hebel überhaupt: kleine Investition, sofortige Wirkung.</p>
       </article>
 
       <article class="foerder-karte reveal">
@@ -2309,7 +2309,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <span class="foerder-traeger">BAFA · Energieberatung &amp; Baubegleitung</span>
         <h3>Beratung und Begleitung</h3>
         <p class="foerder-satz">50 %</p>
-        <p>Sowohl der Sanierungsfahrplan als auch die fachliche Begleitung der Baustelle werden bezuschusst – die Beratung finanziert sich damit zu großen Teilen selbst.</p>
+        <p>Sowohl der Sanierungsfahrplan als auch die fachliche Begleitung der Baustelle werden bezuschusst, die Beratung finanziert sich damit zu großen Teilen selbst.</p>
         <p class="foerder-deckel">Sanierungsfahrplan bis 650 € (Ein-/Zweifamilienhaus) bzw. 850 € ab drei Wohneinheiten. Baubegleitung gesondert.</p>
       </article>
 
@@ -2318,7 +2318,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <h3>Steuerliche Alternative</h3>
         <p class="foerder-satz">20 % über drei Jahre</p>
         <p>Wer keine Förderung beantragt, kann Sanierungskosten stattdessen von der Steuer absetzen. Für selbstgenutztes Wohneigentum ab einem bestimmten Gebäudealter.</p>
-        <p class="foerder-deckel">Wichtig: entweder Förderung <em>oder</em> Steuerermäßigung – beides zusammen geht nicht. Was günstiger ist, rechnen wir vorher durch – <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer im Vergleich</a>.</p>
+        <p class="foerder-deckel">Wichtig: entweder Förderung <em>oder</em> Steuerermäßigung. Beides zusammen geht nicht. Was günstiger ist, rechnen wir vorher durch, <a href="ratgeber-foerderung-oder-steuer.html">Förderung oder Steuer im Vergleich</a>.</p>
       </article>
 
     </div>
@@ -2332,7 +2332,7 @@ html.js .reveal.in{opacity:1;transform:none}
       </p>
       <p class="stats-note">
         Stand Juli 2026. Fördersätze, Boni und Höchstbeträge ändern sich kurzfristig und hängen
-        immer vom Einzelfall ab – diese Übersicht ist eine Orientierung, keine Zusage und keine
+        immer vom Einzelfall ab. Diese Übersicht ist eine Orientierung, keine Zusage und keine
         Rechts- oder Steuerberatung. Verbindlich sind die jeweils aktuellen Richtlinien der
         Fördergeber. Entscheidend ist außerdem der Zeitpunkt: Der Antrag muss gestellt sein,
         bevor der Handwerkerauftrag vergeben wird.
@@ -2543,7 +2543,7 @@ html.js .reveal.in{opacity:1;transform:none}
 
       <div class="faq-item">
         <button class="faq-q">Was kostet eine Energieberatung?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Für ein Ein- oder Zweifamilienhaus beginnt der individuelle Sanierungsfahrplan bei <b class="preis-wert" data-preis="isfp_ab">1.350 €</b> inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 %, höchstens <span class="preis-wert" data-preis="foerderung_max">650 €</span> – Ihr Eigenanteil liegt damit ab <b class="preis-wert" data-preis="eigen_ab">700 €</b>, sofern der Zuschuss bewilligt wird. Was den Preis im Einzelfall bestimmt, steht unter <a href="#preise">Preise</a>; Sie bekommen vorab ein Festpreisangebot, keine Stundenzettel-Überraschung.</p></div>
+        <div class="faq-a"><p>Für ein Ein- oder Zweifamilienhaus beginnt der individuelle Sanierungsfahrplan bei <b class="preis-wert" data-preis="isfp_ab">1.350 €</b> inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 %, höchstens <span class="preis-wert" data-preis="foerderung_max">650 €</span>. Ihr Eigenanteil liegt damit ab <b class="preis-wert" data-preis="eigen_ab">700 €</b>, sofern der Zuschuss bewilligt wird. Was den Preis im Einzelfall bestimmt, steht unter <a href="#preise">Preise</a>; Sie bekommen vorab ein Festpreisangebot, keine Stundenzettel-Überraschung.</p></div>
       </div>
 
       <div class="faq-item">
@@ -2560,7 +2560,7 @@ html.js .reveal.in{opacity:1;transform:none}
         <button class="faq-q">Was kostet ein Energieausweis?<span class="faq-icon"></span></button>
         <div class="faq-a"><p>Der Verbrauchsausweis beginnt bei
         <b class="preis-wert" data-preis="ausweis_verbrauch">120 €</b>, der Bedarfsausweis bei
-        <b class="preis-wert" data-preis="ausweis_bedarf">390 €</b> – Endpreise inklusive
+        <b class="preis-wert" data-preis="ausweis_bedarf">390 €</b>, Endpreise inklusive
         Umsatzsteuer für ein Ein- oder Zweifamilienhaus. Mehr Wohneinheiten oder fehlende
         Unterlagen erhöhen den Aufwand; Sie erhalten vorab ein Festpreisangebot. Alles Weitere auf
         der Seite <a href="energieausweis-ulm.html">Energieausweis</a>; welche Variante Sie
@@ -2570,12 +2570,12 @@ html.js .reveal.in{opacity:1;transform:none}
 
       <div class="faq-item">
         <button class="faq-q">Wird die Beratung selbst gefördert?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Ja. Die Bundesförderung für Energieberatung für Wohngebäude übernimmt 50 % des förderfähigen Honorars – bis 650 € bei Ein- und Zweifamilienhäusern, bis 850 € ab drei Wohneinheiten. Wohnungseigentümergemeinschaften erhalten einmalig 250 € zusätzlich für die Erläuterung in der Eigentümerversammlung. Den Antrag stellen Sie als Eigentümer, wir bereiten ihn vor.</p></div>
+        <div class="faq-a"><p>Ja. Die Bundesförderung für Energieberatung für Wohngebäude übernimmt 50 % des förderfähigen Honorars. Bis 650 € bei Ein- und Zweifamilienhäusern, bis 850 € ab drei Wohneinheiten. Wohnungseigentümergemeinschaften erhalten einmalig 250 € zusätzlich für die Erläuterung in der Eigentümerversammlung. Den Antrag stellen Sie als Eigentümer, wir bereiten ihn vor.</p></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">Muss ich meine Öl- oder Gasheizung jetzt austauschen?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden – seit dem 29. Juli 2026 auch ohne Altersgrenze, die frühere Austauschpflicht nach 30 Jahren ist gestrichen. Das Gebäudeenergiegesetz heißt seitdem Gebäudemodernisierungsgesetz, die 65-Prozent-Regel entfällt. Wer eine neue Gas- oder Ölheizung einbaut, muss ab 2029 einen steigenden Anteil klimafreundlicher Brennstoffe sicherstellen. Deshalb gilt: keine Panikentscheidung, sondern rechnen.</p></div>
+        <div class="faq-a"><p>Nein. Eine funktionierende Heizung darf weiter betrieben und repariert werden. Seit dem 29. Juli 2026 auch ohne Altersgrenze, die frühere Austauschpflicht nach 30 Jahren ist gestrichen. Das Gebäudeenergiegesetz heißt seitdem Gebäudemodernisierungsgesetz, die 65-Prozent-Regel entfällt. Wer eine neue Gas- oder Ölheizung einbaut, muss ab 2029 einen steigenden Anteil klimafreundlicher Brennstoffe sicherstellen. Deshalb gilt: keine Panikentscheidung, sondern rechnen.</p></div>
       </div>
 
       <div class="faq-item">
@@ -2585,7 +2585,7 @@ html.js .reveal.in{opacity:1;transform:none}
 
       <div class="faq-item">
         <button class="faq-q">Bin ich danach an bestimmte Firmen oder Produkte gebunden?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Nein. Wir verkaufen weder Heizungen noch Dämmstoffe und nehmen keine Provisionen von Herstellern oder Handwerksbetrieben an. Wenn wir Ihnen Betriebe empfehlen, dann weil wir mit ihrer Arbeit gute Erfahrungen gemacht haben – nicht weil wir daran verdienen.</p></div>
+        <div class="faq-a"><p>Nein. Wir verkaufen weder Heizungen noch Dämmstoffe und nehmen keine Provisionen von Herstellern oder Handwerksbetrieben an. Wenn wir Ihnen Betriebe empfehlen, dann weil wir mit ihrer Arbeit gute Erfahrungen gemacht haben, nicht weil wir daran verdienen.</p></div>
       </div>
 
       <div class="faq-item">
@@ -2625,7 +2625,7 @@ html.js .reveal.in{opacity:1;transform:none}
       <h2>Wo wir beraten.</h2>
       <p class="lead">
         Unser Büro sitzt in Dornstadt, direkt am Übergang zwischen Donautal und Albhochfläche.
-        Wir beraten im gesamten Alb-Donau-Kreis und rund 50 Kilometer um Ulm – Vor-Ort-Termine
+        Wir beraten im gesamten Alb-Donau-Kreis und rund 50 Kilometer um Ulm, Vor-Ort-Termine
         sind damit kurzfristig möglich, auch mehrfach, wenn es die Bauphase erfordert.
       </p>
     </div>
@@ -2640,7 +2640,7 @@ html.js .reveal.in{opacity:1;transform:none}
       <a href="energieberatung-dornstadt.html">Energieberatung Dornstadt</a>
     </div>
     <p style="margin-top:18px;font-size:.88rem;color:var(--muted)">
-      Ihr Ort ist nicht dabei? Rufen Sie an – außerhalb dieser Liste beraten wir ebenfalls,
+      Ihr Ort ist nicht dabei? Rufen Sie an, außerhalb dieser Liste beraten wir ebenfalls,
       solange die Anfahrt im Rahmen bleibt.
     </p>
   </div>
@@ -2661,7 +2661,7 @@ html.js .reveal.in{opacity:1;transform:none}
       </div>
       <div class="contact-line">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-        <!-- [TODO] echte E-Mail-Adresse eintragen – auch im mailto: und im Impressum -->
+        <!-- [TODO] echte E-Mail-Adresse eintragen, auch im mailto: und im Impressum -->
         <div><b>E-Mail</b><span><a href="mailto:kontakt@ihre-domain.de">[kontakt@ihre-domain.de]</a></span></div>
       </div>
       <div class="contact-line">
@@ -2682,7 +2682,7 @@ html.js .reveal.in{opacity:1;transform:none}
       unten beim Block "Formular".
     -->
     <!-- novalidate schaltet die Browser-Sprechblasen ab, damit die eigene
-         Prüfung unten im JavaScript greift – die meldet auf Deutsch, markiert
+         Prüfung unten im JavaScript greift. Die meldet auf Deutsch, markiert
          das Feld farbig und springt den ersten Fehler an. -->
     <form class="form-card reveal" id="contactForm" novalidate>
       <div class="field-row">
@@ -2726,9 +2726,9 @@ html.js .reveal.in{opacity:1;transform:none}
       <div class="field">
         <label for="f-msg">Worum geht es?</label>
         <!-- maxlength passend zu den Grenzen der Datenbank (siehe CLAUDE.md).
-             Ohne sie wird ein zu langer Text erst von der Datenbank abgewiesen –
+             Ohne sie wird ein zu langer Text erst von der Datenbank abgewiesen,
              der Absender sähe nur eine allgemeine Fehlermeldung. -->
-        <textarea id="f-msg" name="nachricht" maxlength="5000" placeholder="Ein paar Sätze genügen – z. B. hohe Heizkosten, geplanter Heizungstausch, Fördermittelfrage."></textarea>
+        <textarea id="f-msg" name="nachricht" maxlength="5000" placeholder="Ein paar Sätze genügen: z. B. hohe Heizkosten, geplanter Heizungstausch, Fördermittelfrage."></textarea>
       </div>
 
       <!-- Honigtopf gegen Spam-Bots: per CSS aus dem Blickfeld geschoben.
@@ -2762,7 +2762,7 @@ html.js .reveal.in{opacity:1;transform:none}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#top" class="logo">
-      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau – Beraten. Planen. Fördern.">
+      <img src="logo.png" width="365" height="240" alt="EBA Energieberater Albdonau, Beraten. Planen. Fördern.">
     </a>
         <p>Energieberatung für Wohngebäude in Ulm und im Alb-Donau-Kreis. Produktneutral, ohne Provision, mit Blick auf das, was sich rechnet.</p>
         <a href="#kontakt" class="btn btn-amber btn-sm">Gratis Erstgespräch</a>
@@ -2982,10 +2982,10 @@ html.js .reveal.in{opacity:1;transform:none}
      Kellerdecke bis 10 % Heizenergie (ADAC),
      Wärmepumpe: 1 kWh Strom -> 3–5 kWh Wärme (Verbraucherzentrale). */
   var ILLU_DATA = {
-    dach:        { t:'Dach dämmen',          n:'bis zu 20 %', x:'weniger Heizenergie. Über ein ungedämmtes Dach entweichen 20–30 % der Wärme – nach oben verliert das Haus am schnellsten.' },
-    fassade:     { t:'Fassade dämmen',       n:'20–35 %',     x:'der Wärme eines Altbaus gehen über ungedämmte Außenwände verloren – die größte Einzelfläche und entsprechend großes Einsparpotenzial.' },
+    dach:        { t:'Dach dämmen',          n:'bis zu 20 %', x:'weniger Heizenergie. Über ein ungedämmtes Dach entweichen 20–30 % der Wärme. Nach oben verliert das Haus am schnellsten.' },
+    fassade:     { t:'Fassade dämmen',       n:'20–35 %',     x:'der Wärme eines Altbaus gehen über ungedämmte Außenwände verloren, die größte Einzelfläche und entsprechend großes Einsparpotenzial.' },
     fenster:     { t:'Fenster tauschen',     n:'10–20 %',     x:'weniger Heizkosten, wenn alte Fenster gegen 3-fach-Wärmeschutzverglasung getauscht werden. Nebeneffekt: kein Zug, keine kalten Scheiben.' },
-    kellerdecke: { t:'Kellerdecke dämmen',   n:'bis zu 10 %', x:'weniger Heizenergie – die günstigste Dämmmaßnahme, oft an einem Wochenende in Eigenleistung machbar. Schluss mit kalten Füßen im Erdgeschoss.' },
+    kellerdecke: { t:'Kellerdecke dämmen',   n:'bis zu 10 %', x:'weniger Heizenergie, die günstigste Dämmmaßnahme, oft an einem Wochenende in Eigenleistung machbar. Schluss mit kalten Füßen im Erdgeschoss.' },
     heizung:     { t:'Wärmepumpe',           n:'1 kWh → 3–5 kWh', x:'Aus einer Kilowattstunde Strom macht eine effiziente Wärmepumpe drei bis fünf Kilowattstunden Wärme (Jahresarbeitszahl 3–5).' }
   };
 
@@ -2998,7 +2998,7 @@ html.js .reveal.in{opacity:1;transform:none}
     var sticky = false, curKey = null, hideTimer = null;
 
     function anchorOf(el, key){
-      /* Popup bevorzugt am Beschriftungspunkt verankern – wirkt ruhiger.
+      /* Popup bevorzugt am Beschriftungspunkt verankern. Wirkt ruhiger.
          Auf Mobilgeräten sind die Pins ausgeblendet (Rechteck = 0),
          dann dient das angeklickte Element selbst als Anker. */
       var dot = document.querySelector('.il-tag[data-key="' + key + '"] .il-ping');
@@ -3097,7 +3097,7 @@ html.js .reveal.in{opacity:1;transform:none}
      "energieberatung-website", Region eu-central-1 / Frankfurt).
      Ansehen im Dashboard: Table Editor -> Tabelle "leads".
 
-     Der Schlüssel unten steht bewusst im Quelltext – das ist bei Supabase so
+     Der Schlüssel unten steht bewusst im Quelltext. Das ist bei Supabase so
      vorgesehen und ungefährlich. Die Datenbank erlaubt damit AUSSCHLIESSLICH
      das Anlegen neuer Zeilen. Lesen, Ändern und Löschen sind auf Datenbank-
      ebene gesperrt (Row Level Security + entzogene Rechte). Wer den Schlüssel
@@ -3170,7 +3170,7 @@ html.js .reveal.in{opacity:1;transform:none}
       return;
     }
 
-    /* Ab hier wird selbst versendet – das Standardverhalten des Formulars
+    /* Ab hier wird selbst versendet, das Standardverhalten des Formulars
        würde die Seite neu laden und die Rückmeldung verschlucken. */
     e.preventDefault();
 
@@ -3193,7 +3193,7 @@ html.js .reveal.in{opacity:1;transform:none}
         'apikey': SUPABASE_KEY,
         'Authorization': 'Bearer ' + SUPABASE_KEY,
         /* return=minimal ist wichtig: sonst versucht Supabase, die neue Zeile
-           zurückzugeben – und das wäre ein Lesezugriff, der zu Recht scheitert. */
+           zurückzugeben, und das wäre ein Lesezugriff, der zu Recht scheitert. */
         'Prefer': 'return=minimal'
       },
       body: JSON.stringify({
@@ -3228,17 +3228,17 @@ html.js .reveal.in{opacity:1;transform:none}
 </script>
 
 <!-- =======================================================================
-     TRACKING (optional) – hier das Analytics-Snippet einfügen.
+     TRACKING (optional), hier das Analytics-Snippet einfügen.
      Die Seite sendet dann automatisch diese Ereignisse:
        telefon_klick, cta_kontakt, anfrage_gesendet, einsparung_angesehen
 
-     VARIANTE A – ohne Cookie-Banner (empfohlen für den Start):
+     VARIANTE A, ohne Cookie-Banner (empfohlen für den Start):
        Plausible (EU, kostenpflichtig) oder Matomo (cookielos konfiguriert).
        Beispiel Plausible:
        <script defer data-domain="ihre-domain.de" src="https://plausible.io/js/script.pageview-props.tagged-events.js"></script>
        Kein Cookie-Banner nötig, aber in die Datenschutzerklärung aufnehmen.
 
-     VARIANTE B – Google Analytics 4 (kostenlos):
+     VARIANTE B, Google Analytics 4 (kostenlos):
        Snippet aus dem GA4-Konto hier einfügen.
        ACHTUNG: In Deutschland nur mit Cookie-Consent-Banner zulässig
        (z. B. über einen Consent-Manager). Ohne Banner drohen Abmahnungen.

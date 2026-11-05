@@ -312,7 +312,7 @@ def kopf(titel, beschreibung, datei):
     return f"""<!DOCTYPE html>
 <!--
   ============================================================================
-  AKTUELLES – ERZEUGT, NICHT VON HAND BEARBEITEN!
+  AKTUELLES, ERZEUGT, NICHT VON HAND BEARBEITEN!
   Meldungen stehen in news-erzeugen.py, Liste MELDUNGEN. Danach das Skript
   erneut laufen lassen, sonst sind Aenderungen beim naechsten Durchlauf weg.
   ============================================================================
@@ -373,7 +373,7 @@ def meldung_html(m):
 def seite(meldungen, archivjahre):
     titel = "Aktuelles: Förderung, Gesetze und Sanierung | EBA Albdonau"
     beschreibung = ("Änderungen bei Förderung und Gesetzen rund um die energetische "
-                    "Sanierung – kurz zusammengefasst, jede Meldung mit amtlicher Quelle.")
+                    "Sanierung, kurz zusammengefasst, jede Meldung mit amtlicher Quelle.")
     stand = meldungen[0]["datum"] if meldungen else date.today().isoformat()
 
     graph = [{
@@ -425,7 +425,7 @@ def seite(meldungen, archivjahre):
     <p class="lead">
       Fördersätze, Fristen und Gesetze ändern sich schneller, als die meisten
       Ratgeber im Netz nachziehen. Hier steht wöchentlich in wenigen Sätzen, was
-      sich geändert hat – jede Meldung mit der amtlichen Quelle zum Nachlesen.
+      sich geändert hat, jede Meldung mit der amtlichen Quelle zum Nachlesen.
     </p>
     <div class="rg-meta">
       <span>Zuletzt aktualisiert: {lang(stand)}</span>
@@ -458,7 +458,7 @@ def seite(meldungen, archivjahre):
 
 def archivseite(jahr, meldungen):
     titel = f"Aktuelles {jahr}: Förderung und Gesetze | EBA Albdonau"
-    beschreibung = (f"Meldungen aus {jahr} zu Förderung, Gesetzen und Sanierung – "
+    beschreibung = (f"Meldungen aus {jahr} zu Förderung, Gesetzen und Sanierung, "
                     f"jede mit amtlicher Quelle. Archiv der Seite Aktuelles.")
     datei = f"aktuelles-{jahr}.html"
     graph = [{
@@ -484,8 +484,8 @@ def archivseite(jahr, meldungen):
     <span class="eyebrow">Archiv</span>
     <h1>Meldungen aus {jahr}</h1>
     <p class="lead">
-      Ältere Meldungen zu Förderung und Gesetzen. Bitte beachten Sie das Datum –
-      viele dieser Angaben sind inzwischen überholt.
+      Ältere Meldungen zu Förderung und Gesetzen. Bitte beachten Sie das Datum.
+      Viele dieser Angaben sind inzwischen überholt.
       <a href="{ZIEL}">Zu den aktuellen Meldungen</a>
     </p>
   </header>
@@ -504,7 +504,7 @@ if __name__ == "__main__":
         raise SystemExit("index.html nicht gefunden - Skript im Projektordner starten.")
 
     sortiert = pruefe(MELDUNGEN)
-    print(f"{len(sortiert)} Meldungen geprüft: Quellen, Datum, Dubletten, Länge – alles sauber.")
+    print(f"{len(sortiert)} Meldungen geprüft: Quellen, Datum, Dubletten, Länge, alles sauber.")
 
     auf_seite = sortiert[:MAX_AUF_SEITE]
     ins_archiv = sortiert[MAX_AUF_SEITE:]

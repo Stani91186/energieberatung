@@ -34,7 +34,7 @@ ORTE = [
     "datei": "energieberatung-ulm.html",
     "isfp_hinweis": "In Ulm endet der Fahrplan häufig in einer Fassung, die sich in einer Eigentümerversammlung vortragen lässt: Kosten je Wohneinheit, ein Vorschlag zur Reihenfolge und eine Zeitachse, an der sich ein Beschluss festmachen lässt.",
     "ort": "Ulm",
-    "typisch": "Häufigster Fall in Ulm sind Eigentumswohnungen und Reihenhäuser aus den Wiederaufbaujahren. Dort ist die Einzelmaßnahme oft nicht frei wählbar, weil die Eigentümergemeinschaft mitentscheidet. Wir bereiten die Zahlen deshalb so auf, dass sie in einer Eigentümerversammlung bestehen – mit Kosten je Wohneinheit statt nur für das Gesamtgebäude. Für Wohnungseigentümergemeinschaften gibt es beim Sanierungsfahrplan zusätzlich 250 Euro Förderung für die Erläuterung vor der Versammlung.",
+    "typisch": "Häufigster Fall in Ulm sind Eigentumswohnungen und Reihenhäuser aus den Wiederaufbaujahren. Dort ist die Einzelmaßnahme oft nicht frei wählbar, weil die Eigentümergemeinschaft mitentscheidet. Wir bereiten die Zahlen deshalb so auf, dass sie in einer Eigentümerversammlung bestehen, mit Kosten je Wohneinheit statt nur für das Gesamtgebäude. Für Wohnungseigentümergemeinschaften gibt es beim Sanierungsfahrplan zusätzlich 250 Euro Förderung für die Erläuterung vor der Versammlung.",
     "artikel": "in",              # "in Ulm"
     "plz": "89073",
     "einwohner": "rund 128.000",
@@ -44,7 +44,7 @@ ORTE = [
     "beschreibung": "Energieberatung in Ulm: Sanierungsfahrplan, Förderung und Energieausweis. Vor Ort in Ulm und Umgebung, produktneutral und ohne Provision.",
     "lage": "Ulm ist das Zentrum der Region und liegt an der Donau, klimatisch deutlich "
             "milder als die Albhochfläche wenige Kilometer weiter nordwestlich. Für die "
-            "Heizlastberechnung macht das einen spürbaren Unterschied – wer Werte von der "
+            "Heizlastberechnung macht das einen spürbaren Unterschied, wer Werte von der "
             "Alb auf ein Ulmer Gebäude überträgt, dimensioniert zu groß.",
     "bausubstanz": "Ulm hat eine ungewöhnlich gemischte Bausubstanz: eine im Krieg stark "
             "zerstörte und in den 1950er und 1960er Jahren wieder aufgebaute Innenstadt, "
@@ -53,7 +53,7 @@ ORTE = [
             "interessant: massiv gebaut, langlebig, aber fast immer ohne nennenswerte "
             "Dämmung und mit Fenstern aus der ersten oder zweiten Generation.",
     "besonderheit": "In der Altstadt und im Fischerviertel gelten Denkmalschutz und "
-            "Erhaltungssatzungen. Dort ist Außendämmung meist ausgeschlossen – die Lösung "
+            "Erhaltungssatzungen. Dort ist Außendämmung meist ausgeschlossen, die Lösung "
             "liegt dann in Innendämmung, Dach, Kellerdecke und Anlagentechnik. Das will "
             "sorgfältig gerechnet werden, sonst drohen Feuchteschäden.",
   },
@@ -61,7 +61,7 @@ ORTE = [
     "datei": "energieberatung-blaustein.html",
     "isfp_hinweis": "Bei den Blausteiner Doppel- und Reihenhäusern klärt der Fahrplan zuerst, ob das Dachgeschoss künftig beheizt werden soll. Diese eine Entscheidung verschiebt die Rangfolge der Maßnahmen stärker als jede Dämmstärke.",
     "ort": "Blaustein",
-    "typisch": "Was wir in Blaustein am häufigsten sehen: ein Haus aus den 1970ern, Fenster in den 1990ern erneuert, Heizung um 2000 getauscht, Wand und Dach unverändert. Die Versuchung ist dann, wieder die Heizung anzufassen. Rechnerisch bringt hier meist die oberste Geschossdecke den schnellsten Ertrag – oft an einem Wochenende in Eigenleistung machbar und mit unter zwei Jahren Amortisation.",
+    "typisch": "Was wir in Blaustein am häufigsten sehen: ein Haus aus den 1970ern, Fenster in den 1990ern erneuert, Heizung um 2000 getauscht, Wand und Dach unverändert. Die Versuchung ist dann, wieder die Heizung anzufassen. Rechnerisch bringt hier meist die oberste Geschossdecke den schnellsten Ertrag, oft an einem Wochenende in Eigenleistung machbar und mit unter zwei Jahren Amortisation.",
     "artikel": "in",
     "plz": "89134",
     "einwohner": "rund 16.000",
@@ -71,12 +71,12 @@ ORTE = [
     "beschreibung": "Energieberatung in Blaustein: Sanierungsfahrplan, Fördermittel und Energieausweis. Vor Ort im Blautal, produktneutral und ohne Provision.",
     "lage": "Blaustein liegt im Blautal am Fuß der Schwäbischen Alb, westlich von Ulm. "
             "Die Tallage schützt vor Wind, gleichzeitig sammelt sich in den Wintermonaten "
-            "kalte Luft im Tal – ein Umstand, der bei der Auslegung von Wärmepumpen "
+            "kalte Luft im Tal, ein Umstand, der bei der Auslegung von Wärmepumpen "
             "gelegentlich unterschätzt wird.",
     "bausubstanz": "Der Ort ist stark durch Wohnbebauung der Nachkriegsjahrzehnte geprägt, "
             "dazu kommen die gewachsenen Ortsteile mit älterem Bestand. Ein- und "
-            "Zweifamilienhäuser aus den 1960er bis 1980er Jahren bilden den größten Anteil "
-            "– typischerweise mit ungedämmter Außenwand, teilweise erneuerten Fenstern und "
+            "Zweifamilienhäuser aus den 1960er bis 1980er Jahren bilden den größten Anteil, "
+            "typischerweise mit ungedämmter Außenwand, teilweise erneuerten Fenstern und "
             "einer Heizung, die zwei bis drei Jahrzehnte auf dem Buckel hat.",
     "besonderheit": "Wo Häuser in Hanglage stehen, lohnt der genaue Blick auf die "
             "erdberührten Bauteile: Ein beheizter Keller im Hang verliert deutlich mehr "
@@ -95,7 +95,7 @@ ORTE = [
     "titel_zusatz": "Energieberatung Langenau",
     "beschreibung": "Energieberatung in Langenau: Sanierungsfahrplan, Förderung und Energieausweis. Vor Ort im Alb-Donau-Kreis, produktneutral und ohne Provision.",
     "lage": "Langenau liegt nordöstlich von Ulm im flachen Donauried. Die offene Lage "
-            "bedeutet mehr Windangriff als in den Tälern der Alb – bei undichten Gebäuden "
+            "bedeutet mehr Windangriff als in den Tälern der Alb, bei undichten Gebäuden "
             "macht sich das unmittelbar in der Heizkostenabrechnung bemerkbar.",
     "bausubstanz": "Langenau ist über die vergangenen Jahrzehnte kontinuierlich gewachsen. "
             "Neben dem historischen Ortskern prägen Siedlungsgebiete verschiedener "
@@ -104,13 +104,13 @@ ORTE = [
             "die Anlagentechnik, bei älteren zuerst die Gebäudehülle.",
     "besonderheit": "Im Donauried ist der Grundwasserstand vielerorts hoch. Für "
             "Erdwärmesonden ist das ein relevanter Punkt, der vor jeder Planung geklärt "
-            "sein muss – Luft-Wasser-Wärmepumpen sind hier häufig die praktikablere Lösung.",
+            "sein muss. Luft-Wasser-Wärmepumpen sind hier häufig die praktikablere Lösung.",
   },
   {
     "datei": "energieberatung-ehingen.html",
     "isfp_hinweis": "In Ehingen beginnt der Fahrplan meist mit der Frage, welche Flächen künftig überhaupt beheizt werden. Fällt ein Wirtschaftsteil oder ein kaum genutztes Obergeschoss heraus, ändert sich die Rangfolge aller folgenden Maßnahmen.",
     "ort": "Ehingen",
-    "typisch": "Ein wiederkehrendes Thema in Ehingen und den Teilorten sind Gebäude, die deutlich größer sind als der tatsächliche Wohnbedarf. Beheizte Flure, kaum genutzte Obergeschosse, angebaute Wirtschaftsteile. Bevor über Dämmung gesprochen wird, lohnt die Frage, welche Bereiche künftig überhaupt beheizt werden sollen – das verändert die Heizlast oft stärker als jede Maßnahme an der Hülle.",
+    "typisch": "Ein wiederkehrendes Thema in Ehingen und den Teilorten sind Gebäude, die deutlich größer sind als der tatsächliche Wohnbedarf. Beheizte Flure, kaum genutzte Obergeschosse, angebaute Wirtschaftsteile. Bevor über Dämmung gesprochen wird, lohnt die Frage, welche Bereiche künftig überhaupt beheizt werden sollen. Das verändert die Heizlast oft stärker als jede Maßnahme an der Hülle.",
     "artikel": "in",
     "plz": "89584",
     "einwohner": "rund 26.500",
@@ -120,7 +120,7 @@ ORTE = [
     "beschreibung": "Energieberatung in Ehingen an der Donau: Sanierungsfahrplan, Fördermittel und Energieausweis. Produktneutral und ohne Provision.",
     "lage": "Ehingen ist die größte Stadt im Alb-Donau-Kreis und liegt an der Donau "
             "südwestlich von Ulm. Mit ihren zahlreichen Teilorten reicht das Stadtgebiet "
-            "von der Donauniederung bis auf die Ausläufer der Alb – die klimatischen "
+            "von der Donauniederung bis auf die Ausläufer der Alb, die klimatischen "
             "Bedingungen unterscheiden sich innerhalb der Stadt spürbar.",
     "bausubstanz": "Die historische Altstadt mit ihrer geschlossenen Bebauung steht neben "
             "Wohngebieten der Nachkriegszeit und neueren Baugebieten in den Teilorten. "
@@ -149,7 +149,7 @@ ORTE = [
             "Tal rechnet, unterschätzt den Wärmebedarf.",
     "bausubstanz": "Neben dem alten Ortskern prägen Wohngebiete der zweiten Hälfte des "
             "20. Jahrhunderts das Bild. Wegen der rauen Lage wurde vielerorts früher "
-            "gedämmt als im Umland – das heißt aber auch, dass viele Dämmungen aus den "
+            "gedämmt als im Umland. Das heißt aber auch, dass viele Dämmungen aus den "
             "1980er und 1990er Jahren heute technisch überholt sind und die Anforderungen "
             "der Förderung nicht mehr erfüllen.",
     "besonderheit": "Auf der Alb ist der Untergrund verkarstet. Erdwärmebohrungen sind "
@@ -161,9 +161,9 @@ ORTE = [
   },
   {
     "datei": "energieberatung-blaubeuren.html",
-    "isfp_hinweis": "In Blaubeuren hält der Fahrplan zuerst fest, was die Denkmalbehörde zulässt und was ausscheidet. Erst nach dieser Abgrenzung ist die Wirtschaftlichkeitsrechnung belastbar – sonst stehen Maßnahmen darin, die nie genehmigt werden.",
+    "isfp_hinweis": "In Blaubeuren hält der Fahrplan zuerst fest, was die Denkmalbehörde zulässt und was ausscheidet. Erst nach dieser Abgrenzung ist die Wirtschaftlichkeitsrechnung belastbar. Sonst stehen Maßnahmen darin, die nie genehmigt werden.",
     "ort": "Blaubeuren",
-    "typisch": "Bei denkmalgeschützten Gebäuden in Blaubeuren beginnt jede Beratung mit der Denkmalbehörde, nicht mit dem Rechenblatt. Erst wenn feststeht, was zulässig ist, ergibt eine Wirtschaftlichkeitsrechnung Sinn. Häufig bleiben dann Kellerdecke, oberste Geschossdecke, Fenster in Zweitfassung und die Heizungsanlage – zusammen erreicht man damit erstaunlich viel, ohne das Erscheinungsbild anzutasten.",
+    "typisch": "Bei denkmalgeschützten Gebäuden in Blaubeuren beginnt jede Beratung mit der Denkmalbehörde, nicht mit dem Rechenblatt. Erst wenn feststeht, was zulässig ist, ergibt eine Wirtschaftlichkeitsrechnung Sinn. Häufig bleiben dann Kellerdecke, oberste Geschossdecke, Fenster in Zweitfassung und die Heizungsanlage. Zusammen erreicht man damit erstaunlich viel, ohne das Erscheinungsbild anzutasten.",
     "artikel": "in",
     "plz": "89143",
     "einwohner": "rund 12.500",
@@ -177,19 +177,19 @@ ORTE = [
     "bausubstanz": "Der historische Ortskern mit Fachwerk und dem Kloster steht unter "
             "besonderem Schutz. Daneben gibt es Wohngebiete der Nachkriegszeit und die "
             "Teilorte auf der Albhochfläche, die klimatisch schon zur "
-            "<a href=\"ratgeber-sanieren-schwaebische-alb.html\">Höhenlage</a> zählen – "
+            "<a href=\"ratgeber-sanieren-schwaebische-alb.html\">Höhenlage</a> zählen, "
             "innerhalb einer Gemeinde also zwei unterschiedliche Ausgangslagen.",
     "besonderheit": "Denkmalschutz ist hier keine Randnotiz, sondern die Regel. Bei "
             "geschützten Gebäuden gelten erleichterte Anforderungen im "
             "Gebäudemodernisierungsgesetz, gleichzeitig sind viele Standardmaßnahmen nicht "
-            "zulässig. Fachwerk verträgt zudem nur bestimmte Dämmsysteme – hier ist die "
+            "zulässig. Fachwerk verträgt zudem nur bestimmte Dämmsysteme. Hier ist die "
             "Reihenfolge besonders wichtig.",
   },
   {
     "datei": "energieberatung-erbach.html",
     "isfp_hinweis": "In Erbach stehen am Anfang des Fahrplans fast immer Kellerdecke und oberste Geschossdecke. Die Heizung kommt bewusst danach, weil sie sonst auf den ungedämmten Zustand ausgelegt und damit eine Nummer zu groß gekauft wird.",
     "ort": "Erbach",
-    "typisch": "Viele Häuser in Erbach stammen aus einer Bauphase, in der die Kellerdecke praktisch nie gedämmt wurde. Das merkt man im Erdgeschoss an kalten Böden. Diese Maßnahme ist die <a href=\"ratgeber-kellerdecke-daemmen.html\">günstigste im ganzen Katalog</a>, in Eigenleistung machbar und förderfähig – und sie ist fast immer der richtige erste Schritt, bevor über die Heizung gesprochen wird.",
+    "typisch": "Viele Häuser in Erbach stammen aus einer Bauphase, in der die Kellerdecke praktisch nie gedämmt wurde. Das merkt man im Erdgeschoss an kalten Böden. Diese Maßnahme ist die <a href=\"ratgeber-kellerdecke-daemmen.html\">günstigste im ganzen Katalog</a>, in Eigenleistung machbar und förderfähig, und sie ist fast immer der richtige erste Schritt, bevor über die Heizung gesprochen wird.",
     "artikel": "in",
     "plz": "89155",
     "einwohner": "rund 14.000",
@@ -198,7 +198,7 @@ ORTE = [
     "titel_zusatz": "Energieberatung Erbach (Donau)",
     "beschreibung": "Energieberatung in Erbach an der Donau: Sanierungsfahrplan, Fördermittel und Energieausweis. Produktneutral und ohne Provision.",
     "lage": "Erbach liegt westlich von Ulm im Donautal. Die Lage im Tal bedeutet milde "
-            "Durchschnittstemperaturen, aber auch Nebel und Feuchte in den Wintermonaten – "
+            "Durchschnittstemperaturen, aber auch Nebel und Feuchte in den Wintermonaten, "
             "ein Punkt, der bei Luft-Wasser-Wärmepumpen und ihrem Abtauverhalten "
             "mitgedacht gehört.",
     "bausubstanz": "Erbach ist in den vergangenen Jahrzehnten deutlich gewachsen. Der "
@@ -214,22 +214,22 @@ ORTE = [
     "datei": "energieberatung-dornstadt.html",
     "isfp_hinweis": "In Dornstadt geht der Fahrplan am schnellsten: Rückfragen klären wir kurzfristig vor Ort, und der Förderantrag ist vorbereitet, bevor Sie das erste Handwerkerangebot einholen.",
     "ort": "Dornstadt",
-    "typisch": "In Dornstadt und den Teilorten kennen wir die typischen Bauphasen aus eigener Anschauung. Bei Häusern derselben Siedlung lassen sich Erfahrungswerte oft direkt übertragen – wir wissen dann schon vor dem Termin, worauf wir achten müssen. Das verkürzt die Aufnahme und macht die Zahlen belastbarer, weil sie an vergleichbaren Gebäuden geprüft sind.",
+    "typisch": "In Dornstadt und den Teilorten kennen wir die typischen Bauphasen aus eigener Anschauung. Bei Häusern derselben Siedlung lassen sich Erfahrungswerte oft direkt übertragen. Wir wissen dann schon vor dem Termin, worauf wir achten müssen. Das verkürzt die Aufnahme und macht die Zahlen belastbarer, weil sie an vergleichbaren Gebäuden geprüft sind.",
     "artikel": "in",
     "plz": "89160",
     "einwohner": "rund 8.700",
     "entfernung_kurz": "unser Standort",
     "entfernung_satz": "ist unser eigener Standort",
     "titel_zusatz": "Energieberatung Dornstadt",
-    "beschreibung": "Energieberatung in Dornstadt: Sanierungsfahrplan, Fördermittel und Energieausweis – vom Energieberater direkt aus dem Ort, produktneutral und ohne Provision.",
+    "beschreibung": "Energieberatung in Dornstadt: Sanierungsfahrplan, Fördermittel und Energieausweis: vom Energieberater direkt aus dem Ort, produktneutral und ohne Provision.",
     "lage": "Dornstadt liegt nördlich von Ulm am Übergang zur Albhochfläche, auf rund "
             "600 Metern Höhe. Damit ist es klimatisch weder Donautal noch Alb, sondern "
-            "liegt dazwischen – ein Detail, das bei der Heizlast durchaus ins Gewicht fällt.",
+            "liegt dazwischen. Ein Detail, das bei der Heizlast durchaus ins Gewicht fällt.",
     "bausubstanz": "Dornstadt ist seit den 1960er Jahren stark gewachsen, mit einem hohen "
             "Anteil an Ein- und Zweifamilienhäusern. Dazu kommen die Teilorte Bollingen, "
             "Temmenhausen, Scharenstetten und Tomerdingen mit älterem, dörflich geprägtem "
             "Bestand.",
-    "besonderheit": "Als hier ansässiges Büro sind wir schnell vor Ort – für einen "
+    "besonderheit": "Als hier ansässiges Büro sind wir schnell vor Ort, für einen "
             "Vor-Ort-Termin, für Rückfragen während der Bauphase und für die Abnahme. Bei "
             "Nachbargebäuden ähnlichen Baujahrs lassen sich Erfahrungswerte oft direkt "
             "übertragen.",
@@ -490,8 +490,8 @@ def seite(o):
     # Kaskade statt hartem Rueckfall auf die Marke: Ehingen und Erbach
     # tragen "(Donau)" im Zusatz und sprengten die 60 Zeichen - sie hiessen
     # dadurch nur noch "... | EBA Albdonau", ohne jeden Suchbegriff.
-    for kandidat in (f'{o["titel_zusatz"]} – Sanierungsfahrplan & Förderung',
-                     f'{o["titel_zusatz"]} – Sanierungsfahrplan',
+    for kandidat in (f'{o["titel_zusatz"]}, Sanierungsfahrplan & Förderung',
+                     f'{o["titel_zusatz"]}, Sanierungsfahrplan',
                      f'{o["titel_zusatz"]} | EBA Albdonau'):
         titel = kandidat
         if len(titel) <= 60:
@@ -520,7 +520,7 @@ def seite(o):
     # (...) ist unser eigener Standort" eine Doppelung. Zwei Varianten.
     if o["ort"] == "Dornstadt":
         buero_satz = (f'Unser Büro sitzt direkt hier in Dornstadt ({o["plz"]}, '
-                      f'{o["einwohner"]} Einwohner) – kürzer wird der Weg nicht.')
+                      f'{o["einwohner"]} Einwohner). Kürzer wird der Weg nicht.')
     else:
         buero_satz = (f'Unser Büro sitzt in Dornstadt. {o["ort"]} ({o["plz"]}, '
                       f'{o["einwohner"]} Einwohner) {o["entfernung_satz"]}.')
@@ -538,7 +538,7 @@ def seite(o):
     return f"""<!DOCTYPE html>
 <!--
   ============================================================================
-  ORTSSEITE {ort.upper()} – ERZEUGT, NICHT VON HAND BEARBEITEN!
+  ORTSSEITE {ort.upper()}, ERZEUGT, NICHT VON HAND BEARBEITEN!
   Änderungen in ortsseiten-erzeugen.py vornehmen und das Skript erneut laufen
   lassen, sonst sind sie beim nächsten Durchlauf wieder weg.
   ============================================================================
@@ -629,8 +629,8 @@ def seite(o):
       <span class="eyebrow">Erst rechnen. Dann sanieren.</span>
       <h1>Energieberatung <span class="accent">{ort}</span></h1>
       <p class="hero-sub">
-        <strong>Energieberatung für {ort} und Umgebung.</strong> Sanieren ist teuer –
-        falsch sanieren ist teurer. Wir rechnen Ihnen vor, welche Maßnahmen sich bei
+        <strong>Energieberatung für {ort} und Umgebung.</strong> Sanieren ist teuer.
+        Falsch sanieren ist teurer. Wir rechnen Ihnen vor, welche Maßnahmen sich bei
         <em>Ihrem</em> Gebäude wirklich lohnen, in welcher Reihenfolge sie sinnvoll sind
         und welche Fördermittel Sie dafür bekommen.
       </p>
@@ -674,11 +674,11 @@ def seite(o):
     <div class="ort-text">
       <div class="section-head">
         <span class="eyebrow">Vor Ort</span>
-        <h2>Energieberatung {kreis_h2} – Sanierungsfahrplan, Förderung, Energieausweis</h2>
+        <h2>Energieberatung {kreis_h2}: Sanierungsfahrplan, Förderung, Energieausweis</h2>
         <p class="lead">{lage}</p>
       </div>
       <p>
-        {buero_satz} Vor-Ort-Termine sind damit kurzfristig möglich – auch
+        {buero_satz} Vor-Ort-Termine sind damit kurzfristig möglich, auch
         mehrfach, wenn es die Bauphase erfordert.
       </p>
 
@@ -699,7 +699,7 @@ def seite(o):
       <h3>Sanierungsfahrplan (iSFP) {artikel} {ort}</h3>
       <p>{isfp_hinweis}</p>
       <p>
-        Der Ablauf ist überall derselbe – Aufnahme vor Ort, Berechnung, schriftlicher
+        Der Ablauf ist überall derselbe: Aufnahme vor Ort, Berechnung, schriftlicher
         Fahrplan, Erläuterungsgespräch. Was sich unterscheidet, ist die Reihenfolge, die
         am Ende darin steht. Näheres zu Leistung und Honorar auf der Seite
         <a href="sanierungsfahrplan.html">Sanierungsfahrplan</a>.
@@ -709,7 +709,7 @@ def seite(o):
       <ul class="liste">
         <li><a href="sanierungsfahrplan.html">Individueller Sanierungsfahrplan (iSFP)</a> mit Kosten, Einsparung und Amortisation je Maßnahme</li>
         <li>Fördermittel-Management: Antrag bei BAFA und KfW, Fristen im Blick, Verwendungsnachweis</li>
-        <li><a href="energieausweis-ulm.html">Energieausweis nach GModG</a> – Bedarfs- und Verbrauchsausweis</li>
+        <li><a href="energieausweis-ulm.html">Energieausweis nach GModG</a>, Bedarfs- und Verbrauchsausweis</li>
         <li>Baubegleitung und Qualitätssicherung während der Umsetzung</li>
         <li><a href="hydraulischer-abgleich-ulm.html">Heizlastberechnung und hydraulischer Abgleich</a> nach Verfahren B</li>
         <li>Zweitmeinung zu vorliegenden Handwerkerangeboten</li>
@@ -756,11 +756,11 @@ def seite(o):
       </div>
       <div class="faq-item">
         <button class="faq-q">Was kostet eine Energieberatung {artikel} {ort}?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Für ein Ein- oder Zweifamilienhaus {artikel} {ort} beginnt der individuelle Sanierungsfahrplan bei {P['isfp_ab']} € inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 %, höchstens {P['foerderung_max']} € – Ihr Eigenanteil liegt damit ab {P['eigen_ab']} €, sofern der Zuschuss bewilligt wird. Sie erhalten vorab ein Festpreisangebot. <a href="index.html#preise">Alle Preise im Überblick</a>.</p></div>
+        <div class="faq-a"><p>Für ein Ein- oder Zweifamilienhaus {artikel} {ort} beginnt der individuelle Sanierungsfahrplan bei {P['isfp_ab']} € inklusive Umsatzsteuer. Die BAFA-Förderung übernimmt 50 %, höchstens {P['foerderung_max']} €. Ihr Eigenanteil liegt damit ab {P['eigen_ab']} €, sofern der Zuschuss bewilligt wird. Sie erhalten vorab ein Festpreisangebot. <a href="index.html#preise">Alle Preise im Überblick</a>.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Wie schnell bekomme ich einen Termin?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Das Erstgespräch am Telefon meist innerhalb weniger Tage. Für den Vor-Ort-Termin planen wir gemeinsam einen Zeitpunkt, an dem Sie ohnehin zu Hause sind – er dauert zwei bis drei Stunden.</p></div>
+        <div class="faq-a"><p>Das Erstgespräch am Telefon meist innerhalb weniger Tage. Für den Vor-Ort-Termin planen wir gemeinsam einen Zeitpunkt, an dem Sie ohnehin zu Hause sind. Er dauert zwei bis drei Stunden.</p></div>
       </div>
     </div>
   </div>
