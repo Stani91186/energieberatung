@@ -707,6 +707,64 @@ gegen ein Plausibilitätsband (Faktor 0,5 bis 2,0) um die Baualterstabelle des
 Sanierungsrechners – er soll vertippte λ-Werte fangen, nicht Übereinstimmung
 mit einem Bestandsmittelwert erzwingen.
 
+## Texte: keine Floskelsprache (gemessen 05.11.2026)
+
+Der Skill **`no-ai-slop`** (petergyang, global installiert) ist der Lektor
+für Fließtext. Zwei Modi: `Detect` nennt die Muster, ohne umzuschreiben,
+`Edit` überarbeitet. **Seine Wortlisten sind ausschließlich englisch**
+(delve, leverage, tapestry …) und greifen hier nicht. Was greift, sind
+seine Strukturregeln: Binärkontraste, Räusper-Einleitungen,
+Doppelpunkt-Enthüllungen, Wichtigkeits-Aufplusterung, Dreierlisten,
+Fett mitten im Satz, Aufzählung statt Fließtext – und der **portability
+test**: Ein Satz, der unverändert auf jeden anderen Energieberater passt,
+ist Füllmaterial. Für Ortsseiten ist das der schärfste Test, den es gibt.
+
+**Wichtig für die Erwartungshaltung: Die Seite hat kein Slop-Problem.**
+Gemessen über 27 Seiten und 31.718 Wörter sichtbaren Text:
+
+| Prüfung | Ergebnis |
+|---|---|
+| 30 deutsche Floskelmuster | **4 Treffer** – 3× „grundsätzlich", 1× „zudem" |
+| „maßgeschneidert", „nahtlos", „ganzheitlich", „innovativ", „aus einer Hand", „Experten empfehlen", „Fazit" | **kommt nicht vor** |
+| Binärkontrast „nicht X, sondern Y" | 15, alle mit echtem Inhalt („keine Panikentscheidung, sondern rechnen") |
+| Gedankenstriche | 504 = 15,9 je 1.000 Wörter, 31 Sätze mit zweien |
+
+Die vier Floskeltreffer sind **keine Fehler**: „grundsätzlich gilt für
+Kellerdecken …" ist fachlich präziser als jede Umschreibung. Hier ist
+nichts zu säubern – wer das trotzdem tut, schleift dem Betreiber seine
+Stimme ab. Das ist der häufigere Schaden.
+
+**Der Zweck der Messlatte ist der Neutext**, vor allem die wöchentlich
+**automatisch** veröffentlichten Meldungen und künftige Ratgeberartikel.
+Dort zieht Floskelsprache ein, nicht im Bestand:
+
+    python slop-messen.py
+
+Das Skript vergleicht gegen die Basiswerte in `BASIS` und meldet, wenn
+eine Zahl davonläuft. Nach größeren Textänderungen laufen lassen und die
+Basiswerte nachziehen. Ein `ARTIKEL`-Entwurf gehört vorher einmal durch
+`no-ai-slop` im Detect-Modus.
+
+**Gedankenstriche sind der einzige Zahlenwert, der auffällt** – einer
+alle 63 Wörter. Der Skill verlangt „kein Standardrhythmus, Häufungen
+auflösen". Das ist aber **kein Befund, sondern eine Entscheidung des
+Betreibers**: Im Deutschen trägt der Gedankenstrich den Einschub, und
+„Flächenheizungen – Boden, Wand, Klimadecke – kommen mit 35 °C aus" ist
+korrekte Typografie. Nicht pauschal ersetzen. Auffällig wäre erst, wenn
+der Strich in neuen Texten *statt* Punkt und Komma stünde.
+
+Drei Regeln, die über den Skill hinausgehen und hier gelten:
+
+- **Keine erfundene Quelle.** `pruefe()` in `news-erzeugen.py` erzwingt
+  das bereits für Meldungen (nur `QUELL_HOSTS`); im Fließtext gilt es
+  genauso. „Experten empfehlen" ohne Namen ist auf der Seite eines
+  Fachberaters schlimmer als auf jeder anderen.
+- **Zahl schlägt Adjektiv.** „Spart spürbar" wird „spart 1.231 € im
+  Jahr". Der Rechner liefert die Zahlen, also stehen sie auch im Text.
+- **Ortsseiten: je Ort ein eigener Satz, kein Baukasten.** Steht schon
+  oben bei den Ortsseiten und ist zugleich die Anwendung des portability
+  tests.
+
 ## Gestaltungsregeln aus dem Audit (14.09.2026)
 
 Ein `/impeccable audit` ergab 13 von 20 Punkten. Die größte Drift stammte aus
