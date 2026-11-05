@@ -600,7 +600,7 @@ ARTIKEL = [
         <b>Das Wichtigste in einem Satz</b>
         Eine bestehende Heizung dürfen Sie ohne Frist weiter nutzen; neue Pflichten
         entstehen erst, wenn Sie nach dem 29. Juli 2026 eine neue Gas- oder
-        Ölheizung einbauen – und auch dann erst ab 2029.
+        Ölheizung einbauen und auch dann erst ab 2029.
       </div>
 
       <h2>Was sich im Juli 2026 geändert hat</h2>
@@ -1075,7 +1075,7 @@ ARTIKEL = [
         <b>Rechenbeispiel Fassadendämmung, 40.000 Euro</b>
         Über die Förderung mit Sanierungsfahrplan: 20 % Zuschuss, also 8.000 Euro,
         ausgezahlt nach Abschluss. Über die Steuer: ebenfalls 20 %, aber verteilt auf
-        drei Jahre – und nur dann in voller Höhe, wenn die Steuerlast in allen drei
+        drei Jahre und nur dann in voller Höhe, wenn die Steuerlast in allen drei
         Jahren hoch genug ist, um den Betrag auszuschöpfen.
       </div>
 
@@ -1120,7 +1120,7 @@ ARTIKEL = [
  "titel": "Fassade dämmen: Kosten und Verfahren",
  "seitentitel": "Fassade dämmen: Kosten, Verfahren und Förderung",
  "beschreibung": "Was eine Fassadendämmung kostet, welche drei Verfahren es gibt und "
-                 "wann sich die Außenwand zuerst lohnt – und wann eben nicht.",
+                 "wann sich die Außenwand zuerst lohnt und wann eben nicht.",
  "anriss": "Die teuerste Einzelmaßnahme an der Gebäudehülle – und die, bei der der "
            "Zeitpunkt über die Wirtschaftlichkeit entscheidet. Zahlen, Verfahren, "
            "Fallstricke.",
@@ -1137,7 +1137,7 @@ ARTIKEL = [
       <div class="rg-kasten">
         <b>Das Wichtigste in einem Satz</b>
         Eine Fassadendämmung rechnet sich fast immer dann, wenn die Fassade ohnehin
-        ansteht – und selten, wenn sie nur wegen der Energieeinsparung gemacht wird.
+        ansteht und selten, wenn sie nur wegen der Energieeinsparung gemacht wird.
       </div>
 
       <h2>Drei Verfahren, drei Preisklassen</h2>
@@ -1247,7 +1247,7 @@ ARTIKEL = [
         <li>Außensteckdosen, Leitungen und Vordächer versetzen.</li>
       </ul>
       <p>
-        Wer diese Punkte auf später verschiebt, zahlt das zweite Gerüst – und bei
+        Wer diese Punkte auf später verschiebt, zahlt das zweite Gerüst und bei
         Fenstern zusätzlich eine Wärmebrücke, die dauerhaft bleibt.
       </p>
 
@@ -1470,7 +1470,7 @@ ARTIKEL = [
 
       <div class="rg-warnung">
         <b>Vorsicht bei Billigangeboten:</b> Ein Verbrauchsausweis für 50 € im Internet
-        ist schnell ausgestellt – aber wertlos, wenn für Ihr Gebäude ein Bedarfsausweis
+        ist schnell ausgestellt, aber wertlos, wenn für Ihr Gebäude ein Bedarfsausweis
         vorgeschrieben ist. Die Pflicht ist damit nicht erfüllt.
       </div>
 
@@ -1914,7 +1914,7 @@ def uebersicht():
         davor: bei der Reihenfolge, bei der Förderung und bei der Frage, welche
         Maßnahme sich am eigenen Haus überhaupt rechnet. Ein ungedämmtes
         Einfamilienhaus aus den 1970er Jahren verliert Wärme über Dach, Außenwand,
-        Fenster und Kellerdecke – aber nicht gleichmäßig. Wer zuerst dort ansetzt, wo
+        Fenster und Kellerdecke, aber nicht gleichmäßig. Wer zuerst dort ansetzt, wo
         der größte Verlust sitzt, spart mit dem kleinsten Einsatz am meisten.
       </p>
       <p>

@@ -208,7 +208,7 @@ ORTE = [
             "Bestand.",
     "besonderheit": "Bei Gebäuden aus den 1970er Jahren lohnt der Blick auf die "
             "Rollladenkästen: Sie sind oft die größte einzelne Schwachstelle der ganzen "
-            "Hülle – und mit geringem Aufwand in Eigenleistung zu verbessern.",
+            "Hülle und mit geringem Aufwand in Eigenleistung zu verbessern.",
   },
   {
     "datei": "energieberatung-dornstadt.html",
@@ -692,7 +692,7 @@ def seite(o):
       <div class="merksatz">
         <b>Warum das für Ihre Sanierung zählt</b>
         Wer die örtlichen Gegebenheiten kennt, rechnet genauer. Klimaregion, Baualter und
-        Untergrund entscheiden mit darüber, welche Maßnahme sich lohnt – und welche man
+        Untergrund entscheiden mit darüber, welche Maßnahme sich lohnt und welche man
         besser sein lässt.
       </div>
 

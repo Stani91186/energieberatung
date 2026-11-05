@@ -29,8 +29,14 @@ if hasattr(sys.stdout, "reconfigure"):
 BASIS = {
     "floskeln": 4,          # Summe aller Treffer aus FLOSKELN
     "binaer": 15,           # "nicht X, sondern Y" und "kein X, sondern Y"
-    "strich_je_1000": 15.9  # Gedankenstriche je 1.000 Woerter
+    "strich_je_1000": 15.2,  # Gedankenstriche je 1.000 Woerter
+    "krueckstock": 48        # Strich vor und/oder/aber ohne zweiten Strich
 }
+# Die 48 sind am 05.11.2026 einzeln gelesen worden: Ueberschriften
+# ("Ausweis da - und jetzt?") oder echte Hauptsaetze mit eigenem Subjekt
+# ("... erhalten Sie Ihren Fahrplan - und wir gehen ihn gemeinsam durch").
+# Dort ist der Strich richtig. Steigt die Zahl, ist neuer Krueckstock dazu-
+# gekommen - dann die neuen Stellen pruefen, nicht die alten.
 
 # --------------------------------------------------------------- Floskeln
 # Deutsche Entsprechung zu den Wortlisten des Skills. Keine davon ist fuer
@@ -127,9 +133,29 @@ def messen():
     print("\nGEDANKENSTRICHE  %d = %.1f je 1.000 Woerter (Basis %.1f)"
           % (strich, je1000, BASIS["strich_je_1000"]))
     print("   davon Saetze mit zwei oder mehr: %d" % haeufung)
-    print("   Der Skill sagt: kein Standardrhythmus, Haeufungen aufloesen.")
-    print("   Ein Einschub wie „Flächenheizungen – Boden, Wand – kommen mit 35 °C aus“")
-    print("   ist korrektes Deutsch und bleibt.")
+
+    # Der Krueckstock: Strich vor einer Konjunktion. Ein Einschub hat
+    # IMMER einen zweiten Strich dahinter; steht nur einer da, ersetzt der
+    # Strich ein Komma und macht sich wichtig. In Ueberschriften ist das
+    # idiomatisch ("Was er kostet - und was er bringt") und bleibt.
+    krueck = 0
+    belege2 = []
+    for p, t in text.items():
+        for satz in re.split(r"(?<=[.!?]) +", t):
+            if satz.count(" – ") != 1:
+                continue
+            m = re.search(r" – (und|oder|aber|denn|sondern) ", satz)
+            if m:
+                krueck += 1
+                if len(belege2) < 4:
+                    belege2.append((p.replace(".html", ""), satz.strip()))
+    print("   davon Strich vor und/oder/aber ohne zweiten Strich: %d (Basis %d)"
+          % (krueck, BASIS["krueckstock"]))
+    for p, s in belege2:
+        print("      [%s] %s" % (p, s[:88]))
+    print("   Regel: Folgt ein eigenes Subjekt, bleibt der Strich (Apposition,")
+    print("   neuer Hauptsatz). Haengt der Teil am selben Verb, ist er ein Komma,")
+    print("   das sich wichtig macht - dann weg damit.")
 
     # Urteil
     print("\n%s" % ("-" * 60))

@@ -942,7 +942,7 @@ sub{font-size:max(.75em,12.5px);line-height:0}
     <h1>Sanierungsrechner</h1>
     <p class="lead">
       Beantworten Sie die Fragen zu Ihrem Haus. Danach sehen Sie Ihre Energieklasse,
-      wo die Wärme verloren geht – und für jede Maßnahme, was sie spart, was sie kostet
+      wo die Wärme verloren geht und für jede Maßnahme, was sie spart, was sie kostet
       und <em>was sie maximal kosten darf, damit sie sich rechnet</em>.
     </p>
   </div>
@@ -1920,7 +1920,7 @@ function massnahmen(e, basis, kal){
     bewerte('brennwert','Brennwertkessel (Ersatz, ohne Förderung neuer Öl/Gas)', {heizung:'brennwert'}, L.brennwert,'Neue reine Öl-/Gaskessel werden nicht mehr gefördert.');
   bewerte('abgleich','Hydraulischer Abgleich + Hocheffizienzpumpe', {extraFaktor:1-CONFIG.abgleichEinsparung}, L.abgleich);
   if(!e.rohrGedaemmt && e.keller!=='nein' && e.kellerBeheizt!=='ja')
-    bewerte('rohr','Heizungsrohre im Keller dämmen', {extraFaktor:1-CONFIG.rohrEinsparung}, L.rohr,'Pflicht nach GModG bei zugänglichen Leitungen – und in Eigenleistung sehr günstig.');
+    bewerte('rohr','Heizungsrohre im Keller dämmen', {extraFaktor:1-CONFIG.rohrEinsparung}, L.rohr,'Pflicht nach GModG bei zugänglichen Leitungen und in Eigenleistung sehr günstig.');
 
   out.sort(function(a,b){ return a.netto-b.netto; });   // kleinste Investition zuerst
   return out;

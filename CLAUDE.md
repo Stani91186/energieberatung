@@ -745,13 +745,29 @@ eine Zahl davonläuft. Nach größeren Textänderungen laufen lassen und die
 Basiswerte nachziehen. Ein `ARTIKEL`-Entwurf gehört vorher einmal durch
 `no-ai-slop` im Detect-Modus.
 
-**Gedankenstriche sind der einzige Zahlenwert, der auffällt** – einer
-alle 63 Wörter. Der Skill verlangt „kein Standardrhythmus, Häufungen
-auflösen". Das ist aber **kein Befund, sondern eine Entscheidung des
-Betreibers**: Im Deutschen trägt der Gedankenstrich den Einschub, und
-„Flächenheizungen – Boden, Wand, Klimadecke – kommen mit 35 °C aus" ist
-korrekte Typografie. Nicht pauschal ersetzen. Auffällig wäre erst, wenn
-der Strich in neuen Texten *statt* Punkt und Komma stünde.
+**Gedankenstriche: Es kommt auf die Bauart an** (korrigiert 05.11.2026).
+Erst hieß es hier, die 504 Striche seien eine Entscheidung des Betreibers
+und nicht zu prüfen. Das war zu bequem – der Betreiber hat zu Recht
+widersprochen. Es gibt zwei Bauarten, und nur eine ist richtig:
+
+- **Einschub, bleibt:** Zwei Striche umschließen den Einschub.
+  „Flächenheizungen – Boden, Wand, Klimadecke – kommen mit 35 °C aus."
+  Das ist korrekte deutsche Typografie.
+- **Apposition und eigener Hauptsatz, bleiben:** Nach dem Strich folgt ein
+  eigenes Subjekt. „Die häufigste Frage im Erstgespräch – und die, bei der
+  am meisten Geld auf dem Spiel steht."
+- **Überschriften, bleiben:** „Was er kostet – und was er bringt" ist eine
+  idiomatische deutsche Schlagzeile.
+- **Krückstock, muss weg:** Ein einzelner Strich vor „und", „oder" oder
+  „aber", und danach folgt **kein neues Subjekt** – der Satzteil hängt am
+  selben Verb. Dann ersetzt der Strich ein Komma und macht sich wichtig:
+  „kostet schnell fünfstellig – und verbaut Fördermöglichkeiten" wird
+  „kostet schnell fünfstellig und verbaut Fördermöglichkeiten". Vor
+  „aber" steht dabei immer ein Komma.
+
+18 solche Krückstöcke waren drin und sind raus (Startseite, beide Rechner,
+Fahrplan, Energieausweis-Seite, beide Generatoren). `slop-messen.py` zählt
+den Rest mit und meldet, wenn die Zahl wieder steigt.
 
 Drei Regeln, die über den Skill hinausgehen und hier gelten:
 
