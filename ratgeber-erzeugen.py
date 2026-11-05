@@ -457,9 +457,9 @@ ARTIKEL = [
           </thead>
           <tbody>
             <tr><td>Honorar Sanierungsfahrplan</td>
-                <td>ca. 1.300 – 2.100 €</td><td>ab {{PREIS_ISFP}} €</td></tr>
+                <td>ca. 1.300–2.100 €</td><td>ab {{PREIS_ISFP}} €</td></tr>
             <tr><td>Eigenanteil nach Förderung</td>
-                <td>ca. 940 – 1.350 €</td><td>ab {{PREIS_EIGEN}} €</td></tr>
+                <td>ca. 940–1.350 €</td><td>ab {{PREIS_EIGEN}} €</td></tr>
           </tbody>
         </table>
       </div>

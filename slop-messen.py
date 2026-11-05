@@ -29,7 +29,7 @@ if hasattr(sys.stdout, "reconfigure"):
 BASIS = {
     "floskeln": 4,          # Summe aller Treffer aus FLOSKELN
     "binaer": 15,           # "nicht X, sondern Y" und "kein X, sondern Y"
-    "strich_je_1000": 15.2,  # Gedankenstriche je 1.000 Woerter
+    "strich_je_1000": 14.8,  # Gedankenstriche je 1.000 Woerter
     "krueckstock": 48        # Strich vor und/oder/aber ohne zweiten Strich
 }
 # Die 48 sind am 05.11.2026 einzeln gelesen worden: Ueberschriften
@@ -84,7 +84,7 @@ def sichtbar(pfad):
 
 
 def messen():
-    seiten = sorted(set(glob.glob("*.html")) - {"404.html"})
+    seiten = sorted(glob.glob("*.html"))   # auch 404.html, sie wird gelesen
     text = {p: sichtbar(p) for p in seiten}
     worte = sum(len(re.findall(r"[A-Za-zÄÖÜäöüß]{2,}", t))
                 for t in text.values())

@@ -769,6 +769,29 @@ widersprochen. Es gibt zwei Bauarten, und nur eine ist richtig:
 Fahrplan, Energieausweis-Seite, beide Generatoren). `slop-messen.py` zählt
 den Rest mit und meldet, wenn die Zahl wieder steigt.
 
+**Vollständig geprüft am 05.11.2026**, nachdem der Betreiber danach gefragt
+hat – die erste Durchsicht war nämlich nicht vollständig:
+
+| | |
+|---|---|
+| Seiten | alle 28, seitdem inklusive `404.html` |
+| Sätze mit **zwei** Strichen (Einschub) | 31, bleiben |
+| Sätze mit **einem** Strich | 418 |
+| davon vor und/oder/aber (erste Durchsicht) | 48 geprüft, 18 geändert |
+| davon vor anderen Wörtern | 370, **in der ersten Runde übersehen** |
+
+Die 370 sind nachgeprüft: 188 haben nach dem Strich ein eigenes finites
+Verb, die übrigen 103 wurden einzeln gelesen. Sie sind **Nachtrag,
+Apposition oder Listeneinleitung** („Der Ablauf ist überall derselbe –
+Aufnahme vor Ort, Berechnung, schriftlicher Fahrplan"), und das ist die
+Hauptaufgabe des deutschen Gedankenstrichs. Dort wird nichts geändert.
+Der Krückstock ist allein der Strich **vor einer Konjunktion** ohne
+nachfolgendes Subjekt.
+
+Nebenbefund derselben Durchsicht: elf **Bis-Striche mit Leerzeichen**
+(„30 – 70 %", „1.300 – 2.100 €"). Der Bis-Strich steht nach Duden ohne
+Leerzeichen und ist korrigiert.
+
 Drei Regeln, die über den Skill hinausgehen und hier gelten:
 
 - **Keine erfundene Quelle.** `pruefe()` in `news-erzeugen.py` erzwingt
